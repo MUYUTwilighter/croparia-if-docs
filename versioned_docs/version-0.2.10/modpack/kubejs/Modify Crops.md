@@ -1,10 +1,8 @@
-[< Back to KubeJS Support](KubeJS-support)
-
 # KubeJS Support for modifying crops
 
 Below is an example demonstrating how to modify existing crop properties at runtime.
 
-Although you can use [`CropRegistry`](KubeJS-support-‐-Add-Crops) to override existing crops, such changes only apply during the initial game load because they're tied to registry operations.
+Although you can use [`CropRegistry`](Add%20Crops.md) to override existing crops, such changes only apply during the initial game load because they're tied to registry operations.
 
 **Recommended approach:**  
 Create your modification script under the [`server_scripts/`](https://kubejs.com/wiki/folder-structure/server-scripts) directory to ensure your changes apply upon every reload.

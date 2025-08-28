@@ -1,4 +1,4 @@
-[# Fruit Appearance
+# Fruit Appearance
 
 Three types of resource file are involved to define a fruit appearance:
 - Item Model

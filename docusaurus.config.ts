@@ -98,27 +98,6 @@ const config: Config = {
       style: 'dark',
       links: [
         {
-          title: 'Docs',
-          items: [
-            {
-              label: 'Introduction',
-              to: '/docs/intro',
-            },
-            {
-              label: 'For Players',
-              to: '/docs/play',
-            },
-            {
-              label: 'For Modpack Creators',
-              to: '/docs/modpack',
-            },
-            {
-              label: 'For Modders',
-              to: '/docs/mod',
-            },
-          ],
-        },
-        {
           title: 'Contact',
           items: [
             {

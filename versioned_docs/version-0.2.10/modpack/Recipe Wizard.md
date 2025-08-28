@@ -1,8 +1,6 @@
-[< Back to Home](Home)
-
 # Recipe Wizard
 
-Since 0.2.0-pre-2, Croparia IF has provided a tool to conveniently generate recipes for [infusor](Datapack-Customizations.Infusor-recipe-scheme) and [ritual stand](Datapack-Customizations.Ritual-Recipe-Scheme).
+Since 0.2.0-pre-2, Croparia IF has provided a tool to conveniently generate recipes for infusor and ritual stand.
 
 You can only get this tool in creative item tabs (Croparia).
 

@@ -1,5 +1,3 @@
-[< Back to KubeJS-support](KubeJS-support)
-
 # KubeJS Support for adding crops
 
 This page shows how you can add your custom crop via KubeJS.
@@ -32,4 +30,4 @@ You basically do the following steps:
 - Custom Translations
 4. Fire registration by invoking `register()` method
 
-For details about the parameters, see also [Add Crops](Add-Crops)
+For details about the parameters, see also [Add Crops](../Add%20Crops.md)

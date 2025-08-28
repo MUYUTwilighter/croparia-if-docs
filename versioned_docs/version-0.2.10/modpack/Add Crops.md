@@ -2,9 +2,10 @@
 
 Croparia IF allows you to define new crops that can produce customized materials.
 
-You can create new crops using either [the Dalarion way](https://www.curseforge.com/minecraft/mc-mods/croparia) or by following the detailed steps below.
+You can create new crops using either [the Dalarion way](https://www.curseforge.com/minecraft/mc-mods/croparia) or by
+following the detailed steps below.
 
-Additionally, you can use KubeJS. Refer to [KubeJS Support - Add Crops](KubeJS-support.Add-Crops) for details.
+Additionally, you can use KubeJS. Refer to [KubeJS Support - Add Crops](kubejs/Add%20Crops.md) for details.
 
 **Note:** Your changes to custom crops take effect only after restarting the game.
 
@@ -16,7 +17,8 @@ Starting from **Croparia IF 0.2.6**, you can quickly create a custom crop defini
 
 ![Quick crop generation](./img/01.01.1.png)
 
-As shown in the image above, hold the **material item** you wish your crop to produce in your **main hand**, and the **Croparia item** (indicating the crop's tier) in your **off hand**.
+As shown in the image above, hold the **material item** you wish your crop to produce in your **main hand**, and the *
+*Croparia item** (indicating the crop's tier) in your **off hand**.
 
 Then execute one of the following commands:
 
@@ -29,20 +31,25 @@ Then execute one of the following commands:
 ### Command Arguments:
 
 - **`<color>` (required)**: Crop's color as a hexadecimal number (e.g., `0xFF0000`).
-- **`[type]` (optional)**: Crop category (default is `crop`). Other options include `animal`, `food`, `monster`, and `nature`.
+- **`[type]` (optional)**: Crop category (default is `crop`). Other options include `animal`, `food`, `monster`, and
+  `nature`.
 - **`[name]` (optional)**: Identifier for the crop (defaults to the item's ID path).
 
-Upon successful execution, a JSON file is created in your [`cropPath`](Configurations). Restart your game to activate the changes.
+Upon successful execution, a JSON file is created in your [`cropPath`](Configurations). Restart your game to activate
+the changes.
 
 ![Command success](./img/01.01.2.png)
 
-You can directly open and modify this file by clicking the file path in the chat. For detailed editing instructions, refer to [Text-based Crop Definitions](#ii-text-based-crop-definition).
+You can directly open and modify this file by clicking the file path in the chat. For detailed editing instructions,
+refer to [Text-based Crop Definitions](#ii-text-based-crop-definitions).
 
-If you receive the message **"Duplicated crop... Try another name?"**, this means a crop with the same identifier already exists, either built-in or in your [`cropPath`](Configurations).
+If you receive the message **"Duplicated crop... Try another name?"**, this means a crop with the same identifier
+already exists, either built-in or in your [`cropPath`](Configurations).
 
 ![Duplicate crop warning](./img/01.01.3.png)
 
-Before creating a new definition, verify if an existing crop already satisfies your requirements. If not, use the "try another name" suggestion and choose a unique identifier.
+Before creating a new definition, verify if an existing crop already satisfies your requirements. If not, use the "try
+another name" suggestion and choose a unique identifier.
 
 ---
 
@@ -52,16 +59,19 @@ Before creating a new definition, verify if an existing crop already satisfies y
 
 You must specify which item the crop will produce.
 
-Activate Minecraft's advanced item info with `F3 + H`, which displays item IDs in your inventory. Manually copy the desired ID.
+Activate Minecraft's advanced item info with `F3 + H`, which displays item IDs in your inventory. Manually copy the
+desired ID.
 
-Alternatively, you may use an **item tag** (prefix with `#`). However, note that the crop will produce only the first matching item for the given tag.
+Alternatively, you may use an **item tag** (prefix with `#`). However, note that the crop will produce only the first
+matching item for the given tag.
 
 Example format:
 
 ```json
 {
   ...
-  "material": "modid:item_id" // prefix with '#' if using item tag
+  "material": "modid:item_id"
+  // prefix with '#' if using item tag
   ...
 }
 ```
@@ -70,7 +80,8 @@ Example format:
 
 ### Step 2: Define Crop ID
 
-Croparia IF requires a unique ID for each crop definition, following Minecraft's identifier format (lowercase, no spaces, underscores allowed). Do not include namespaces.
+Croparia IF requires a unique ID for each crop definition, following Minecraft's identifier format (lowercase, no
+spaces, underscores allowed). Do not include namespaces.
 
 Example format:
 
@@ -126,14 +137,20 @@ Example format:
 {
   ...
   "dependencies": [
-    ["mod_a", "mod_b"],
-    ["mod_c"]
+    [
+      "mod_a",
+      "mod_b"
+    ],
+    [
+      "mod_c"
+    ]
   ]
   ...
 }
 ```
 
-**Note:**  
+**Note:**
+
 - Inner arrays (`["mod_a", "mod_b"]`) evaluate true if **any listed mod** is loaded.
 - Outer array evaluates true only if **all inner arrays** are true.
 
@@ -144,6 +161,7 @@ Example format:
 Crop types define default models and textures. Default type is `crop`.
 
 Available types:
+
 - `animal`
 - `crop`
 - `food`
@@ -229,9 +247,9 @@ Restart the game to see your custom crop in action!
 ### How can I modify existing crops?
 
 - **Using KubeJS:**  
-  Refer to [KubeJS Support: Modify Crops](KubeJs-Support-‐-Modify-Crops) for runtime modifications.
+  Refer to [KubeJS Support: Modify Crops](kubejs/Modify%20Crops.md) for runtime modifications.
 - **Using JSON definitions:**  
-  Create a [crop definition file](#ii-text-based-crop-definition) named identically to an existing crop to override it.
+  Create a [crop definition file](#ii-text-based-crop-definitions) named identically to an existing crop to override it.
 
 ### How can I remove a crop?
 

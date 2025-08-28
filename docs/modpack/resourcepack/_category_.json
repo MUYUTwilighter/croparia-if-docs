@@ -1,8 +1,0 @@
-{
-  "label": "Resourcepack Customization",
-  "position": 3,
-  "link": {
-    "type": "generated-index",
-    "description": "By browsing game directories, you might find resource files in `.../<GameDir>/config/croparia/assets/...`.\nThis is where Croparia IF automize the resource insertion, and you are **NOT SUGGESTED** to modify any data inside.\nBecause Croparia IF will try to override all these files by default, which means any changes you've made here might be lost.\n\nHowever, it is pretty fine if you just want to see the definition of the data files (i.e. you are in \"read-only\" mode)."
-  }
-}

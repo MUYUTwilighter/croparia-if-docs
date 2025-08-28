@@ -29,6 +29,6 @@ If you have to use mods above, you may try following steps to keep everything fu
 
 2. Launch the game and enter a world **without** mods above that interrupts the reload, but keep Croparia IF and other
    mods enabled. Croparia IF would generate necessary data files after the world is fully loaded.
-3. Switch `autoReload` and `override` to `false`. You may use either [command](Commands) or config files.
+3. Switch `autoReload` and `override` to `false`. You may use either [command](modpack/Commands.md) or config files.
 4. Restart the game with all the mods, then it should now be fine.
 5. If there are changes to the crop definition later, you should perform steps here again.

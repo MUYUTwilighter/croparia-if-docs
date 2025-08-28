@@ -1,8 +1,6 @@
-[< Back to KubeJS-support](KubeJS-support)
-
 # KubeJS Support for Data Generator
 
-Please read [Datapack Customization - Data Generator](Datapack-Customizations.Data-Generator) first to know what Data Generator is.
+Please read [Datapack Customization - Data Generator](../datapack/Data%20Generator.md) first to know what Data Generator is.
 
 To use add Data Genertor via KubeJs, you need to follow these steps:
 

@@ -86,5 +86,5 @@ Fields:
 Some special characters are used for particular functions:
 - `[SPACE]`: match any block
 - `.`: match only air block
-- `$`: mark the position as input block for [ritual recipes](Datapack-Customizations.Ritual-Recipe-Scheme)
+- `$`: mark the position as input block for ritual recipes
 - `*`: mark the position as the ritual stand block
