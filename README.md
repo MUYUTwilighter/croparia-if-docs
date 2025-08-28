@@ -2,4 +2,4 @@
 
 This is the documentation for Croparia IF built via Docusaurus.
 
-See original repository [here](https://github.com/MUYU-Twilighter/croparia-if).
+See original repository [here](https://github.com/MUYUTwilighter/croparia-if).
