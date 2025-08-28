@@ -1,0 +1,24 @@
+official:
+  label: Official
+  permalink: /official
+  description: Blogs posted by Croparia IF team
+
+copyright:
+  label: Copyright
+  permalink: /copyright
+  description: License, Copyright
+
+dev:
+  label: Development
+  permalink: /dev
+  description: Coding, architecture and tools
+
+doc:
+  label: Documentation
+  permalink: /doc
+  description: Documentations
+
+gameplay:
+  label: Gameplay
+  permalink: /gameplay
+  description: Gameplay news
