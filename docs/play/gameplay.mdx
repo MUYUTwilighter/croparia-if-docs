@@ -1,0 +1,168 @@
+# Gameplay Tutorial
+
+Here we cover the basic gameplay of Croparia IF and some tips.
+
+You may see [here](begin.md) for installation and some easy QAs.
+
+## Getting Started
+
+Once you get everything done and enter a world, you need firstly mine some _Elematilius_ in the cave.
+
+![Elematilius in cave](/img/elematilius_in_cave.png)
+
+This is a new ore added by Croparia IF. You can mine it with iron pickaxe or higher.
+
+It is considerably rare and lies in deep caves, so you may need to explore a bit to find some.
+
+---
+
+Then, you need to prepare some resources.
+
+**Infusor**: One of the core working blocks in Croparia IF. Uses stone bricks only.
+
+![Infusor Recipe](/img/recipe/infusor.png)
+
+**Elematilius Potion**: Used on infusor to infuse it with elemental power.
+
+![Elematilius Potion Recipe](/img/recipe/elematilius_potion.png)
+
+**Seeds**![Seeds](/img/item/wheat_seeds.png): Any kind of seeds, e.g. wheat seeds, melon seeds, pumpkin seeds, etc. We
+need 4 seeds to get started.
+
+---
+
+Finally, we are ready to get our first **Croparia**! This item is used to craft various crop seeds that can grow all
+kinds of resources.
+
+![Croparia Recipe](/img/recipe/croparia.png)
+
+As shown in REI (or JEI/EMI), we need to learn how to use the infusor.
+
+1. Place the infusor on the ground.
+![Place infusor](/img/place_infusor.png)
+2. Right click it with the elematiius potion to infuse it.
+![Infuse infusor](/img/infuse_infusor.png)
+3. Right click it with seeds or throw the seeds onto the infusor to plant them.
+![Place items](/img/infusor_place_item.png)
+
+Now you have your first Croparia! You can use it to craft various crop seeds.
+
+![Coal Seeds](/img/recipe/coal_seeds.png)
+![Leather Seeds](/img/recipe/leather_seeds.png)
+
+## Tips: Use elemental soak to save your **Elematilius**
+
+As we can see, each croparia requires 1 elematilius potion, and each potion requires 1 elematilius. This is quite expensive.
+
+However, we can use *Elemental Stone* to soak existing infused infusors to save our precious elematilius.
+
+![Elemental Stone Recipe](/img/recipe/elemental_stone.png)
+
+_I think now you've learnt the infusor recipe, so let's move on._
+
+By checking your recipe viewer like REI, you can see that the elemental stone can "spread" the infusion to other infusors.
+
+![Elemental Infusor](/img/recipe/elemental_infusor.png)
+
+_The image might not demonstrate the element type, but you would see in the hover text_
+
+This is **Elemental Soak**, which allows you to soak the elemental power into the input block and transform it into the
+output block.
+
+So, how to launch an elemental soak?
+
+1. Place the elemental stone on the ground.
+![Place elemental stone](/img/soak_place_elemental_stone.png)
+2. Place an infusor on top of the elemental stone.
+![Place infusor on elemental stone](/img/soak_place_infusor.png)
+3. Right click with an elemental potion to soak the infusor. In this case, we use an elematilius potion.
+![Soak infusor](/img/soak_infuse_infusor.png)
+4. Place the input blocks near the elemental stone (You don't have to fill all the positions). In this case, we place
+the un-infused infusor.
+![Place input block](/img/soak_place_input_block.png)
+5. Wait for a while, the input block (empty infusor) will transform into the output block (infused infusor) with a
+"Ding" sound.
+![Output block](/img/soak_output_block.png)
+
+Therefore, we can use one elematilius potion to get multiple infused infusors, which can be used to craft multiple
+croparias.
+
+## Upgrade Croparia
+
+As you might see in REI, there are several tiers of croparia, and different tiers can craft different seeds.
+
+![Croparias](/img/item/croparias.png)
+
+To upgrade croparia, you need different types of elemental potion. For example, t1 to t2 requires Potion of Earth.
+
+![Croparia T2](/img/recipe/croparia2.png)
+
+And to get Potion of Earth, you need to learn the **Ritual**, which is a multi-block structure used to perform rituals.
+
+![Potion of Earth](/img/recipe/potion_earth.png)
+
+---
+
+So, let's get prepared to upgrade your croparia!
+
+**Ritual Stand**: A working block used to sacrifice input blocks to transform input items into output items.
+![Ritual Stand Recipe](/img/recipe/ritual_stand.png)
+
+**Some required blocks...**: You can check REI for the structure.
+![Ritual Structure](/img/recipe/ritual.png)
+
+As texts are limited, please refer to REI for the exact structure.
+<div style={{display: 'flex', flexDirection: 'row', overflowX: 'auto'}}>
+    <img style={{margin: '1mm'}} src={require("@site/static/img/ritual_1_1.png").default}
+         alt="Ritual Structure - Layer 1"/>
+    <img style={{margin: '1mm'}} src={require("@site/static/img/ritual_1_2.png").default}
+         alt="Ritual Structure - Layer 2"/>
+    <img style={{margin: '1mm'}} src={require("@site/static/img/ritual_1_3.png").default}
+         alt="Ritual Structure - Layer 3"/>
+</div>
+
+When completed, you can throw an item or right-click on the ritual stand with an item to test if the structure is correct.
+If it is correct, an overlay message "The Elematilius rejects your offerings." will appear.
+If not, "The Elematilius does not respond to the ritual" will appear.
+
+**Note: The crops must be fully grown.**
+
+---
+
+Once you have built the ritual structure, you can perform the ritual to get Potion of Earth.
+
+1. Place the input block (Podzol) into the correct positions (Check your REI).
+![Place input block](/img/ritual_place_input_block.png)
+2. Right-click the ritual stand with the input item (Elematilius), you will get the output item (Elemental Earth).
+![Place input item](/img/ritual_place_input_item.png)
+
+With elemental earth, you can upgrade your croparia to t2, which can craft more seeds.
+
+## Tips: Farm crop with Greenhouse
+
+Once you have the crop seeds, you can plant them like normal seeds.
+
+![Plant seeds](/img/plant_seeds.png)
+
+Croparia IF add **Greenhouse** block, which can boost the growth speed of crops (not only croparia crops) and
+auto-harvest them.
+
+<div style={{display: 'flex', flexDirection: 'row', overflowX: 'auto'}}>
+    <img style={{margin: '1mm'}} src={require("@site/static/img/greenhouse_place.png").default}
+         alt="Greenhouse Placement"/>
+    <img style={{margin: '1mm'}} src={require("@site/static/img/greenhouse_container.png").default}
+         alt="Greenhouse Container"/>
+</div>
+
+Place it on top of a crop and it will work.
+
+## Next...
+
+Now you have learnt the basic gameplay of Croparia IF including:
+
+- Infusion
+- Elemental Soak
+- Ritual
+- Greenhouse
+
+Of course, there's much more to explore. You can check advancements and REI for more information.

@@ -60,7 +60,7 @@ the [Q2](#q2-i-have-installed-croparia-if-but-why-recipes-loot-tables-etc-are-mi
 ### Q4: How to play this mod?
 
 **A4:** The advancements added by Croparia IF can guide you through the basic gameplay. You can also refer
-to [Gameplay Tutorial](gameplay.md) for more details. Or you can check out the [links](#player-community) at the end of
+to [Gameplay Tutorial](gameplay.mdx) for more details. Or you can check out the [links](#player-community) at the end of
 this page.
 
 ---
