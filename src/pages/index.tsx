@@ -11,16 +11,18 @@ import {Stack, styled, Typography} from "@mui/material";
 
 const Header = styled('header')<{ bg: string }>((bg) => ({
   background: `transparent url(${bg.bg}) center / cover no-repeat`,
-  padding: 0
 }));
 
 const HeaderOverlay = styled('div')({
-  backgroundColor: 'rgba(192, 192, 192, 0.5)',
-  padding: '4rem 0',
+  backgroundColor: 'var(--home-background)',
+  color: 'var(--home-text)',
+  padding: '4rem',
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
-  textAlign: 'center'
+  textAlign: 'center',
+  width: 'fit-content',
+  borderRadius: '1rem'
 });
 
 function HomepageHeader() {

@@ -63,8 +63,6 @@ the [Q2](#q2-i-have-installed-croparia-if-but-why-recipes-loot-tables-etc-are-mi
 to [Gameplay Tutorial](gameplay.mdx) for more details. Or you can check out the [links](#player-community) at the end of
 this page.
 
----
-
 ## Player Community
 
 - [QQ Group (Chinese)](https://qm.qq.com/q/q09RuwhIJM): For quick help and discussion
