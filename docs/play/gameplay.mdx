@@ -1,3 +1,7 @@
+---
+sidebar_position: 2
+---
+
 import Gallery from "../../src/components/Gallery";
 import Pic from "../../src/components/Pic";
 
@@ -43,15 +47,23 @@ As shown in REI (or JEI/EMI), we need to learn how to use the infusor.
 
 1. Place the infusor on the ground.
 <Pic src={'/img/place_infusor.png'} title="Place Infusor" fullWidth/>
-2. Right click it with the elematiius potion to infuse it.
+2. Right click it with the elemental potion (Elematilius) to infuse it.
 <Pic src={'/img/infuse_infusor.png'} title="Infuse Infusor" fullWidth/>
-3. Right click it with seeds or throw the seeds onto the infusor to plant them.
+3. Right-click it with input items (seeds) or throw the input items onto the infusor to start the infusion.
 <Pic src={'/img/infusor_place_item.png'} title="Place Items on Infusor" fullWidth/>
 
 Now you have your first Croparia! You can use it to craft various crop seeds.
 
-<Pic src={'/img/recipe/coal_seeds.png'} title="Coal Seeds Recipe" fullWidth/>
-<Pic src={'/img/recipe/leather_seeds.png'} title="Leather Seeds Recipe" fullWidth/>
+<Gallery pictures={[
+    {
+        src: require("@site/static/img/recipe/coal_seeds.png").default,
+        title: "Coal Seeds Recipe"
+    },
+    {
+        src: require("@site/static/img/recipe/leather_seeds.png").default,
+        title: "Leather Seeds Recipe"
+    }
+]}/>
 
 ## Tips: Use elemental soak to save your **Elematilius**
 
@@ -114,9 +126,14 @@ So, let's get prepared to upgrade your croparia!
 
 **Some required blocks...**: You can check REI for the structure.
 
-<Pic src={'/img/recipe/ritual.png'} title="Ritual Structure in REI" fullWidth/>
+<Gallery pictures={[
+    require("@site/static/img/recipe/ritual_1_1.png").default,
+    require("@site/static/img/recipe/ritual_1_2.png").default,
+    require("@site/static/img/recipe/ritual_1_3.png").default
+]}/>
 
-As texts are limited, please refer to REI for the exact structure.
+As texts are limited, please refer to REI for the exact structure. Or, in creative mode, you can check the structure by
+sneaking & right-clicking the ritual stand with the Recipe Wizard.
 
 <Gallery pictures={[
     require("@site/static/img/ritual_1_1.png").default,

@@ -1,5 +1,5 @@
 import {Stack, styled, Typography} from "@mui/material";
-import React, {ImgHTMLAttributes} from "react";
+import React from "react";
 
 const Container = styled(Stack)({
   flexDirection: 'column',
@@ -9,7 +9,7 @@ const Container = styled(Stack)({
   alignItems: 'center',
   justifyContent: 'center',
   flex: 'none',
-  margin: '1rem',
+  padding: '1rem',
 });
 
 const Img = styled('img')({
@@ -23,11 +23,11 @@ const Title = styled(Typography)({
   color: 'gray'
 });
 
-export interface PicProps extends ImgHTMLAttributes<HTMLImageElement> {
+export interface PicProps {
   src: string;
   alt?: string;
   imgStyle?: React.CSSProperties;
-  title?: string;
+  title?: string | React.ReactNode;
   titleStyle?: React.CSSProperties;
   containerStyle?: React.CSSProperties;
   fullWidth?: boolean;
@@ -38,7 +38,7 @@ export default function Pic(props: PicProps) {
     width: props.fullWidth ? '100%' : 'fit-content',
     ...props.containerStyle
   }}>
-    <Img src={props.src} alt={props.alt ?? props.title} style={{...props.imgStyle}}/>
+    <Img src={props.src} alt={props.alt ?? (typeof props.title === 'string' && props.title)} style={{...props.imgStyle}}/>
     {props?.title && <Title style={{...props.titleStyle}}>{props.title}</Title>}
   </Container>
 }

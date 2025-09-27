@@ -1,0 +1,50 @@
+import Pic from "../../src/components/Pic";
+
+# Details: Infusor
+
+<Pic src={require('@site/static/img/block/infusor.png').default} title="croparia:infusor" fullWidth/>
+
+The **Infusor** is a core working block in Croparia IF. It is used to infuse elemental power into the items placed on it.
+
+<Pic src={require('@site/static/img/recipe/infusor.png').default} title="Recipe to Infusor" fullWidth/>
+
+## Behavior
+
+### Infusing
+
+Right-click the infusor with an **Elemental Potion** to infuse it. The potion will be consumed, and the infusor will be
+infused with elemental power. The infusor can hold one type of elemental power at a time.
+
+<Pic src={'/img/infuse_infusor.png'} title="Infused Infusor (Elemental)" fullWidth/>
+
+The infusor will retain its elemental power until an infusion occurred to the item above the infusor or manually cleared
+with empty bottle.
+
+Besides, you can place a [dispenser](https://minecraft.wiki/w/Dispenser), which contains elemental potions, towards an
+infusor to automatically infuse it.
+
+### Inventory Interaction
+
+Infusor is an "item-placeable" block, which means you can place an item on top of it by right-clicking it with
+the item in hand, or use the [dropper](https://minecraft.wiki/w/Dropper).
+
+Besides, if any of the listed things happen:
+- The infusor is successfully infused with an elemental potion and produces an empty bottle.
+- An infusion to the item above the infusor is successful and produces the result item.
+
+The infusor will attempt to push the empty bottle or result item into adjacent inventories (e.g., chests, hoppers) in
+the following order:
+1. The block with container near or below it.
+2. The player that interacted with it.
+
+## Recipe Type: `croparia:infusor`
+
+Even though the infusor does not have a GUI, it has a recipe type `croparia:infusor` that defines how the infusion works.
+You can view the recipes in REI (or JEI/EMI).
+
+<Pic src={'/img/recipe/croparia.png'} title="Example: Croparia T1" fullWidth/>
+
+The recipe consists of:
+- **Input**: The item placed on top of the infusor.
+- **Element Type**: The type of elemental power infused in the infusor.
+- **Output**: The result item produced after a successful infusion.

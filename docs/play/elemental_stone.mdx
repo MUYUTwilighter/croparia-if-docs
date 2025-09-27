@@ -1,0 +1,25 @@
+import Pic from "../../src/components/Pic";
+
+# Details: Elemental Stone (Elemental Soak)
+
+<Pic src={require("@site/static/img/block/elemental_stone.png").default} title="croparia:elemental_stone" fullWidth/>
+
+Elemental Stone looks like a dull block, but it is actually a powerful tool that can soak elemental power into blocks
+placed near it.
+
+<Pic src={require("@site/static/img/recipe/elemental_stone.png").default} title="Recipe to Elemental Stone" fullWidth/>
+
+## Recipe Type: `croparia:elemental_soak`
+
+Elemental Stone can soak elemental power from the infusor above into blocks placed near it.
+
+<Pic src={'/img/recipe/elemental_infusor.png'} title="Example: Elemental Infusor" fullWidth/>
+
+The recipe consists of:
+- **Input Block**: The block placed near the elemental stone.
+- **Element Type**: The type of elemental power infused in the infusor above the elemental stone.
+- **Output Block**: The result block produced after a successful soak.
+
+The elemental soak will perform based on the random tick, so it might take a while to see the result.
+
+**Note:** The element type of the infusor above the elemental stone will remain unchanged after a successful soak.
