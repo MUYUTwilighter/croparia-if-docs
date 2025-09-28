@@ -10,5 +10,41 @@
   "sidebar.tutorialSidebar.category.For Players.link.generated-index.description": {
     "message": "Check this page for tutorials and information about Croparia IF gameplay.",
     "description": "The generated-index page description for category For Players in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.For Modpack Creators": {
+    "message": "For Modpack Creators",
+    "description": "The label for category For Modpack Creators in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.For Modpack Creators.link.generated-index.description": {
+    "message": "Check this page if you are going to modify content to play of this mod.",
+    "description": "The generated-index page description for category For Modpack Creators in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.Generator API": {
+    "message": "Generator API",
+    "description": "The label for category Generator API in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.Generator API.link.generated-index.description": {
+    "message": "Are recipes, loot tables, etc. for each crop created manually? Of course not! Let's see how Croparia IF handles data generation.",
+    "description": "The generated-index page description for category Generator API in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.Recipe Wizard": {
+    "message": "Recipe Wizard",
+    "description": "The label for category Recipe Wizard in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.Recipe Wizard.link.generated-index.description": {
+    "message": "Feel tired of writing JSON? No worries! This category explains how to use the Recipe Wizard to create custom recipes easily.",
+    "description": "The generated-index page description for category Recipe Wizard in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.For Modders": {
+    "message": "For Modders",
+    "description": "The label for category For Modders in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.For Modders.link.generated-index.description": {
+    "message": "Check this page if you are a modder who wants to use some of the functionality provided by Croparia IF.",
+    "description": "The generated-index page description for category For Modders in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.generator": {
+    "message": "generator",
+    "description": "The label for category generator in sidebar tutorialSidebar"
   }
 }
