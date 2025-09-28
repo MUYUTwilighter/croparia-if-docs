@@ -1,0 +1,122 @@
+# Tutorial
+
+This tutorial will guide you through creating a simple generator that generates a set of files.
+
+You are recommended to read the [Beginner's Guide](./begin) first to understand the basic concepts of the generator.
+
+## Independent Files
+
+This is the simplest type of generator. It generates independent files for each entry.
+
+Each entry will generate a file based on the template, and the placeholders in the template will be replaced by the
+values from the entry.
+
+### 1. Resource or Data?
+
+First, you need to know whether you want to generate resource pack files or datapack files.
+
+- Resource pack files are things like textures, models, blockstates, lang files, etc.
+- Datapack files are things like recipes, loot tables, advancements, functions, etc.
+
+If you are going to generate resource pack files, you need to create the generator under a file-pack provided by a
+resource pack handler. Croparia IF provide a resource pack handler `croparia:resourcepack` with file-pack located at
+`${game}/croparia/resourcepack` by default.
+
+If you are going to generate datapack files, you need to create the generator under a file-pack provided by a
+datapack handler. Croparia IF provide a datapack handler `croparia:datapack` with file-pack located at
+`${game}/croparia/datapack` by default.
+
+When decided, you need to create a file with sub-fix `.toml`(recommended), `.cdg` or `.json` under the `generators` folder under the
+path mentioned above.
+
+### 2. Specify Some Fields
+
+You need to specify some fields in the generator file so that pack handler knows what to do.
+
+```py title="Toml Example: Convert Crop Fruit to Material"
+# Type of the generator, we are going to generate independent files, so we use "croparia:generator"
+# This is a default value, so you can omit it if you want.
+type = "croparia:generator"
+# Whether this generator is enabled, you can disable it to skip the generation.
+# This is a default value, so you can omit it if you want.
+enabled = true
+# Whether to run this generator at game startup, or only when the world is starting.
+# If you want to access the tag system, you need to set this to false.
+# This is a default value, so you can omit it if you want.
+startup = false
+# Registry to get entries from, you can use any registry in the game, or a custom registry provided by a mod.
+# "croparia:crops" means this generator will generate files for each crop in Croparia IF.
+registry = "croparia:crops"
+# Path relative to the root of the pack handler's file-pack to place the generated files.
+path = "croparia/recipe/crafting/material/${id.namespace}/${id.path}.json"
+# Template for the generated file.
+template = """
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    "${fruit}"
+  ],
+  "result": {
+    "id": "${result.id}",
+    "count": ${result.amount},
+    "components": ${result.components}
+  }
+}
+"""
+```
+
+### 3. Use Placeholders
+
+You can use placeholders in the `path` and `template` fields to replace them with values from the entry. They are
+defined based on the entries in the registry you specified.
+
+For example, one of the entries in the `croparia:crops` registry contains information like:
+
+```py title="For understanding only, actually implementation is more complicated"
+{
+  "id": "croparia:coal",
+  "fruit": "croparia:fruit_coal",
+  "result": {
+    "id": "minecraft:coal",
+    "amount": 2,
+    "components": []
+  },
+  // Other fields...
+}
+```
+
+You can use `${field.subField}` to access the fields in the entry. For example, `${fruit}` will be replaced with
+`croparia:coal_fruit`, and `${result.id}` will be replaced with `minecraft:coal`.
+
+Refer to the [Placeholder](./placeholder) documentation for more details.
+
+If you are not using `croparia:crops` registry, you need to check the entries in the registry you are using to know what
+fields are available.
+
+Refer to the [Registry](./registry) documentation for more details.
+
+### 4. Done!
+
+That's it! You have created a simple generator that generates crafting recipes to convert crop fruits to materials.
+
+To make it work, you can reload the resource pack or datapack in the game, or restart the game.
+
+The example above means, for each crop as entry in the `croparia:crops` registry, it will generate a shapeless crafting
+recipe that converts the fruit of the crop to the material defined in the crop.
+
+Taking the coal crop, it will generate a file at `croparia/recipe/crafting/material/croparia/coal.json` in the
+datapack file-pack with the following content:
+
+```json
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    "croparia:fruit_coal"
+  ],
+  "result": {
+    "id": "minecraft:coal",
+    "count": 2,
+    "components": {}
+  }
+}
+```

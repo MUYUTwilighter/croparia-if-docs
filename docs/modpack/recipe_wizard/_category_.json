@@ -1,0 +1,8 @@
+{
+  "label": "Recipe Wizard",
+  "position": 2,
+  "link": {
+    "type": "generated-index",
+    "description": "Feel tired of writing JSON? No worries! This category explains how to use the Recipe Wizard to create custom recipes easily."
+  }
+}

@@ -7,7 +7,7 @@ import type * as Preset from '@docusaurus/preset-classic';
 const config: Config = {
   title: 'Croparia IF',
   tagline: 'A Minecraft mod that farms the minerals, loots and more!',
-  favicon: 'img/favicon.png',
+  favicon: 'img/favicon.webp',
 
   // Future flags, see https://docusaurus.io/docs/api/docusaurus-config#future
   future: {

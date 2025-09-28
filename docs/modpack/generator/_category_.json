@@ -1,0 +1,8 @@
+{
+  "label": "Generator API",
+  "position": 2,
+  "link": {
+    "type": "generated-index",
+    "description": "Are recipes, loot tables, etc. for each crop created manually? Of course not! Let's see how Croparia IF handles data generation."
+  }
+}
