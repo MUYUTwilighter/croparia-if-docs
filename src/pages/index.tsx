@@ -27,7 +27,7 @@ const HeaderOverlay = styled('div')({
 
 function HomepageHeader() {
   const {siteConfig} = useDocusaurusContext();
-  const bg = require('@site/static/img/background.png').default;
+  const bg = require('@site/static/img/background.webp').default;
   return (
     <Header bg={bg} className={clsx('hero hero--primary', styles.heroBanner)}>
       <HeaderOverlay className="container">

@@ -4,18 +4,18 @@ import Gallery from "../../src/components/Gallery";
 # Details: Ritual Stand
 
 <Gallery pictures={[
-    {src: require("@site/static/img/block/ritual_stand.png").default, title: "croparia:ritual_stand"},
-    {src: require("@site/static/img/block/ritual_stand_2.png").default, title: "croparia:ritual_stand_2"},
-    {src: require("@site/static/img/block/ritual_stand_3.png").default, title: "croparia:ritual_stand_3"}
+    {src: require("@site/static/img/block/ritual_stand.webp").default, title: "croparia:ritual_stand"},
+    {src: require("@site/static/img/block/ritual_stand_2.webp").default, title: "croparia:ritual_stand_2"},
+    {src: require("@site/static/img/block/ritual_stand_3.webp").default, title: "croparia:ritual_stand_3"}
 ]}/>
 
 Ritual Stand is a core block in a multi-block structure used to sacrifice input blocks to transform input items into
 output items.
 
 <Gallery pictures={[
-    {src: require("@site/static/img/recipe/ritual_stand.png").default, title: "croparia:ritual_stand"},
-    {src: require("@site/static/img/recipe/ritual_stand_2.png").default, title: "croparia:ritual_stand_2"},
-    {src: require("@site/static/img/recipe/ritual_stand_3.png").default, title: "croparia:ritual_stand_3"}
+    {src: require("@site/static/img/recipe/ritual_stand.webp").default, title: "croparia:ritual_stand"},
+    {src: require("@site/static/img/recipe/ritual_stand_2.webp").default, title: "croparia:ritual_stand_2"},
+    {src: require("@site/static/img/recipe/ritual_stand_3.webp").default, title: "croparia:ritual_stand_3"}
 ]}/>
 
 ## Behavior
@@ -37,28 +37,28 @@ A ritual requires a multi-block structure to perform a ritual. You can check REI
 Taking Ritual T1 as an example:
 
 <Gallery pictures={[
-    require("@site/static/img/recipe/ritual_1_1.png").default,
-    require("@site/static/img/recipe/ritual_1_2.png").default,
-    require("@site/static/img/recipe/ritual_1_3.png").default
+    require("@site/static/img/recipe/ritual_1_1.webp").default,
+    require("@site/static/img/recipe/ritual_1_2.webp").default,
+    require("@site/static/img/recipe/ritual_1_3.webp").default
 ]}/>
 
 It should be built like this:
 
 <Gallery pictures={[
-    require("@site/static/img/ritual_1_1.png").default,
-    require("@site/static/img/ritual_1_2.png").default,
-    require("@site/static/img/ritual_1_3.png").default
+    require("@site/static/img/ritual_1_1.webp").default,
+    require("@site/static/img/ritual_1_2.webp").default,
+    require("@site/static/img/ritual_1_3.webp").default
 ]}/>
 
 **Notes:**
 - The directions are not strict, you can rotate the structure. But each layer must be built in the same direction.
 - You need to read carefully by hovering your mouse over the blocks, as some blocks requires specific states.
   - For example, the image below shows that the ritual requires a fully grown coal crop:
-  <Pic src={require("@site/static/img/recipe/ritual_1_2_coal.png").default}/>
-- You might see barrier blocks ![Barrier](https://minecraft.wiki/images/BlockSprite_barrier.png?8d91a) in the structure
+  <Pic src={require("@site/static/img/recipe/ritual_1_2_coal.webp").default}/>
+- You might see barrier blocks ![Barrier](https://minecraft.wiki/images/BlockSprite_barrier.webp?8d91a) in the structure
 view, which means the positions can **ONLY** be air.
 - You might see block with question mark
-![Placeholder Item](https://github.com/MUYUTwilighter/croparia-if/blob/master/common/src/main/resources/assets/croparia/textures/item/placeholder.png?raw=true)
+![Placeholder Item](https://github.com/MUYUTwilighter/croparia-if/blob/master/common/src/main/resources/assets/croparia/textures/item/placeholder.webp?raw=true)
 in the structure view that says "Input block", which marks the positions where you should place the input blocks.
 
 ## Recipe Type: `croparia:ritual`
@@ -66,7 +66,7 @@ in the structure view that says "Input block", which marks the positions where y
 Even though the ritual stand does not have a GUI, it has a recipe type `croparia:ritual` that defines how the ritual
 works. You can view the recipes in REI (or JEI/EMI).
 
-<Pic src={'/img/recipe/potion_earth.png'} title="Example: Potion of Earth" fullWidth/>
+<Pic src={'/img/recipe/potion_earth.webp'} title="Example: Potion of Earth" fullWidth/>
 
 The recipe consists of:
 - **Input Item**: The item placed on top of it.

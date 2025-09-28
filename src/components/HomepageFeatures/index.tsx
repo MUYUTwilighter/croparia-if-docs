@@ -12,7 +12,7 @@ type FeatureItem = {
 const FeatureList: FeatureItem[] = [
   {
     title: 'Clean & Generative',
-    image: require('@site/static/img/croparia.png').default,
+    image: require('@site/static/img/croparia.webp').default,
     description: (
       <>
         Croparia IF provides a clean functionality of resource farming and dynamically generates contents for you to
@@ -22,7 +22,7 @@ const FeatureList: FeatureItem[] = [
   },
   {
     title: 'More Customizable',
-    image: require('@site/static/img/recipe_wizard.png').default,
+    image: require('@site/static/img/recipe_wizard.webp').default,
     description: (
       <>
         Recipes, structures, crops, textures... almost everything is customizable with handy tools and detailed
@@ -32,7 +32,7 @@ const FeatureList: FeatureItem[] = [
   },
   {
     title: 'Powered by Architectury',
-    image: require('@site/static/img/arch.png').default,
+    image: require('@site/static/img/arch.webp').default,
     description: (
       <>
         We use architectury to build our mod, which makes it compatible with both fabric and forge (or neoforge for

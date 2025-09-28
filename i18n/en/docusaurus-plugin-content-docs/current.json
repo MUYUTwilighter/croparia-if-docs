@@ -1,0 +1,14 @@
+{
+  "version.label": {
+    "message": "Next",
+    "description": "The label for version current"
+  },
+  "sidebar.tutorialSidebar.category.For Players": {
+    "message": "For Players",
+    "description": "The label for category For Players in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.For Players.link.generated-index.description": {
+    "message": "Check this page for tutorials and information about Croparia IF gameplay.",
+    "description": "The generated-index page description for category For Players in sidebar tutorialSidebar"
+  }
+}
