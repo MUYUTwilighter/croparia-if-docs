@@ -1,0 +1,83 @@
+---
+sidebar_position: 1
+---
+
+# Introduction
+
+Generator API is a tool that automatically batch-generate files for datapack, resource pack, etc.
+
+You might be confused, how does the Generator API know
+- What to generate?
+- When it should generate?
+- Where to generate?
+- Generator for what?
+- How the generated files injected into the game?
+
+Let's answer these questions.
+
+## Pack Handler
+
+Pack handler creates & manages a file-pack that can be injected by the handler into the game. The file-pack is a
+directory (not a zip file) using same structure that can be a resource pack or a datapack, depending on the type of the
+pack handler.
+
+The pack handler is defined and registered in the mod code. You only need to know where the file-pack is located so that
+you know where you put your generator definition files.
+
+By default, Croparia IF provides 2 pack handlers:
+- Resource Pack Handler: `croparia:resourcepack`, file-pack located at `${game}/croparia/resourcepack`
+- Datapack Handler: `croparia:datapack`, file-pack located at `${game}/croparia/datapack`
+
+Refer to the [Pack Handler](./packhandler) documentation for more details.
+
+## Generator
+
+The generator can be defined from a file located at `generators` folder in the file-pack from a pack handler.
+
+It contains a template that describes what to generate, specifies the entries that provide the information required to
+replace the placeholders in the template, and tells pack handler where to correctly place the generated files.
+
+**This is what you are going to create as a modpack developer.**
+
+Refer to the [Generator](./generators) documentation for more details.
+
+## Lifecycle
+
+Here we talk about when the generator will generate files, and how it works in the game.
+
+### Lifecycle in Game
+
+The generation will be triggered every time the game is trying to load resource pack or a datapack. Thus, we need to
+understand the Minecraft lifecycle first.
+
+The resource pack will be loaded only in client when:
+- The game is starting up. Resource pack handlers are injected here.
+- When you join a world (integrated server starting).
+- When manually reloading the resource pack in the game.
+
+The datapack will be loaded in both client & server when:
+- The game/server is starting up. **But only the world-gen related features are loaded, no tags, recipes, etc.**
+Datapack handlers are injected here.
+- When joining a world (server preparing world), all features are loaded.
+- When manually reloading the datapack in the game, all features are loaded.
+
+As you can see, we don't have access to the tag system until the world is started, but something needs it to generate
+files, like Crops whose material might be defined by item tags. So, Croparia IF will launch an extra reload for
+datapack when the world is started, which will allow us to access the tag system and generate correct files.
+
+### Lifecycle per Process
+
+In each generation process, the following things will happen:
+
+1. Pack handlers rewrite the meta file of the file-pack to make sure it is a valid resource pack/datapack.
+2. Pack handlers clear the previous generated files in the file-pack.
+3. Pack handlers move built-in generators to the file-pack.
+4. Pack handlers load the generators from `generators` folder under the file-pack folder.
+5. Pack handlers trigger the generation for each loaded generator. The generated file are cached in memory.
+6. Pack handlers dump the generated files into the file-pack, and clear the cache.
+7. The injected file-packs are loaded by the game.
+
+## Next
+
+Now you should have a basic understanding of how the generator works. Next, you can try to create your own generator following
+the [Tutorial](./tutorial).
