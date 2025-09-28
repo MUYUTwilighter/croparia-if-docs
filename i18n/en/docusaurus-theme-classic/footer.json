@@ -1,0 +1,46 @@
+{
+  "link.title.Contact": {
+    "message": "Contact",
+    "description": "The title of the footer links column with title=Contact in the footer"
+  },
+  "link.title.Download": {
+    "message": "Download",
+    "description": "The title of the footer links column with title=Download in the footer"
+  },
+  "link.title.More": {
+    "message": "More",
+    "description": "The title of the footer links column with title=More in the footer"
+  },
+  "link.item.label.QQ Group": {
+    "message": "QQ Group",
+    "description": "The label of footer link with label=QQ Group linking to https://qm.qq.com/q/q09RuwhIJM"
+  },
+  "link.item.label.Discord": {
+    "message": "Discord",
+    "description": "The label of footer link with label=Discord linking to https://discord.gg/HDzTs8X8VF"
+  },
+  "link.item.label.CurseForge": {
+    "message": "CurseForge",
+    "description": "The label of footer link with label=CurseForge linking to https://www.curseforge.com/minecraft/mc-mods/croparia-if"
+  },
+  "link.item.label.Modrinth": {
+    "message": "Modrinth",
+    "description": "The label of footer link with label=Modrinth linking to https://modrinth.com/mod/croparia-if"
+  },
+  "link.item.label.Blog": {
+    "message": "Blog",
+    "description": "The label of footer link with label=Blog linking to /blog"
+  },
+  "link.item.label.GitHub": {
+    "message": "GitHub",
+    "description": "The label of footer link with label=GitHub linking to https://github.com/MUYUTwilighter/croparia-if"
+  },
+  "link.item.label.MCMOD": {
+    "message": "MCMOD",
+    "description": "The label of footer link with label=MCMOD linking to https://www.mcmod.cn/class/13639.html"
+  },
+  "copyright": {
+    "message": "Copyright © 2025 MUYU_Twilighter. Built with Docusaurus.",
+    "description": "The footer copyright"
+  }
+}

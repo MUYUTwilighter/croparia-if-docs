@@ -1,0 +1,46 @@
+{
+  "version.label": {
+    "message": "0.2.10",
+    "description": "The label for version 0.2.10"
+  },
+  "sidebar.tutorialSidebar.category.For Players": {
+    "message": "For Players",
+    "description": "The label for category For Players in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.For Players.link.generated-index.description": {
+    "message": "Check this page for tutorials and information about Croparia IF gameplay.",
+    "description": "The generated-index page description for category For Players in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.For Modpack Creators": {
+    "message": "For Modpack Creators",
+    "description": "The label for category For Modpack Creators in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.For Modpack Creators.link.generated-index.description": {
+    "message": "Check this page if you are going to modify content to play of this mod.",
+    "description": "The generated-index page description for category For Modpack Creators in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.Datapack Customization": {
+    "message": "Datapack Customization",
+    "description": "The label for category Datapack Customization in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.Datapack Customization.link.generated-index.description": {
+    "message": "By browsing game directories, you might find data files in `.../<GameDir>/config/croparia/data/...`.\nThis is where Croparia IF automize the data insertion, and you are **NOT SUGGESTED** to modify any data inside.\nBecause Croparia IF will try to override all these files by default, which means any changes you've made here might be lost.\n\nHowever, it is pretty fine if you just want to see the definition of the data files (i.e. you are in \"read-only\" mode).",
+    "description": "The generated-index page description for category Datapack Customization in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.KubeJS Support": {
+    "message": "KubeJS Support",
+    "description": "The label for category KubeJS Support in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.KubeJS Support.link.generated-index.description": {
+    "message": "Since Croparia IF 0.2.0, you can do some customizations via KubeJS.",
+    "description": "The generated-index page description for category KubeJS Support in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.Resourcepack Customization": {
+    "message": "Resourcepack Customization",
+    "description": "The label for category Resourcepack Customization in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.Resourcepack Customization.link.generated-index.description": {
+    "message": "By browsing game directories, you might find resource files in `.../<GameDir>/config/croparia/assets/...`.\nThis is where Croparia IF automize the resource insertion, and you are **NOT SUGGESTED** to modify any data inside.\nBecause Croparia IF will try to override all these files by default, which means any changes you've made here might be lost.\n\nHowever, it is pretty fine if you just want to see the definition of the data files (i.e. you are in \"read-only\" mode).",
+    "description": "The generated-index page description for category Resourcepack Customization in sidebar tutorialSidebar"
+  }
+}
