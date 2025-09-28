@@ -82,7 +82,7 @@ const config: Config = {
       title: 'Croparia IF Docs',
       logo: {
         alt: 'Croparia IF',
-        src: '/img/logo.png',
+        src: '/img/logo.webp',
       },
       items: [
         {
