@@ -20,6 +20,12 @@ Here we guide you to installation and some easy QAs.
 
 ## Frequently Asked Questions (FAQs)
 
+Before FAQs, please be aware that, [reporting issues](https://github.com/MUYUTwilighter/croparia-if/issues) to us is the
+most welcome here, while trying fixing them by yourself is also encouraged.
+
+If you are a player, don't be afraid of reporting, as we are always happy to help. It is our duty to fix bugs and help
+players!
+
 ### Q1: Am I suggested to use latest version?
 
 **A1:** If your Minecraft instance has installed older versions of Croparia IF or Croparia, you need to check if the
@@ -31,7 +37,11 @@ updating.
 
 ### Q2: I have installed Croparia IF, but why recipes, loot tables, etc. are missing?
 
-**A2:** Croparia IF relies on an extra datapack reload to auto-generate and apply the contents are might be missing.
+**A2:** There are 2 possible reasons:
+
+#### a. There's a conflict between Croparia IF and other mods
+
+Croparia IF relies on an extra datapack reload to auto-generate and apply the contents are might be missing.
 However, some mods are known to hate this, so if you encounter this issue, please try the following steps:
 
 1. Make sure the game is not running, then check your mod list, and disable the mods below:
@@ -46,6 +56,15 @@ However, some mods are known to hate this, so if you encounter this issue, pleas
 
 If there's any changes done to the crop definitions in the future, you need to repeat the above steps to make sure the
 changes take effect.
+
+#### b. Update from Croparia
+
+Croparia IF is still growing and improving. If you are updating from Croparia, there might be some breaking changes that
+cause this issue. Please try the following steps:
+
+1. Back up your world, config file (`${game}/config/croparia.json`) and some generated files (`${game}/croparia` by default).
+2. Delete the config file and generated files mentioned above.
+3. Start the game, create a new world and enter it. Wait for a while to let croparia generate the datapack.
 
 If the issue persists, please report it on
 the [GitHub Issues Page](https://github.com/MUYUTwilighter/croparia-if/issues).

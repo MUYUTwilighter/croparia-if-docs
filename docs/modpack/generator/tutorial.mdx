@@ -8,14 +8,7 @@ This tutorial will guide you through creating a simple generator that generates 
 
 You are recommended to read the [Beginner's Guide](./) first to understand the basic concepts of the generator.
 
-## Independent Files
-
-This is the simplest type of generator. It generates independent files for each entry.
-
-Each entry will generate a file based on the template, and the placeholders in the template will be replaced by the
-values from the entry.
-
-### 1. Resource or Data?
+## 1. Resource or Data?
 
 First, you need to know whether you want to generate resource pack files or datapack files.
 
@@ -33,18 +26,25 @@ datapack handler. Croparia IF provide a datapack handler `croparia:datapack` wit
 When decided, you need to create a file with sub-fix `.toml`(recommended), `.cdg` or `.json` under the `generators` folder under the
 path mentioned above.
 
-### 2. Specify Some Fields
+## 2. Specify Some Fields
 
 You need to specify some fields in the generator file so that pack handler knows what to do.
 
-```py title="Toml Example: Convert Crop Fruit to Material"
-# Type of the generator, we are going to generate independent files, so we use "croparia:generator"
+Now you need to be clear about the form of your generated files, which determines the type of the generator you are
+going to create.
+
+### i. Independent File
+
+If you are going to generate unique files for each entry in a registry, for example, you want to create a shapeless
+crafting recipes that convert each crop fruit to the corresponding material item, you need to use `croparia:generator`.
+
+```toml title="Toml Example: Convert Crop Fruit to Material"
 # This is a default value, so you can omit it if you want.
 type = "croparia:generator"
 # Whether this generator is enabled, you can disable it to skip the generation.
 # This is a default value, so you can omit it if you want.
 enabled = true
-# Whether to run this generator at game startup, or only when the world is starting.
+# Whether to run this generator every time the pack is loaded, including the game startup.
 # If you want to access the tag system, you need to set this to false.
 # This is a default value, so you can omit it if you want.
 startup = false
@@ -69,14 +69,67 @@ template = """
 """
 ```
 
-### 3. Use Placeholders
+### ii. Aggregated File
 
-You can use placeholders in the `path` and `template` fields to replace them with values from the entry. They are
-defined based on the entries in the registry you specified.
+If the files you are going to generate are not independent, for example, you want to generate an item tag that contains
+all the crop seeds, you need to use `croparia:aggregated`.
+
+```toml title="Toml Example: Item Tag for All Crop Seeds"
+# The following fields are similar to the previous example.
+type = "croparia:aggregated"
+registry = "croparia:crops"
+path = "croparia/tags/item/crop_seeds.json"
+
+# This is the template of the unique content row for each entry.
+# The final content of the generated file will be constructed by putting all the content rows together.
+# The final content will not have indent, so you need to add indent spaces if necessary.
+# The final content will have a comma and \n between each content row, so you don't need to add comma at the end of the content row.
+content = '    "${seed}"'
+# This is the template for the whole generated file.
+# Note that you do not have access to the fields in the entry here, you can only use ${content} that represents the final content constructed by all the content rows.
+template = """
+{
+  "replace": false,
+  "values": [
+${content}
+  ]
+}
+"""
+```
+
+### iii. Language File
+
+If you want to generate a language file that contains translations for each entry in a registry, you need to use
+`croparia:lang`.
+
+**Note A**: Language generator only support the entries that is translatable. For example, `croparia:crops` registry is
+translatable, but `croparia:element` registry is not.
+
+**Note B**: You can use language generator for both resource pack handler and datapack handler, even though language
+files have no effect in datapack handler.
+
+```toml title="Toml Example: Language File for Crops"
+# The following fields are similar to the previous examples.
+type = "croparia:lang"
+registry = "croparia:crops"
+startup = true
+
+# You may use ${lang} to specify the language code. This is an additional placeholder field provided by language generator.
+# You can generate multiple language files by specifying multiple languages separated by comma.
+path = "${id.namespace}/lang/${lang}.json"
+# This is the template for each translation entry.
+# If you specify "_lang" in the placeholder, it will be replaced with the language code before the placeholder is handled with the entry.
+template = '"${translation_key}": "${translations._lang}"'
+```
+
+## 3. Use Placeholders
+
+You can use placeholders in some of the fields like `path` and `template` to replace them with values from the entry.
+They are defined based on the entries in the registry you specified.
 
 For example, one of the entries in the `croparia:crops` registry contains information like:
 
-```py title="For understanding only, actually implementation is more complicated"
+```json5 title="For understanding only, actual implementation is more complicated"
 {
   "id": "croparia:coal",
   "fruit": "croparia:fruit_coal",
@@ -89,7 +142,7 @@ For example, one of the entries in the `croparia:crops` registry contains inform
 }
 ```
 
-You can use `${field.subField}` to access the fields in the entry. For example, `${fruit}` will be replaced with
+You can use JS style `${field.subField}` to access the fields in the entry. For example, `${fruit}` will be replaced with
 `croparia:coal_fruit`, and `${result.id}` will be replaced with `minecraft:coal`.
 
 Refer to the [Placeholder](./placeholder) documentation for more details.
@@ -99,17 +152,21 @@ fields are available.
 
 Refer to the [Registry](./registry) documentation for more details.
 
-### 4. Done!
+Besides, based on the type of generator you are using, there may be some additional placeholder fields available. We have
+talked about some of them (`${lang}` and `_lang`) in the previous sections.
 
-That's it! You have created a simple generator that generates crafting recipes to convert crop fruits to materials.
+## 4. Done!
+
+That's it! You have created a generator that generates files based on the entries in a registry.
 
 To make it work, you can reload the resource pack or datapack in the game, or restart the game.
 
-The example above means, for each crop as entry in the `croparia:crops` registry, it will generate a shapeless crafting
-recipe that converts the fruit of the crop to the material defined in the crop.
+The example of the independent generator means, for each crop as entry in the `croparia:crops` registry, it will
+generate a shapeless crafting recipe that converts the fruit of the crop to the material defined in the crop.
 
-Taking the coal crop, it will generate a file at `croparia/recipe/crafting/material/croparia/coal.json` in the
-datapack file-pack with the following content:
+Taking the coal crop, it will generate a file at
+`${game}/croparia/datapack/data/croparia/recipe/crafting/material/croparia/coal.json` in the datapack file-pack with the
+following content:
 
 ```json
 {

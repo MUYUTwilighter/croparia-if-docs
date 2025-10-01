@@ -12,7 +12,7 @@ type FeatureItem = {
 const FeatureList: FeatureItem[] = [
   {
     title: 'Clean & Generative',
-    image: require('@site/static/img/croparia.webp').default,
+    image: "https://github.com/MUYUTwilighter/Croparia/blob/1.21.1-arch/common/src/main/resources/assets/croparia/textures/item/croparia3.png?raw=true",
     description: (
       <>
         Croparia IF provides a clean functionality of resource farming and dynamically generates contents for you to
@@ -22,7 +22,7 @@ const FeatureList: FeatureItem[] = [
   },
   {
     title: 'More Customizable',
-    image: require('@site/static/img/recipe_wizard.webp').default,
+    image: "https://github.com/MUYUTwilighter/Croparia/blob/1.21.1-arch/common/src/main/resources/assets/croparia/textures/item/recipe_wizard.png?raw=true",
     description: (
       <>
         Recipes, structures, crops, textures... almost everything is customizable with handy tools and detailed
