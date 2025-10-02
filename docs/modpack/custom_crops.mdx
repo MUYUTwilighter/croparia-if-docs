@@ -1,0 +1,109 @@
+# Customize Crops
+
+If you think creating items, blocks, etc. is something can only be done by mod developers, you are wrong!
+
+In Croparia IF, you can create your own crops with few simple steps, then Croparia IF will automatically generate the
+corresponding items, blocks, and recipes for you!
+
+Besides, you can also modify, or even disable the existing crops, so you can customize the gameplay to your liking.
+
+All the crops, including the ones dumped by commands, are saved under `<game>/croparia/crops/` folder in JSON format, so
+you can also create or modify them with any text editor.
+
+Croparia IF will only try load the crops when the game is starting up.
+
+## Create a Crop
+
+### 1. Create via Command
+
+A crop definition can be created via a simple command in-game.
+
+Prepare the following things:
+- Hold the material you want the crop to produce in your main hand.
+- Hold the `croparia` item that represents the tier of the crop in your offhand.
+- Type in command `/croparia create <color> [type] [id] [replace]` in chat, where:
+- `<color>` is the color of the crop, it will affect the color of the crop's seeds, fruit & crop block.
+- `[type]` is the model type of the crop, it will affect the appearance of the crop block & fruit.
+- `[id]` is the ID of the crop, translations, derived item/block IDs, etc. will be based on this ID.
+- `[replace]` is an optional flag, if specified, it will replace the existing crop definition with the same ID. If not
+specified and a crop with the same ID already exists, the command will fail.
+
+After the command is executed, a crop definition file will be created and saved under the [`crops`](crop) folder.
+
+If you want to further customize the properties of the crop, see tutorial below.
+
+### 2. Create via File Definition
+
+File definition is the most concrete way to create a crop, as it contains all the properties of the crop.
+
+You can use `toml`, `json`, or `cdg` format to define a crop, and save it under the [`crops`](crop) folder.
+
+Refer to the [Format: CDG](generator/spec_generators#format-cdg) for more details about the format.
+
+#### Schema
+
+- `id` <del>or `name`</del> (`id`, required): The ID of the crop that derive the id of the seeds, fruits, etc.
+- `material` <del>or `tag`</del> (`id|tag|material`, required): The item that the crop will produce.
+  - You can specify an item ID (`minecraft:coal`), an item tag (`#c:ingots/iron`). The amount of the material will be 2 by default.
+  - If you specify a tag, the actual item will be chosen as the first item in the tag that is available in the game.
+  - You can also specify a full material definition, which is an object that contains:
+    - `name` (`id|tag`, required): The item ID or tag.
+    - `count` (`number`, optional, default: 2): The amount of the material.
+    - `components` (`map`, optional, default: `{}`): The components of the material, used by some mods like Create.
+- `color` (`string|int`, required): The color of the crop, in `#AARRGGBB` format, or a decimal number.
+- `tier` (`number`, required): The tier of the crop, must be between 1 and 7.
+- `type` (`string`, optional, default: `crop`): The model type of the crop, affects the appearance of the crop block & fruit.
+- `translations` (`Map<string, string>`, optional): The translations of the crop, e.g. `{"en_us": "Coal", "zh_cn": "煤炭"}`. It is usually used when the translation key in the `dependencies` below is not available.
+- `dependencies` (`Map<string, string>`, optional): The mod dependencies along with the translation key of the material, e.g. `{"techreborn": "item.techreborn.tin_ingot"}`.
+  - Blacklist may affect the dependencies, see [Crop Blacklist](config#crop-blacklist) for details.
+  - If the specified translation key is implemented by the mod (like the `techreborn` example above), the `translations` above would be ignored.
+
+### 3. Create via KubeJS
+
+If you are familiar with KubeJS, you can also create crops via KubeJS scripts.
+
+As crop is related to registries, you can only create crops in the
+[`startup_scripts/`](https://kubejs.com/wiki/folder-structure/startup-scripts) script, and do not reload it after the
+game is launched.
+
+```js
+const CropUtil = Java.loadClass("cool.muyucloud.croparia.kubejs.CropUtil"); // use java(...) for 1.18 or older
+CropUtil.create(
+    "croparia:my_crop", // id
+    "minecraft:diamond", // material
+    3, // tier
+    0xff0000ff, // color
+    "crop", // type
+    {"en_us": "My Crop"}, // translations, or {}
+    {"minecraft": "item.minecraft.diamond"} // dependencies, or {}
+);
+```
+
+Refer to the [Schema](#schema) above for more details about the parameters.
+
+## Modify a Crop
+
+You may wonder how to modify the properties of a existing crop. The answer is simple: just create a new crop definition
+file with the same ID, and specify the properties you want to change.
+
+You'd better keep the properties you don't want to change the same as the existing crop, otherwise they will be set to
+the values you specify. You can get the definition of an existing crop by using the `/croparia dump <id>` command.
+
+## Disable a Crop & Material
+
+### Fully-disable a crop
+
+If you want to fully-disable a crop, just add its ID to the blacklist in the [config](config#crop-blacklist).
+
+<del>Or, you can also create a crop definition file with only the `id` field, and set the `dependencies` to `{"disabled": ""}`. </del>
+
+### Disable a material that a crop produces
+
+As some of the built-in crops define their material by the tag, sometimes it may produce the material you don't want.
+For example, crop `croparia:tin` uses material `#c:ingots/tin`, which may result in `modern_industrialization:tin_ingot`
+and `techreborn:tin_ingot`.
+
+If you only like the former, you can add `@techreborn` to the blacklist in the [config](config#crop-blacklist), then you
+will only get the tin ingot from Modern Industrialization.
+
+## Playground

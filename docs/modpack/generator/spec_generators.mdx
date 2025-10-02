@@ -1,0 +1,124 @@
+# Spec: Generators
+
+A generator is a tool that automates the creation of modpacks based on predefined templates and configurations. It is
+defined as files in the `generators` folder of the file-pack provided by [Pack Handler](packhandler).
+
+Here we talk about the schema of built-in generator types provided by Croparia IF. If you are going to create/modify a
+generator, please refer to the [Tutorial](tutorial) first, which also provides a [playground](tutorial/#playground) for
+you to create a generator.
+
+## Supported File Types
+
+Croparia IF supports 3 file types for defining generators:
+- **[TOML](https://toml.io/en/)** (`.toml`): Recommended. It is easy to read and write, and supports comments.
+- **CDG** (`.cdg`): Croparia Data Generator, a custom format designed for Croparia IF. It does not support comments. See [below](#format-cdg) for details.
+- **[JSON](https://toml.io/en/)** (`.json`): A widely used format, any other file types are eventually compiled into
+JSON before decoding as generator. But it's less readable and writable than TOML and CDG. It does not support comments,
+multi-line strings, etc.
+
+### Format: CDG
+
+CDG (Croparia Data Generator) is a custom format designed for Croparia IF. It is similar to TOML. We'll guide you
+through the basics of CDG here.
+
+#### i. Structure
+
+A CDG file consists of 2 parts: **Meta** and **Template**.
+
+- **Meta**: The header is the first non-empty line of the file. It specifies the meta of a generator. It starts with a
+`@` character, followed by a key-value pair concatenated with a `=` character, and ends with a `;` character.
+  - For example:
+  ```
+  @type=croparia:generator;
+  ```
+  - The key can only be a single word without spaces and special characters (`@`, `=` or `;`).
+  - The value can be of following forms:
+    - A single word without spaces and special characters (`@`, `=` or `;`).
+    - A quoted string, which can contain spaces and special characters. You can use either double quotes (`"`) or
+    single quotes (`'`) to quote a string. For example: `"croparia:generator"` or `'croparia:generator'`.
+    - Multi-line strings quoted with triple quotes (`"""` or `'''`). For example:
+    ```
+    """
+    This is a multi-line string.
+    It can contain multiple lines.
+    """
+    ```
+    - Any JSON value, including objects, arrays, numbers, booleans, and null. For example:
+    ```
+    {"key": "value", "array": [1, 2, 3], "number": 123, "boolean": true, "null": null}
+    ```
+- **Template**: The rest of the file is the template for the generated files. It can be any text, including
+JSON, XML, etc. You can use placeholders in the template, which will be replaced with actual values during generation.
+  - For example:
+  ```
+  {
+    "type": "minecraft:crafting_shapeless",
+    "ingredients": [
+      "${fruit}"
+    ],
+    "result": {
+      "item": "${material}",
+      "count": 1
+    }
+  }
+  ```
+
+#### ii. Compilation
+
+After compilation, a CDG file is converted to a JSON object with the following structure:
+
+```json5
+{
+  "meta_str": "value1",
+  "meta_num": 2,
+  "meta_json": {"key": "value"},
+  // And so on...
+  "template": "template string"
+}
+```
+
+## Generator Types
+
+Croparia IF provides 3 built-in generator types: `croparia:generator`, `croparia:aggregated` and `croparia:lang`.
+
+### i. `croparia:generator`
+
+The default type of generator. It generates a file for each entry in a registry.
+
+Available fields:
+- `type` (string, required): The type of the generator. Must be `croparia:generator`.
+- `dependencies` (array of arrays strings, optional): List of mod IDs that must be loaded for this generator to run.
+  - If you specify **A Array of Arrays**, this generator will be available if **all** the arrays contain at least one mod that is loaded.
+  - If you only specify **A Array**, this generator will be available if **any** of the mods in **The Array** are loaded.
+  - If you only specify **A String**, this generator will be available if the mod represented by **The String** are loaded.
+- `enabled` (boolean, optional, default: true): Whether to enable this generator.
+- `startup` (boolean, optional, default: false): Whether to run this generator every time the pack is loaded, including the game
+startup. If you want to access the tag system, you need to set this to false.
+- `registry` (string, required): Registry to get entries from, you can use any registry in the game, or a custom registry provided by a mod. `"croparia:crops"` means this generator will generate files for each crop in Croparia IF.
+- `whitelist` (array of strings, optional): List of entry IDs to include. If specified, only entries from the `registry` above with IDs in this list will be processed.
+- `path` (string that support placeholders, required): Path relative to the root of the pack handler's file-pack to place the generated files.
+- `template` (string that support placeholders, required): Template for the generated file.
+
+### ii. `croparia:aggregated`
+
+If the files you are going to generate are not independent, for example, you want to generate an item tag that contains all
+the crop seeds, you need to use `croparia:aggregated`.
+
+In addition to the fields supported by [`croparia:generator`](#i-cropariagenerator), it also supports:
+- `content` (string that support placeholders, required): This is the template of the unique content row for each entry.
+The final content of the generated file will be constructed by putting all the content rows together. The final content
+will not have indent, so you need to add indent spaces if necessary. The final content will have a comma and `\n`
+between each content row, so you don't need to add comma at the end of the content row.
+- `template` (string that support placeholders, required): This is the template for the whole generated file. Note that
+you do not have access to the fields in the entry here, you can only use `${content}` that represents the final content
+constructed by all the content rows.
+
+### iii. `croparia:lang`
+
+If you want to generate a language file that contains translations for each entry in a registry, you need to use
+`croparia:lang`.
+
+It the same fields supported by [`croparia:generator`](#i-cropariagenerator). But it provides some special feature:
+- Additional placeholder: `${lang}`, which represents the translation of the entry in the language you are generating.
+- Pre-handled placeholder field: `_lang`, similar to `${lang}`, but it is used inside a placeholder that will be replaced
+with the language name before the placeholder is parsed.

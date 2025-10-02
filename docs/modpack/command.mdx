@@ -1,0 +1,26 @@
+# Command
+
+Croparia IF provides a set of commands to help you manage and create crop, manage the configurations, and so on.
+
+## Client Commands
+
+Client commands response based on the client side, so the result might defer from the server side if you are not playing
+locally.
+
+| Command                                          | Description                                                                                                  |
+|--------------------------------------------------|--------------------------------------------------------------------------------------------------------------|
+| `/croparia crop [id]`                            | Inspect the crop based on `id`, or the item (seeds, fruit, etc.) you hold or block you look at               |
+| `/croparia dump [id]`                            | Dump all crop definitions, or the only one specified by the `id`                                             |
+| `/croparia create <color> [type] [id] [replace]` | create a crop definition and dump, refer to [Create Crop via Command](crop#1-create-via-command) for details |
+
+## Server Commands
+
+Server commands response based on the server side, and does not support some features like "click to open file". They
+require you to have operator permission on the server.
+
+| Command                                                | Description                                                                                                                   |
+|--------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------|
+| `/cropariaServer crop [id]`                            | Inspect the crop based on `id`, or the item (seeds, fruit, etc.) you hold or block you look at                                |
+| `/cropariaServer dump [id]`                            | Dump all crop definitions, or the only one specified by the `id`                                                              |
+| `/cropariaServer create <color> [type] [id] [replace]` | create a crop definition and dump, refer to [Create Crop via Command](crop#1-create-via-command) for details                  |
+| `/cropariaServer <property> [value]`                   | Query the value of the configurations, or modify then into the specified value. Refer to [Configurations](config) for details |

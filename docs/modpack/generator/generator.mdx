@@ -28,7 +28,8 @@ By default, Croparia IF provides 2 pack handlers:
 - Resource Pack Handler: `croparia:resourcepack`, file-pack located at `${game}/croparia/resourcepack`
 - Datapack Handler: `croparia:datapack`, file-pack located at `${game}/croparia/datapack`
 
-Refer to the [Pack Handler](./packhandler) documentation for more details.
+**NOTE**: DO NOT modify the contents except the `generators` folder in the file-pack directly, as pack handler will overwrite
+the contents every time it is loaded.
 
 ## Generator
 
@@ -39,7 +40,7 @@ replace the placeholders in the template, and tells pack handler where to correc
 
 **This is what you are going to create as a modpack developer.**
 
-Refer to the [Generator](./generators) documentation for more details.
+Refer to the [Generator](./spec_generators) documentation for more details.
 
 ## Lifecycle
 

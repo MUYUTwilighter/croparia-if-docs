@@ -8,3 +8,9 @@ Croparia IF provide many powerful features to help you modify, or even create co
 
 ## Navigation
 
+- [Configurations](./config)
+- [Command](./command)
+- [Customize crop](./crop)
+- [Croparia Recipe Schema](./recipe_scheme)
+- Batch-generate files with [Generator API](./generator)
+- Create recipes in-game with [Recipe Wizard](./recipe_wizard)

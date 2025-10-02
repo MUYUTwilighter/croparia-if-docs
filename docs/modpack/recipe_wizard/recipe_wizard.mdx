@@ -1,0 +1,56 @@
+---
+sidebar_position: 1
+---
+
+import Pic from "../../../src/components/Pic";
+
+# Recipe Wizard
+
+<Pic src="https://github.com/MUYUTwilighter/croparia-if/blob/master/common/src/main/resources/assets/croparia/textures/item/recipe_wizard.png?raw=true"
+ imgStyle={{height: "128px", imageRendering: "pixelated"}} title="croparia:recipe_wizard" fullWidth/>
+
+Recipe Wizard is a special item that can help you create and manage custom recipes in-game. It does not have GUI, but
+reads the environment and your actions to create recipes.
+
+You can define your own Recipe Wizard Generators that define how to create the recipe. Refer to
+[Custom Generators](custom_generators) for more details.
+
+Besides, it also provides some special actions performed when right-clicking certain blocks while sneaking. Refer to
+[the list of supported actions](#supported-actions).
+
+## Usage on creating recipes
+
+Here we guide you through all the available generators provided by Croparia IF so that you know how it works.
+
+### 1. Infusor Recipe
+
+1. Infuse the infusor with element type you want. Refer to [Supported Actions](#supported-actions) for type-cycling.
+2. Throw or place the input item onto the Infusor, then hold the output item in your offhand.
+3. Right-click the Infusor with a Recipe Wizard in hand.
+4. The recipe will be created and saved under `${game}/croparia/recipe_wizard/dumped`.
+
+### 2. Ritual Recipe
+
+1. Build the structure of the ritual. Refer to [Supported Actions](#supported-actions) that automatically build the
+    structure for you.
+2. Throw or place the input item onto the ritual, then hold the output item in your offhand.
+3. Right-click the ritual with a Recipe Wizard in hand.
+4. The recipe will be created and saved under `${game}/croparia/recipe_wizard/dumped`.
+
+### 3. Soak Recipe
+
+1. Set the elemental stone with an infusor with element type you want on top of it. Refer to
+[Supported Actions](#supported-actions) that may help you set it.
+2. Place the input block around the elemental stone, and the output block under the elemental stone.
+3. Right-click the elemental stone with a Recipe Wizard in hand.
+4. The recipe will be created and saved under `${game}/croparia/recipe_wizard/dumped`.
+
+## Supported Actions
+
+Here is the list of supported actions when right-clicking certain blocks while sneaking with a Recipe Wizard in hand.
+
+| Block           | Action                                       |
+|-----------------|----------------------------------------------|
+| Infusor         | Cycle the element type                       |
+| Ritual Stand    | Build the ritual structure                   |
+| Elemental Stone | Set an infusor on top of the elemental stone |

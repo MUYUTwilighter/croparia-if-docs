@@ -2,11 +2,16 @@
 sidebar_position: 2
 ---
 
+import GeneratorPlayground from "../../../src/components/GeneratorPlayground";
+
 # Tutorial
 
 This tutorial will guide you through creating a simple generator that generates a set of files.
 
 You are recommended to read the [Beginner's Guide](./) first to understand the basic concepts of the generator.
+
+You can try [playground](#playground) to create and test your generator easily, while reading this tutorial first is
+recommended.
 
 ## 1. Resource or Data?
 
@@ -24,7 +29,7 @@ datapack handler. Croparia IF provide a datapack handler `croparia:datapack` wit
 `${game}/croparia/datapack` by default.
 
 When decided, you need to create a file with sub-fix `.toml`(recommended), `.cdg` or `.json` under the `generators` folder under the
-path mentioned above.
+path mentioned above. See details about the file types in the [Generator File Types](./spec_generators#file-types) section.
 
 ## 2. Specify Some Fields
 
@@ -145,12 +150,10 @@ For example, one of the entries in the `croparia:crops` registry contains inform
 You can use JS style `${field.subField}` to access the fields in the entry. For example, `${fruit}` will be replaced with
 `croparia:coal_fruit`, and `${result.id}` will be replaced with `minecraft:coal`.
 
-Refer to the [Placeholder](./placeholder) documentation for more details.
-
 If you are not using `croparia:crops` registry, you need to check the entries in the registry you are using to know what
 fields are available.
 
-Refer to the [Registry](./registry) documentation for more details.
+Refer to the [Placeholder & Registry](./spec_placeholder_registry) documentation for more details.
 
 Besides, based on the type of generator you are using, there may be some additional placeholder fields available. We have
 talked about some of them (`${lang}` and `_lang`) in the previous sections.
@@ -160,6 +163,10 @@ talked about some of them (`${lang}` and `_lang`) in the previous sections.
 That's it! You have created a generator that generates files based on the entries in a registry.
 
 To make it work, you can reload the resource pack or datapack in the game, or restart the game.
+
+In the end, let's see what you have created.
+
+### i. Independent File Example
 
 The example of the independent generator means, for each crop as entry in the `croparia:crops` registry, it will
 generate a shapeless crafting recipe that converts the fruit of the crop to the material defined in the crop.
@@ -181,3 +188,66 @@ following content:
   }
 }
 ```
+
+### ii. Aggregated File Example
+
+The example of the aggregated generator means, it will generate an item tag that contains all the seeds of the crops in
+the `croparia:crops` registry.
+
+It will generate a file at
+`${game}/croparia/datapack/data/croparia/tags/item/crop_seeds.json` in the datapack file-pack with the following
+content:
+
+```json5
+{
+  "replace": false,
+  "values": [
+    "croparia:seed_coal",
+    "croparia:seed_iron",
+    "croparia:seed_gold",
+    "croparia:seed_diamond",
+    "croparia:seed_emerald",
+    "croparia:seed_lapis",
+    "croparia:seed_redstone",
+    "croparia:seed_quartz",
+    "croparia:seed_copper",
+    "croparia:seed_tin",
+    "croparia:seed_silver",
+    "croparia:seed_lead",
+    "croparia:seed_nickel",
+    "croparia:seed_aluminum",
+    "croparia:seed_uranium",
+    "croparia:seed_ruby",
+    "croparia:seed_sapphire",
+    "croparia:seed_peridot"
+    // And so on...
+  ]
+}
+```
+
+### iii. Language File Example
+
+The example of the language generator means, it will generate language files that contains translations for all the
+crops in the `croparia:crops` registry.
+
+It will generate files under `${game}/croparia/resourcepack/croparia/lang` in the resource pack file-pack.
+
+Taking `en_us` as an example, it will generate a file
+`${game}/croparia/resourcepack/croparia/lang/en_us.json` with the following content:
+
+```json5 title="en_us.json"
+{
+  "item.minecraft.coal": "Coal",
+  "item.croparia.iron_ingot": "Iron",
+  "item.croparia.gold_ingot": "Gold",
+  // And so on...
+}
+```
+
+There would be more language files if a crop is specified with more translations.
+
+## Playground
+
+Here you can create the generator easily. Note that you still need to test it in the game to ensure it works as expected.
+
+<GeneratorPlayground/>

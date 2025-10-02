@@ -1,0 +1,37 @@
+# Configurations
+
+The configurations of Croparia IF can be found at `${game}/config/croparia.json`. You can modify it with any text editor
+**while the game is not running**.
+
+The config is read when the game starts up, or when you run `/reload` command in the game; and it will be saved back to
+the file when the world is closed.
+
+You can modify the configurations in-game with `/croparia <property> [value]` command.
+
+## Options
+
+| Option         | Type       | Default                  | Description                                                                                                                            |
+|----------------|------------|--------------------------|----------------------------------------------------------------------------------------------------------------------------------------|
+| `filePath`     | `string`   | `croparia`               | the path of crop definitions and the file-packs provided by the pack handlers                                                          |
+| `recipeWizard` | `string`   | `croparia/recipe_wizard` | the path to save the dumped recipes created by Recipe Wizard                                                                           |
+| `override`     | `boolean`  | `true`                   | Whether the Generator API will clear the previous generated files on triggered                                                         |
+| `infusor`      | `boolean`  | `true`                   | Enable or disable infusor recipe                                                                                                       |
+| `ritual`       | `boolean`  | `true`                   | Enable or disable of ritual recipe                                                                                                     |
+| `fruitUse`     | `boolean`  | `true`                   | Whether the fruit will be converted to the material when right-clicking                                                                |
+| `autoReload`   | `integer`  | `20`                     | Count of ticks after the world is loaded that Croparia IF will wait before it perform an extra reload, set to -1 to disable the reload |
+| `soakAttempts` | `integer`  | `1`                      | Count of attempts that elemental stone will perform soaking when random tick triggered, set to 0 will disable soak recipe              |
+| `blacklist`    | `string[]` | `[]`                     | The blacklist for the crop, see [below](#crop-blacklist) for details                                                                   |
+
+### Crop Blacklist
+
+The blacklist is a list of crop IDs or mod IDs.
+
+If a crop's ID is in the blacklist, the crop will be not be created.
+
+If a mod ID, which should be prefixed with `@`, is in the blacklist, all crops, or the materials of the crops, derived
+from that mod will be ignored.
+
+For example, if you put `@techreborn` in the blacklist, then all crops, like `croparia:tin`, will not be created.
+
+However, if other mod that derives the tin crop, like Modern Industrialization, then the crop will still be created, but
+you cannot get the `techreborn:tin_ingot` material from it.

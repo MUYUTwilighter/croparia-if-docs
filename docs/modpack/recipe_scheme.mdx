@@ -1,0 +1,97 @@
+# Recipe Schemes
+
+If you've played this mod <del>(I hope you did XD)</del> for a while, you may want to customize the recipes of infusor,
+ritual, etc. This page will guide you through the recipe schemes provided by Croparia IF, so that you can create or
+modify the recipes to fit your modpack.
+
+## Recipe Field Types
+
+Before we start, you may need to know the field types that are used in Croparia IF's recipe schemes.
+
+### 1. ItemInput
+
+An ItemInput is a predicate that matches item stacks. It can be the following formats:
+- An item ID, e.g. `minecraft:iron_ingot`
+- An item tag, e.g. `#c:ingots/iron`
+- A full item predicate, with following fields:
+  - `id` (`id`, optional): The item ID. You can not set both `id` and `tag`.
+  - `tag` (`tag`, optional): The item tag. You can not set both `id` and `tag`.
+  - `count` (`number`, optional, default: 1): The minimum count of the item stack.
+  - `components` (`map`, optional): The components of the item.
+
+### 2. ItemOutput
+
+An ItemOutput is a specification of an item stack. It can be any of the following formats:
+- An item ID, e.g. `minecraft:iron_ingot` (amount is 1, no components)
+- A full item specification, with following fields:
+  - `id` (`id`, required): The item ID.
+  - `count` (`number`, optional, default: 1): The count of the item stack.
+  - `components` (`map`, optional): The components of the item.
+
+## 3. BlockInput
+
+A BlockInput is a predicate that matches block states. It can be any of the following formats:
+- A block ID, e.g. `minecraft:stone`
+- A block tag, e.g. `#minecraft:bee_growables`
+- A full block state predicate, with following fields:
+    - `id` (`id`, optional): The block ID. You can not set both `id` and `tag`.
+    - `tag` (`tag`, optional): The block tag. You can not set both `id` and `tag`.
+    - `properties` (`map`, optional): The properties of the block state.
+
+### 4. BlockOutput
+
+A BlockOutput is a specification of a block state. It can be any of the following formats:
+- A block ID, e.g. `minecraft:stone` (no properties)
+- A full block state specification, with following fields:
+  - `id` (`id`, required): The block ID.
+  - `properties` (`map`, optional): The properties of the block state.
+
+## Infusor Recipe
+
+Infusor recipe defines how to infuse an item with an element to produce another item. It has the following fields:
+- `type` (`string`, required): Must be `croparia:infusor`.
+- `ingredient` ([`ItemInput`](#1-iteminput), required): The input item predicate.
+- `element` (`string`, required): The element type, e.g. `fire`, `water`, etc.
+- `result` ([`ItemOutput`](#2-itemoutput),  required): The output item specification.
+
+## Ritual Recipe
+
+Ritual recipe defines how to perform a ritual with a structure to produce an item. It has the following fields:
+- `type` (`string`, required): Must be `croparia:ritual`.
+- `ritual` ([`BlockInput`](#3-blockinput), required): The ritual block predicate that tells which ritual is available.
+  - You may use `#croparia:ritual_stands`, `#croparia:ritual_stands_2`, etc. to match all ritual stands of a tier or above.
+- `block` ([`BlockInput`](#3-blockinput), required): The block predicate that tells which blocks will be consumed in the ritual.
+- `ingredient` ([`ItemInput`](#1-iteminput), required): The input item predicate.
+- `result` ([`ItemOutput`](#2-itemoutput), required): The output item specification.
+
+### Special Case: Enchant
+
+If the `result` is an enchanted book, then the ritual will try enchanting or upgrading the input items with enchantments
+defined in the enchanted books.
+- The number of books determine how many level will be added to the enchantments.
+- The level of the enchantments will be capped by the max level of the enchantments defined in the books.
+
+### Special Case: Spawn Egg
+
+If the `result` is a spawn egg, then the ritual will spawn the entity defined in the spawn egg.
+
+## Soak Recipe
+
+Soak recipe defines how to soak a block with an element to produce another block. It has the following fields:
+- `type` (`string`, required): Must be `croparia:soak`.
+- `block` ([`BlockInput`](#3-blockinput), required): The input block predicate.
+- `element` (`string`, required): The element type, e.g. `fire`, `water`, etc.
+- `result` ([`BlockOutput`](#4-blockoutput), required): The output block specification.
+
+## Ritual Structure
+
+Surprise! You can also define your own ritual structure! It is a JSON object with the following fields:
+- `type` (`string`, required): Must be `croparia:ritual_structure
+- `ritual` ([`BlockInput`](#3-blockinput), required): The ID of the ritual that this structure belongs to.
+- `keys` (`Map<character, BlockInput>`, required): The mapping of characters to block predicates. Each character in the `pattern` must be defined in this map.
+  - There are some special characters that are default and should be avoided:
+    - `' '` (space): Represents an empty block, it will match any block.
+    - `'.'`: Represents air **ONLY**.
+    - `'$'`: Mark the position of the input block.
+    - `'*'`: Mark the position of the ritual stand.
+- `pattern` (`string[][]`, required): The pattern of the ritual structure. Each string represents a row in a layer, and each character represents a block position in the layer. All strings must have the same length.

@@ -1,0 +1,127 @@
+# Spec: Placeholder & Registry
+
+Here we talk about the placeholders and registries that you can use in the generator templates.
+
+## Placeholder
+
+The placeholder is a special syntax used in generator templates to denote variables that will be replaced with actual
+values during the generation process.
+
+The format is pretty JavaScript-ish, should be like `${key}` or `${key.subkey}`.
+
+If the field is not found in the entry or something wrong during the parse, it will not be replaced, and will remain as
+is in the generated file.
+
+### Magic Placeholders
+
+For all placeholder types, there are some built-in placeholders that you can use directly:
+
+- `_qis` - Quote-if-string. If the value is a string, it will be quoted with double quotes. Otherwise, it will be used as is.
+- `_q` - Quote. The value will be quoted with double quotes, no matter what type it is.
+
+### Built-in Placeholder Types
+
+Croparia IF provides some built-in placeholder types that developers can apply to their entries.
+
+#### 1. List
+
+List placeholder provide array-like access. It has the following fields:
+- _SELF_ (`JsonArray`) - The full array itself.
+- `_size` (`number`) - The size of the array.
+- `get(index: number)` (`any`) - The value at the specified index. If the index is out of bounds, it will return `null`.
+- `getOr(index: number, def: string)` (`any|string`) - Similar to `get`, but if the index is out of bounds, it will return the specified default value.
+- `map(placeholder: string)` (`any`) - Map the array to another array by applying the specified placeholder to each element. For example, if the array is
+  `[{"id": "a"}, {"id": "b"}]`, then `map(id)` will return `["a", "b"]`.
+- `mapi(placeholder: string)` ([`Map<string, any>`](#2-map)) - Map the array to a map by applying the specified placeholder to each element with its index as the key. For example, if the array is
+  `[{"id": "a"}, {"id": "b"}]`, then `mapi(id)` will return `{"0": "a", "1": "b"}`.
+
+#### 2. Map
+
+Map placeholder provide JavaScript-ish object access. It has the following fields:
+- _SELF_ (`JsonObject`) - The full object itself.
+- `keys()` ([`List<string>`](#1-list)) - The value of the keys in the object
+- `values()` ([`List<any>`](#1-list)) - The values of the object
+- `get(key: string)` (`any`) - The value at the specified key. If the key is not found, it will return `null`.
+- `getOr(key: string, def: string)` (`any|string`) - Similar to `get`, but if the key is not found, it will return the specified default value.
+- `mapValue(placeholder: string)` ([`Map<any>`](#2-map)) - Map the object to another object by applying the specified placeholder to each value. For example, if the object is
+  `{"a": {"id": "x"}, "b": {"id": "y"}}`, then `mapValue(id)` will return `{"a": "x", "b": "y"}`.
+
+#### 3. ID
+
+ID placeholder is used to access the ID of the entry. It has the following fields:
+- _SELF_ (`string`) - The full ID of the entry, e.g. `croparia:coal`.
+- `namespace` (`string`) - The namespace of the ID, e.g. `croparia`.
+- `path` (`string`) - The path of the ID, e.g. `coal`.
+
+#### 4. ItemOutput
+
+ItemOutput unifies the format of ItemStack, which varies throughout different Minecraft versions and modding
+APIs. It has the following fields:
+- _SELF_ (`string|JsonObject`) - The ItemOutput itself. Note that if there's no components and the amount is 1, it will be just the item ID.
+- `id` (`string`) - The item ID, e.g. `minecraft:coal`.
+- `amount` (`string`) - The amount of the item, e.g. `2`.
+- `components` ([`Map`](#2-map)) - The components of the item, e.g. `{"foo": 1, "bar": 2}`.
+- `stack` ([`Map`](#2-map)) - The vanilla ItemStack representation of the item, e.g. `{"item": "minecraft:coal", "count": 2, "components": {"foo": 1, "bar": 2}}`.
+
+#### 5. BlockOutput
+
+BlockOutput is a warp over of BlockState, it has the following fields:
+- _SELF_ (`string|JsonObject`) - The BlockOutput itself. Note that if there's no properties, it will be just the block ID.
+- `id` (`string`) - The block ID, e.g. `minecraft:stone`.
+- `properties` ([`Map`](#2-map)) - The properties of the block state, e.g. `{"foo": "bar", "facing": "north"}`.
+
+## Registry
+
+The registry is a collection of entries that can be used in the generator. It tells you what fields are available in the
+placeholders, and what entries will be processed by the generator.
+
+All the entries in a registry provides the following common fields:
+- `id` ([`ID`](#3-id)) - The ID of the entry, e.g. `croparia:coal`.
+
+### `croparia:crops`
+
+The crop registry contains all crops defined in Croparia IF. Each entry has the following fields:
+- `translation_key` (`string`) - The translation key of the crop, e.g. `croparia.crop.croparia.coal`.
+- `translations` ([`Map`](#2-map)) - The translations of the crop, e.g. `{"en_us": "Coal", "zh_cn": "煤炭"}`.
+- `material`([`Material`](#1-material)) - The material definition of the crop, e.g. `{"name": "minecraft:coal", "count": 1, "components": {}}`.
+- `color` ([`Color`](#2-color)) - The color of the crop, e.g. `#00ff0000`.
+- `type` (`string`) - The model type of the crop, e.g. `crop`.
+- `tier` (`number`) - The tier of the crop, e.g. `2`.
+- `fruit` ([`ID`](#3-id)) - The ID of the fruit item, e.g. `croparia:fruit_coal`.
+- `seed` ([`ID`](#3-id)) - The ID of the seed item, e.g. `croparia:seed_coal`.
+- `crop_block` ([`ID`](#3-id)) - The ID of the crop block, e.g. `croparia:block_crop_coal`.
+- `croparia` ([`ID`](#3-id)) - ID of the croparia item of tier defined by the crop, e.g. `croparia:croparia2`.
+- `result` ([`ItemOutput`](#4-itemoutput)) - The result item output of the crop, e.g. `{"id": "minecraft:coal", "amount": 2, "components": []}`.
+
+#### Special Placeholders
+
+As you may see above, some fields are not simple types. They are special placeholders that provide more fields to access.
+
+##### 1. Material
+
+Material represents the material definition. It has the following fields:
+- _SELF_ (`JsonObject`) - The full material definition.
+- `id` ([`ID`](#3-id)) - The ID of the material or the tag without the `#` prefix, e.g. `minecraft:coal` or `c:coals`.
+- `name` (`string`) - Similar to `id`, but if the material is a tag, it will have a `#` prefix, e.g. `minecraft:coal` or `#c:coals`.
+- `type` (`"item"|"tag"`) - Whether the material is a tag or an item.
+- `count` (`number`) - The count of the material.
+- `components` ([`Map`](#2-map)) - The components of the material, e.g. `{"foo": 1, "bar": 2}`.
+
+##### 2. Color
+
+Color represents a color definition. It has the following fields:
+- _SELF_ (`string`) - The color string in hex with `#` prefix, e.g. `#00ff0000`.
+- `hex` (`string`) - The color string in hex without `#` prefix, e.g. `00ff0000`.
+- `dec` (`string`) - The color in decimal, e.g. `16711680`.
+
+### `croparia:elements`
+
+The element are collection of the elemental gems, potions, etc. Each entry has the following fields:
+- `name` (`string`) - The name of the element, e.g. `fire`.
+- `color` ([`Color`](#2-color)) - The color of the element,
+- `gem` ([`ID`](#3-id)) - The ID of the elemental gem item, e.g. `croparia:gem_fire`.
+- `potion` ([`ID`](#3-id)) - The ID of the elemental potion item, e.g. `croparia:potion_fire`.
+- `bucket` ([`ID`](#3-id)) - The ID of the elemental bucket item, e.g. `croparia:bucket_fire`.
+- `fluid_flowing` ([`ID`](#3-id)) - The ID of the flowing elemental fluid, e.g. `croparia:fluid_fire_flow`.
+- `fluid_source` ([`ID`](#3-id)) - The ID of the source elemental fluid, e.g. `croparia:fluid_fire`.
+- `liquid_block` ([`ID`](#3-id)) - The ID of the elemental liquid block, e.g. `croparia:fluid_fire`.
