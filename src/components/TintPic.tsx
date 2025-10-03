@@ -22,6 +22,7 @@ export default function TintPic({src, color, size = 48, title, border = true}: P
            backgroundRepeat: 'no-repeat, no-repeat',
            backgroundPosition: 'center, center',
            imageRendering: 'pixelated',
+
            WebkitMaskImage: `url(${src})`,
            WebkitMaskRepeat: 'no-repeat',
            WebkitMaskSize: 'contain',
@@ -30,8 +31,8 @@ export default function TintPic({src, color, size = 48, title, border = true}: P
            maskRepeat: 'no-repeat',
            maskSize: 'contain',
            maskPosition: 'center',
-           // use luminance so灰度影响遮罩不透明度
-           ['maskMode' as any]: 'luminance',
+
+           ['maskMode' as any]: 'alpha',
            border: border ? '1px solid' : 'none',
            borderColor: 'divider',
            borderRadius: 0.5,

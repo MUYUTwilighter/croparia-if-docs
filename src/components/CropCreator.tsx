@@ -374,7 +374,7 @@ export default function CropCreator() {
               <Grid size={{xs: 12, sm: 4}}>
                 <Box
                   sx={{textAlign: "center", justifyItems: "center"}}
-                  style={{backgroundColor: "#8b8b8b", borderRadius: 8, paddingBlock: 8}}
+                  style={{borderRadius: 8, paddingBlock: 8}}
                 >
                   <Typography variant="body2" color="text.secondary">
                     Seed
@@ -386,7 +386,7 @@ export default function CropCreator() {
               <Grid size={{xs: 12, sm: 4}}>
                 <Box
                   sx={{textAlign: "center", justifyItems: "center"}}
-                  style={{backgroundColor: "#8b8b8b", borderRadius: 8, paddingBlock: 8}}
+                  style={{borderRadius: 8, paddingBlock: 8}}
                 >
                   <Typography variant="body2" color="text.secondary">
                     Fruit
@@ -395,7 +395,7 @@ export default function CropCreator() {
                     baseSrc={FRUIT_BASE(type)}
                     overlaySrc={FRUIT_OVERLAY(type)}
                     overlayTint={rgbHex}
-                    size={72}
+                    size={64}
                   />
                 </Box>
               </Grid>
@@ -403,7 +403,7 @@ export default function CropCreator() {
               <Grid size={{xs: 12, sm: 4}}>
                 <Box
                   sx={{textAlign: "center", justifyItems: "center"}}
-                  style={{backgroundColor: "#8b8b8b", borderRadius: 8, paddingBlock: 8}}
+                  style={{borderRadius: 8, paddingBlock: 8}}
                 >
                   <Typography variant="body2" color="text.secondary">
                     Crop
@@ -412,7 +412,7 @@ export default function CropCreator() {
                     baseSrc={CROP_BLOCK_BASE(type)}
                     overlaySrc={CROP_BLOCK_OVERLAY(type)}
                     overlayTint={rgbHex}
-                    size={72}
+                    size={64}
                   />
                 </Box>
               </Grid>
