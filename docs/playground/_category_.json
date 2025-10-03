@@ -1,0 +1,8 @@
+{
+  "label": "Playgrounds",
+  "position": 4,
+  "link": {
+    "type": "generated-index",
+    "description": "Some interactive playgrounds to test and explore various features and functionalities."
+  }
+}

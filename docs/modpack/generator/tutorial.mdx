@@ -2,8 +2,6 @@
 sidebar_position: 2
 ---
 
-import GeneratorPlayground from "../../../src/components/GeneratorPlayground";
-
 # Tutorial
 
 This tutorial will guide you through creating a simple generator that generates a set of files.
@@ -29,7 +27,7 @@ datapack handler. Croparia IF provide a datapack handler `croparia:datapack` wit
 `${game}/croparia/datapack` by default.
 
 When decided, you need to create a file with sub-fix `.toml`(recommended), `.cdg` or `.json` under the `generators` folder under the
-path mentioned above. See details about the file types in the [Generator File Types](./spec_generators#file-types) section.
+path mentioned above. See details about the file types in the [Generator File Types](./spec_generators#supported-file-types) section.
 
 ## 2. Specify Some Fields
 
@@ -248,6 +246,5 @@ There would be more language files if a crop is specified with more translations
 
 ## Playground
 
-Here you can create the generator easily. Note that you still need to test it in the game to ensure it works as expected.
-
-<GeneratorPlayground/>
+Navigate to [Generator Creator](../../playground/generator) to create the generator easily.
+Note that you still need to test it in the game to ensure it works as expected.

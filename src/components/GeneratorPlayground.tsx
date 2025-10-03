@@ -1,4 +1,4 @@
-import React from "react";
+import React, {ReactNode} from "react";
 import {
   Box,
   Button,
@@ -26,12 +26,14 @@ import {
 } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import DeleteIcon from "@mui/icons-material/Delete";
-import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 // Docusaurus themed code block with built-in copy button
 // If outside Docusaurus, you can swap this with a simple <pre><code> ...
 import CodeBlock from "@theme/CodeBlock";
+import {useColorMode} from "@docusaurus/theme-common";
+import {createTheme, ThemeProvider} from "@mui/material/styles";
+import BlockInput from "@site/src/type/BlockInput";
 
-const GENERATOR_TYPES = ['croparia:generator', 'croparia:aggregated', 'croparia:lang'] as const;
+const GENERATOR_TYPES = ['croparia:generator', 'croparia:aggregated', 'croparia:lang', 'croparia:recipe_wizard'] as const;
 const FILE_TYPES = ['toml', 'cdg', 'json'] as const;
 const REGISTRIES = ['croparia:crops', 'croparia:elements'] as const; // suggestions only
 
@@ -80,6 +82,68 @@ function RegistryField({value, onChange}: { value: string; onChange: (v: string)
   );
 }
 
+function BlockInputField({value, onChange}: { value: BlockInput; onChange: (v: BlockInput) => void }) {
+  const [valueInput, setValueInput] = React.useState(value.id ?? value.tag ? `#${value.tag}` : '');
+
+  console.log("Editing");
+  console.log(value);
+
+  let properties = new Map<string, string>(Object.entries(value.properties || {}));
+
+  function property(properties: Map<string, string>) {
+    const components: ReactNode[] = [];
+    properties.forEach((v, k) => {
+      components.push(<Stack key={k} direction="row" spacing={2}>
+          <IconButton onClick={() => {
+            properties.delete(k);
+            onChange({...value, properties: Object.fromEntries(properties)});
+          }}>
+            <DeleteIcon/>
+          </IconButton>
+          <TextField label="Property Key" value={k} onChange={() => {
+            properties.set(k, v);
+            onChange({...value, properties: Object.fromEntries(properties)});
+          }}/>
+          <TextField label="Property Value" value={v} onChange={e => {
+            properties.set(k, e.target.value);
+            onChange({...value, properties: Object.fromEntries(properties)});
+          }}/>
+        </Stack>);
+    });
+    return components;
+  }
+
+  return <>
+    <Typography variant="subtitle1">Block</Typography>
+    <Typography variant="body2" color="text.secondary">
+      Which block to be right-clicked by the Recipe Wizard so that this generator will be triggered and generate the
+      recipe.
+    </Typography>
+    <TextField fullWidth label="Block ID / Tag" value={valueInput} onChange={e => {
+      const input = e.target.value;
+      setValueInput(input);
+      if (input.length === 0) onChange({properties: value.properties});
+      if (input.startsWith("#")) onChange({tag: input.slice(1), properties: value.properties});
+      else onChange({id: input, properties: value.properties});
+    }}/>
+    <Typography variant="body2" color="text.secondary">
+      Block Properties (optional)
+    </Typography>
+    <Stack>
+      {property(properties)}
+      <Stack sx={{width: '100%', my: 1, alignItems: 'center', justifyItems: 'center', display: 'flex'}}>
+        <IconButton onClick={() => {
+          const k = "key" + (properties.size + 1);
+          properties.set(k, "");
+          onChange({...value, properties: Object.fromEntries(properties)});
+        }}>
+          <AddIcon/>
+        </IconButton>
+      </Stack>
+    </Stack>
+  </>
+}
+
 function WhitelistField({value, onChange}: { value: string[]; onChange: (v: string[]) => void }) {
   return (
     <Autocomplete
@@ -94,7 +158,27 @@ function WhitelistField({value, onChange}: { value: string[]; onChange: (v: stri
         ))
       }
       renderInput={(params) => (
-        <TextField {...params} label="Whitelist Mod IDs" placeholder="Add modid then press Enter"/>
+        <TextField {...params} label="Whitelist Entry IDs" placeholder="Add modid then press Enter"/>
+      )}
+    />
+  );
+}
+
+function ExtensionsField({value, onChange}: { value: string[]; onChange: (v: string[]) => void }) {
+  return (
+    <Autocomplete
+      multiple
+      freeSolo
+      options={[]}
+      value={value}
+      onChange={(_, v) => onChange(v)}
+      renderValue={(val: readonly string[], getTagProps) =>
+        val.map((option: string, index: number) => (
+          <Chip variant="outlined" label={option} {...getTagProps({index})} key={`${option}_${index}`}/>
+        ))
+      }
+      renderInput={(params) => (
+        <TextField {...params} label="Extension IDs" placeholder="Add id of extension in use then press Enter"/>
       )}
     />
   );
@@ -171,14 +255,15 @@ function DependenciesField({
 
 function BooleanToggles({enabled, setEnabled, startup, setStartup}: {
   enabled: boolean; setEnabled: (v: boolean) => void;
-  startup: boolean; setStartup: (v: boolean) => void;
+  startup?: boolean; setStartup?: (v: boolean) => void;
 }) {
   return (
     <Stack direction="row" spacing={2}>
       <FormControlLabel control={<Switch checked={enabled} onChange={e => setEnabled(e.target.checked)}/>}
                         label="Enabled"/>
-      <FormControlLabel control={<Switch checked={startup} onChange={e => setStartup(e.target.checked)}/>}
-                        label="Startup"/>
+      {startup && setStartup ?
+        <FormControlLabel control={<Switch checked={startup} onChange={e => setStartup(e.target.checked)}/>}
+                          label="Startup"/> : <></>}
     </Stack>
   );
 }
@@ -242,8 +327,7 @@ function GeneratedPreview({code, fileType}: { code: string; fileType: typeof FIL
   if (!code) return null;
   return (
     <Card variant="outlined">
-      <CardHeader title="Generated Output" action={<Tooltip
-        title="Copy from the top-right button of the code block."><ContentCopyIcon/></Tooltip>}/>
+      <CardHeader title="Generated Output"/>
       <CardContent>
         <CodeBlock language={langFor(fileType)}>
           {code}
@@ -253,10 +337,18 @@ function GeneratedPreview({code, fileType}: { code: string; fileType: typeof FIL
   );
 }
 
+function Line() {
+  return <hr style={{border: "gray 1px solid"}}/>;
+}
+
 // ---------- Generators ----------
 
 function isDependenciesEmpty(dependencies: string[][]) {
   return dependencies.length === 0 || dependencies.find(g => g.length !== 0) === undefined;
+}
+
+function isBlockEmpty(block: BlockInput) {
+  return !block.id && !block.tag;
 }
 
 function Generator() {
@@ -331,12 +423,130 @@ function Generator() {
           <CardContent>
             <Stack spacing={2}>
               <BooleanToggles enabled={enabled} setEnabled={setEnabled} startup={startup} setStartup={setStartup}/>
+              <Line/>
               <DependenciesField value={dependencies} onChange={setDependencies}/>
+              <Line/>
               <WhitelistField value={whitelist} onChange={setWhitelist}/>
+              <Line/>
               <RegistryField value={registry} onChange={setRegistry}/>
+              <Line/>
               <PathField value={path} onChange={setPath}/>
+              <Line/>
               <TemplateField value={template} onChange={setTemplate}/>
+              <Line/>
               <FileTypeSelect value={fileType} onChange={setFileType}/>
+              <Line/>
+              <Stack direction="row" spacing={1}>
+                <Button variant="contained" onClick={generate}>Generate</Button>
+                <Button onClick={() => {
+                  setOutput('');
+                  setError(null);
+                }}>Clear</Button>
+              </Stack>
+              <ErrorBanner error={error}/>
+            </Stack>
+          </CardContent>
+        </Card>
+      </Grid>
+      <Grid size={{xs: 12, md: 5}}>
+        <GeneratedPreview code={output} fileType={fileType}/>
+      </Grid>
+    </Grid>
+  );
+}
+
+function Lang() {
+  const [dependencies, setDependencies] = React.useState<string[][]>([]);
+  const [enabled, setEnabled] = React.useState<boolean>(true);
+  const [startup, setStartup] = React.useState<boolean>(false);
+  const [registry, setRegistry] = React.useState<string>('');
+  const [whitelist, setWhitelist] = React.useState<string[]>([]);
+  const [path, setPath] = React.useState<string>('');
+  const [template, setTemplate] = React.useState<string>('');
+  const [fileType, setFileType] = React.useState<typeof FILE_TYPES[number]>('toml');
+
+  const [error, setError] = React.useState<string | null>(null);
+  const [output, setOutput] = React.useState<string>('');
+
+  const generate = React.useCallback(() => {
+    try {
+      setError(null);
+      if (!registry) {
+        setError('Registry cannot be empty');
+        return;
+      }
+      if (!path) {
+        setError('Path cannot be empty');
+        return;
+      }
+      if (!template) {
+        setError('Template cannot be empty');
+        return;
+      }
+
+      if (fileType === 'toml') {
+        const code = trimIndent(`
+          type = "croparia:lang"
+          ${enabled ? '' : 'enabled = false'}
+          ${dependencies.length === 0 || (dependencies.map(d => d.length === 0).find(v => v === false) === undefined) ? `dependencies = [${dependencies.map(d => `["${d.join('", "')}"]`).join(', ')}]` : ''}
+          ${startup ? 'startup = true' : ''}
+          ${whitelist.length === 0 ? '' : `whitelist = ["${whitelist.join('", "')}"]`}
+          registry = "${registry}"
+          path = "${path}"
+          template = '''${template}'''
+        `);
+        setOutput(code);
+      } else if (fileType === 'cdg') {
+        const code = trimIndent(`
+          @type = croparia:lang;
+          ${enabled ? '' : '@enabled = false;'}
+          ${dependencies.length === 0 || (dependencies.map(d => d.length === 0).find(v => v === false) === undefined) ? `@dependencies = [${dependencies.map(d => `["${d.join('", "')}"]`).join(', ')}];` : ''}
+          ${startup ? '@startup = true;' : ''}
+          ${whitelist.length === 0 ? '' : `@whitelist = ["${whitelist.join('", "')}"];`}
+          @registry = ${registry};
+          @path = ${path};
+          ${template}
+        `);
+        setOutput(code);
+      } else {
+        const json = {
+          type: 'croparia:lang',
+          ...(enabled ? {} : {enabled: false}),
+          ...(dependencies.length === 0 || dependencies.map(d => d.length === 0).find(v => v === false) ? {dependencies} : {}),
+          ...(startup ? {startup: true} : {}),
+          ...(whitelist.length === 0 ? {} : {whitelist}),
+          registry,
+          path,
+          template
+        };
+        setOutput(JSON.stringify(json, null, 2));
+      }
+    } catch (e: any) {
+      setError(e.message ?? String(e));
+    }
+  }, [enabled, dependencies, startup, whitelist, registry, path, template, fileType]);
+
+  return (
+    <Grid container spacing={2}>
+      <Grid size={{xs: 12, md: 7}}>
+        <Card variant="outlined">
+          <CardHeader title="Lang" subheader="Language generation with a template"/>
+          <CardContent>
+            <Stack spacing={2}>
+              <BooleanToggles enabled={enabled} setEnabled={setEnabled} startup={startup} setStartup={setStartup}/>
+              <Line/>
+              <DependenciesField value={dependencies} onChange={setDependencies}/>
+              <Line/>
+              <WhitelistField value={whitelist} onChange={setWhitelist}/>
+              <Line/>
+              <RegistryField value={registry} onChange={setRegistry}/>
+              <Line/>
+              <PathField value={path} onChange={setPath}/>
+              <Line/>
+              <TemplateField value={template} onChange={setTemplate}/>
+              <Line/>
+              <FileTypeSelect value={fileType} onChange={setFileType}/>
+              <Line/>
               <Stack direction="row" spacing={1}>
                 <Button variant="contained" onClick={generate}>Generate</Button>
                 <Button onClick={() => {
@@ -442,13 +652,21 @@ function Aggregated() {
           <CardContent>
             <Stack spacing={2}>
               <BooleanToggles enabled={enabled} setEnabled={setEnabled} startup={startup} setStartup={setStartup}/>
+              <Line/>
               <DependenciesField value={dependencies} onChange={setDependencies}/>
+              <Line/>
               <WhitelistField value={whitelist} onChange={setWhitelist}/>
+              <Line/>
               <RegistryField value={registry} onChange={setRegistry}/>
+              <Line/>
               <PathField value={path} onChange={setPath}/>
+              <Line/>
               <ContentField value={content} onChange={setContent}/>
+              <Line/>
               <TemplateField value={template} onChange={setTemplate} label="Template (only ${content})"/>
+              <Line/>
               <FileTypeSelect value={fileType} onChange={setFileType}/>
+              <Line/>
               <Stack direction="row" spacing={1}>
                 <Button variant="contained" onClick={generate}>Generate</Button>
                 <Button onClick={() => {
@@ -468,12 +686,11 @@ function Aggregated() {
   );
 }
 
-function Lang() {
+function RecipeWizard() {
   const [dependencies, setDependencies] = React.useState<string[][]>([]);
   const [enabled, setEnabled] = React.useState<boolean>(true);
-  const [startup, setStartup] = React.useState<boolean>(false);
-  const [registry, setRegistry] = React.useState<string>('');
-  const [whitelist, setWhitelist] = React.useState<string[]>([]);
+  const [block, setBlock] = React.useState<BlockInput>({});
+  const [extensions, setExtensions] = React.useState<string[]>([]);
   const [path, setPath] = React.useState<string>('');
   const [template, setTemplate] = React.useState<string>('');
   const [fileType, setFileType] = React.useState<typeof FILE_TYPES[number]>('toml');
@@ -482,77 +699,74 @@ function Lang() {
   const [output, setOutput] = React.useState<string>('');
 
   const generate = React.useCallback(() => {
-    try {
-      setError(null);
-      if (!registry) {
-        setError('Registry cannot be empty');
-        return;
-      }
-      if (!path) {
-        setError('Path cannot be empty');
-        return;
-      }
-      if (!template) {
-        setError('Template cannot be empty');
-        return;
-      }
+    setError(null);
+    if (!path) {
+      setError('Path cannot be empty');
+      return;
+    }
+    if (!template) {
+      setError('Template cannot be empty');
+      return;
+    }
+    if (isBlockEmpty(block)) {
+      setError('Block ID / Tag cannot be empty');
+      return;
+    }
 
-      if (fileType === 'toml') {
-        const code = trimIndent(`
-          type = "croparia:lang"
+    if (fileType === 'toml') {
+      const code = trimIndent(`
           ${enabled ? '' : 'enabled = false'}
-          ${dependencies.length === 0 || (dependencies.map(d => d.length === 0).find(v => v === false) === undefined) ? `dependencies = [${dependencies.map(d => `["${d.join('", "')}"]`).join(', ')}]` : ''}
-          ${startup ? 'startup = true' : ''}
-          ${whitelist.length === 0 ? '' : `whitelist = ["${whitelist.join('", "')}"]`}
-          registry = "${registry}"
+          ${isDependenciesEmpty(dependencies) ? '' : `dependencies = [${dependencies.map(d => `["${d.join('", "')}"]`).join(', ')}]`}
+          ${block.properties && Object.keys(block.properties).length > 0 ? `block = ${JSON.stringify(block)}` : block.id ? `block = "${block.id}"` : `block = "#${block.tag}"`}
+          ${extensions.length === 0 ? '' : `whitelist = ["${extensions.join('", "')}"]`}
           path = "${path}"
           template = '''${template}'''
         `);
-        setOutput(code);
-      } else if (fileType === 'cdg') {
-        const code = trimIndent(`
-          @type = croparia:lang;
+      setOutput(code);
+    } else if (fileType === 'cdg') {
+      const code = trimIndent(`
           ${enabled ? '' : '@enabled = false;'}
-          ${dependencies.length === 0 || (dependencies.map(d => d.length === 0).find(v => v === false) === undefined) ? `@dependencies = [${dependencies.map(d => `["${d.join('", "')}"]`).join(', ')}];` : ''}
-          ${startup ? '@startup = true;' : ''}
-          ${whitelist.length === 0 ? '' : `@whitelist = ["${whitelist.join('", "')}"];`}
-          @registry = ${registry};
+          ${isDependenciesEmpty(dependencies) ? '' : `@dependencies = [${dependencies.map(d => `["${d.join('", "')}"]`).join(', ')}];`}
+          ${block.properties && Object.keys(block.properties).length > 0 ? `@block = ${JSON.stringify(block)};` : block.id ? `@block = "${block.id}";` : `@block = "#${block.tag}";`}
+          ${extensions.length === 0 ? '' : `@extensions = ["${extensions.join('", "')}"];`}
           @path = ${path};
           ${template}
         `);
-        setOutput(code);
-      } else {
-        const json = {
-          type: 'croparia:lang',
-          ...(enabled ? {} : {enabled: false}),
-          ...(dependencies.length === 0 || dependencies.map(d => d.length === 0).find(v => v === false) ? {dependencies} : {}),
-          ...(startup ? {startup: true} : {}),
-          ...(whitelist.length === 0 ? {} : {whitelist}),
-          registry,
-          path,
-          template
-        };
-        setOutput(JSON.stringify(json, null, 2));
-      }
-    } catch (e: any) {
-      setError(e.message ?? String(e));
+      setOutput(code);
+    } else {
+      const json = {
+        ...(enabled ? {} : {enabled: false}),
+        ...(isDependenciesEmpty(dependencies) ? {dependencies} : {}),
+        ...(!block.properties && Object.keys(block.properties).length > 0 ? {block} : block.id ? {block: block.id} : {block: `#${block.tag}`}),
+        ...(extensions.length === 0 ? {} : {whitelist: extensions}),
+        path,
+        template
+      };
+      setOutput(JSON.stringify(json, null, 2));
     }
-  }, [enabled, dependencies, startup, whitelist, registry, path, template, fileType]);
+  }, [enabled, dependencies, block, extensions, path, template, fileType]);
 
   return (
     <Grid container spacing={2}>
       <Grid size={{xs: 12, md: 7}}>
         <Card variant="outlined">
-          <CardHeader title="Lang" subheader="Language generation with a template"/>
+          <CardHeader title="Recipe Wizard Generator" subheader="Describe how actions in world generates a recipe"/>
           <CardContent>
             <Stack spacing={2}>
-              <BooleanToggles enabled={enabled} setEnabled={setEnabled} startup={startup} setStartup={setStartup}/>
+              <BooleanToggles enabled={enabled} setEnabled={setEnabled}/>
+              <Line/>
               <DependenciesField value={dependencies} onChange={setDependencies}/>
-              <WhitelistField value={whitelist} onChange={setWhitelist}/>
-              <RegistryField value={registry} onChange={setRegistry}/>
+              <Line/>
+              <BlockInputField value={block} onChange={setBlock}/>
+              <Line/>
+              <ExtensionsField value={extensions} onChange={setExtensions}/>
+              <Line/>
               <PathField value={path} onChange={setPath}/>
+              <Line/>
               <TemplateField value={template} onChange={setTemplate}/>
+              <Line/>
               <FileTypeSelect value={fileType} onChange={setFileType}/>
+              <Line/>
               <Stack direction="row" spacing={1}>
                 <Button variant="contained" onClick={generate}>Generate</Button>
                 <Button onClick={() => {
@@ -574,38 +788,47 @@ function Lang() {
 
 export default function GeneratorPlayground() {
   const [genType, setGenType] = React.useState<typeof GENERATOR_TYPES[number]>('croparia:generator');
+  const {colorMode} = useColorMode();
+
+  const theme = React.useMemo(() => createTheme({
+    palette: {mode: colorMode === "dark" ? "dark" : "light"},
+  }), [colorMode]);
 
   return (
-    <Container maxWidth="lg" sx={{py: 3}}>
-      <Typography variant="body2" color="text.secondary" sx={{mb: 2}}>
-        Build generator entries with live validation. The output renders in a Docusaurus code block so you can copy
-        directly using its built-in button.
-      </Typography>
+    <ThemeProvider theme={theme}>
+      <Container maxWidth="lg" sx={{py: 3}}>
+        <Typography variant="body2" color="text.secondary" sx={{mb: 2}}>
+          Build generator entries with live validation. The output renders in a Docusaurus code block so you can copy
+          directly using its built-in button.
+        </Typography>
 
-      <Card variant="outlined" sx={{mb: 2}}>
-        <CardContent>
-          <Tabs
-            value={genType}
-            onChange={(_, v) => setGenType(v)}
-            variant="scrollable"
-            scrollButtons="auto"
-          >
-            <Tab value="croparia:generator" label="Generator"/>
-            <Tab value="croparia:aggregated" label="Aggregated"/>
-            <Tab value="croparia:lang" label="Lang"/>
-          </Tabs>
-        </CardContent>
-      </Card>
+        <Card variant="outlined" sx={{mb: 2}}>
+          <CardContent>
+            <Tabs
+              value={genType}
+              onChange={(_, v) => setGenType(v)}
+              variant="scrollable"
+              scrollButtons="auto"
+            >
+              <Tab value="croparia:generator" label="Generator"/>
+              <Tab value="croparia:aggregated" label="Aggregated"/>
+              <Tab value="croparia:lang" label="Lang"/>
+              <Tab value="croparia:recipe_wizard" label="Recipe Wizard"/>
+            </Tabs>
+          </CardContent>
+        </Card>
 
-      {genType === 'croparia:generator' && <Generator/>}
-      {genType === 'croparia:aggregated' && <Aggregated/>}
-      {genType === 'croparia:lang' && <Lang/>}
+        {genType === 'croparia:generator' && <Generator/>}
+        {genType === 'croparia:aggregated' && <Aggregated/>}
+        {genType === 'croparia:lang' && <Lang/>}
+        {genType === 'croparia:recipe_wizard' && <RecipeWizard/>}
 
-      <Divider sx={{my: 3}}/>
-      <Typography variant="caption" color="text.secondary">
-        Notes: Registry field suggests two presets ({REGISTRIES.join(', ')}) but allows any custom value. Dependencies
-        semantics: any-in-group AND across all groups.
-      </Typography>
-    </Container>
+        <Divider sx={{my: 3}}/>
+        <Typography variant="caption" color="text.secondary">
+          Notes: Registry field suggests two presets ({REGISTRIES.join(', ')}) but allows any custom value. Dependencies
+          semantics: any-in-group AND across all groups.
+        </Typography>
+      </Container>
+    </ThemeProvider>
   );
 }

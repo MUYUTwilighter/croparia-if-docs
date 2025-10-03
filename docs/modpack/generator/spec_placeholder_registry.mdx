@@ -125,3 +125,43 @@ The element are collection of the elemental gems, potions, etc. Each entry has t
 - `fluid_flowing` ([`ID`](#3-id)) - The ID of the flowing elemental fluid, e.g. `croparia:fluid_fire_flow`.
 - `fluid_source` ([`ID`](#3-id)) - The ID of the source elemental fluid, e.g. `croparia:fluid_fire`.
 - `liquid_block` ([`ID`](#3-id)) - The ID of the elemental liquid block, e.g. `croparia:fluid_fire`.
+
+## Recipe Wizard Extensions
+
+Recipe Wizard Extensions provide additional placeholders for the Recipe Wizard generators. You can specify the extensions
+in the `extensions` field of the generator.
+
+If there are some information missing in the environment but is specified as placeholders in the generator, there would
+be an overlay message in the game telling you what is missing.
+
+### i. `minecraft:default`
+
+This extension is always included, it provides some basic placeholders:
+- `${datetime}` (`string`): The current date and time in `yyyy-MM-dd_HH.mm.ss` format.
+- `${main_hand}` ([`ItemOutput`](#4-itemoutput)): The item you are holding in your main hand.
+- `${off_hand}` ([`ItemOutput`](#4-itemoutput)): The item you are holding in your offhand.
+- `${item}` ([`ItemOutput`](#4-itemoutput)): The first item found in the click block position.
+- `${block}` ([`BlockOutput`](#5-blockoutput)): The block you right-clicked, as a block JSON object.
+- `${neighbors}` ([`BlockOutput`](#5-blockoutput)): The first non-air block found in the south, west, north, east directions of the clicked block position.
+- `${below}` ([`BlockOutput`](#5-blockoutput)): The block below the clicked block position.
+
+### ii. `croparia:infusor`
+
+This extension provides placeholders related to the [Infusor](../../play/infusor):
+- `${infusor_element}` (`string`): The element of the infusor at the clicked position, e.g. `fire`, `water`, etc.
+
+### iii. `croparia:ritual`
+
+This extension provides placeholders related to the [Ritual Stand](../../play/ritual_stand):
+- `${ritual_input}` ([`BlockOutput`](#5-blockoutput)): The input block in a complete ritual structure.
+
+### iv. `croparia:soak`
+
+This extension provides placeholders related to the [Elemental Soak](../../play/elemental_stone):
+- `${soak_element}` ([`BlockOutput`](#5-blockoutput)): The element of the infusor on top of the elemental stone.
+
+### v. `minecraft:furnace`
+
+This extension provides placeholders related to the vanilla furnace block:
+- `${furnace_input}` ([`ItemOutput`](#4-itemoutput)): The input item in the furnace.
+- `${furnace_time}` (`integer`): The total burning time of the fuel in the furnace divided by the count of the input item.

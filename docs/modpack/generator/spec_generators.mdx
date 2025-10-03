@@ -1,7 +1,7 @@
 # Spec: Generators
 
 A generator is a tool that automates the creation of modpacks based on predefined templates and configurations. It is
-defined as files in the `generators` folder of the file-pack provided by [Pack Handler](../generator#packhandler).
+defined as files in the `generators` folder of the file-pack provided by [Pack Handler](./#pack-handler).
 
 Here we talk about the schema of built-in generator types provided by Croparia IF. If you are going to create/modify a
 generator, please refer to the [Tutorial](tutorial) first, which also provides a [playground](tutorial/#playground) for
@@ -86,16 +86,16 @@ Croparia IF provides 3 built-in generator types: `croparia:generator`, `croparia
 The default type of generator. It generates a file for each entry in a registry.
 
 Available fields:
-- `type` (string, required): The type of the generator. Must be `croparia:generator`.
+- `type` (`string`, required): The type of the generator. Must be `croparia:generator`.
 - `dependencies` (array of arrays strings, optional): List of mod IDs that must be loaded for this generator to run.
   - If you specify **A Array of Arrays**, this generator will be available if **all** the arrays contain at least one mod that is loaded.
   - If you only specify **A Array**, this generator will be available if **any** of the mods in **The Array** are loaded.
   - If you only specify **A String**, this generator will be available if the mod represented by **The String** are loaded.
-- `enabled` (boolean, optional, default: true): Whether to enable this generator.
-- `startup` (boolean, optional, default: false): Whether to run this generator every time the pack is loaded, including the game
+- `enabled` (`boolean`, optional, default: `true`): Whether to enable this generator.
+- `startup` (`boolean`, optional, default: `false`): Whether to run this generator every time the pack is loaded, including the game
 startup. If you want to access the tag system, you need to set this to false.
-- `registry` (string, required): Registry to get entries from, you can use any registry in the game, or a custom registry provided by a mod. `"croparia:crops"` means this generator will generate files for each crop in Croparia IF.
-- `whitelist` (array of strings, optional): List of entry IDs to include. If specified, only entries from the `registry` above with IDs in this list will be processed.
+- `registry` (`string`, required): Registry to get entries from, you can use any registry in the game, or a custom registry provided by a mod. `"croparia:crops"` means this generator will generate files for each crop in Croparia IF.
+- `whitelist` (`string[]`, optional): List of entry IDs to include. If specified, only entries from the `registry` above with IDs in this list will be processed.
 - `path` (string that support placeholders, required): Path relative to the root of the pack handler's file-pack to place the generated files.
 - `template` (string that support placeholders, required): Template for the generated file.
 
@@ -122,3 +122,13 @@ It the same fields supported by [`croparia:generator`](#i-cropariagenerator). Bu
 - Additional placeholder: `${lang}`, which represents the translation of the entry in the language you are generating.
 - Pre-handled placeholder field: `_lang`, similar to `${lang}`, but it is used inside a placeholder that will be replaced
 with the language name before the placeholder is parsed.
+
+### iv. Recipe Wizard Generator
+
+This is a special type of generator used by [Recipe Wizard](../recipe_wizard) to create recipes based on the environment
+and your actions. It is not supported by pack handler, instead, it is loaded and used by Recipe Wizard item in the game.
+
+The format is very similar to `croparia:generator`, but it has some special fields:
+- No `type` and `registry` field.
+- `block` ([`BlockInput`](spec_placeholder_registry#5-blockoutput), required): The block to match when you right-click a block with Recipe Wizard in hand. It can be a block ID, a tag, or a block state.
+- `extensions` (`string[]`, optional): A list of Recipe Wizard Extensions that provide additional placeholders for the template. Refer to the [Recipe Wizard Extensions](./spec_placeholder_registry#recipe-wizard-extensions) documentation for more details.

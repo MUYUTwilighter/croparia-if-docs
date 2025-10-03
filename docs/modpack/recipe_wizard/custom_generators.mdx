@@ -3,3 +3,46 @@
 Similar to the [Generator API](../generator), Recipe Wizard also supports custom generators that define how to create
 recipes from the environment and your actions.
 
+You may try the [Generator Creator](../../playground/generator) to create a generator easily.
+
+## How it works?
+
+First, let's take down the process of creating a recipe with Recipe Wizard.
+
+1. When you right-click a block with a Recipe Wizard in hand, the Recipe Wizard will check the block you clicked on to
+find a matching generator.
+2. If matched, Recipe Wizard will collect the information from the environment and your actions, like the input item you
+hold, the block you clicked on, etc.
+3. Then, the generator will process the information to replace the placeholders defined in the template of the generator,
+and create a recipe JSON object based on the template, then export it based on the specified path inside the generator.
+
+## Define your own generator
+
+Similar to the Pack Handler, Recipe Wizard Generator is also store in a specific folder. By default, the folder is
+`${game}/croparia/recipe_wizard/generators`, but you may change the `recipe_wizard` option in the
+[Configurations](../config).
+
+So, create a file under that folder with `.toml`, `.json`, or `.cdg` extension, and let's move on to the formats.
+
+```toml title="Toml Example: Infusor Recipe Generator"
+path = "croparia/infusor_${datetime}.json"
+# A list of ID of extensions that provide additional placeholders for the template.
+extensions = "croparia:infusor"
+# The block to match when you right-click a block with Recipe Wizard in hand.
+block = "croparia:infusor"
+template = """
+{
+  "type": "croparia:infusor",
+  "element": "${infusor_element}",
+  "ingredient": ${item._qis},
+  "result": ${off_hand._qis},
+}
+"""
+```
+
+The example above defines a generator that generates an infusor recipe when you right-click an infusor block with a Recipe
+Wizard in hand.
+
+Refer to the [Recipe Wizard Generator](../generator/spec_generators#iv-recipe-wizard-generator) documentation for the common fields.
+
+Refer to the [Recipe Wizard Extensions](../generator/spec_placeholder_registry#recipe-wizard-extensions) documentation for the extensions and the additional placeholders they provide.

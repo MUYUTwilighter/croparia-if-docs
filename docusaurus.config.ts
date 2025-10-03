@@ -157,6 +157,9 @@ const config: Config = {
       additionalLanguages: ['toml', 'json5']
     },
   } satisfies Preset.ThemeConfig,
+  customFields: {
+    "API_URL": process.env.API_URL || 'http://localhost:4000',
+  }
 };
 
 export default config;
