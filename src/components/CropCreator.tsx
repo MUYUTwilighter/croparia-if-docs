@@ -280,7 +280,6 @@ export default function CropCreator() {
                       <IconButton
                         aria-label="remove dependency row"
                         onClick={() => removeRow("deps", i)}
-                        disabled={deps.length <= 1}
                         size="small"
                       >
                         <DeleteIcon fontSize="small"/>
@@ -340,7 +339,6 @@ export default function CropCreator() {
                       <IconButton
                         aria-label="remove translation row"
                         onClick={() => removeRow("langs", i)}
-                        disabled={langs.length <= 1}
                         size="small"
                       >
                         <DeleteIcon fontSize="small"/>
