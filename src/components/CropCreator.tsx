@@ -25,8 +25,7 @@ import {parseMaterial} from "@site/src/type/Material";
 type CropType = "animal" | "crop" | "food" | "monster" | "nature";
 
 const CROP_TYPES: CropType[] = ["animal", "crop", "food", "monster", "nature"];
-const TIER_MIN = 1,
-  TIER_MAX = 7;
+const TIER_MIN = 1, TIER_MAX = 7;
 
 const SEED_GRAY_URL =
   "https://raw.githubusercontent.com/MUYUTwilighter/croparia-if/master/common/src/main/resources/assets/croparia/textures/item/seed_crop.png";
