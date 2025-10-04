@@ -94,21 +94,21 @@ function BlockInputField({value, onChange}: { value: BlockInput; onChange: (v: B
     const components: ReactNode[] = [];
     properties.forEach((v, k) => {
       components.push(<Stack key={k} direction="row" spacing={2}>
-          <IconButton onClick={() => {
-            properties.delete(k);
-            onChange({...value, properties: Object.fromEntries(properties)});
-          }}>
-            <DeleteIcon/>
-          </IconButton>
-          <TextField label="Property Key" value={k} onChange={() => {
-            properties.set(k, v);
-            onChange({...value, properties: Object.fromEntries(properties)});
-          }}/>
-          <TextField label="Property Value" value={v} onChange={e => {
-            properties.set(k, e.target.value);
-            onChange({...value, properties: Object.fromEntries(properties)});
-          }}/>
-        </Stack>);
+        <IconButton onClick={() => {
+          properties.delete(k);
+          onChange({...value, properties: Object.fromEntries(properties)});
+        }}>
+          <DeleteIcon/>
+        </IconButton>
+        <TextField label="Property Key" value={k} onChange={() => {
+          properties.set(k, v);
+          onChange({...value, properties: Object.fromEntries(properties)});
+        }}/>
+        <TextField label="Property Value" value={v} onChange={e => {
+          properties.set(k, e.target.value);
+          onChange({...value, properties: Object.fromEntries(properties)});
+        }}/>
+      </Stack>);
     });
     return components;
   }
@@ -325,16 +325,14 @@ function ErrorBanner({error}: { error: string | null }) {
 
 function GeneratedPreview({code, fileType}: { code: string; fileType: typeof FILE_TYPES[number] }) {
   if (!code) return null;
-  return (
-    <Card variant="outlined">
-      <CardHeader title="Generated Output"/>
-      <CardContent>
-        <CodeBlock language={langFor(fileType)}>
-          {code}
-        </CodeBlock>
-      </CardContent>
-    </Card>
-  );
+  return <Card variant="outlined">
+    <CardHeader title="Generated Output"/>
+    <CardContent>
+      <CodeBlock language={langFor(fileType)}>
+        {code}
+      </CodeBlock>
+    </CardContent>
+  </Card>;
 }
 
 function Line() {

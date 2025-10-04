@@ -7,7 +7,6 @@ import TextField from "@mui/material/TextField";
 import Slider from "@mui/material/Slider";
 import MenuItem from "@mui/material/MenuItem";
 import Divider from "@mui/material/Divider";
-import Chip from "@mui/material/Chip";
 import CodeBlock from "@theme/CodeBlock";
 import IconButton from "@mui/material/IconButton";
 import Tooltip from "@mui/material/Tooltip";
@@ -20,18 +19,10 @@ import {useColorMode} from "@docusaurus/theme-common";
 // Reuse your extracted components
 import LayeredPic from "./LayeredPic";
 import TintPic from "./TintPic";
+import Crop from "@site/src/type/Crop";
+import {parseMaterial} from "@site/src/type/Material";
 
 type CropType = "animal" | "crop" | "food" | "monster" | "nature";
-
-interface CropDef {
-  id: string;
-  tier: number;
-  material: string;
-  color: string; // #RRGGBB
-  type: CropType;
-  dependencies: Record<string, string>;
-  translations?: Record<string, string>;
-}
 
 const CROP_TYPES: CropType[] = ["animal", "crop", "food", "monster", "nature"];
 const TIER_MIN = 1,
@@ -94,44 +85,44 @@ export default function CropCreator() {
   );
 
   // Base form
-  const [id, setId] = React.useState("");
+  const [id, setId] = React.useState("croparia:your_crop");
   const [type, setType] = React.useState<CropType>("crop");
   const [tier, setTier] = React.useState(1);
-  const [material, setMaterial] = React.useState("c:ingots/material");
+  const [material, setMaterial] = React.useState("");
+  const [components, setComponents] = React.useState<Pair[]>([]);
   const [color, setColor] = React.useState("#FFFFFF");
   const rgbHex = React.useMemo(() => toRgbHex(color), [color]);
 
   // Editable dependencies and translations
-  const [deps, setDeps] = React.useState<Pair[]>([{key: "", value: ""}]);
-  const [langs, setLangs] = React.useState<Pair[]>([
-    {key: "en_us", value: ""},
-  ]);
+  const [deps, setDeps] = React.useState<Pair[]>([]);
+  const [langs, setLangs] = React.useState<Pair[]>([]);
 
   // Add / remove rows
-  const addRow = (which: "deps" | "langs") => {
+  const addRow = (which: "deps" | "langs" | "components") => {
     if (which === "deps") setDeps((p) => [...p, {key: "", value: ""}]);
+    else if (which === "components") setComponents((p) => [...p, {key: "", value: ""}]);
     else setLangs((p) => [...p, {key: "", value: ""}]);
   };
-  const removeRow = (which: "deps" | "langs", idx: number) => {
+  const removeRow = (which: "deps" | "langs" | "components", idx: number) => {
     if (which === "deps") setDeps((p) => p.filter((_, i) => i !== idx));
+    else if (which === "components") setComponents((p) => p.filter((_, i) => i !== idx));
     else setLangs((p) => p.filter((_, i) => i !== idx));
   };
-  const updateRow =
-    (which: "deps" | "langs", idx: number, field: "key" | "value") =>
-      (e: React.ChangeEvent<HTMLInputElement>) => {
-        const v = e.target.value;
-        if (which === "deps") {
-          setDeps((p) => p.map((row, i) => (i === idx ? {...row, [field]: v} : row)));
-        } else {
-          setLangs((p) => p.map((row, i) => (i === idx ? {...row, [field]: v} : row)));
-        }
-      };
+  const updateRow = (which: "deps" | "langs" | "components", idx: number, field: "key" | "value") => (e: React.ChangeEvent<HTMLInputElement>) => {
+    const v = e.target.value;
+    if (which === "deps") setDeps((p) => p.map((row, i) => (i === idx ? {...row, [field]: v} : row)));
+    else if (which === "components") setComponents((p) => p.map((row, i) => (i === idx ? {
+      ...row,
+      [field]: v
+    } : row)));
+    else setLangs((p) => p.map((row, i) => (i === idx ? {...row, [field]: v} : row)));
+  };
 
   // Live JSON
-  const cropJson: CropDef = {
+  const cropJson: Crop = {
     id: id.trim() || "croparia:your_crop",
     tier,
-    material: material.trim() || "c:ingots/material",
+    material: parseMaterial(material.trim(), components),
     color: rgbHex,
     type,
     dependencies: toRecord(deps),
@@ -142,7 +133,7 @@ export default function CropCreator() {
     <ThemeProvider theme={theme}>
       <Grid container spacing={2}>
         {/* LEFT: base fields */}
-        <Grid size={{xs: 12, md: 5, lg: 4}}>
+        <Grid size={{xs: 12, md: 4, lg: 6}}>
           <Paper variant="outlined" sx={{p: 2, mb: 2}}>
             <Typography variant="subtitle1" gutterBottom>
               Basic
@@ -155,7 +146,11 @@ export default function CropCreator() {
               onChange={(e) => setId(e.target.value)}
               fullWidth
               sx={{mb: 2}}
-              placeholder="croparia:iron"
+              placeholder="croparia:your_crop"
+              error={!id.includes(":") || id.startsWith("minecraft") || id.length === 0}
+              helperText={
+                !id.includes(":") || id.startsWith("minecraft") || id.length === 0 ? "ID must not be empty or with namespace \"minecraft\"" : ""
+              }
             />
 
             <TextField
@@ -164,8 +159,7 @@ export default function CropCreator() {
               value={type}
               onChange={(e) => setType(e.target.value as CropType)}
               fullWidth
-              sx={{mb: 2}}
-            >
+              sx={{mb: 2}}>
               {CROP_TYPES.map((t) => (
                 <MenuItem key={t} value={t}>
                   {t}
@@ -174,7 +168,7 @@ export default function CropCreator() {
             </TextField>
 
             <Typography variant="body2" sx={{mb: 1}}>
-              Tier: <Chip size="small" label={tier}/>
+              Tier: {tier}
             </Typography>
             <Box sx={{display: "flex", alignItems: "center", gap: 1}}>
               <img
@@ -194,15 +188,6 @@ export default function CropCreator() {
                 sx={{ml: 1}}
               />
             </Box>
-
-            <TextField
-              label="Material"
-              value={material}
-              onChange={(e) => setMaterial(e.target.value)}
-              fullWidth
-              sx={{my: 2}}
-              placeholder="c:ingots/material"
-            />
 
             <Box>
               <Typography variant="body2" sx={{mb: 0.5}}>
@@ -240,6 +225,59 @@ export default function CropCreator() {
                 />
               </Box>
             </Box>
+
+            <Typography variant="subtitle2">Material</Typography>
+            <TextField
+              label="ID / Tag"
+              value={material}
+              onChange={(e) => setMaterial(e.target.value)}
+              fullWidth
+              sx={{my: 2}}
+              placeholder="#c:ingots/material"
+              error={material.trim().length === 0}
+              helperText={material.trim().length === 0 ? "Material must not be empty" :
+                !material.startsWith("#") && (material.includes("ingots") || material.includes("gems") || material.includes("nuggets")) ? "Tag material should start with \"#\"" : ""}
+            />
+            <Typography variant="body2" color="text.secondary">Components (optional)</Typography>
+            {components.map((row, i) => {
+              const keyErr = row.key.trim().length === 0;
+              const valErr = row.value.trim().length === 0;
+              return (
+                <Box key={`dep-${i}`} sx={{display: "flex", gap: 1, mt: 1}}>
+                  <TextField
+                    size="small"
+                    label="Key"
+                    value={row.key}
+                    onChange={updateRow("components", i, "key")}
+                    helperText={keyErr ? "Key must not be empty" : " "}
+                    sx={{flex: 1}}
+                  />
+                  <TextField
+                    size="small"
+                    label="value"
+                    value={row.value}
+                    onChange={updateRow("components", i, "value")}
+                    helperText={valErr ? "Value must not be empty" : " "}
+                    sx={{flex: 1.4}}
+                  />
+                  <IconButton
+                    aria-label="remove components row"
+                    onClick={() => removeRow("components", i)}
+                    size="small"
+                  >
+                    <DeleteIcon fontSize="small"/>
+                  </IconButton>
+                </Box>
+              );
+            })}
+            <Button
+              startIcon={<AddIcon/>}
+              size="small"
+              onClick={() => addRow("components")}
+              sx={{mt: 1, marginBottom: 2}}
+            >
+              Add component
+            </Button>
           </Paper>
 
           {/* Dependencies editor */}
@@ -361,7 +399,7 @@ export default function CropCreator() {
         </Grid>
 
         {/* RIGHT: live preview */}
-        <Grid size={{xs: 12, md: 7, lg: 8}}>
+        <Grid size={{xs: 12, md: 7, lg: 6}}>
           <Paper variant="outlined" sx={{p: 2}}>
             <Typography variant="subtitle1" gutterBottom>
               Preview
