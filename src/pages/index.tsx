@@ -4,10 +4,10 @@ import Link from '@docusaurus/Link';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import Layout from '@theme/Layout';
 import HomepageFeatures from '@site/src/components/HomepageFeatures';
-import Heading from '@theme/Heading';
 
 import styles from './index.module.css';
 import {Stack, styled, Typography} from "@mui/material";
+import Pic from "@site/src/components/Pic";
 
 const Header = styled('header')<{ bg: string }>((bg) => ({
   background: `transparent url(${bg.bg}) center / cover no-repeat`,
@@ -31,9 +31,9 @@ function HomepageHeader() {
   return (
     <Header bg={bg} className={clsx('hero hero--primary', styles.heroBanner)}>
       <HeaderOverlay className="container">
-        <Heading as="h1" className="hero__title">
-          {siteConfig.title}
-        </Heading>
+        <Pic src='/img/croparia-if-banner.webp' imgStyle={{
+            maxHeight: '4cm'
+        }}/>
         <p className="hero__subtitle">{siteConfig.tagline}</p>
         <Stack direction='row' justifyContent={'center'} alignItems={'center'}>
           <Typography variant={'h5'}>

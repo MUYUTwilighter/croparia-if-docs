@@ -154,7 +154,7 @@ const config: Config = {
     prism: {
       theme: prismThemes.github,
       darkTheme: prismThemes.dracula,
-      additionalLanguages: ['toml', 'json5']
+      additionalLanguages: ['toml', 'json5', 'groovy', 'java']
     },
   } satisfies Preset.ThemeConfig,
   customFields: {
