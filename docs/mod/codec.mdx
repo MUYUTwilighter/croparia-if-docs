@@ -1,0 +1,130 @@
+# Codec API
+
+Are codecs by mojang good? <del>I love it anyway.</del> Now Croparia makes it even better!
+
+Codec is created by Mojang that handles serialization and deserialization between java objects and `JsonElement` (The
+one created by GSON) or NBT.
+
+For more details, see [NeoForge Doc](https://docs.neoforged.net/docs/datastorage/codecs/).
+
+## Enhancement by Croparia IF
+
+Codec is so widely used, but still has some drawbacks. So Croparia IF did a lot of work to make it more handy.
+
+### Multi-fy
+
+#### MultiCodec
+
+Sometimes we migrate our old recipe scheme to a new one, but we still want to keep compatible with old ones. Otherwise,
+the modpack creators would cry for your update.
+
+`MultiCodec`, pretty like `EitherCodec` but more generic, allows developers to define multiple codecs into 1, and try to
+encode / decode the data throughout each of the codecs until success.
+
+```java title="Example of MultiCodec"
+public static void foo() {
+    // Simply put all the possible codecs together, you get the `MultiCodec`
+    MultiCodec<MyRecipe> codec = CodecUtil.of(NEW_CODEC, OLD_CODEC);
+    // Usage
+    DataResult<JsonElement> encoded = CodecUtil.encodeJson(INSTANCE, codec);
+    DataResult<MyRecipe> decoded = CodecUtil.decodeJson(JSON, codec);
+}
+```
+
+In the example above, you provide 2 codec `NEW_CODEC` and `OLD_CODEC`. `MultiCodec` will try decoding Json data with
+each of the codec provided until success, but encoding with only the **first codec**, `NEW_CODEC`. So, you'd better put
+the codec you like at the first position.
+
+However, sometimes our "preference" might defer depending on what the data is like. What's worse, as exceptions are thrown
+when one of the codecs failed to handle the data, the failure might result in high CPU consumption. Then, you will need
+some predicates that helps `MultiCodec` to decide which codec to use.
+
+```java title="Example of Tested MultiCodec"
+public static void foo() {
+    ListCodec<String> listCodec = Codec.STRING.listOf();
+    ListCodec<String> singleCodec = Codec.STRING.xmap(Collections::singletonList, List::getFirst);
+    MultiCodec<List<String>> codec = Codec.of(
+        Codec.of(listCodec, list -> {
+            if (list.size() == 1) return TestedCodec.fail(() -> "Can be applied by singular codec");
+            else return TestedCodec.success();
+        }, (ops, toDecode) -> {
+            if (toDecode instanceof JsonArray || toDecode instanceof ListTag) return TestedCodec.success();
+            else return TestedCodec.fail(() -> "Not a list, try singular codec");
+        }),
+        singleCodec
+    );
+}
+```
+
+In the example, we use `Codec.of` to create a `TestedCodec`, which allows developers to add predicates that will be
+executed on decoding / encoding. If the predicate fails, The `TestedCodec` will abort.
+
+The example above create a generic list codec of strings. When the list to encode only contains 1 string element in a
+list, the `MultiCodec` will pass the first `listCodec`, and use the string codec `singleCodec` instead. Besides, when
+the data to decode is not `JsonArray` nor `ListTag`, pass the procedures to `singleCodec`.
+
+#### MultiFieldCodec
+
+During development, we may want to change the name of the fields to make the scheme more organized. But that will also
+break the compatibility with the old scheme. And this is when `MultiFieldCodec` make an effect.
+
+```java title="Example of MultiFieldCodec"
+public static void foo() {
+    MapCodec<MyType> codec = RecordCodecBuilder.mapCodec(instance -> instance.group(
+        CodecUtil.fieldsOf(Codec.STRING, "id", "name").forGetter(o -> o.getId())
+    ), id -> new MyType(id));
+}
+```
+
+As the example shown above, instead of `Codec.STRING.fieldOf`, `CodecUtil.fieldsOf` is used to define a field that can
+accept `id` or `name`.
+
+Similar to `MultiCodec`, `MultiFieldCodec` also support `TestedCodec`:
+
+```java title="Example of Tested MultiFieldCodec"
+public static void foo() {
+    MapCodec<MyType> codec = RecordCodecBuilder.mapCodec(instance -> instance.group(
+        CodecUtil.fieldsOf(Map.of(
+            "id", CodecUtil.of(Codec.STRING, MY_ENCODE_TEST, MY_DECODE_TEST),
+            "name", CodecUtil.of(Codec.STRING)
+        )).forGetter(o -> o.getId())
+    ), id -> new MyType(id));
+}
+```
+
+Besides, we also have an "optional" version for it, which includes the features of `Codec#optionalFieldOf`.
+
+```java title="Example of OptionalMultiFieldCodec"
+public static void foo() {
+    MapCodec<MyType> codec = RecordCodecBuilder.mapCodec(instance -> instance.group(
+        CodecUtil.optionalFieldsOf(Codec.STRING, DEF_VALUE, "id", "name").forGetter(o -> o.getId())
+    ), id -> new MyType(id));
+}
+```
+
+### Extend
+
+With Codec API, you can extend extra fields to an existing Codec.
+
+```java title="Extend a codec"
+public static void foo() {
+    MapCodec<SubType> subCodec = CodecUtil.extend(
+        // The codec to extend
+        SUPER_CODEC,
+        // The extended fields
+        Codec.STRING.fieldOf("additional_field").forGetter(o -> o.getAdditionalField()),
+        // Constructor using super type & additional fields
+        (superType, additionalField) -> new SubType(superType.getOriginalField(), additionalField)
+    );
+}
+```
+
+### Utilities
+
+In Codec API, `CodecUtil` also provide some utilities that may help the decoding / encoding.
+
+- `toMap`: convert the `Codec` to `MapCodec`.
+- `listOf`: Create a generic list codec.
+- `encodeJson`, `decodeJson`, `readJson`, `dumpJson`: Helper methods that serialize/deserialize data with generic `DynamicOps`.
+- `toStream`, `mapStream`: Helper method that convert `Codec` into `StreamCodec`.
+- `getRegistryOps`, `getOps`: Helper method that trying to infuse a input `DynamicOps` with registry access.
