@@ -30,10 +30,10 @@ function HomepageHeader() {
   const bg = require('@site/static/img/background.webp').default;
   return (
     <Header bg={bg} className={clsx('hero hero--primary', styles.heroBanner)}>
+      <Pic src='/img/croparia-if-banner.webp' imgStyle={{
+        maxHeight: '6cm'
+      }}/>
       <HeaderOverlay className="container">
-        <Pic src='/img/croparia-if-banner.webp' imgStyle={{
-            maxHeight: '4cm'
-        }}/>
         <p className="hero__subtitle">{siteConfig.tagline}</p>
         <Stack direction='row' justifyContent={'center'} alignItems={'center'}>
           <Typography variant={'h5'}>
