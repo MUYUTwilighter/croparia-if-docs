@@ -38,7 +38,7 @@ export default function Pic(props: PicProps) {
     width: props.fullWidth ? '100%' : 'fit-content',
     ...props.containerStyle
   }}>
-    <Img src={props.src} alt={props.alt ?? (typeof props.title === 'string' && props.title)} style={{...props.imgStyle}}/>
+    <Img src={props.src} alt={props.alt ?? (typeof props.title === 'string' ? props.title : "picture")} style={{...props.imgStyle}}/>
     {props?.title && <Title style={{...props.titleStyle}}>{props.title}</Title>}
   </Container>
 }

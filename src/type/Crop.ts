@@ -11,5 +11,7 @@ export default interface Crop {
   },
   dependencies: {
     [key: string]: string;
-  }
+  },
+  hash?: string;
+  versions?: string[];
 }
