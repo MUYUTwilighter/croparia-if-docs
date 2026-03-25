@@ -19,6 +19,8 @@ This repository is the VitePress front-end documentation site for the Croparia I
 ## Mod Version And Source Of Truth
 
 - When reading the mod project, always check `D:\Documents\JavaProjects\croparia-if\gradle.properties` first for the relevant mod and platform version information.
+- Documentation versioning should primarily track Croparia IF mod versions, not Minecraft versions.
+- By default, assume the same Croparia IF mod version behaves the same across different supported Minecraft versions unless the user explicitly indicates a version-specific behavior difference.
 - Do not assume Minecraft version, loader version, or mod version from old docs text.
 - When docs content depends on behavior that may vary by version, record the exact version used in the docs or commit message.
 
