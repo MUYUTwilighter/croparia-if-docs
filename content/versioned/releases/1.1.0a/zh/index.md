@@ -1,6 +1,13 @@
 ---
 layout: home
 title: Croparia IF Docs
+description: Croparia IF 的中文文档首页，提供当前维护版本的指南、版本策略与长期多版本维护结构。
+keywords:
+  - Croparia IF
+  - Minecraft mod
+  - 文档
+  - VitePress
+  - 1.21.1
 
 hero:
   name: "Croparia IF"

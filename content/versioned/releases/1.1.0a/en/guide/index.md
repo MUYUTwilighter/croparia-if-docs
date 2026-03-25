@@ -1,6 +1,12 @@
 ---
 title: Start Here
 outline: deep
+description: English guide entry for the current Croparia IF release, including docs architecture, versioning, and content inheritance.
+keywords:
+  - Croparia IF
+  - guide
+  - docs architecture
+  - versioning
 ---
 
 # Start Here

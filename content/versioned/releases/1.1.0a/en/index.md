@@ -1,6 +1,13 @@
 ---
 layout: home
 title: Croparia IF Docs
+description: English home page for Croparia IF docs, covering the current maintained release and the long-term versioned docs structure.
+keywords:
+  - Croparia IF
+  - Minecraft mod
+  - documentation
+  - VitePress
+  - 1.21.1
 
 hero:
   name: "Croparia IF"

@@ -1,6 +1,12 @@
 ---
 title: 版本策略
 outline: deep
+description: Croparia IF 文档站的版本策略说明，包括当前版本入口、历史版本路径和文档复用方式。
+keywords:
+  - Croparia IF
+  - 版本策略
+  - 文档版本
+  - 版本归档
 ---
 
 # 版本策略

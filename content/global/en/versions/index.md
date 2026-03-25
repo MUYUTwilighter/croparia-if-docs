@@ -1,6 +1,12 @@
 ---
 title: Versioning Policy
 outline: deep
+description: Versioning policy for the Croparia IF docs site, including current release entry points and archive routing.
+keywords:
+  - Croparia IF
+  - versioning
+  - documentation
+  - archive
 ---
 
 # Versioning Policy

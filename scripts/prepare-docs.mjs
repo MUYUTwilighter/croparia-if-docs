@@ -54,6 +54,10 @@ function copyGlobalContent(locale) {
   copyDirIfExists(path.join(contentRoot, 'global', locale.contentDir), outputDir)
 }
 
+function copyPublicContent() {
+  copyDirIfExists(path.join(contentRoot, 'public'), path.join(generatedRoot, 'public'))
+}
+
 rmSync(generatedRoot, { recursive: true, force: true })
 mkdirSync(generatedRoot, { recursive: true })
 
@@ -65,6 +69,8 @@ for (const locale of Object.values(locales)) {
     copyVersionedContent(archivedVersion, locale)
   }
 }
+
+copyPublicContent()
 
 const summary = {
   currentVersion: currentVersion.slug,

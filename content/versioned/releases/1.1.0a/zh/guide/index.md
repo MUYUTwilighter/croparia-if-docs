@@ -1,6 +1,12 @@
 ---
 title: 开始阅读
 outline: deep
+description: Croparia IF 当前维护版本的中文指南入口，包含文档结构、多语言、多版本与继承模型说明。
+keywords:
+  - Croparia IF
+  - 指南
+  - 文档架构
+  - 多版本
 ---
 
 # 开始阅读

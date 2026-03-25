@@ -50,6 +50,8 @@ This site uses a generated content model so long-term multi-version maintenance 
   - Non-versioned pages rendered at fixed routes.
 - `.generated/`
   - Prepared output consumed by VitePress via `srcDir`.
+- `content/public/`
+  - Static files copied as-is, such as `robots.txt`.
 
 ### Inheritance Rules
 
@@ -80,6 +82,21 @@ The current release lives at the locale root. Archived releases should only get 
   - VitePress config, nav, sidebar, and route-aware UI setup.
 - `scripts/prepare-docs.mjs`
   - Content preparation script for shared and versioned docs.
+
+## SEO Support
+
+The site now includes a baseline SEO setup:
+
+- `sitemap.xml` generation through VitePress `sitemap`
+- `robots.txt` in `content/public/`
+- automatic canonical URLs
+- alternate `hreflang` links for Chinese and English pages
+- default Open Graph and Twitter meta tags
+- page-level `description`, `keywords`, `tags`, and `robots` frontmatter support
+
+Archived version pages are prepared to default to `noindex,follow` so old versions do not compete with the current release in search results.
+
+The current SEO hostname/base assume GitHub Pages project-site deployment at `https://muyutwilighter.github.io/croparia-if-docs/`.
 
 ## Adding A New Archived Version
 

@@ -1,12 +1,18 @@
 import { defineConfig } from 'vitepress'
+import type { HeadConfig } from 'vitepress'
 import type { DefaultTheme } from 'vitepress'
 import {
+  absoluteUrlForPath,
+  alternateLocalePath,
   allVersions,
   archivedVersions,
   currentVersion,
   guideRoot,
   localePrefix,
-  localizedText
+  localizedText,
+  routePathFromRelativePath,
+  siteBase,
+  siteUrl
 } from '../docs.config.mjs'
 
 type LocaleKey = 'root' | 'en'
@@ -127,13 +133,88 @@ const sharedThemeConfig = {
   ]
 }
 
+function isArchivedVersionPath(routePath: string): boolean {
+  return /^\/(?:en\/)?versions\/[^/]+(?:\/|$)/.test(routePath)
+}
+
+function localeOfRoute(routePath: string): LocaleKey {
+  return routePath.startsWith('/en/') || routePath === '/en/' || routePath === '/en'
+    ? 'en'
+    : 'root'
+}
+
+function pushHeadTag(head: HeadConfig[], tag: HeadConfig) {
+  head.push(tag)
+}
+
+function normalizeKeywords(input: unknown): string[] {
+  if (Array.isArray(input)) {
+    return input.filter((item): item is string => typeof item === 'string' && item.trim().length > 0)
+  }
+
+  if (typeof input === 'string' && input.trim().length > 0) {
+    return input.split(',').map((item) => item.trim()).filter(Boolean)
+  }
+
+  return []
+}
+
 export default defineConfig({
   srcDir: '.generated',
+  base: siteBase,
   lang: 'zh-CN',
   title: 'Croparia IF Docs',
   description: 'Croparia IF 文档站',
+  head: [
+    ['meta', { property: 'og:site_name', content: 'Croparia IF Docs' }],
+    ['meta', { name: 'twitter:card', content: 'summary' }]
+  ],
   cleanUrls: true,
   lastUpdated: true,
+  sitemap: {
+    hostname: siteUrl
+  },
+  transformPageData(pageData) {
+    const routePath = routePathFromRelativePath(pageData.relativePath)
+    const absoluteUrl = absoluteUrlForPath(routePath)
+    const locale = localeOfRoute(routePath)
+    const alternateRoot = absoluteUrlForPath(alternateLocalePath(routePath, 'root'))
+    const alternateEn = absoluteUrlForPath(alternateLocalePath(routePath, 'en'))
+    const title =
+      pageData.frontmatter.title ??
+      (pageData.frontmatter.layout === 'home' ? 'Croparia IF Docs' : pageData.title || 'Croparia IF Docs')
+    const description =
+      pageData.description ||
+      pageData.frontmatter.description ||
+      (locale === 'root'
+        ? 'Croparia IF 的多语言、多版本文档站。'
+        : 'Multilingual, multi-version documentation for Croparia IF.')
+    const keywords = normalizeKeywords(pageData.frontmatter.keywords ?? pageData.frontmatter.tags)
+    const robots = pageData.frontmatter.robots
+      ? String(pageData.frontmatter.robots)
+      : isArchivedVersionPath(routePath)
+        ? 'noindex,follow'
+        : 'index,follow'
+    const head = (pageData.frontmatter.head ??= [])
+
+    pushHeadTag(head, ['link', { rel: 'canonical', href: absoluteUrl }])
+    pushHeadTag(head, ['link', { rel: 'alternate', hreflang: 'zh-CN', href: alternateRoot }])
+    pushHeadTag(head, ['link', { rel: 'alternate', hreflang: 'en-US', href: alternateEn }])
+    pushHeadTag(head, ['link', { rel: 'alternate', hreflang: 'x-default', href: alternateRoot }])
+    pushHeadTag(head, ['meta', { name: 'description', content: description }])
+    pushHeadTag(head, ['meta', { name: 'robots', content: robots }])
+    pushHeadTag(head, ['meta', { property: 'og:type', content: 'website' }])
+    pushHeadTag(head, ['meta', { property: 'og:title', content: title }])
+    pushHeadTag(head, ['meta', { property: 'og:description', content: description }])
+    pushHeadTag(head, ['meta', { property: 'og:url', content: absoluteUrl }])
+    pushHeadTag(head, ['meta', { property: 'og:locale', content: locale === 'root' ? 'zh_CN' : 'en_US' }])
+    pushHeadTag(head, ['meta', { name: 'twitter:title', content: title }])
+    pushHeadTag(head, ['meta', { name: 'twitter:description', content: description }])
+
+    if (keywords.length > 0) {
+      pushHeadTag(head, ['meta', { name: 'keywords', content: keywords.join(', ') }])
+    }
+  },
   locales: {
     root: {
       label: '简体中文',
