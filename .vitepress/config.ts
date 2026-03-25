@@ -7,7 +7,6 @@ import {
   allVersions,
   archivedVersions,
   currentVersion,
-  guideRoot,
   localePrefix,
   localizedText,
   routePathFromRelativePath,
