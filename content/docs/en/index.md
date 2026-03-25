@@ -19,22 +19,22 @@ hero:
     alt: Croparia IF banner
   actions:
     - theme: brand
-      text: Read the Guide
-      link: /en/guide/
+      text: Read General Docs
+      link: /en/general/
     - theme: alt
-      text: Versioning Policy
-      link: /en/versions/
+      text: Player Docs
+      link: /en/player/
     - theme: alt
-      text: Modrinth
-      link: https://modrinth.com/mod/croparia-if
+      text: Modpack and Dev
+      link: /en/modpack/
 
 features:
-  - title: Start Quickly
-    details: Enter through the guide to understand the site structure and the main reading path.
-  - title: Read in Two Locales
-    details: The site currently ships in Simplified Chinese and English with matching navigation layers.
-  - title: Version Aware
-    details: The current maintained release stays at the locale root while archived releases belong under versions routes.
+  - title: Four Audiences
+    details: The current release is organized into General, Player, Modpack Authors, and Developer sections.
+  - title: Built Around 1.1.0a
+    details: The structure currently targets Croparia IF 1.1.0a on Minecraft 1.21.1.
+  - title: Planned for Expansion
+    details: Each page starts with a writing plan so the docs can grow into full guides without reshuffling the information architecture.
 ---
 
 <HomeLanding locale="en" />

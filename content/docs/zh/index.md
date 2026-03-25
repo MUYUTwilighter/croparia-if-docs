@@ -19,22 +19,22 @@ hero:
     alt: Croparia IF banner
   actions:
     - theme: brand
-      text: 阅读指南
-      link: /guide/
+      text: 阅读通用文档
+      link: /general/
     - theme: alt
-      text: 版本策略
-      link: /versions/
+      text: 玩家文档
+      link: /player/
     - theme: alt
-      text: Modrinth
-      link: https://modrinth.com/mod/croparia-if
+      text: 整合与开发
+      link: /modpack/
 
 features:
-  - title: 快速开始
-    details: 先从指南入口进入，了解站点结构和主要阅读路径。
-  - title: 多语言阅读
-    details: 当前提供简体中文与 English 两套入口，导航层级保持一致。
-  - title: 版本清晰
-    details: 当前维护版本位于根路径，历史版本会归档到 versions 路由下。
+  - title: 四类文档
+    details: 当前版本按照通用、玩家、整合包作者、开发者四类内容组织，便于按角色阅读。
+  - title: 围绕 1.1.0a
+    details: 当前维护版本对应 Croparia IF 1.1.0a 与 Minecraft 1.21.1，结构规划以这组内容为准。
+  - title: 可持续扩写
+    details: 每个分类页和子页先建立内容规划，后续再逐页补完正式说明、示意图与示例。
 ---
 
 <HomeLanding locale="zh" />

@@ -1,0 +1,35 @@
+---
+title: 整合包作者文档
+description: 面向整合包作者的 Croparia IF 1.1.0a 文档入口，规划自定义、配置、生成器与调试相关内容。
+keywords:
+  - Croparia IF
+  - 整合包
+  - 自定义
+modVersions:
+  - 1.1.0a
+---
+
+# 整合包作者文档
+
+这一分类面向需要定制 Croparia IF 行为与内容的整合包作者，而不是阅读源码的下游开发者。
+
+## 这一类要写什么
+
+- 模组提供了哪些可配置、可覆盖、可自定义的入口。
+- 如何通过数据包、资源包、命令或工具完成这些定制。
+- 如何调试和验证自定义结果。
+
+## 当前计划页面
+
+- [自定义能力概览](/modpack/overview)
+- [数据包与资源包](/modpack/datapacks-and-resourcepacks)
+- [自定义作物](/modpack/custom-crops)
+- [配方与结构](/modpack/recipes-and-structures)
+- [生成器与工具](/modpack/generators-and-tools)
+- [配置与整合建议](/modpack/configuration)
+- [调试与排错](/modpack/debugging)
+
+## 写作边界
+
+- 默认读者不需要阅读 Java 源码。
+- 但可以使用命令、查看导出文件、理解数据组织。
