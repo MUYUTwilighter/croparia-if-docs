@@ -54,12 +54,12 @@ const content = computed<LocalizedContent>(() =>
           '首页应该先把读者带到正确入口。这里保留旧站的视觉素材，但内容重心改回文档导航、快速开始和核心玩法预览。',
         stats: [
           { label: '当前维护版本', value: '1.1.0a' },
-          { label: '兼容 Minecraft', value: '1.21.1' },
+          { label: '文档主轴', value: 'Croparia IF' },
           { label: '语言入口', value: '简中 / EN' }
         ],
         gettingStartedTitle: '快速开始',
         gettingStartedText:
-          '第一次进入站点时，先按读者身份进入对应分类；如果你只是确认模组版本、兼容环境或下载入口，也可以直接从这里跳转。',
+          '第一次进入站点时，先按读者身份进入对应分类；如果你只是确认模组版本、文档入口或下载地址，也可以直接从这里跳转。',
         primaryActions: [
           { label: '阅读指南', href: '/guide/', accent: 'brand' },
           { label: '版本策略', href: '/versions/', accent: 'soft' },
@@ -67,7 +67,7 @@ const content = computed<LocalizedContent>(() =>
           { label: 'CurseForge', href: 'https://www.curseforge.com/minecraft/mc-mods/croparia-if', accent: 'warm', external: true }
         ],
         docsTitle: '文档地图',
-        docsText: '这些入口覆盖了当前站点最重要的几类内容，并按读者角色组织，而不是按 Minecraft 版本拆分。',
+        docsText: '这些入口覆盖了当前站点最重要的几类内容，并按读者角色组织，适合从首页直接进入阅读。',
         docsCards: [
           {
             title: '通用',
@@ -114,7 +114,7 @@ const content = computed<LocalizedContent>(() =>
         helperText: '如果你只是想先确认当前文档环境，下面这些信息通常已经够用。',
         helperChips: [
           '当前维护的 Croparia IF 版本：1.1.0a',
-          '兼容的 Minecraft 版本：1.21.1',
+          '版本主轴：Croparia IF 模组版本',
           '支持语言：简体中文 / English',
           '下载平台：Modrinth / CurseForge'
         ]
@@ -126,12 +126,12 @@ const content = computed<LocalizedContent>(() =>
           'A docs homepage should guide readers into the right section quickly. This version keeps the old site visuals, but shifts the focus back to documentation entry points and gameplay overview.',
         stats: [
           { label: 'Current release', value: '1.1.0a' },
-          { label: 'Compatible Minecraft', value: '1.21.1' },
+          { label: 'Version axis', value: 'Croparia IF' },
           { label: 'Locales', value: 'ZH / EN' }
         ],
         gettingStartedTitle: 'Quick Start',
         gettingStartedText:
-          'Start with the audience section that matches your role. If you only need release context, compatibility info, or download links, the main entry points are right here.',
+          'Start with the audience section that matches your role. If you only need release context, doc entry points, or download links, the main shortcuts are right here.',
         primaryActions: [
           { label: 'Read the Guide', href: '/en/guide/', accent: 'brand' },
           { label: 'Versioning Policy', href: '/en/versions/', accent: 'soft' },
@@ -139,7 +139,7 @@ const content = computed<LocalizedContent>(() =>
           { label: 'CurseForge', href: 'https://www.curseforge.com/minecraft/mc-mods/croparia-if', accent: 'warm', external: true }
         ],
         docsTitle: 'Documentation Map',
-        docsText: 'These entry points cover the most important sections of the current site and are organized by audience rather than by Minecraft version.',
+        docsText: 'These entry points cover the most important sections of the current site and are organized around reader needs.',
         docsCards: [
           {
             title: 'General',
@@ -186,7 +186,7 @@ const content = computed<LocalizedContent>(() =>
         helperText: 'If you only need the current docs context before reading deeper, these are the key facts to keep in mind.',
         helperChips: [
           'Current Croparia IF release: 1.1.0a',
-          'Compatible Minecraft version: 1.21.1',
+          'Primary version axis: Croparia IF mod version',
           'Locales: Simplified Chinese / English',
           'Downloads: Modrinth / CurseForge'
         ]
