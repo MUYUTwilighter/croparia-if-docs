@@ -3,8 +3,8 @@
   --vp-c-brand-2: #5b8041;
   --vp-c-brand-3: #476635;
   --vp-c-brand-soft: rgba(111, 152, 82, 0.18);
-  --vp-home-hero-name-color: #f5efd8;
-  --vp-home-hero-text-color: #dfead2;
+  --vp-home-hero-name-color: #f6f0d9;
+  --vp-home-hero-text-color: #f1ebd0;
   --vp-home-hero-image-background-image:
     radial-gradient(circle at center, rgba(185, 232, 136, 0.26), rgba(185, 232, 136, 0.02) 62%);
   --vp-home-hero-image-filter: drop-shadow(0 28px 48px rgba(14, 20, 13, 0.28));
@@ -12,16 +12,16 @@
 
 .VPHome {
   position: relative;
-  background: linear-gradient(180deg, #f5f2e8 0, #f7f4ec 260px, #fbfaf6 100%);
+  background: #fbfaf6;
 }
 
 .VPHome::before {
   content: "";
   position: absolute;
   inset: 0 0 auto;
-  height: 560px;
+  height: 520px;
   background:
-    linear-gradient(180deg, rgba(22, 35, 25, 0.6), rgba(22, 35, 25, 0.22) 62%, rgba(245, 242, 232, 0)),
+    linear-gradient(180deg, rgba(22, 35, 25, 0.64), rgba(22, 35, 25, 0.24) 60%, rgba(251, 250, 246, 0)),
     url("/home/background.webp") center top / cover no-repeat;
   pointer-events: none;
   z-index: 0;
@@ -35,8 +35,8 @@
 }
 
 .VPHomeHero {
-  padding-top: 92px !important;
-  padding-bottom: 80px !important;
+  padding-top: 122px !important;
+  padding-bottom: 48px !important;
 }
 
 .VPHomeHero .container {
@@ -44,8 +44,8 @@
 }
 
 .VPHomeHero .main {
-  padding-left: 36px;
-  padding-top: 12px;
+  padding-left: 88px;
+  padding-top: 18px;
 }
 
 .VPHomeHero .image {
@@ -59,12 +59,12 @@
 }
 
 .VPHomeHero .name {
-  color: #f5efd8;
+  color: #f6f0d9;
 }
 
 .VPHomeHero .text {
   max-width: 12ch;
-  color: #e7f1db;
+  color: #f1ebd0;
 }
 
 .VPHomeHero .tagline {
@@ -100,13 +100,12 @@
 }
 
 .VPContent.is-home {
-  margin-top: -12px;
-  padding-top: 10px;
+  margin-top: 24px;
+  padding-top: 0;
 }
 
-.VPContent.is-home .container {
-  background: linear-gradient(180deg, rgba(251, 250, 246, 0.98), rgba(247, 244, 236, 0.98));
-  border-radius: 34px 34px 0 0;
+body:has(.VPHome) .VPNavBarTitle .title span {
+  opacity: 0;
 }
 
 .VPFeature {
@@ -125,36 +124,36 @@
 
 @media (max-width: 960px) {
   .VPHome::before {
-    height: 520px;
+    height: 500px;
   }
 
   .VPHomeHero {
-    padding-top: 78px !important;
-    padding-bottom: 56px !important;
+    padding-top: 110px !important;
+    padding-bottom: 40px !important;
   }
 
   .VPHomeHero .main {
-    padding-left: 16px;
+    padding-left: 44px;
     padding-top: 0;
   }
 }
 
 @media (max-width: 640px) {
   .VPHome::before {
-    height: 500px;
+    height: 460px;
     background-position: center top;
   }
 
   .VPHomeHero {
-    padding-top: 74px !important;
-    padding-bottom: 42px !important;
+    padding-top: 88px !important;
+    padding-bottom: 30px !important;
   }
 
   .VPHomeHero .tagline {
     font-size: 1rem;
   }
 
-  .VPContent.is-home .container {
-    border-radius: 24px 24px 0 0;
+  body:has(.VPHome) .VPNavBarTitle .title span {
+    opacity: 1;
   }
 }
