@@ -14,8 +14,7 @@ This repository is the VitePress front-end documentation site for the Croparia I
 - The main mod project lives at `D:\Documents\JavaProjects\croparia-if`.
 - The mod project is built with Architectury Loom and targets Fabric plus NeoForge or Forge-family loaders.
 - The mod project is read-only from the docs agent perspective. Never modify files in `D:\Documents\JavaProjects\croparia-if`.
-- The git history of this repository includes an older Docusaurus-based docs frontend that was later abandoned because multilingual and multi-version maintenance was too costly.
-- Reusable art assets from the abandoned Docusaurus site were backed up at `D:\Documents\WebStormProjects\croparia-if-docs-old`.
+- Legacy reusable art assets may be available at `D:\Documents\WebStormProjects\croparia-if-docs-old`.
 
 ## Mod Version And Source Of Truth
 
@@ -55,12 +54,11 @@ Use official documentation as the primary reference when architecture or framewo
 - NeoForge docs: <https://docs.neoforged.net/>
 - Fabric docs: <https://docs.fabricmc.net/>
 
-As of 2026-03-25, this docs repo itself is using VitePress `^1.6.4` in `package.json`.
+This docs repo currently uses VitePress `^1.6.4` in `package.json`.
 
-## Current Repo Snapshot
+## Current Architecture
 
 - The current docs site is a VitePress project with config at `.vitepress/config.ts`.
-- The repository has completed the baseline upgrade for multilingual and multiversion docs.
 - Locale routing currently uses:
   - Simplified Chinese at `/`
   - English at `/en/`
@@ -79,7 +77,6 @@ As of 2026-03-25, this docs repo itself is using VitePress `^1.6.4` in `package.
 - Shared version metadata is maintained in `docs.config.mjs`.
 - README now contains maintenance guidance for the generated content model and routing conventions.
 - The SEO baseline remains in place, including sitemap, robots, canonical URLs, alternate `hreflang`, and default social metadata support.
-- `.vitepress/config.ts` recently fixed a naming conflict around `guideRoot`; avoid reintroducing imported/local symbol collisions there.
+- Avoid reintroducing imported/local symbol collisions in `.vitepress/config.ts`, especially around helpers such as `guideRoot`.
 - The current recorded release in the docs stack is Croparia IF `1.1.0a` on Minecraft `1.21.1`.
-- The workspace may contain large migration changes that remove the abandoned Docusaurus site from version control. Treat those deletions as intentional cleanup when the user asks to commit them.
 - The backup copy at `D:\Documents\WebStormProjects\croparia-if-docs-old` is the safer place to recover old art or wording without reintroducing the old stack into this repo.
