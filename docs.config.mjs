@@ -21,7 +21,6 @@ export const siteUrl = `${siteOrigin}${siteBase}`
 
 export const currentVersion = {
   slug: '1.1.0a',
-  minecraft: '1.21.1',
   status: 'current',
   inheritsFrom: null
 }
