@@ -10,12 +10,10 @@ keywords:
   - 1.21.1
 modVersions:
   - 1.1.0a
----
-
 hero:
   name: "Croparia IF"
-  text: "耕作、装置与仪式的文档首页"
-  tagline: 面向当前维护版本 1.1.0a（Minecraft 1.21.1）的使用、整合包定制与开发维护文档。
+  text: "面向玩家与创作者的 Croparia IF 文档站"
+  tagline: 从基础游玩、核心装置到版本策略，这里整理了当前维护版本 1.1.0a（Minecraft 1.21.1）的主要文档入口。
   image:
     src: /home/croparia-if-banner.webp
     alt: Croparia IF banner
@@ -31,12 +29,12 @@ hero:
       link: https://modrinth.com/mod/croparia-if
 
 features:
-  - title: 旧站视觉重构
-    details: 复用了横幅与玩法截图，但全部迁入当前仓库并重新适配 VitePress 首页布局。
-  - title: 直接服务多类读者
-    details: 首页同时照顾玩家、整合包作者与文档维护者，不再只是简单的目录跳转页。
-  - title: 后续可持续扩展
-    details: 复杂展示区改成了组件化实现，后续可以继续加公告、专题与版本入口。
+  - title: 快速开始
+    details: 先从指南入口进入，了解站点结构和主要阅读路径。
+  - title: 多语言阅读
+    details: 当前提供简体中文与 English 两套入口，导航层级保持一致。
+  - title: 版本清晰
+    details: 当前维护版本位于根路径，历史版本会归档到 versions 路由下。
 ---
 
 <HomeLanding locale="zh" />

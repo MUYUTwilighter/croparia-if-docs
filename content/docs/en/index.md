@@ -10,12 +10,10 @@ keywords:
   - 1.21.1
 modVersions:
   - 1.1.0a
----
-
 hero:
   name: "Croparia IF"
-  text: "Farming, machines, and rituals in one docs landing page"
-  tagline: Documentation for the current maintained release 1.1.0a on Minecraft 1.21.1, covering play, customization, and long-term maintenance.
+  text: "A Croparia IF docs homepage for players and creators"
+  tagline: Start with the guide, browse the current release, and jump into the parts of the docs that match what you want to do in version 1.1.0a on Minecraft 1.21.1.
   image:
     src: /home/croparia-if-banner.webp
     alt: Croparia IF banner
@@ -31,12 +29,12 @@ hero:
       link: https://modrinth.com/mod/croparia-if
 
 features:
-  - title: Rebuilt from the old site
-    details: The legacy banner and gameplay imagery are preserved, but moved into a cleaner VitePress homepage structure.
-  - title: Useful for more than one audience
-    details: The landing page now speaks to players, pack creators, and docs maintainers instead of acting as a bare index.
-  - title: Ready for future growth
-    details: The richer sections live in a reusable component, making future updates much easier to ship.
+  - title: Start Quickly
+    details: Enter through the guide to understand the site structure and the main reading path.
+  - title: Read in Two Locales
+    details: The site currently ships in Simplified Chinese and English with matching navigation layers.
+  - title: Version Aware
+    details: The current maintained release stays at the locale root while archived releases belong under versions routes.
 ---
 
 <HomeLanding locale="en" />
