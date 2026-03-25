@@ -3,6 +3,7 @@ node_modules/
 .npm-cache/
 
 .generated/
+docs/
 .vitepress/cache/
 .vitepress/dist/
 

@@ -32,7 +32,7 @@ npm run docs:preview
 
 Notes:
 
-- `docs:prepare` generates the actual VitePress source tree into `.generated/`.
+- `docs:prepare` generates the actual VitePress source tree into `docs/`.
 - `docs:dev`, `docs:build`, and `docs:preview` all run `docs:prepare` first.
 - On this machine, `npm.cmd` may be needed instead of `npm` in PowerShell.
 
@@ -48,7 +48,7 @@ This site uses a generated content model so long-term multi-version maintenance 
   - Version-specific overrides.
 - `content/global/`
   - Non-versioned pages rendered at fixed routes.
-- `.generated/`
+- `docs/`
   - Prepared output consumed by VitePress via `srcDir`.
 - `content/public/`
   - Static files copied as-is, such as `robots.txt`.
@@ -62,6 +62,7 @@ For each locale and target version:
 3. Global content from `content/global/<locale>/` is copied into fixed routes.
 
 This means unchanged pages stay single-sourced, while changed pages can be overridden per version.
+The generated `docs/` directory should be treated as build output, not as the primary authoring source.
 
 ## Routing Convention
 

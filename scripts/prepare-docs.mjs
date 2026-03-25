@@ -13,7 +13,7 @@ import {
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 const projectRoot = path.resolve(__dirname, '..')
-const generatedRoot = path.join(projectRoot, '.generated')
+const generatedRoot = path.join(projectRoot, 'docs')
 const contentRoot = path.join(projectRoot, 'content')
 
 function joinOutputPath(...parts) {

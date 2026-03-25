@@ -160,7 +160,7 @@ function normalizeKeywords(input: unknown): string[] {
 }
 
 export default defineConfig({
-  srcDir: '.generated',
+  srcDir: 'docs',
   base: siteBase,
   lang: 'zh-CN',
   title: 'Croparia IF Docs',
