@@ -1,8 +1,0 @@
-{
-  "label": "KubeJS Support",
-  "position": 3,
-  "link": {
-    "type": "generated-index",
-    "description": "Since Croparia IF 0.2.0, you can do some customizations via KubeJS."
-  }
-}

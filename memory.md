@@ -14,6 +14,8 @@ This repository is the VitePress front-end documentation site for the Croparia I
 - The main mod project lives at `D:\Documents\JavaProjects\croparia-if`.
 - The mod project is built with Architectury Loom and targets Fabric plus NeoForge or Forge-family loaders.
 - The mod project is read-only from the docs agent perspective. Never modify files in `D:\Documents\JavaProjects\croparia-if`.
+- The git history of this repository includes an older Docusaurus-based docs frontend that was later abandoned because multilingual and multi-version maintenance was too costly.
+- Reusable art assets from the abandoned Docusaurus site were backed up at `D:\Documents\WebStormProjects\croparia-if-docs-old`.
 
 ## Mod Version And Source Of Truth
 
@@ -24,7 +26,9 @@ This repository is the VitePress front-end documentation site for the Croparia I
 ## Asset And Resource Rules
 
 - If docs need assets from the mod project, copy them into this docs repository before referencing them.
+- If docs need legacy art that no longer exists in the current repo, check `D:\Documents\WebStormProjects\croparia-if-docs-old` first.
 - Never hotlink or directly reference files from the mod repository in site source.
+- Never reference assets directly from `D:\Documents\WebStormProjects\croparia-if-docs-old` in site source. Copy them into this docs repository before use.
 - Prefer storing reused static assets in a stable docs-side location such as `.vitepress/public/` with clear subfolders.
 - If imported assets are large, use local tools such as `cwebp` and `ffmpeg` to compress them before committing.
 - Keep source-to-doc asset mapping easy to trace in commit messages or nearby docs notes.
@@ -56,4 +60,5 @@ As of 2026-03-25, this docs repo itself is using VitePress `^1.6.4` in `package.
 ## Current Repo Snapshot
 
 - The current docs site is a VitePress project with config at `.vitepress/config.ts`.
-- The workspace may contain large unrelated migration changes from an older docs stack. Avoid touching or reverting unrelated files unless the user asks.
+- The workspace may contain large migration changes that remove the abandoned Docusaurus site from version control. Treat those deletions as intentional cleanup when the user asks to commit them.
+- The backup copy at `D:\Documents\WebStormProjects\croparia-if-docs-old` is the safer place to recover old art or wording without reintroducing the old stack into this repo.
