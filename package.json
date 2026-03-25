@@ -16,7 +16,8 @@
   "scripts": {
     "docs:prepare": "node scripts/prepare-docs.mjs",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "docs:dev": "npm run docs:prepare && vitepress dev",
+    "docs:watch": "node scripts/watch-docs.mjs",
+    "docs:dev": "node scripts/dev-docs.mjs",
     "docs:build": "npm run docs:prepare && vitepress build",
     "docs:preview": "npm run docs:prepare && vitepress preview"
   },

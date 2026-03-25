@@ -25,7 +25,7 @@ function versionRoot(locale: LocaleKey, version: VersionMeta): string {
     : `${prefix}/versions/${version.slug}/`
 }
 
-function guideRoot(locale: LocaleKey, version: VersionMeta): string {
+function versionGuideRoot(locale: LocaleKey, version: VersionMeta): string {
   const root = versionRoot(locale, version)
   return root === '/' ? '/guide/' : `${root}guide/`
 }
@@ -94,7 +94,7 @@ function buildGuideSection(locale: LocaleKey, prefix: string): DefaultTheme.Side
 function buildSidebar(locale: LocaleKey): DefaultTheme.Sidebar {
   const archivedVersionItems = archivedVersions.map((version) => ({
     text: `${version.slug} · MC ${version.minecraft}`,
-    link: guideRoot(locale, version)
+    link: versionGuideRoot(locale, version)
   }))
 
   const sidebar: DefaultTheme.Sidebar = {

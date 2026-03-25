@@ -25,6 +25,7 @@ The current version values come from `D:\Documents\JavaProjects\croparia-if\grad
 
 ```bash
 npm run docs:prepare
+npm run docs:watch
 npm run docs:dev
 npm run docs:build
 npm run docs:preview
@@ -33,7 +34,9 @@ npm run docs:preview
 Notes:
 
 - `docs:prepare` generates the actual VitePress source tree into `docs/`.
-- `docs:dev`, `docs:build`, and `docs:preview` all run `docs:prepare` first.
+- `docs:watch` watches `content/` and `docs.config.mjs`, then regenerates `docs/` automatically.
+- `docs:dev` starts both the content watcher and the VitePress dev server.
+- `docs:build` and `docs:preview` still run `docs:prepare` first.
 - On this machine, `npm.cmd` may be needed instead of `npm` in PowerShell.
 
 ## Content Model
