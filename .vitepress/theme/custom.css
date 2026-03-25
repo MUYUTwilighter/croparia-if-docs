@@ -12,17 +12,17 @@
 
 .VPHome {
   position: relative;
-  background: #fbfaf6;
+  background:
+    linear-gradient(180deg, rgba(20, 28, 20, 0.46), rgba(20, 28, 20, 0.28)),
+    url("/home/background.webp") center top / cover fixed no-repeat;
 }
 
 .VPHome::before {
   content: "";
   position: absolute;
-  inset: 0 0 auto;
-  height: 520px;
+  inset: 0;
   background:
-    linear-gradient(180deg, rgba(22, 35, 25, 0.64), rgba(22, 35, 25, 0.24) 60%, rgba(251, 250, 246, 0)),
-    url("/home/background.webp") center top / cover no-repeat;
+    linear-gradient(180deg, rgba(251, 250, 246, 0.04), rgba(251, 250, 246, 0.08));
   pointer-events: none;
   z-index: 0;
 }
@@ -123,10 +123,6 @@ body:has(.VPHome) .VPNavBarTitle .title span {
 }
 
 @media (max-width: 960px) {
-  .VPHome::before {
-    height: 500px;
-  }
-
   .VPHomeHero {
     padding-top: 110px !important;
     padding-bottom: 40px !important;
@@ -139,9 +135,9 @@ body:has(.VPHome) .VPNavBarTitle .title span {
 }
 
 @media (max-width: 640px) {
-  .VPHome::before {
-    height: 460px;
+  .VPHome {
     background-position: center top;
+    background-attachment: scroll;
   }
 
   .VPHomeHero {
