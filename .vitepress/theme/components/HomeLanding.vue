@@ -180,11 +180,6 @@ function resolveImage(path: string): string {
 <template>
   <div class="home-landing">
     <section id="home-downloads" class="home-landing__downloads">
-      <div class="home-landing__section-head">
-        <p class="home-landing__eyebrow">{{ content.introLabel }}</p>
-        <h2>{{ content.introTitle }}</h2>
-        <p class="home-landing__lead">{{ content.introText }}</p>
-      </div>
       <div class="home-landing__download-block">
         <div>
           <p class="home-landing__eyebrow">{{ props.locale === 'zh' ? 'Downloads' : 'Downloads' }}</p>
