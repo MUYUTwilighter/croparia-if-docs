@@ -85,8 +85,8 @@ function buildGuideSection(locale: LocaleKey, prefix: string): DefaultTheme.Side
         link: `${prefix}guide/i18n-and-versioning`
       },
       {
-        text: localizedText(locale, '内容继承模型', 'Content Inheritance Model'),
-        link: `${prefix}guide/content-inheritance`
+        text: localizedText(locale, '版本标签生成', 'Content Version Tags'),
+        link: `${prefix}guide/content-version-tags`
       }
     ]
   }

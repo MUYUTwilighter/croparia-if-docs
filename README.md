@@ -42,27 +42,31 @@ This site uses a generated content model so long-term multi-version maintenance 
 
 ### Source Directories
 
-- `content/versioned/base/`
-  - Shared pages reused across multiple versions.
-- `content/versioned/releases/<version>/`
-  - Version-specific overrides.
-- `content/global/`
-  - Non-versioned pages rendered at fixed routes.
+- `content/docs/`
+  - Authored Markdown source for all locales.
 - `docs/`
   - Prepared output consumed by VitePress via `srcDir`.
 - `content/public/`
   - Static files copied as-is, such as `robots.txt`.
 
-### Inheritance Rules
+### Version Tags
 
-For each locale and target version:
+Pages in `content/docs/` can declare compatible mod versions in frontmatter:
 
-1. Shared content from `content/versioned/base/<locale>/` is copied first.
-2. Version-specific content from `content/versioned/releases/<version>/<locale>/` is layered on top.
-3. Global content from `content/global/<locale>/` is copied into fixed routes.
+```yaml
+modVersions:
+  - 1.1.0a
+  - 1.0.0
+```
 
-This means unchanged pages stay single-sourced, while changed pages can be overridden per version.
-The generated `docs/` directory should be treated as build output, not as the primary authoring source.
+Generation rules:
+
+1. Pages with `modVersions` are emitted to every matching mod version route.
+2. If a matching version is the current release, the page is emitted at the locale root route.
+3. If a matching version is archived, the page is emitted under `/versions/<version>/` or `/en/versions/<version>/`.
+4. Pages without `modVersions` are treated as fixed site pages and emitted once.
+
+The generated `docs/` directory should still be treated as build output, not as the primary authoring source.
 
 ## Routing Convention
 
@@ -82,7 +86,7 @@ The current release lives at the locale root. Archived releases should only get 
 - `.vitepress/config.ts`
   - VitePress config, nav, sidebar, and route-aware UI setup.
 - `scripts/prepare-docs.mjs`
-  - Content preparation script for shared and versioned docs.
+  - Content preparation script for tag-driven multi-version docs.
 
 ## SEO Support
 
@@ -102,8 +106,8 @@ The current SEO hostname/base assume GitHub Pages project-site deployment at `ht
 ## Adding A New Archived Version
 
 1. Add the version metadata in `docs.config.mjs`.
-2. Set its inheritance relationship if it mostly follows an earlier version.
-3. Create only the changed pages under `content/versioned/releases/<version>/`.
+2. Update page `modVersions` values under `content/docs/` for docs that should include the new version.
+3. Only create separate pages when wording or behavior truly diverges across versions.
 4. Run `npm.cmd run docs:build` to verify routing and content generation.
 
 ## Assets
