@@ -210,7 +210,7 @@ const sharedThemeConfig = {
     provider: 'local' as const
   },
   socialLinks: [
-    { icon: 'github', link: 'https://github.com/MUYU-Twilighter/croparia-if-docs' }
+    { icon: 'github', link: 'https://github.com/MUYUTwilighter/croparia-if-docs' }
   ]
 }
 
