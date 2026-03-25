@@ -16,7 +16,7 @@ modVersions:
 当前默认文档版本对应：
 
 - Croparia IF `1.1.0a`
-- Minecraft `1.21.1`
+- 兼容 Minecraft `1.21.1`
 
 ## 文档入口
 
@@ -28,5 +28,6 @@ modVersions:
 ## 当前策略
 
 - 文档维护源统一放在 `content/docs/`
-- 页面通过 `modVersions` 标记兼容版本
+- 页面通过 `modVersions` 标记兼容的 Croparia IF 模组版本
+- 文档版本主轴默认跟随 Croparia IF 模组版本，而不是 Minecraft 版本
 - 生成脚本会把匹配版本的页面输出到当前版或历史版路径

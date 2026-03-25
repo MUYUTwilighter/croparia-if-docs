@@ -16,7 +16,7 @@ modVersions:
 The default docs currently target:
 
 - Croparia IF `1.1.0a`
-- Minecraft `1.21.1`
+- compatible with Minecraft `1.21.1`
 
 ## Entry Points
 
@@ -28,5 +28,6 @@ The default docs currently target:
 ## Current Strategy
 
 - author docs under `content/docs/`
-- declare compatible versions with `modVersions`
+- declare compatible Croparia IF mod versions with `modVersions`
+- treat Croparia IF mod versions as the primary docs version axis, not Minecraft versions
 - let the prepare script publish them into current or archived version routes

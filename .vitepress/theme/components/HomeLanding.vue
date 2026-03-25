@@ -54,12 +54,12 @@ const content = computed<LocalizedContent>(() =>
           '首页应该先把读者带到正确入口。这里保留旧站的视觉素材，但内容重心改回文档导航、快速开始和核心玩法预览。',
         stats: [
           { label: '当前维护版本', value: '1.1.0a' },
-          { label: 'Minecraft', value: '1.21.1' },
+          { label: '兼容 Minecraft', value: '1.21.1' },
           { label: '语言入口', value: '简中 / EN' }
         ],
         gettingStartedTitle: '快速开始',
         gettingStartedText:
-          '第一次进入站点时，先看指南；如果你只是确认版本、语言或下载入口，也可以直接从这里跳转。',
+          '第一次进入站点时，先按读者身份进入对应分类；如果你只是确认模组版本、兼容环境或下载入口，也可以直接从这里跳转。',
         primaryActions: [
           { label: '阅读指南', href: '/guide/', accent: 'brand' },
           { label: '版本策略', href: '/versions/', accent: 'soft' },
@@ -67,25 +67,25 @@ const content = computed<LocalizedContent>(() =>
           { label: 'CurseForge', href: 'https://www.curseforge.com/minecraft/mc-mods/croparia-if', accent: 'warm', external: true }
         ],
         docsTitle: '文档地图',
-        docsText: '这些入口覆盖了当前站点最重要的几类内容，适合从首页直接进入阅读。',
+        docsText: '这些入口覆盖了当前站点最重要的几类内容，并按读者角色组织，而不是按 Minecraft 版本拆分。',
         docsCards: [
           {
-            title: '指南',
-            body: '先了解站点结构、阅读顺序与当前文档是如何按语言和版本组织的。',
-            href: '/guide/',
-            cta: '进入指南'
+            title: '通用',
+            body: '先建立 Croparia IF 1.1.0a 的共同基础认识，包括核心概念、内容总览和清单页。',
+            href: '/general/',
+            cta: '进入通用文档'
           },
           {
-            title: '文档架构',
-            body: '查看当前文档站的组织方式，适合需要维护内容结构或理解生成流程时阅读。',
-            href: '/guide/architecture',
-            cta: '查看架构'
+            title: '玩家',
+            body: '面向实际游玩的读者，承接入门、推进、机器系统、自动化和常见问题。',
+            href: '/player/',
+            cta: '进入玩家文档'
           },
           {
-            title: '版本与语言',
-            body: '了解当前版本路由、多语言入口，以及页面如何归档到不同版本路径。',
-            href: '/guide/i18n-and-versioning',
-            cta: '查看规则'
+            title: '整合与开发',
+            body: '面向整合包作者与下游开发者，覆盖自定义入口、架构、API 与调试信息。',
+            href: '/modpack/',
+            cta: '查看技术文档'
           }
         ],
         galleryTitle: '核心玩法预览',
@@ -113,8 +113,8 @@ const content = computed<LocalizedContent>(() =>
         helperTitle: '常用信息',
         helperText: '如果你只是想先确认当前文档环境，下面这些信息通常已经够用。',
         helperChips: [
-          '当前维护版本：1.1.0a',
-          '当前 Minecraft：1.21.1',
+          '当前维护的 Croparia IF 版本：1.1.0a',
+          '兼容的 Minecraft 版本：1.21.1',
           '支持语言：简体中文 / English',
           '下载平台：Modrinth / CurseForge'
         ]
@@ -126,12 +126,12 @@ const content = computed<LocalizedContent>(() =>
           'A docs homepage should guide readers into the right section quickly. This version keeps the old site visuals, but shifts the focus back to documentation entry points and gameplay overview.',
         stats: [
           { label: 'Current release', value: '1.1.0a' },
-          { label: 'Minecraft', value: '1.21.1' },
+          { label: 'Compatible Minecraft', value: '1.21.1' },
           { label: 'Locales', value: 'ZH / EN' }
         ],
         gettingStartedTitle: 'Quick Start',
         gettingStartedText:
-          'Start with the guide if you are new to the site. If you only need version context or download links, the main entry points are right here.',
+          'Start with the audience section that matches your role. If you only need release context, compatibility info, or download links, the main entry points are right here.',
         primaryActions: [
           { label: 'Read the Guide', href: '/en/guide/', accent: 'brand' },
           { label: 'Versioning Policy', href: '/en/versions/', accent: 'soft' },
@@ -139,25 +139,25 @@ const content = computed<LocalizedContent>(() =>
           { label: 'CurseForge', href: 'https://www.curseforge.com/minecraft/mc-mods/croparia-if', accent: 'warm', external: true }
         ],
         docsTitle: 'Documentation Map',
-        docsText: 'These entry points cover the most important sections of the current site and work well as homepage shortcuts.',
+        docsText: 'These entry points cover the most important sections of the current site and are organized by audience rather than by Minecraft version.',
         docsCards: [
           {
-            title: 'Guide',
-            body: 'Start here to understand the site structure, reading order, and how the docs are organized today.',
-            href: '/en/guide/',
-            cta: 'Open guide'
+            title: 'General',
+            body: 'Build a shared baseline for Croparia IF 1.1.0a through concepts, overviews, and searchable reference pages.',
+            href: '/en/general/',
+            cta: 'Open general docs'
           },
           {
-            title: 'Docs Architecture',
-            body: 'Best when you need to understand the current docs structure or maintain the generated documentation flow.',
-            href: '/en/guide/architecture',
-            cta: 'Open architecture'
+            title: 'Player',
+            body: 'Focused on practical play guidance, progression, machines, automation, and common gameplay questions.',
+            href: '/en/player/',
+            cta: 'Open player docs'
           },
           {
-            title: 'I18n and Versioning',
-            body: 'See how locale routes, version routes, and archive behavior are currently arranged in the site.',
-            href: '/en/guide/i18n-and-versioning',
-            cta: 'Open policy'
+            title: 'Modpack and Developer',
+            body: 'For pack authors and downstream developers who need customization entry points, architecture, APIs, and debugging notes.',
+            href: '/en/modpack/',
+            cta: 'Open technical docs'
           }
         ],
         galleryTitle: 'Gameplay Preview',
@@ -185,8 +185,8 @@ const content = computed<LocalizedContent>(() =>
         helperTitle: 'Quick Facts',
         helperText: 'If you only need the current docs context before reading deeper, these are the key facts to keep in mind.',
         helperChips: [
-          'Current release: 1.1.0a',
-          'Minecraft: 1.21.1',
+          'Current Croparia IF release: 1.1.0a',
+          'Compatible Minecraft version: 1.21.1',
           'Locales: Simplified Chinese / English',
           'Downloads: Modrinth / CurseForge'
         ]

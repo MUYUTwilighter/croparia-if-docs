@@ -13,7 +13,7 @@ modVersions:
 hero:
   name: "Croparia IF"
   text: "A Croparia IF docs homepage for players and creators"
-  tagline: Start with the guide, browse the current release, and jump into the parts of the docs that match what you want to do in version 1.1.0a on Minecraft 1.21.1.
+  tagline: Start with the guide, browse the current Croparia IF 1.1.0a release docs, and use Minecraft compatibility details as supporting context rather than the primary version axis.
   image:
     src: /home/croparia-if-banner.webp
     alt: Croparia IF banner
@@ -31,8 +31,8 @@ hero:
 features:
   - title: Four Audiences
     details: The current release is organized into General, Player, Modpack Authors, and Developer sections.
-  - title: Built Around 1.1.0a
-    details: The structure currently targets Croparia IF 1.1.0a on Minecraft 1.21.1.
+  - title: Mod Version First
+    details: The structure is organized around Croparia IF 1.1.0a, with Minecraft 1.21.1 recorded as compatibility context.
   - title: Planned for Expansion
     details: Each page starts with a writing plan so the docs can grow into full guides without reshuffling the information architecture.
 ---
