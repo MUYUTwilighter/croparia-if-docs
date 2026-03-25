@@ -30,6 +30,14 @@ function versionGuideRoot(locale: LocaleKey, version: VersionMeta): string {
   return root === '/' ? '/guide/' : `${root}guide/`
 }
 
+function versionLabel(locale: LocaleKey, version: VersionMeta): string {
+  return localizedText(
+    locale,
+    `${version.slug}${version.status === 'current' ? '（当前）' : ''}`,
+    `${version.slug}${version.status === 'current' ? ' (current)' : ''}`
+  )
+}
+
 function buildVersionNav(locale: LocaleKey): DefaultTheme.NavItemWithChildren {
   return {
     text:
@@ -42,11 +50,7 @@ function buildVersionNav(locale: LocaleKey): DefaultTheme.NavItemWithChildren {
         link: `${localePrefix(locale)}/versions/`
       },
       ...allVersions.map((version) => ({
-        text: localizedText(
-          locale,
-          `${version.slug} · MC ${version.minecraft}${version.status === 'current' ? '（当前）' : ''}`,
-          `${version.slug} · MC ${version.minecraft}${version.status === 'current' ? ' (current)' : ''}`
-        ),
+        text: versionLabel(locale, version),
         link: versionRoot(locale, version)
       }))
     ]
@@ -163,7 +167,7 @@ function buildGuideSection(locale: LocaleKey, prefix: string): DefaultTheme.Side
 
 function buildSidebar(locale: LocaleKey): DefaultTheme.Sidebar {
   const archivedVersionItems = archivedVersions.map((version) => ({
-    text: `${version.slug} · MC ${version.minecraft}`,
+    text: versionLabel(locale, version),
     link: versionGuideRoot(locale, version)
   }))
 
