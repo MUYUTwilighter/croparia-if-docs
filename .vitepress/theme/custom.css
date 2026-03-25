@@ -58,15 +58,16 @@
 }
 
 .VPHomeHero .image {
-  padding: 18px;
-  border-radius: 32px;
-  background: linear-gradient(180deg, rgba(34, 45, 31, 0.42), rgba(34, 45, 31, 0.08));
-  border: 1px solid rgba(245, 244, 231, 0.12);
-  backdrop-filter: blur(6px);
+  padding: 0;
+  border-radius: 0;
+  background: transparent;
+  border: 0;
+  backdrop-filter: none;
+  box-shadow: none;
 }
 
 .VPHomeHero .image-src {
-  max-width: min(460px, 100%);
+  max-width: min(520px, 100%);
 }
 
 .VPHomeHero .actions {

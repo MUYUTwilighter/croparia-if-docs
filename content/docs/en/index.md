@@ -19,21 +19,10 @@ hero:
   actions:
     - theme: brand
       text: Download the Mod
-      link: https://modrinth.com/mod/croparia-if
+      link: /en/#home-downloads
     - theme: alt
-      text: Player Docs
-      link: /en/player/
-    - theme: alt
-      text: General Docs
-      link: /en/general/
-
-features:
-  - title: Resource Agriculture
-    details: Croparia IF turns crop growth and farming into a broader resource loop.
-  - title: Machines and Processing
-    details: Machines like the Infusor push farm output into deeper crafting and progression steps.
-  - title: Ritual Progression
-    details: Rituals and advanced recipes define the later-game goals of the mod.
+      text: View the Docs
+      link: /en/#home-navigation
 ---
 
 <HomeLanding locale="en" />

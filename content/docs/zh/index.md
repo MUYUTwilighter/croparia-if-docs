@@ -19,21 +19,10 @@ hero:
   actions:
     - theme: brand
       text: 下载模组
-      link: https://modrinth.com/mod/croparia-if
+      link: /#home-downloads
     - theme: alt
-      text: 玩家文档
-      link: /player/
-    - theme: alt
-      text: 通用文档
-      link: /general/
-
-features:
-  - title: 资源农业
-    details: 从作物成长到资源获取，Croparia IF 把农业扩展成完整的玩法循环。
-  - title: 装置与加工
-    details: 利用 Infusor 等装置把种植产出推进到更复杂的制作链。
-  - title: 仪式与进阶
-    details: 在后期通过 Ritual 等内容进入更高阶的目标和玩法阶段。
+      text: 查看文档
+      link: /#home-navigation
 ---
 
 <HomeLanding locale="zh" />

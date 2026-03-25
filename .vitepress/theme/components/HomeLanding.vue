@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue'
+import { withBase } from 'vitepress'
 
 const props = defineProps<{
   locale: 'zh' | 'en'
@@ -30,7 +31,6 @@ type LocalizedContent = {
   introLabel: string
   introTitle: string
   introText: string
-  introPoints: string[]
   downloadTitle: string
   downloadText: string
   downloadActions: LinkAction[]
@@ -48,21 +48,16 @@ const content = computed<LocalizedContent>(() =>
         introLabel: 'Croparia IF',
         introTitle: '围绕资源作物展开的农业与进阶玩法模组',
         introText:
-          'Croparia IF 让种植不再只是食物来源，而是逐步延伸到加工装置、配方推进与高阶仪式的一整套内容循环。',
-        introPoints: [
-          '资源作物与成长循环',
-          'Infusor 等核心装置',
-          '后期 Ritual 与进阶目标'
-        ],
+          'Croparia IF 让种植逐步延伸到加工装置、配方推进与高阶仪式，形成一整套围绕资源作物展开的内容循环。',
         downloadTitle: '下载模组',
-        downloadText: '你可以从常用发行平台获取 Croparia IF，然后回到文档站查看玩法、整合与开发说明。',
+        downloadText: '从常用发行平台获取 Croparia IF，然后继续阅读下方文档。',
         downloadActions: [
           { label: 'Modrinth', href: 'https://modrinth.com/mod/croparia-if', accent: 'brand', external: true },
           { label: 'CurseForge', href: 'https://www.curseforge.com/minecraft/mc-mods/croparia-if', accent: 'warm', external: true },
           { label: 'GitHub', href: 'https://github.com/MUYU-Twilighter/croparia-if', accent: 'dark', external: true }
         ],
         navTitle: '文档导航',
-        navText: '按你当前的目标进入对应栏目即可，不需要先理解整套站点结构。',
+        navText: '按你当前的目标进入对应栏目即可。',
         navCards: [
           {
             title: '通用',
@@ -90,7 +85,7 @@ const content = computed<LocalizedContent>(() =>
           }
         ],
         galleryTitle: '玩法预览',
-        galleryText: '下面这些画面展示了 Croparia IF 最有代表性的几个阶段。',
+        galleryText: '这些画面展示了 Croparia IF 最有代表性的几个阶段。',
         gallery: [
           {
             title: '资源种植',
@@ -116,14 +111,9 @@ const content = computed<LocalizedContent>(() =>
         introLabel: 'Croparia IF',
         introTitle: 'An agriculture progression mod built around resource crops',
         introText:
-          'Croparia IF turns farming into a broader gameplay loop that grows from resource crops into processing machines, recipes, and advanced rituals.',
-        introPoints: [
-          'Resource crop progression',
-          'Core machines like the Infusor',
-          'Late-game ritual goals'
-        ],
+          'Croparia IF grows farming into a broader gameplay loop with processing machines, recipe progression, and advanced rituals built on top of resource crops.',
         downloadTitle: 'Download the Mod',
-        downloadText: 'Grab Croparia IF from the main release platforms, then use this docs site for gameplay, modpack, and developer references.',
+        downloadText: 'Get Croparia IF from the main release platforms, then continue into the docs below.',
         downloadActions: [
           { label: 'Modrinth', href: 'https://modrinth.com/mod/croparia-if', accent: 'brand', external: true },
           { label: 'CurseForge', href: 'https://www.curseforge.com/minecraft/mc-mods/croparia-if', accent: 'warm', external: true },
@@ -181,76 +171,78 @@ const content = computed<LocalizedContent>(() =>
         ]
       }
 )
+
+function resolveImage(path: string): string {
+  return withBase(path)
+}
 </script>
 
 <template>
   <div class="home-landing">
-    <section class="home-landing__intro">
-      <div class="home-landing__copy">
+    <section id="home-downloads" class="home-landing__downloads">
+      <div class="home-landing__section-head">
         <p class="home-landing__eyebrow">{{ content.introLabel }}</p>
         <h2>{{ content.introTitle }}</h2>
         <p class="home-landing__lead">{{ content.introText }}</p>
-        <ul class="home-landing__points">
-          <li v-for="point in content.introPoints" :key="point">{{ point }}</li>
-        </ul>
+      </div>
+      <div class="home-landing__download-block">
+        <div>
+          <p class="home-landing__eyebrow">{{ props.locale === 'zh' ? 'Downloads' : 'Downloads' }}</p>
+          <h3>{{ content.downloadTitle }}</h3>
+          <p>{{ content.downloadText }}</p>
+        </div>
+        <div class="home-landing__platform-list">
+          <a
+            v-for="action in content.downloadActions"
+            :key="action.label"
+            :class="['home-landing__platform', `is-${action.accent}`]"
+            :href="action.href"
+            :target="action.external ? '_blank' : undefined"
+            :rel="action.external ? 'noreferrer' : undefined"
+          >
+            {{ action.label }}
+          </a>
+        </div>
       </div>
     </section>
 
-    <section class="home-landing__downloads">
-      <div>
-        <p class="home-landing__eyebrow">{{ props.locale === 'zh' ? 'Downloads' : 'Downloads' }}</p>
-        <h2>{{ content.downloadTitle }}</h2>
-        <p>{{ content.downloadText }}</p>
+    <section id="home-navigation" class="home-landing__panel">
+      <div class="home-landing__section-head">
+        <p class="home-landing__eyebrow">{{ props.locale === 'zh' ? 'Navigation' : 'Navigation' }}</p>
+        <h2>{{ content.navTitle }}</h2>
+        <p>{{ content.navText }}</p>
       </div>
-      <div class="home-landing__platform-list">
+      <div class="home-landing__cards">
         <a
-          v-for="action in content.downloadActions"
-          :key="action.label"
-          :class="['home-landing__platform', `is-${action.accent}`]"
-          :href="action.href"
-          :target="action.external ? '_blank' : undefined"
-          :rel="action.external ? 'noreferrer' : undefined"
+          v-for="card in content.navCards"
+          :key="card.title"
+          class="home-landing__card home-landing__doc-card"
+          :href="card.href"
         >
-          {{ action.label }}
+          <h3>{{ card.title }}</h3>
+          <p>{{ card.body }}</p>
+          <span>{{ card.cta }}</span>
         </a>
       </div>
     </section>
 
-    <section class="home-landing__section-copy">
-      <p class="home-landing__eyebrow">{{ props.locale === 'zh' ? 'Navigation' : 'Navigation' }}</p>
-      <h2>{{ content.navTitle }}</h2>
-      <p>{{ content.navText }}</p>
-    </section>
-
-    <section class="home-landing__cards">
-      <a
-        v-for="card in content.navCards"
-        :key="card.title"
-        class="home-landing__card home-landing__doc-card"
-        :href="card.href"
-      >
-        <h3>{{ card.title }}</h3>
-        <p>{{ card.body }}</p>
-        <span>{{ card.cta }}</span>
-      </a>
-    </section>
-
-    <section class="home-landing__section-copy">
-      <p class="home-landing__eyebrow">{{ props.locale === 'zh' ? 'Gameplay Preview' : 'Gameplay Preview' }}</p>
-      <h2>{{ content.galleryTitle }}</h2>
-      <p>{{ content.galleryText }}</p>
-    </section>
-
-    <section class="home-landing__gallery">
-      <article v-for="item in content.gallery" :key="item.title" class="home-landing__gallery-item">
-        <div class="home-landing__image-frame">
-          <img :src="item.image" :alt="item.alt" loading="lazy" />
-        </div>
-        <div class="home-landing__gallery-text">
-          <h3>{{ item.title }}</h3>
-          <p>{{ item.body }}</p>
-        </div>
-      </article>
+    <section class="home-landing__panel">
+      <div class="home-landing__section-head">
+        <p class="home-landing__eyebrow">{{ props.locale === 'zh' ? 'Gameplay Preview' : 'Gameplay Preview' }}</p>
+        <h2>{{ content.galleryTitle }}</h2>
+        <p>{{ content.galleryText }}</p>
+      </div>
+      <div class="home-landing__gallery">
+        <article v-for="item in content.gallery" :key="item.title" class="home-landing__gallery-item">
+          <div class="home-landing__image-frame">
+            <img :src="resolveImage(item.image)" :alt="item.alt" loading="lazy" />
+          </div>
+          <div class="home-landing__gallery-text">
+            <h3>{{ item.title }}</h3>
+            <p>{{ item.body }}</p>
+          </div>
+        </article>
+      </div>
     </section>
   </div>
 </template>
@@ -262,29 +254,28 @@ const content = computed<LocalizedContent>(() =>
   margin: 0 auto 72px;
 }
 
-.home-landing__copy,
 .home-landing__downloads,
-.home-landing__cards,
-.home-landing__section-copy {
+.home-landing__panel {
   border: 1px solid rgba(129, 168, 87, 0.18);
   background: linear-gradient(180deg, rgba(253, 252, 247, 0.96), rgba(248, 245, 235, 0.93));
   border-radius: 28px;
   box-shadow: 0 26px 60px rgba(37, 53, 33, 0.08);
 }
 
-.dark .home-landing__copy,
 .dark .home-landing__downloads,
-.dark .home-landing__cards,
-.dark .home-landing__section-copy {
+.dark .home-landing__panel {
   background: linear-gradient(180deg, rgba(31, 41, 31, 0.9), rgba(22, 29, 23, 0.9));
   border-color: rgba(164, 202, 124, 0.2);
   box-shadow: 0 26px 60px rgba(0, 0, 0, 0.3);
 }
 
-.home-landing__copy,
 .home-landing__downloads,
-.home-landing__section-copy {
+.home-landing__panel {
   padding: 30px;
+}
+
+.home-landing__section-head {
+  margin-bottom: 20px;
 }
 
 .home-landing__eyebrow {
@@ -303,40 +294,25 @@ const content = computed<LocalizedContent>(() =>
 }
 
 .home-landing__lead,
-.home-landing__downloads p,
-.home-landing__section-copy p:last-child,
+.home-landing__download-block p,
+.home-landing__section-head p:last-child,
 .home-landing__gallery-text p,
 .home-landing__card p {
   color: var(--vp-c-text-2);
   line-height: 1.75;
 }
 
-.home-landing__points {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin: 18px 0 0;
-  padding: 0;
-  list-style: none;
-}
-
-.home-landing__points li {
-  padding: 8px 14px;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.72);
-  border: 1px solid rgba(129, 168, 87, 0.18);
-  color: var(--vp-c-text-2);
-}
-
-.dark .home-landing__points li {
-  background: rgba(255, 255, 255, 0.04);
+.home-landing__download-block {
+  display: grid;
+  gap: 18px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(129, 168, 87, 0.16);
 }
 
 .home-landing__platform-list {
   display: flex;
   flex-wrap: wrap;
   gap: 12px;
-  margin-top: 18px;
 }
 
 .home-landing__platform {
@@ -377,7 +353,6 @@ const content = computed<LocalizedContent>(() =>
   display: grid;
   gap: 16px;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  padding: 16px;
 }
 
 .home-landing__card {
@@ -405,10 +380,7 @@ const content = computed<LocalizedContent>(() =>
 }
 
 .home-landing__card h3,
-.home-landing__gallery-text h3,
-.home-landing__section-copy h2,
-.home-landing__copy h2,
-.home-landing__downloads h2 {
+.home-landing__gallery-text h3 {
   margin-bottom: 10px;
 }
 
@@ -461,7 +433,6 @@ const content = computed<LocalizedContent>(() =>
 .home-landing__image-frame img {
   display: block;
   width: 100%;
-  height: 100%;
   min-height: 280px;
   object-fit: cover;
 }
@@ -494,16 +465,14 @@ const content = computed<LocalizedContent>(() =>
     margin-bottom: 52px;
   }
 
-  .home-landing__copy,
   .home-landing__downloads,
-  .home-landing__section-copy,
+  .home-landing__panel,
   .home-landing__gallery-text {
     padding: 22px;
   }
 
   .home-landing__cards {
     grid-template-columns: 1fr;
-    padding: 12px;
   }
 
   .home-landing__card {
