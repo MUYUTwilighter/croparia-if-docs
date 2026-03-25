@@ -67,15 +67,19 @@ As of 2026-03-25, this docs repo itself is using VitePress `^1.6.4` in `package.
 - Version routing currently uses:
   - Chinese archives at `/versions/<version>/`
   - English archives at `/en/versions/<version>/`
-- The content model now uses generated source input instead of editing VitePress pages directly as the primary source.
-- Authoritative content directories are:
-  - `content/versioned/base/<locale>/` for shared versioned pages
-  - `content/versioned/releases/<version>/<locale>/` for release-specific overrides
-  - `content/global/<locale>/` for non-versioned fixed-route pages
-- `scripts/prepare-docs.mjs` prepares content into `.generated/`, and VitePress reads from `.generated/` via `srcDir`.
-- `.generated/` is build input generated from source content, not the long-term hand-edited source of truth.
+- The authoritative hand-written content source is now `content/docs/`.
+- Static public files live in `content/public/` and are copied into the generated docs root.
+- `scripts/prepare-docs.mjs` now prepares content into `docs/`, and VitePress reads from `docs/` via `srcDir`.
+- `docs/` is generated build input, not the long-term hand-edited source of truth.
+- Multi-version distribution no longer uses `content/versioned/base` plus `content/versioned/releases` overlay directories.
+- Version compatibility is now declared per page with frontmatter `modVersions`, and `scripts/prepare-docs.mjs` distributes pages to current or archived routes automatically.
+- Pages with `modVersions` matching the current release emit to locale root routes.
+- Pages with `modVersions` matching archived releases emit under `/versions/<version>/` or `/en/versions/<version>/`.
+- Pages without `modVersions` are treated as fixed site pages and emitted once.
 - Shared version metadata is maintained in `docs.config.mjs`.
 - README now contains maintenance guidance for the generated content model and routing conventions.
+- The SEO baseline remains in place, including sitemap, robots, canonical URLs, alternate `hreflang`, and default social metadata support.
+- `.vitepress/config.ts` recently fixed a naming conflict around `guideRoot`; avoid reintroducing imported/local symbol collisions there.
 - The current recorded release in the docs stack is Croparia IF `1.1.0a` on Minecraft `1.21.1`.
 - The workspace may contain large migration changes that remove the abandoned Docusaurus site from version control. Treat those deletions as intentional cleanup when the user asks to commit them.
 - The backup copy at `D:\Documents\WebStormProjects\croparia-if-docs-old` is the safer place to recover old art or wording without reintroducing the old stack into this repo.
