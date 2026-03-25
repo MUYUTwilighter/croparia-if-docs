@@ -14,11 +14,15 @@ The default landing pages always point to the actively maintained release.
 - Current Chinese entry: [/](/)
 - Current English entry: [/en/](/en/)
 
-## Archive Convention
-
-When we freeze older docs, we will place them under:
+## Archived Release Routes
 
 - Chinese: `/versions/<version>/`
 - English: `/en/versions/<version>/`
 
-That lets current and archived docs keep stable, readable URLs.
+## Content Reuse Strategy
+
+Archived releases do not need a full copy of the docs by default:
+
+1. shared base content is loaded first
+2. release-specific override files are layered on top
+3. only changed pages need their own Markdown files

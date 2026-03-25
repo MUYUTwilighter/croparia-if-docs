@@ -1,27 +1,17 @@
 import { defineConfig } from 'vitepress'
 import type { DefaultTheme } from 'vitepress'
+import {
+  allVersions,
+  archivedVersions,
+  currentVersion,
+  guideRoot,
+  localePrefix,
+  localizedText
+} from '../docs.config.mjs'
 
 type LocaleKey = 'root' | 'en'
 
-type VersionMeta = {
-  slug: string
-  minecraft: string
-  status: 'current' | 'archived'
-}
-
-const currentVersion: VersionMeta = {
-  slug: '1.1.0a',
-  minecraft: '1.21.1',
-  status: 'current'
-}
-
-const archivedVersions: VersionMeta[] = []
-
-const allVersions = [currentVersion, ...archivedVersions]
-
-function localePrefix(locale: LocaleKey): string {
-  return locale === 'root' ? '' : '/en'
-}
+type VersionMeta = (typeof allVersions)[number]
 
 function versionRoot(locale: LocaleKey, version: VersionMeta): string {
   const prefix = localePrefix(locale)
@@ -35,23 +25,19 @@ function guideRoot(locale: LocaleKey, version: VersionMeta): string {
   return root === '/' ? '/guide/' : `${root}guide/`
 }
 
-function localeText(locale: LocaleKey, zh: string, en: string): string {
-  return locale === 'root' ? zh : en
-}
-
 function buildVersionNav(locale: LocaleKey): DefaultTheme.NavItemWithChildren {
   return {
     text:
       currentVersion.status === 'current'
-        ? localeText(locale, `版本 ${currentVersion.slug}`, `Version ${currentVersion.slug}`)
+        ? localizedText(locale, `版本 ${currentVersion.slug}`, `Version ${currentVersion.slug}`)
         : currentVersion.slug,
     items: [
       {
-        text: localeText(locale, '版本策略', 'Versioning Policy'),
+        text: localizedText(locale, '版本策略', 'Versioning Policy'),
         link: `${localePrefix(locale)}/versions/`
       },
       ...allVersions.map((version) => ({
-        text: localeText(
+        text: localizedText(
           locale,
           `${version.slug} · MC ${version.minecraft}${version.status === 'current' ? '（当前）' : ''}`,
           `${version.slug} · MC ${version.minecraft}${version.status === 'current' ? ' (current)' : ''}`
@@ -65,51 +51,57 @@ function buildVersionNav(locale: LocaleKey): DefaultTheme.NavItemWithChildren {
 function buildNav(locale: LocaleKey): DefaultTheme.NavItem[] {
   return [
     {
-      text: localeText(locale, '首页', 'Home'),
+      text: localizedText(locale, '首页', 'Home'),
       link: `${localePrefix(locale)}/`
     },
     {
-      text: localeText(locale, '指南', 'Guide'),
+      text: localizedText(locale, '指南', 'Guide'),
       link: `${localePrefix(locale)}/guide/`
     },
     buildVersionNav(locale)
   ]
 }
 
-function buildSidebar(locale: LocaleKey): DefaultTheme.Sidebar {
-  const guideItems: DefaultTheme.SidebarItem[] = [
-    {
-      text: localeText(locale, '开始阅读', 'Start Here'),
-      link: `${localePrefix(locale)}/guide/`
-    },
-    {
-      text: localeText(locale, '文档架构', 'Docs Architecture'),
-      link: `${localePrefix(locale)}/guide/architecture`
-    },
-    {
-      text: localeText(locale, '多语言与多版本', 'I18n and Versioning'),
-      link: `${localePrefix(locale)}/guide/i18n-and-versioning`
-    }
-  ]
+function buildGuideSection(locale: LocaleKey, prefix: string): DefaultTheme.SidebarItem {
+  return {
+    text: localizedText(locale, '指南', 'Guide'),
+    items: [
+      {
+        text: localizedText(locale, '开始阅读', 'Start Here'),
+        link: `${prefix}guide/`
+      },
+      {
+        text: localizedText(locale, '文档架构', 'Docs Architecture'),
+        link: `${prefix}guide/architecture`
+      },
+      {
+        text: localizedText(locale, '多语言与多版本', 'I18n and Versioning'),
+        link: `${prefix}guide/i18n-and-versioning`
+      },
+      {
+        text: localizedText(locale, '内容继承模型', 'Content Inheritance Model'),
+        link: `${prefix}guide/content-inheritance`
+      }
+    ]
+  }
+}
 
+function buildSidebar(locale: LocaleKey): DefaultTheme.Sidebar {
   const archivedVersionItems = archivedVersions.map((version) => ({
     text: `${version.slug} · MC ${version.minecraft}`,
     link: guideRoot(locale, version)
   }))
 
-  return {
+  const sidebar: DefaultTheme.Sidebar = {
     [`${localePrefix(locale)}/guide/`]: [
-      {
-        text: localeText(locale, '指南', 'Guide'),
-        items: guideItems
-      }
+      buildGuideSection(locale, `${localePrefix(locale)}/`)
     ],
     [`${localePrefix(locale)}/versions/`]: [
       {
-        text: localeText(locale, '版本', 'Versions'),
+        text: localizedText(locale, '版本', 'Versions'),
         items: [
           {
-            text: localeText(locale, '版本策略', 'Versioning Policy'),
+            text: localizedText(locale, '版本策略', 'Versioning Policy'),
             link: `${localePrefix(locale)}/versions/`
           },
           ...archivedVersionItems
@@ -117,6 +109,13 @@ function buildSidebar(locale: LocaleKey): DefaultTheme.Sidebar {
       }
     ]
   }
+
+  for (const version of archivedVersions) {
+    const prefix = `${localePrefix(locale)}/versions/${version.slug}/`
+    sidebar[`${prefix}guide/`] = [buildGuideSection(locale, prefix)]
+  }
+
+  return sidebar
 }
 
 const sharedThemeConfig = {
@@ -129,6 +128,7 @@ const sharedThemeConfig = {
 }
 
 export default defineConfig({
+  srcDir: '.generated',
   lang: 'zh-CN',
   title: 'Croparia IF Docs',
   description: 'Croparia IF 文档站',

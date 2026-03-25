@@ -5,7 +5,7 @@ outline: deep
 
 # Start Here
 
-The default English docs are prepared for:
+The default docs currently target:
 
 - Croparia IF `1.1.0a`
 - Minecraft `1.21.1`
@@ -14,10 +14,11 @@ The default English docs are prepared for:
 
 - [Docs Architecture](/en/guide/architecture)
 - [I18n and Versioning](/en/guide/i18n-and-versioning)
+- [Content Inheritance Model](/en/guide/content-inheritance)
 - [Versioning Policy](/en/versions/)
 
-## Conventions
+## Current Strategy
 
-- `/` serves the current Simplified Chinese docs.
-- `/en/` serves the current English docs.
-- Archived versions are reserved under `/versions/<version>/` and `/en/versions/<version>/`.
+- the current release lives at the locale root
+- fixed site docs can be shared
+- only pages with real release differences need overrides
