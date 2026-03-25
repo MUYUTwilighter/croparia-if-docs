@@ -2,11 +2,11 @@ node_modules/
 
 .npm-cache/
 
-.generated/
-docs/
-.vitepress/cache/
-.vitepress/dist/
+/.generated/
+/docs/
+/.vitepress/cache/
+/.vitepress/dist/
 
-.idea/
+/.idea/
 .DS_Store
 Thumbs.db
