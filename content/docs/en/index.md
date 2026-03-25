@@ -1,7 +1,7 @@
 ---
 layout: home
 title: Croparia IF Docs
-description: English home page for Croparia IF docs with platform links, gameplay highlights, and maintainer-friendly entry points.
+description: English home page for Croparia IF docs with mod introduction, download links, gameplay highlights, and main documentation navigation.
 keywords:
   - Croparia IF
   - Minecraft mod
@@ -11,29 +11,29 @@ modVersions:
   - 1.1.0a
 hero:
   name: "Croparia IF"
-  text: "A Croparia IF docs homepage for players and creators"
-  tagline: Start with the guide, browse the current Croparia IF 1.1.0a docs, and jump into the section that matches what you want to learn.
+  text: "Resource farming, machine progression, and advanced rituals"
+  tagline: Croparia IF expands agriculture into a resource-focused progression mod. This homepage gives you the mod overview, download links, and the main docs navigation.
   image:
     src: /home/croparia-if-banner.webp
     alt: Croparia IF banner
   actions:
     - theme: brand
-      text: Read General Docs
-      link: /en/general/
+      text: Download the Mod
+      link: https://modrinth.com/mod/croparia-if
     - theme: alt
       text: Player Docs
       link: /en/player/
     - theme: alt
-      text: Modpack and Dev
-      link: /en/modpack/
+      text: General Docs
+      link: /en/general/
 
 features:
-  - title: Four Audiences
-    details: The current release is organized into General, Player, Modpack Authors, and Developer sections.
-  - title: Mod Version First
-    details: The structure is organized around Croparia IF 1.1.0a, while compatibility details live on the versioning page.
-  - title: Planned for Expansion
-    details: Each page starts with a writing plan so the docs can grow into full guides without reshuffling the information architecture.
+  - title: Resource Agriculture
+    details: Croparia IF turns crop growth and farming into a broader resource loop.
+  - title: Machines and Processing
+    details: Machines like the Infusor push farm output into deeper crafting and progression steps.
+  - title: Ritual Progression
+    details: Rituals and advanced recipes define the later-game goals of the mod.
 ---
 
 <HomeLanding locale="en" />
