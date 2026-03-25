@@ -1,0 +1,118 @@
+:root {
+  --vp-c-brand-1: #6f9852;
+  --vp-c-brand-2: #5b8041;
+  --vp-c-brand-3: #476635;
+  --vp-c-brand-soft: rgba(111, 152, 82, 0.18);
+  --vp-home-hero-name-color: #f3f0d8;
+  --vp-home-hero-text-color: #ffffff;
+  --vp-home-hero-image-background-image:
+    radial-gradient(circle at center, rgba(185, 232, 136, 0.26), rgba(185, 232, 136, 0.02) 62%);
+  --vp-home-hero-image-filter: drop-shadow(0 28px 48px rgba(14, 20, 13, 0.28));
+}
+
+.VPHome {
+  position: relative;
+}
+
+.VPHome::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  height: 720px;
+  background:
+    linear-gradient(180deg, rgba(22, 35, 25, 0.68), rgba(22, 35, 25, 0.14) 56%, rgba(255, 255, 255, 0)),
+    url("/home/background.webp") center top / cover no-repeat;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.VPHomeHero,
+.VPHomeFeatures,
+.VPContent.is-home {
+  position: relative;
+  z-index: 1;
+}
+
+.VPHomeHero {
+  padding-top: 40px !important;
+}
+
+.VPHomeHero .container {
+  max-width: 1240px;
+}
+
+.VPHomeHero .name,
+.VPHomeHero .text,
+.VPHomeHero .tagline {
+  text-shadow: 0 10px 34px rgba(10, 12, 9, 0.28);
+}
+
+.VPHomeHero .text {
+  max-width: 12ch;
+}
+
+.VPHomeHero .tagline {
+  max-width: 640px;
+  font-size: 1.08rem;
+  color: rgba(248, 248, 242, 0.9);
+}
+
+.VPHomeHero .image {
+  padding: 18px;
+  border-radius: 32px;
+  background: linear-gradient(180deg, rgba(34, 45, 31, 0.42), rgba(34, 45, 31, 0.08));
+  border: 1px solid rgba(245, 244, 231, 0.12);
+  backdrop-filter: blur(6px);
+}
+
+.VPHomeHero .image-src {
+  max-width: min(460px, 100%);
+}
+
+.VPHomeHero .actions {
+  gap: 14px;
+}
+
+.VPHomeHero .action .VPButton.medium {
+  border-radius: 999px;
+  padding-inline: 20px;
+}
+
+.VPHomeFeatures {
+  padding-top: 8px !important;
+}
+
+.VPFeature {
+  border-radius: 24px !important;
+  border: 1px solid rgba(129, 168, 87, 0.16) !important;
+  background:
+    linear-gradient(180deg, rgba(253, 252, 247, 0.96), rgba(248, 245, 235, 0.92)) !important;
+  box-shadow: 0 24px 50px rgba(37, 53, 33, 0.08);
+}
+
+.dark .VPFeature {
+  border-color: rgba(164, 202, 124, 0.2) !important;
+  background: linear-gradient(180deg, rgba(31, 41, 31, 0.92), rgba(22, 29, 23, 0.92)) !important;
+  box-shadow: 0 24px 50px rgba(0, 0, 0, 0.3);
+}
+
+@media (max-width: 960px) {
+  .VPHome::before {
+    height: 620px;
+  }
+}
+
+@media (max-width: 640px) {
+  .VPHome::before {
+    height: 560px;
+    background-position: center top;
+  }
+
+  .VPHomeHero {
+    padding-top: 18px !important;
+  }
+
+  .VPHomeHero .tagline {
+    font-size: 1rem;
+  }
+}
