@@ -99,21 +99,21 @@ const content = computed<LocalizedContent>(() =>
         gallery: [
           {
             title: '资源种植',
-            body: '从温室和基础作物开始，逐步建立稳定的资源农业循环。',
-            image: '/home/greenhouse-place.webp',
-            alt: 'Greenhouse gameplay screenshot'
+            body: '挖掘矿石，制作魔种，建立初步的农业资源循环。',
+            image: '/home/feat-1.webp',
+            alt: 'Resource farming screenshot'
           },
           {
             title: '装置与加工',
-            body: '借助 Infusor 等装置把农业产出推进到更完整的加工链，也是自定义内容最集中的核心部分。',
-            image: '/home/place-infusor.webp',
-            alt: 'Infusor placement screenshot'
+            body: '借助作物嬗变仪、高阶仪式实现自动化资源量产与道具的制作。',
+            image: '/home/feat-2.webp',
+            alt: 'Machines and processing screenshot'
           },
           {
-            title: '装置体系的高阶阶段',
-            body: 'Ritual 等内容属于整套装置与推进体系的一部分，用来承接更后期的目标与高级配方。',
-            image: '/home/ritual-1-3.webp',
-            alt: 'Ritual structure screenshot'
+            title: '整合包自定义',
+            body: '配方生成器、Generator API 等工具帮助你丰富整合包的玩法。',
+            image: '/home/feat-3.webp',
+            alt: 'Modpack customization screenshot'
           }
         ]
       }
@@ -169,21 +169,21 @@ const content = computed<LocalizedContent>(() =>
         gallery: [
           {
             title: 'Resource farming',
-            body: 'Start with crop growth and build a reliable loop around resource production.',
-            image: '/home/greenhouse-place.webp',
-            alt: 'Greenhouse gameplay screenshot'
+            body: 'Mine ores, craft magic seeds, and establish the first stage of the agricultural resource loop.',
+            image: '/home/feat-1.webp',
+            alt: 'Resource farming screenshot'
           },
           {
             title: 'Machines and processing',
-            body: 'Use machines like the Infusor to push crop output into a deeper processing chain, where much of the mod customization also lives.',
-            image: '/home/place-infusor.webp',
-            alt: 'Infusor placement screenshot'
+            body: 'Use the Crop Transmuter and advanced rituals to automate large-scale resource production and item crafting.',
+            image: '/home/feat-2.webp',
+            alt: 'Machines and processing screenshot'
           },
           {
-            title: 'Advanced machine-stage progression',
-            body: 'Ritual content belongs to the broader machine and progression system, carrying the mod into later goals and higher-tier recipes.',
-            image: '/home/ritual-1-3.webp',
-            alt: 'Ritual structure screenshot'
+            title: 'Modpack customization',
+            body: 'Tools like the recipe generator and Generator API help you expand and enrich modpack gameplay.',
+            image: '/home/feat-3.webp',
+            alt: 'Modpack customization screenshot'
           }
         ]
       }
