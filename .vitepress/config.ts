@@ -83,6 +83,23 @@ function buildNav(locale: LocaleKey): DefaultTheme.NavItem[] {
       text: localizedText(locale, '开发者', 'Developer'),
       link: sectionLink(locale, '/developer/')
     },
+    {
+      text: localizedText(locale, '社区', 'Support'),
+      items: [
+        {
+          text: 'MCMOD',
+          link: 'https://www.mcmod.cn/class/13639.html'
+        },
+        {
+          text: localizedText(locale, '问题反馈 Discord', 'Issue Discord'),
+          link: 'https://discord.gg/JunKeKCJAY'
+        },
+        {
+          text: localizedText(locale, '问题反馈 QQ', 'Issue QQ'),
+          link: 'https://qm.qq.com/q/OedneeO0Uw'
+        }
+      ]
+    },
     buildVersionNav(locale)
   ]
 }

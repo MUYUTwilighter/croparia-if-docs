@@ -34,6 +34,9 @@ type LocalizedContent = {
   downloadTitle: string
   downloadText: string
   downloadActions: LinkAction[]
+  supportTitle: string
+  supportText: string
+  supportActions: LinkAction[]
   navTitle: string
   navText: string
   navCards: NavCard[]
@@ -55,6 +58,13 @@ const content = computed<LocalizedContent>(() =>
           { label: 'Modrinth', href: 'https://modrinth.com/mod/croparia-if', accent: 'brand', external: true },
           { label: 'CurseForge', href: 'https://www.curseforge.com/minecraft/mc-mods/croparia-if', accent: 'warm', external: true },
           { label: 'GitHub', href: 'https://github.com/MUYU-Twilighter/croparia-if', accent: 'dark', external: true }
+        ],
+        supportTitle: '社区与反馈',
+        supportText: '如果你想查看模组主页、提交问题或加入交流社区，可以使用下面这些入口。',
+        supportActions: [
+          { label: 'MCMOD', href: 'https://www.mcmod.cn/class/13639.html', accent: 'warm', external: true },
+          { label: 'Discord', href: 'https://discord.gg/JunKeKCJAY', accent: 'brand', external: true },
+          { label: 'QQ 反馈群', href: 'https://qm.qq.com/q/OedneeO0Uw', accent: 'dark', external: true }
         ],
         navTitle: '文档导航',
         navText: '按你当前的目标进入对应栏目即可。',
@@ -118,6 +128,13 @@ const content = computed<LocalizedContent>(() =>
           { label: 'Modrinth', href: 'https://modrinth.com/mod/croparia-if', accent: 'brand', external: true },
           { label: 'CurseForge', href: 'https://www.curseforge.com/minecraft/mc-mods/croparia-if', accent: 'warm', external: true },
           { label: 'GitHub', href: 'https://github.com/MUYU-Twilighter/croparia-if', accent: 'dark', external: true }
+        ],
+        supportTitle: 'Community and Feedback',
+        supportText: 'Use these links to open the mod page, report issues, or join the community channels.',
+        supportActions: [
+          { label: 'MCMOD', href: 'https://www.mcmod.cn/class/13639.html', accent: 'warm', external: true },
+          { label: 'Discord', href: 'https://discord.gg/JunKeKCJAY', accent: 'brand', external: true },
+          { label: 'QQ Support', href: 'https://qm.qq.com/q/OedneeO0Uw', accent: 'dark', external: true }
         ],
         navTitle: 'Documentation Navigation',
         navText: 'Choose the section that matches your goal and jump straight into the relevant docs.',
@@ -198,6 +215,26 @@ function resolveImage(path: string): string {
             {{ action.label }}
           </a>
         </div>
+      </div>
+    </section>
+
+    <section class="home-landing__panel">
+      <div class="home-landing__section-head">
+        <p class="home-landing__eyebrow">{{ props.locale === 'zh' ? 'Community' : 'Community' }}</p>
+        <h2>{{ content.supportTitle }}</h2>
+        <p>{{ content.supportText }}</p>
+      </div>
+      <div class="home-landing__platform-list">
+        <a
+          v-for="action in content.supportActions"
+          :key="action.label"
+          :class="['home-landing__platform', `is-${action.accent}`]"
+          :href="action.href"
+          :target="action.external ? '_blank' : undefined"
+          :rel="action.external ? 'noreferrer' : undefined"
+        >
+          {{ action.label }}
+        </a>
       </div>
     </section>
 
