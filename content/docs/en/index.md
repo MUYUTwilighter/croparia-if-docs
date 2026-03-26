@@ -11,8 +11,8 @@ modVersions:
   - 1.1.0a
 hero:
   name: "Croparia IF"
-  text: "Customizable resource farming and machine progression"
-  tagline: Croparia IF was created to move beyond the hardcoded limits of the original Croparia, so extensibility and customization have been central goals from the beginning.
+  text: "Resource farming, machine progression, and deep customization"
+  tagline: Croparia IF combines resource-crop gameplay with machine-driven progression, and its strong customization focus comes from being created to move beyond the hardcoded limits of the original Croparia.
   image:
     src: /home/croparia-if-banner.webp
     alt: Croparia IF banner

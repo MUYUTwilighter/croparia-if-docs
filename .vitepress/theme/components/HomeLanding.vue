@@ -49,9 +49,9 @@ const content = computed<LocalizedContent>(() =>
   props.locale === 'zh'
     ? {
         introLabel: 'Croparia IF',
-        introTitle: '围绕资源作物与强自定义能力展开的农业模组',
+        introTitle: '围绕资源作物、装置推进与强自定义能力展开的农业模组',
         introText:
-          'Croparia IF 最初正是为了摆脱原版 Croparia 中大量难以修改的硬编码而诞生，因此它从一开始就把强自定义能力作为核心方向，让作物、配方、装置与整体玩法循环都更容易扩展与调整。',
+          'Croparia IF 以资源作物、生长循环和装置推进为主要玩法，同时它最初也正是为了摆脱原版 Croparia 中大量难以修改的硬编码而诞生，因此作物、配方、装置与整体玩法循环都更容易扩展与调整。',
         downloadTitle: '下载模组',
         downloadText: '从常用发行平台获取 Croparia IF，然后继续阅读下方文档。',
         downloadActions: [
@@ -119,9 +119,9 @@ const content = computed<LocalizedContent>(() =>
       }
     : {
         introLabel: 'Croparia IF',
-        introTitle: 'An agriculture mod built around resource crops and deep customization',
+        introTitle: 'An agriculture mod built around resource crops, machine progression, and deep customization',
         introText:
-          'Croparia IF was originally created to move beyond the hardcoded limits of the original Croparia, so strong customization has been a core goal from the start. Crops, recipes, machines, and the overall progression loop are all designed to be easier to extend and adjust.',
+          'Croparia IF is built around resource crops, growth loops, and machine-driven progression, while its strong customization comes from the fact that it was originally created to move beyond the hardcoded limits of the original Croparia. Crops, recipes, machines, and the overall progression loop are all easier to extend and adjust.',
         downloadTitle: 'Download the Mod',
         downloadText: 'Get Croparia IF from the main release platforms, then continue into the docs below.',
         downloadActions: [

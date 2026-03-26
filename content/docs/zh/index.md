@@ -11,8 +11,8 @@ modVersions:
   - 1.1.0a
 hero:
   name: "Croparia IF"
-  text: "强自定义资源农业与装置推进"
-  tagline: Croparia IF 最初就是为了摆脱原模组 Croparia 中难以修改的硬编码而诞生的，因此它从一开始就强调可扩展、可调整的自定义能力。
+  text: "资源农业、装置推进与强自定义"
+  tagline: Croparia IF 既围绕资源作物与装置推进构建玩法内容，也因为最初就是为了解决原模组 Croparia 中难以修改的硬编码而格外强调可扩展、可调整的自定义能力。
   image:
     src: /home/croparia-if-banner.webp
     alt: Croparia IF banner
