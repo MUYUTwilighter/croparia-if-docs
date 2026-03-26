@@ -16,10 +16,12 @@ modVersions:
 
 ## 计划收录的对象
 
-- 主要方块：Activated Shrieker、Greenhouse、Crop Transmuter、Infusor、Ritual Stand 系列、Elemental Stone、Elematilius Ore 系列。
-- 主要物品：Croparia `T1` 至 `T7`、元素宝石、元素药水、元素桶、特殊功能道具。
-- 种植内容：作物种子、作物果实、甜瓜种子、甜瓜成品。
-- 相关流体：Air、Water、Earth、Fire、Elemental。
+- 工作方块 /general/blocks-and-items/workstations 灌注台、仪式台、元素石、温室、作物嬗变仪
+- 遗物 /general/blocks-and-items/relics 点金之手、魔力绳、丰饶号角、无尽苹果
+- 基础魔种 /general/blocks-and-items/croparia 1-5阶基础魔种
+- 其他 /general/blocks-and-items/other 配方生成器、元素矿石、深层元素矿石、活化尖啸体
+
+注：作物种子、果实和元素相关物品在 /general/concepts 中，此分类不负责这些信息
 
 ## 建议表格字段
 

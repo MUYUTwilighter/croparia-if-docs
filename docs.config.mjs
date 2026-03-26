@@ -56,7 +56,7 @@ export function normalizeSiteUrl(url) {
 export function routePathFromRelativePath(relativePath) {
   const normalized = relativePath.replace(/\\/g, '/')
 
-  if (normalized === 'index.md') {
+  if (normalized === 'index.md' || normalized === '/index.mdx') {
     return '/'
   }
 
@@ -64,7 +64,11 @@ export function routePathFromRelativePath(relativePath) {
     return `/${normalized.slice(0, -'index.md'.length)}`
   }
 
-  return `/${normalized.replace(/\.md$/, '')}`
+  if (normalized.endsWith('/index.mdx')) {
+    return `/${normalized.slice(0, -'index.mdx'.length)}`
+  }
+
+  return `/${normalized.replace(/\.mdx?$/, '')}`
 }
 
 export function absoluteUrlForPath(routePath) {
