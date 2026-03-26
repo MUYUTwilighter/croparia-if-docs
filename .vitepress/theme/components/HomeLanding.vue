@@ -49,9 +49,9 @@ const content = computed<LocalizedContent>(() =>
   props.locale === 'zh'
     ? {
         introLabel: 'Croparia IF',
-        introTitle: '围绕资源作物展开的农业与进阶玩法模组',
+        introTitle: '围绕资源作物与强自定义能力展开的农业模组',
         introText:
-          'Croparia IF 让种植逐步延伸到加工装置、配方推进与高阶仪式，形成一整套围绕资源作物展开的内容循环。',
+          'Croparia IF 最初正是为了摆脱原版 Croparia 中大量难以修改的硬编码而诞生，因此它从一开始就把强自定义能力作为核心方向，让作物、配方、装置与整体玩法循环都更容易扩展与调整。',
         downloadTitle: '下载模组',
         downloadText: '从常用发行平台获取 Croparia IF，然后继续阅读下方文档。',
         downloadActions: [
@@ -104,14 +104,14 @@ const content = computed<LocalizedContent>(() =>
             alt: 'Greenhouse gameplay screenshot'
           },
           {
-            title: '装置推进',
-            body: '借助 Infusor 等装置把农业产出推进到更完整的加工链。',
+            title: '装置与加工',
+            body: '借助 Infusor 等装置把农业产出推进到更完整的加工链，也是自定义内容最集中的核心部分。',
             image: '/home/place-infusor.webp',
             alt: 'Infusor placement screenshot'
           },
           {
-            title: '高阶仪式',
-            body: '通过 Ritual 结构和高阶配方解锁更后期的内容目标。',
+            title: '装置体系的高阶阶段',
+            body: 'Ritual 等内容属于整套装置与推进体系的一部分，用来承接更后期的目标与高级配方。',
             image: '/home/ritual-1-3.webp',
             alt: 'Ritual structure screenshot'
           }
@@ -119,9 +119,9 @@ const content = computed<LocalizedContent>(() =>
       }
     : {
         introLabel: 'Croparia IF',
-        introTitle: 'An agriculture progression mod built around resource crops',
+        introTitle: 'An agriculture mod built around resource crops and deep customization',
         introText:
-          'Croparia IF grows farming into a broader gameplay loop with processing machines, recipe progression, and advanced rituals built on top of resource crops.',
+          'Croparia IF was originally created to move beyond the hardcoded limits of the original Croparia, so strong customization has been a core goal from the start. Crops, recipes, machines, and the overall progression loop are all designed to be easier to extend and adjust.',
         downloadTitle: 'Download the Mod',
         downloadText: 'Get Croparia IF from the main release platforms, then continue into the docs below.',
         downloadActions: [
@@ -174,14 +174,14 @@ const content = computed<LocalizedContent>(() =>
             alt: 'Greenhouse gameplay screenshot'
           },
           {
-            title: 'Machine progression',
-            body: 'Use machines like the Infusor to push crop output into a deeper processing chain.',
+            title: 'Machines and processing',
+            body: 'Use machines like the Infusor to push crop output into a deeper processing chain, where much of the mod customization also lives.',
             image: '/home/place-infusor.webp',
             alt: 'Infusor placement screenshot'
           },
           {
-            title: 'Advanced rituals',
-            body: 'Move into ritual structures and higher-tier recipes as the mod opens up.',
+            title: 'Advanced machine-stage progression',
+            body: 'Ritual content belongs to the broader machine and progression system, carrying the mod into later goals and higher-tier recipes.',
             image: '/home/ritual-1-3.webp',
             alt: 'Ritual structure screenshot'
           }

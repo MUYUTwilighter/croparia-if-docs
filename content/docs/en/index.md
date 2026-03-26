@@ -11,8 +11,8 @@ modVersions:
   - 1.1.0a
 hero:
   name: "Croparia IF"
-  text: "Resource farming, machine progression, and advanced rituals"
-  tagline: Croparia IF expands agriculture into a resource-focused progression mod. This homepage gives you the mod overview, download links, and the main docs navigation.
+  text: "Customizable resource farming and machine progression"
+  tagline: Croparia IF was created to move beyond the hardcoded limits of the original Croparia, so extensibility and customization have been central goals from the beginning.
   image:
     src: /home/croparia-if-banner.webp
     alt: Croparia IF banner

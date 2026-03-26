@@ -11,8 +11,8 @@ modVersions:
   - 1.1.0a
 hero:
   name: "Croparia IF"
-  text: "资源种植、装置推进与高阶仪式"
-  tagline: Croparia IF 是一个围绕资源作物扩展农业玩法的模组，这里提供模组简介、下载入口和主要文档导航。
+  text: "强自定义资源农业与装置推进"
+  tagline: Croparia IF 最初就是为了摆脱原模组 Croparia 中难以修改的硬编码而诞生的，因此它从一开始就强调可扩展、可调整的自定义能力。
   image:
     src: /home/croparia-if-banner.webp
     alt: Croparia IF banner
