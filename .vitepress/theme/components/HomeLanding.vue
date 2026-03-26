@@ -95,7 +95,7 @@ const content = computed<LocalizedContent>(() =>
           }
         ],
         galleryTitle: '玩法预览',
-        galleryText: '这些画面展示了 Croparia IF 最有代表性的几个阶段。',
+        galleryText: '这些画面展示了 Croparia IF 最有代表性的几个方面。',
         gallery: [
           {
             title: '资源种植',

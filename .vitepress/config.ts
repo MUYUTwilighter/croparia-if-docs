@@ -1,6 +1,6 @@
-import { defineConfig } from 'vitepress'
-import type { HeadConfig } from 'vitepress'
-import type { DefaultTheme } from 'vitepress'
+import {defineConfig} from 'vitepress'
+import type {HeadConfig} from 'vitepress'
+import type {DefaultTheme} from 'vitepress'
 import {
   absoluteUrlForPath,
   alternateLocalePath,
@@ -109,50 +109,65 @@ function buildDocSections(locale: LocaleKey, prefix: string): DefaultTheme.Sideb
     {
       text: localizedText(locale, '通用', 'General'),
       items: [
-        { text: localizedText(locale, '概览', 'Overview'), link: `${prefix}general/` },
-        { text: localizedText(locale, '术语与核心概念', 'Terms and Core Concepts'), link: `${prefix}general/concepts` },
-        { text: localizedText(locale, '内容总览', 'Content Overview'), link: `${prefix}general/content-overview` },
-        { text: localizedText(locale, '物品与方块清单', 'Blocks and Items'), link: `${prefix}general/blocks-and-items` },
-        { text: localizedText(locale, '元素与介质', 'Elements and Media'), link: `${prefix}general/elements` }
+        {text: localizedText(locale, '概览', 'Overview'), link: `${prefix}general/`},
+        {text: localizedText(locale, '术语与核心概念', 'Terms and Core Concepts'), link: `${prefix}general/concepts`},
+        {text: localizedText(locale, '内容总览', 'Content Overview'), link: `${prefix}general/content-overview`},
+        {text: localizedText(locale, '物品与方块清单', 'Blocks and Items'), link: `${prefix}general/blocks-and-items`},
+        {text: localizedText(locale, '元素与介质', 'Elements and Media'), link: `${prefix}general/elements`}
       ]
     },
     {
       text: localizedText(locale, '玩家', 'Player'),
       items: [
-        { text: localizedText(locale, '入门', 'Getting Started'), link: `${prefix}player/` },
-        { text: localizedText(locale, '种植与甜瓜', 'Farming and Melons'), link: `${prefix}player/farming-and-melons` },
-        { text: localizedText(locale, 'Croparia 进阶', 'Croparia Progression'), link: `${prefix}player/croparia-progression` },
-        { text: localizedText(locale, '机器与仪式', 'Machines and Rituals'), link: `${prefix}player/machines-and-rituals` },
-        { text: localizedText(locale, '自动化思路', 'Automation'), link: `${prefix}player/automation` },
-        { text: localizedText(locale, '实用道具', 'Utility Items'), link: `${prefix}player/utility-items` },
-        { text: localizedText(locale, '常见问题', 'FAQ'), link: `${prefix}player/faq` }
+        {text: localizedText(locale, '入门', 'Getting Started'), link: `${prefix}player/`},
+        {text: localizedText(locale, '种植与甜瓜', 'Farming and Melons'), link: `${prefix}player/farming-and-melons`},
+        {
+          text: localizedText(locale, 'Croparia 进阶', 'Croparia Progression'),
+          link: `${prefix}player/croparia-progression`
+        },
+        {
+          text: localizedText(locale, '机器与仪式', 'Machines and Rituals'),
+          link: `${prefix}player/machines-and-rituals`
+        },
+        {text: localizedText(locale, '自动化思路', 'Automation'), link: `${prefix}player/automation`},
+        {text: localizedText(locale, '实用道具', 'Utility Items'), link: `${prefix}player/utility-items`},
+        {text: localizedText(locale, '常见问题', 'FAQ'), link: `${prefix}player/faq`}
       ]
     },
     {
       text: localizedText(locale, '整合包作者', 'Modpack Authors'),
       items: [
-        { text: localizedText(locale, '概览', 'Overview'), link: `${prefix}modpack/` },
-        { text: localizedText(locale, '自定义能力概览', 'Customization Overview'), link: `${prefix}modpack/overview` },
-        { text: localizedText(locale, '数据包与资源包', 'Datapacks and Resource Packs'), link: `${prefix}modpack/datapacks-and-resourcepacks` },
-        { text: localizedText(locale, '自定义作物', 'Custom Crops'), link: `${prefix}modpack/custom-crops` },
-        { text: localizedText(locale, '配方与结构', 'Recipes and Structures'), link: `${prefix}modpack/recipes-and-structures` },
-        { text: localizedText(locale, '生成器与工具', 'Generators and Tools'), link: `${prefix}modpack/generators-and-tools` },
-        { text: localizedText(locale, '配置与整合建议', 'Configuration'), link: `${prefix}modpack/configuration` },
-        { text: localizedText(locale, '调试与排错', 'Debugging'), link: `${prefix}modpack/debugging` }
+        {text: localizedText(locale, '概览', 'Overview'), link: `${prefix}modpack/`},
+        {text: localizedText(locale, '自定义能力概览', 'Customization Overview'), link: `${prefix}modpack/overview`},
+        {
+          text: localizedText(locale, '数据包与资源包', 'Datapacks and Resource Packs'),
+          link: `${prefix}modpack/datapacks-and-resourcepacks`
+        },
+        {text: localizedText(locale, '自定义作物', 'Custom Crops'), link: `${prefix}modpack/custom-crops`},
+        {
+          text: localizedText(locale, '配方与结构', 'Recipes and Structures'),
+          link: `${prefix}modpack/recipes-and-structures`
+        },
+        {
+          text: localizedText(locale, '生成器与工具', 'Generators and Tools'),
+          link: `${prefix}modpack/generators-and-tools`
+        },
+        {text: localizedText(locale, '配置与整合建议', 'Configuration'), link: `${prefix}modpack/configuration`},
+        {text: localizedText(locale, '调试与排错', 'Debugging'), link: `${prefix}modpack/debugging`}
       ]
     },
     {
       text: localizedText(locale, '开发者', 'Developer'),
       items: [
-        { text: localizedText(locale, '概览', 'Overview'), link: `${prefix}developer/` },
-        { text: localizedText(locale, '架构概览', 'Architecture'), link: `${prefix}developer/architecture` },
-        { text: localizedText(locale, '包结构', 'Package Layout'), link: `${prefix}developer/package-layout` },
-        { text: localizedText(locale, '注册体系', 'Registrations'), link: `${prefix}developer/registrations` },
-        { text: localizedText(locale, '核心数据模型', 'Data Models'), link: `${prefix}developer/data-models` },
-        { text: localizedText(locale, '内容加载', 'Content Loading'), link: `${prefix}developer/content-loading` },
-        { text: localizedText(locale, '网络与界面', 'Networking and UI'), link: `${prefix}developer/networking-and-ui` },
-        { text: localizedText(locale, '兼容层', 'Compatibility'), link: `${prefix}developer/compatibility` },
-        { text: localizedText(locale, 'API 总览', 'API Overview'), link: `${prefix}developer/api-overview` }
+        {text: localizedText(locale, '概览', 'Overview'), link: `${prefix}developer/`},
+        {text: localizedText(locale, '架构概览', 'Architecture'), link: `${prefix}developer/architecture`},
+        {text: localizedText(locale, '包结构', 'Package Layout'), link: `${prefix}developer/package-layout`},
+        {text: localizedText(locale, '注册体系', 'Registrations'), link: `${prefix}developer/registrations`},
+        {text: localizedText(locale, '核心数据模型', 'Data Models'), link: `${prefix}developer/data-models`},
+        {text: localizedText(locale, '内容加载', 'Content Loading'), link: `${prefix}developer/content-loading`},
+        {text: localizedText(locale, '网络与界面', 'Networking and UI'), link: `${prefix}developer/networking-and-ui`},
+        {text: localizedText(locale, '兼容层', 'Compatibility'), link: `${prefix}developer/compatibility`},
+        {text: localizedText(locale, 'API 总览', 'API Overview'), link: `${prefix}developer/api-overview`}
       ]
     }
   ]
@@ -227,7 +242,7 @@ const sharedThemeConfig = {
     provider: 'local' as const
   },
   socialLinks: [
-    { icon: 'github', link: 'https://github.com/MUYUTwilighter/croparia-if-docs' }
+    {icon: 'github', link: 'https://github.com/MUYUTwilighter/croparia-if-docs'}
   ]
 }
 
@@ -264,8 +279,8 @@ export default defineConfig({
   title: 'Croparia IF Docs',
   description: 'Croparia IF 文档站',
   head: [
-    ['meta', { property: 'og:site_name', content: 'Croparia IF Docs' }],
-    ['meta', { name: 'twitter:card', content: 'summary' }]
+    ['meta', {property: 'og:site_name', content: 'Croparia IF Docs'}],
+    ['meta', {name: 'twitter:card', content: 'summary'}]
   ],
   cleanUrls: true,
   lastUpdated: true,
@@ -295,22 +310,22 @@ export default defineConfig({
         : 'index,follow'
     const head = (pageData.frontmatter.head ??= [])
 
-    pushHeadTag(head, ['link', { rel: 'canonical', href: absoluteUrl }])
-    pushHeadTag(head, ['link', { rel: 'alternate', hreflang: 'zh-CN', href: alternateRoot }])
-    pushHeadTag(head, ['link', { rel: 'alternate', hreflang: 'en-US', href: alternateEn }])
-    pushHeadTag(head, ['link', { rel: 'alternate', hreflang: 'x-default', href: alternateRoot }])
-    pushHeadTag(head, ['meta', { name: 'description', content: description }])
-    pushHeadTag(head, ['meta', { name: 'robots', content: robots }])
-    pushHeadTag(head, ['meta', { property: 'og:type', content: 'website' }])
-    pushHeadTag(head, ['meta', { property: 'og:title', content: title }])
-    pushHeadTag(head, ['meta', { property: 'og:description', content: description }])
-    pushHeadTag(head, ['meta', { property: 'og:url', content: absoluteUrl }])
-    pushHeadTag(head, ['meta', { property: 'og:locale', content: locale === 'root' ? 'zh_CN' : 'en_US' }])
-    pushHeadTag(head, ['meta', { name: 'twitter:title', content: title }])
-    pushHeadTag(head, ['meta', { name: 'twitter:description', content: description }])
+    pushHeadTag(head, ['link', {rel: 'canonical', href: absoluteUrl}])
+    pushHeadTag(head, ['link', {rel: 'alternate', hreflang: 'zh-CN', href: alternateRoot}])
+    pushHeadTag(head, ['link', {rel: 'alternate', hreflang: 'en-US', href: alternateEn}])
+    pushHeadTag(head, ['link', {rel: 'alternate', hreflang: 'x-default', href: alternateRoot}])
+    pushHeadTag(head, ['meta', {name: 'description', content: description}])
+    pushHeadTag(head, ['meta', {name: 'robots', content: robots}])
+    pushHeadTag(head, ['meta', {property: 'og:type', content: 'website'}])
+    pushHeadTag(head, ['meta', {property: 'og:title', content: title}])
+    pushHeadTag(head, ['meta', {property: 'og:description', content: description}])
+    pushHeadTag(head, ['meta', {property: 'og:url', content: absoluteUrl}])
+    pushHeadTag(head, ['meta', {property: 'og:locale', content: locale === 'root' ? 'zh_CN' : 'en_US'}])
+    pushHeadTag(head, ['meta', {name: 'twitter:title', content: title}])
+    pushHeadTag(head, ['meta', {name: 'twitter:description', content: description}])
 
     if (keywords.length > 0) {
-      pushHeadTag(head, ['meta', { name: 'keywords', content: keywords.join(', ') }])
+      pushHeadTag(head, ['meta', {name: 'keywords', content: keywords.join(', ')}])
     }
   },
   locales: {
