@@ -57,7 +57,7 @@ const content = computed<LocalizedContent>(() =>
         downloadActions: [
           { label: 'Modrinth', href: 'https://modrinth.com/mod/croparia-if', accent: 'brand', external: true },
           { label: 'CurseForge', href: 'https://www.curseforge.com/minecraft/mc-mods/croparia-if', accent: 'warm', external: true },
-          { label: 'GitHub', href: 'https://github.com/MUYU-Twilighter/croparia-if', accent: 'dark', external: true }
+          { label: 'GitHub', href: 'https://github.com/MUYUTwilighter/croparia-if', accent: 'dark', external: true }
         ],
         supportTitle: '社区与反馈',
         supportText: '如果你想查看模组主页、提交问题或加入交流社区，可以使用下面这些入口。',
