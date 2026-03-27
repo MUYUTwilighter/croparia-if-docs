@@ -1,6 +1,6 @@
 ---
 title: 玩家文档
-description: 面向玩家的 Croparia IF 1.1.0a 文档入口，规划入门、进阶、机器、自动化与常见问题等页面。
+description: 面向玩家的 Croparia IF 文档入口，规划入门、进阶、机器、自动化与常见问题等页面。
 keywords:
   - Croparia IF
   - 玩家
@@ -11,7 +11,7 @@ modVersions:
 
 # 玩家文档
 
-这一分类面向真正要游玩 `1.1.0a` 的读者，目标是把“知道它是什么”推进到“知道该怎么用”。
+这一分类面向真正要游玩本模组的读者，目标是把“知道它是什么”推进到“知道该怎么用”。
 
 ## 这一类要写什么
 
@@ -22,8 +22,8 @@ modVersions:
 
 ## 当前计划页面
 
-- [种植与甜瓜](/player/farming-and-melons)
-- [Croparia 进阶](/player/croparia-progression)
+- [入门](/player/farming-and-melons)
+- [进阶作物](/player/croparia-progression)
 - [机器与仪式](/player/machines-and-rituals)
 - [自动化思路](/player/automation)
 - [实用道具](/player/utility-items)
