@@ -48,7 +48,7 @@ function walkFiles(dir) {
       continue
     }
 
-    if (stats.isFile() && fullPath.endsWith('.md')) {
+    if (stats.isFile() && (fullPath.endsWith('.md') || fullPath.endsWith('.mdx'))) {
       files.push(fullPath)
     }
   }
@@ -57,19 +57,44 @@ function walkFiles(dir) {
 }
 
 function parseFrontmatter(source) {
-  if (!source.startsWith('---\n')) {
-    return { frontmatter: '', body: source }
+  const normalizedSource = source.replace(/\r\n/g, '\n')
+  const lines = normalizedSource.split('\n')
+  let cursor = 0
+
+  while (cursor < lines.length) {
+    const line = lines[cursor].trim()
+
+    if (!line) {
+      cursor += 1
+      continue
+    }
+
+    if (line.startsWith('import ') || line.startsWith('export ')) {
+      cursor += 1
+      continue
+    }
+
+    break
   }
 
-  const closingIndex = source.indexOf('\n---\n', 4)
+  if (lines[cursor] !== '---') {
+    return { preamble: '', frontmatter: '', body: source }
+  }
 
-  if (closingIndex === -1) {
-    return { frontmatter: '', body: source }
+  let closingLine = cursor + 1
+
+  while (closingLine < lines.length && lines[closingLine] !== '---') {
+    closingLine += 1
+  }
+
+  if (closingLine >= lines.length) {
+    return { preamble: '', frontmatter: '', body: source }
   }
 
   return {
-    frontmatter: source.slice(4, closingIndex),
-    body: source.slice(closingIndex + 5)
+    preamble: lines.slice(0, cursor).join('\n'),
+    frontmatter: lines.slice(cursor + 1, closingLine).join('\n'),
+    body: lines.slice(closingLine + 1).join('\n')
   }
 }
 
@@ -161,13 +186,26 @@ function stripInternalFrontmatter(frontmatter) {
 }
 
 function renderOutputSource(source) {
-  const { frontmatter, body } = parseFrontmatter(source)
+  const { preamble, frontmatter, body } = parseFrontmatter(source)
 
   if (!frontmatter) {
     return source
   }
 
-  return `${stripInternalFrontmatter(frontmatter)}${body.replace(/^\n/, '')}`
+  const outputParts = []
+
+  if (preamble.trim()) {
+    outputParts.push(preamble.trimEnd())
+  }
+
+  const strippedFrontmatter = stripInternalFrontmatter(frontmatter)
+  if (strippedFrontmatter) {
+    outputParts.push(strippedFrontmatter.trimEnd())
+  }
+
+  outputParts.push(body.replace(/^\n/, ''))
+
+  return `${outputParts.filter(Boolean).join('\n\n')}\n`
 }
 
 function writeMarkdownFile(outputFile, source) {
