@@ -279,6 +279,7 @@ export default defineConfig({
   title: 'Croparia IF Docs',
   description: 'Croparia IF 文档站',
   head: [
+    ['link', { rel: 'icon', type: 'image/webp', href: `${siteBase}assets/logo.webp` }],
     ['meta', {property: 'og:site_name', content: 'Croparia IF Docs'}],
     ['meta', {name: 'twitter:card', content: 'summary'}]
   ],

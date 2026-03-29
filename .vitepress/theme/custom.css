@@ -115,6 +115,20 @@
     padding-top: 0;
 }
 
+body .VPNavBarTitle .title {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+}
+
+body .VPNavBarTitle .title::before {
+    content: "";
+    width: 22px;
+    height: 22px;
+    flex: 0 0 22px;
+    background: url("/assets/logo.webp") center / contain no-repeat;
+}
+
 body:has(.VPHome) .VPNavBarTitle .title span {
     opacity: 0;
 }
@@ -157,6 +171,16 @@ body:has(.VPHome) .VPNavBarTitle .title span {
 
     .VPHomeHero .tagline {
         font-size: 1rem;
+    }
+
+    body .VPNavBarTitle .title {
+        gap: 8px;
+    }
+
+    body .VPNavBarTitle .title::before {
+        width: 20px;
+        height: 20px;
+        flex-basis: 20px;
     }
 
     body:has(.VPHome) .VPNavBarTitle .title span {

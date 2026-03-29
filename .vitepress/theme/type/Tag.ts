@@ -1,5 +1,4 @@
-<script setup lang="ts">
-import { createFallbackItem, fetchItem, type ItemData } from "./Item.vue"
+import {createFallbackItem, fetchItem, ItemData} from "./Item";
 
 export interface Tag {
   replace: boolean
@@ -18,7 +17,7 @@ function createFallbackTagItem(tagName: string): ItemData {
   return createFallbackItem(tagName, {
     zh: `任何属于 ${tagName} 的物品/方块`,
     en: `Any item/block of ${tagName}`,
-    es: tagName
+    es: `Cualquier objeto/bloque de ${tagName}`
   })
 }
 
@@ -42,4 +41,3 @@ export async function fetchItems(tagName: string): Promise<ItemData[]> {
     return [createFallbackTagItem(tagName)]
   }
 }
-</script>
