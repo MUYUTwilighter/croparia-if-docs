@@ -98,6 +98,14 @@ function parseFrontmatter(source) {
   }
 }
 
+function isMdxFile(filePath) {
+  return filePath.endsWith('.mdx')
+}
+
+function toOutputRelativePath(relativePath) {
+  return relativePath.replace(/\.mdx$/i, '.md')
+}
+
 function parseModVersions(frontmatter) {
   const lines = frontmatter.split(/\r?\n/)
   const versions = []
@@ -185,16 +193,54 @@ function stripInternalFrontmatter(frontmatter) {
   return `---\n${cleaned}\n---\n`
 }
 
-function renderOutputSource(source) {
+function convertMdxBodyToMarkdown(body) {
+  return body
+    .replace(/(\s+)([A-Za-z_][\w:-]*)=\{true\}/g, '$1$2')
+    .replace(/(\s+)([A-Za-z_][\w:-]*)=\{false\}/g, '$1:$2="false"')
+    .replace(/(\s+)([A-Za-z_][\w:-]*)=\{(-?\d+(?:\.\d+)?)\}/g, '$1:$2="$3"')
+    .replace(/(\s+)([A-Za-z_][\w:-]*)=\{"([^"]*)"\}/g, '$1$2="$3"')
+    .replace(/(\s+)([A-Za-z_][\w:-]*)=\{'([^']*)'\}/g, '$1$2="$3"')
+}
+
+function stripMdxPreamble(source) {
+  const normalizedSource = source.replace(/\r\n/g, '\n')
+  const lines = normalizedSource.split('\n')
+  let cursor = 0
+
+  while (cursor < lines.length) {
+    const line = lines[cursor].trim()
+
+    if (!line) {
+      cursor += 1
+      continue
+    }
+
+    if (line.startsWith('import ') || line.startsWith('export ')) {
+      cursor += 1
+      continue
+    }
+
+    break
+  }
+
+  return lines.slice(cursor).join('\n')
+}
+
+function renderOutputSource(source, options = {}) {
+  const { dropPreamble = false, convertMdxSyntax = false } = options
   const { preamble, frontmatter, body } = parseFrontmatter(source)
 
   if (!frontmatter) {
-    return source
+    if (!convertMdxSyntax) {
+      return source
+    }
+
+    return `${convertMdxBodyToMarkdown(stripMdxPreamble(source)).replace(/^\n/, '')}\n`
   }
 
   const outputParts = []
 
-  if (preamble.trim()) {
+  if (!dropPreamble && preamble.trim()) {
     outputParts.push(preamble.trimEnd())
   }
 
@@ -203,14 +249,15 @@ function renderOutputSource(source) {
     outputParts.push(strippedFrontmatter.trimEnd())
   }
 
-  outputParts.push(body.replace(/^\n/, ''))
+  const renderedBody = convertMdxSyntax ? convertMdxBodyToMarkdown(body) : body
+  outputParts.push(renderedBody.replace(/^\n/, ''))
 
   return `${outputParts.filter(Boolean).join('\n\n')}\n`
 }
 
-function writeMarkdownFile(outputFile, source) {
+function writeMarkdownFile(outputFile, source, options) {
   mkdirSync(path.dirname(outputFile), { recursive: true })
-  writeFileSync(outputFile, renderOutputSource(source))
+  writeFileSync(outputFile, renderOutputSource(source, options))
 }
 
 function copyDocsContent(locale) {
@@ -221,6 +268,8 @@ function copyDocsContent(locale) {
   for (const inputFile of walkFiles(localeInputRoot)) {
     const source = readFileSync(inputFile, 'utf8')
     const relativePath = path.relative(localeInputRoot, inputFile)
+    const outputRelativePath = toOutputRelativePath(relativePath)
+    const mdxFile = isMdxFile(inputFile)
     const { frontmatter } = parseFrontmatter(source)
     const modVersions = frontmatter ? parseModVersions(frontmatter) : null
 
@@ -230,8 +279,11 @@ function copyDocsContent(locale) {
     }
 
     if (!modVersions) {
-      const outputFile = joinOutputPath(routePrefix, relativePath)
-      writeMarkdownFile(outputFile, source)
+      const outputFile = joinOutputPath(routePrefix, outputRelativePath)
+      writeMarkdownFile(outputFile, source, {
+        dropPreamble: mdxFile,
+        convertMdxSyntax: mdxFile
+      })
       continue
     }
 
@@ -242,8 +294,8 @@ function copyDocsContent(locale) {
 
       const outputFile =
         version.status === 'current'
-          ? joinOutputPath(routePrefix, relativePath)
-          : joinOutputPath(routePrefix, 'versions', version.slug, relativePath)
+          ? joinOutputPath(routePrefix, outputRelativePath)
+          : joinOutputPath(routePrefix, 'versions', version.slug, outputRelativePath)
       const dedupeKey = `${version.slug}:${outputFile}`
 
       if (writtenTargets.has(dedupeKey)) {
@@ -251,7 +303,10 @@ function copyDocsContent(locale) {
       }
 
       writtenTargets.add(dedupeKey)
-      writeMarkdownFile(outputFile, source)
+      writeMarkdownFile(outputFile, source, {
+        dropPreamble: mdxFile,
+        convertMdxSyntax: mdxFile
+      })
     }
   }
 }
