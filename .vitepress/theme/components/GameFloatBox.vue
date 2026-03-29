@@ -44,9 +44,6 @@
 
 <style scoped>
 .mc-box {
-  --outer: var(--vp-unit-size);
-  --inner: var(--vp-unit-size);
-
   --outer-color: rgba(16, 0, 16, 0.94);
   --inner-top: rgba(37, 0, 94, 0.96);
   --inner-bottom: rgba(24, 0, 53, 0.96);
@@ -109,6 +106,6 @@
   padding: var(--vp-unit-size);
   background: var(--bg);
   display: flex;
-  align-items: center;
+  flex-direction: column;
 }
 </style>

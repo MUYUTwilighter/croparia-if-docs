@@ -1,22 +1,4 @@
 <script setup lang="ts">
-
-import {ItemData} from "../type/Item";
-
-const props = defineProps<{
-  locale: 'zh' | 'en',
-  ref: string,
-}>()
-
-const items: ItemData[] = [];
-// TODO: fetch items based on props.ref (e.g. minecraft:dirt, #c:seeds)
-
-const locale = {
-  'zh': {},
-  'en': {},
-  'es': {}
-}
-const content = locale[props.locale];
-
 </script>
 
 <template>
@@ -35,6 +17,9 @@ const content = locale[props.locale];
   border-right-color: #FFFFFF;
   border-bottom-color: #FFFFFF;
   background-color: #8B8B8B;
+  width: fit-content;
+  height: fit-content;
+  border-width: var(--vp-unit-size);
   border-style: solid;
   box-sizing: border-box;
 }

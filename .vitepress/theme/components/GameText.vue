@@ -1,15 +1,19 @@
 <script setup lang="ts">
-const props = withDefaults(
-    defineProps<{
-      content: string;
-      color?: string;
-      shadow?: boolean;
-    }>(),
-    {
-      color: "#FCFCFC",
-      shadow: false,
-    }
-);
+const {
+  content,
+  color = '#FCFCFC',
+  noShadow = false,
+  notFullLine = false,
+  fontStyle = 'normal',
+  fontWeight = 'normal',
+} = defineProps<{
+  content: string;
+  color?: string;
+  noShadow?: boolean;
+  notFullLine?: boolean;
+  fontStyle?: string;
+  fontWeight?: string;
+}>();
 
 function getMcShadow(hex: string) {
   const r = parseInt(hex.slice(1, 3), 16);
@@ -24,21 +28,25 @@ function getMcShadow(hex: string) {
 
   return `rgb(${sr}, ${sg}, ${sb})`;
 }
+
+const display = notFullLine ? 'inline' : 'block';
 </script>
 
 <template>
   <span class="game-text" :style="{
-    color: props.color,
-    textShadow: props.shadow ? `0.8mm 0.8mm 0 ${getMcShadow(props.color)}` : 'none'
+    color,
+    textShadow: noShadow ? 'none' : `var(--vp-unit-size) var(--vp-unit-size) 0 ${getMcShadow(color)}`
   }">
-    {{ props.content }}
+    {{ content }}
   </span>
 </template>
 
 <style scoped>
 .game-text {
+  display: v-bind(display);
   font-family: "Noto Sans SC", monospace;
   font-size: calc(var(--vp-unit-size) * 7);
-  font-weight: bold;
+  font-weight: v-bind(fontWeight);
+  font-style: v-bind(fontStyle);
 }
 </style>

@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { computed } from 'vue'
-import { withBase } from 'vitepress'
+import {computed} from 'vue'
+import {withBase} from 'vitepress'
 
 const props = defineProps<{
   locale: 'zh' | 'en'
@@ -46,147 +46,157 @@ type LocalizedContent = {
 }
 
 const content = computed<LocalizedContent>(() =>
-  props.locale === 'zh'
-    ? {
-        introLabel: 'Croparia IF',
-        introTitle: '围绕资源作物、装置推进与强自定义能力展开的农业模组',
-        introText:
-          'Croparia IF 以资源作物、生长循环和装置推进为主要玩法，同时它最初也正是为了摆脱原版 Croparia 中大量难以修改的硬编码而诞生，因此作物、配方、装置与整体玩法循环都更容易扩展与调整。',
-        downloadTitle: '下载模组',
-        downloadText: '从常用发行平台获取 Croparia IF，然后继续阅读下方文档。',
-        downloadActions: [
-          { label: 'Modrinth', href: 'https://modrinth.com/mod/croparia-if', accent: 'brand', external: true },
-          { label: 'CurseForge', href: 'https://www.curseforge.com/minecraft/mc-mods/croparia-if', accent: 'warm', external: true },
-          { label: 'GitHub', href: 'https://github.com/MUYUTwilighter/croparia-if', accent: 'dark', external: true }
-        ],
-        supportTitle: '社区与反馈',
-        supportText: '如果你想查看模组主页、提交问题或加入交流社区，可以使用下面这些入口。',
-        supportActions: [
-          { label: 'MCMOD', href: 'https://www.mcmod.cn/class/13639.html', accent: 'warm', external: true },
-          { label: 'Discord', href: 'https://discord.gg/JunKeKCJAY', accent: 'brand', external: true },
-          { label: 'QQ 反馈群', href: 'https://qm.qq.com/q/OedneeO0Uw', accent: 'dark', external: true }
-        ],
-        navTitle: '文档导航',
-        navText: '按你当前的目标进入对应栏目即可。',
-        navCards: [
-          {
-            title: '通用',
-            body: '查看核心概念、内容总览、方块物品和基础资料。',
-            href: '/general/',
-            cta: '进入通用文档'
-          },
-          {
-            title: '玩家',
-            body: '查看入门、推进、机器系统、自动化和常见问题。',
-            href: '/player/',
-            cta: '进入玩家文档'
-          },
-          {
-            title: '整合包作者',
-            body: '查看自定义能力、数据包、资源包、配方与工具。',
-            href: '/modpack/',
-            cta: '进入整合包文档'
-          },
-          {
-            title: '开发者',
-            body: '查看架构、注册体系、数据模型、API 与兼容层。',
-            href: '/developer/',
-            cta: '进入开发者文档'
-          }
-        ],
-        galleryTitle: '玩法预览',
-        galleryText: '这些画面展示了 Croparia IF 最有代表性的几个方面。',
-        gallery: [
-          {
-            title: '资源种植',
-            body: '挖掘矿石，制作魔种，建立初步的农业资源循环。',
-            image: '/home/feat-1.webp',
-            alt: 'Resource farming screenshot'
-          },
-          {
-            title: '装置与加工',
-            body: '借助作物嬗变仪、高阶仪式实现自动化资源量产与道具的制作。',
-            image: '/home/feat-2.webp',
-            alt: 'Machines and processing screenshot'
-          },
-          {
-            title: '整合包自定义',
-            body: '配方生成器、Generator API 等工具帮助你丰富整合包的玩法。',
-            image: '/home/feat-3.webp',
-            alt: 'Modpack customization screenshot'
-          }
-        ]
-      }
-    : {
-        introLabel: 'Croparia IF',
-        introTitle: 'An agriculture mod built around resource crops, machine progression, and deep customization',
-        introText:
-          'Croparia IF is built around resource crops, growth loops, and machine-driven progression, while its strong customization comes from the fact that it was originally created to move beyond the hardcoded limits of the original Croparia. Crops, recipes, machines, and the overall progression loop are all easier to extend and adjust.',
-        downloadTitle: 'Download the Mod',
-        downloadText: 'Get Croparia IF from the main release platforms, then continue into the docs below.',
-        downloadActions: [
-          { label: 'Modrinth', href: 'https://modrinth.com/mod/croparia-if', accent: 'brand', external: true },
-          { label: 'CurseForge', href: 'https://www.curseforge.com/minecraft/mc-mods/croparia-if', accent: 'warm', external: true },
-          { label: 'GitHub', href: 'https://github.com/MUYU-Twilighter/croparia-if', accent: 'dark', external: true }
-        ],
-        supportTitle: 'Community and Feedback',
-        supportText: 'Use these links to open the mod page, report issues, or join the community channels.',
-        supportActions: [
-          { label: 'MCMOD', href: 'https://www.mcmod.cn/class/13639.html', accent: 'warm', external: true },
-          { label: 'Discord', href: 'https://discord.gg/JunKeKCJAY', accent: 'brand', external: true },
-          { label: 'QQ Support', href: 'https://qm.qq.com/q/OedneeO0Uw', accent: 'dark', external: true }
-        ],
-        navTitle: 'Documentation Navigation',
-        navText: 'Choose the section that matches your goal and jump straight into the relevant docs.',
-        navCards: [
-          {
-            title: 'General',
-            body: 'Read the core concepts, content overview, blocks and items, and other foundational references.',
-            href: '/en/general/',
-            cta: 'Open general docs'
-          },
-          {
-            title: 'Player',
-            body: 'Read getting started guides, progression paths, machines, automation, and common questions.',
-            href: '/en/player/',
-            cta: 'Open player docs'
-          },
-          {
-            title: 'Modpack Authors',
-            body: 'Read customization docs for datapacks, resource packs, crops, recipes, and tools.',
-            href: '/en/modpack/',
-            cta: 'Open modpack docs'
-          },
-          {
-            title: 'Developer',
-            body: 'Read architecture, registrations, data models, APIs, and compatibility notes.',
-            href: '/en/developer/',
-            cta: 'Open developer docs'
-          }
-        ],
-        galleryTitle: 'Gameplay Preview',
-        galleryText: 'These screenshots highlight a few of the most recognizable parts of Croparia IF.',
-        gallery: [
-          {
-            title: 'Resource farming',
-            body: 'Mine ores, craft magic seeds, and establish the first stage of the agricultural resource loop.',
-            image: '/home/feat-1.webp',
-            alt: 'Resource farming screenshot'
-          },
-          {
-            title: 'Machines and processing',
-            body: 'Use the Crop Transmuter and advanced rituals to automate large-scale resource production and item crafting.',
-            image: '/home/feat-2.webp',
-            alt: 'Machines and processing screenshot'
-          },
-          {
-            title: 'Modpack customization',
-            body: 'Tools like the recipe generator and Generator API help you expand and enrich modpack gameplay.',
-            image: '/home/feat-3.webp',
-            alt: 'Modpack customization screenshot'
-          }
-        ]
-      }
+    props.locale === 'zh'
+        ? {
+          introLabel: 'Croparia IF',
+          introTitle: '围绕资源作物、装置推进与强自定义能力展开的农业模组',
+          introText:
+              'Croparia IF 以资源作物、生长循环和装置推进为主要玩法，同时它最初也正是为了摆脱原版 Croparia 中大量难以修改的硬编码而诞生，因此作物、配方、装置与整体玩法循环都更容易扩展与调整。',
+          downloadTitle: '下载模组',
+          downloadText: '从常用发行平台获取 Croparia IF，然后继续阅读下方文档。',
+          downloadActions: [
+            {label: 'Modrinth', href: 'https://modrinth.com/mod/croparia-if', accent: 'brand', external: true},
+            {
+              label: 'CurseForge',
+              href: 'https://www.curseforge.com/minecraft/mc-mods/croparia-if',
+              accent: 'warm',
+              external: true
+            },
+            {label: 'GitHub', href: 'https://github.com/MUYUTwilighter/croparia-if', accent: 'dark', external: true}
+          ],
+          supportTitle: '社区与反馈',
+          supportText: '如果你想查看模组主页、提交问题或加入交流社区，可以使用下面这些入口。',
+          supportActions: [
+            {label: 'MCMOD', href: 'https://www.mcmod.cn/class/13639.html', accent: 'warm', external: true},
+            {label: 'Discord', href: 'https://discord.gg/JunKeKCJAY', accent: 'brand', external: true},
+            {label: 'QQ 反馈群', href: 'https://qm.qq.com/q/OedneeO0Uw', accent: 'dark', external: true}
+          ],
+          navTitle: '文档导航',
+          navText: '按你当前的目标进入对应栏目即可。',
+          navCards: [
+            {
+              title: '通用',
+              body: '查看核心概念、内容总览、方块物品和基础资料。',
+              href: '/general/',
+              cta: '进入通用文档'
+            },
+            {
+              title: '玩家',
+              body: '查看入门、推进、机器系统、自动化和常见问题。',
+              href: '/player/',
+              cta: '进入玩家文档'
+            },
+            {
+              title: '整合包作者',
+              body: '查看自定义能力、数据包、资源包、配方与工具。',
+              href: '/modpack/',
+              cta: '进入整合包文档'
+            },
+            {
+              title: '开发者',
+              body: '查看架构、注册体系、数据模型、API 与兼容层。',
+              href: '/developer/',
+              cta: '进入开发者文档'
+            }
+          ],
+          galleryTitle: '玩法预览',
+          galleryText: '这些画面展示了 Croparia IF 最有代表性的几个方面。',
+          gallery: [
+            {
+              title: '资源种植',
+              body: '挖掘矿石，制作魔种，建立初步的农业资源循环。',
+              image: '/home/feat-1.webp',
+              alt: 'Resource farming screenshot'
+            },
+            {
+              title: '装置与加工',
+              body: '借助作物嬗变仪、高阶仪式实现自动化资源量产与道具的制作。',
+              image: '/home/feat-2.webp',
+              alt: 'Machines and processing screenshot'
+            },
+            {
+              title: '整合包自定义',
+              body: '配方生成器、Generator API 等工具帮助你丰富整合包的玩法。',
+              image: '/home/feat-3.webp',
+              alt: 'Modpack customization screenshot'
+            }
+          ]
+        }
+        : {
+          introLabel: 'Croparia IF',
+          introTitle: 'An agriculture mod built around resource crops, machine progression, and deep customization',
+          introText:
+              'Croparia IF is built around resource crops, growth loops, and machine-driven progression, while its strong customization comes from the fact that it was originally created to move beyond the hardcoded limits of the original Croparia. Crops, recipes, machines, and the overall progression loop are all easier to extend and adjust.',
+          downloadTitle: 'Download the Mod',
+          downloadText: 'Get Croparia IF from the main release platforms, then continue into the docs below.',
+          downloadActions: [
+            {label: 'Modrinth', href: 'https://modrinth.com/mod/croparia-if', accent: 'brand', external: true},
+            {
+              label: 'CurseForge',
+              href: 'https://www.curseforge.com/minecraft/mc-mods/croparia-if',
+              accent: 'warm',
+              external: true
+            },
+            {label: 'GitHub', href: 'https://github.com/MUYU-Twilighter/croparia-if', accent: 'dark', external: true}
+          ],
+          supportTitle: 'Community and Feedback',
+          supportText: 'Use these links to open the mod page, report issues, or join the community channels.',
+          supportActions: [
+            {label: 'MCMOD', href: 'https://www.mcmod.cn/class/13639.html', accent: 'warm', external: true},
+            {label: 'Discord', href: 'https://discord.gg/JunKeKCJAY', accent: 'brand', external: true},
+            {label: 'QQ Support', href: 'https://qm.qq.com/q/OedneeO0Uw', accent: 'dark', external: true}
+          ],
+          navTitle: 'Documentation Navigation',
+          navText: 'Choose the section that matches your goal and jump straight into the relevant docs.',
+          navCards: [
+            {
+              title: 'General',
+              body: 'Read the core concepts, content overview, blocks and items, and other foundational references.',
+              href: '/en/general/',
+              cta: 'Open general docs'
+            },
+            {
+              title: 'Player',
+              body: 'Read getting started guides, progression paths, machines, automation, and common questions.',
+              href: '/en/player/',
+              cta: 'Open player docs'
+            },
+            {
+              title: 'Modpack Authors',
+              body: 'Read customization docs for datapacks, resource packs, crops, recipes, and tools.',
+              href: '/en/modpack/',
+              cta: 'Open modpack docs'
+            },
+            {
+              title: 'Developer',
+              body: 'Read architecture, registrations, data models, APIs, and compatibility notes.',
+              href: '/en/developer/',
+              cta: 'Open developer docs'
+            }
+          ],
+          galleryTitle: 'Gameplay Preview',
+          galleryText: 'These screenshots highlight a few of the most recognizable parts of Croparia IF.',
+          gallery: [
+            {
+              title: 'Resource farming',
+              body: 'Mine ores, craft magic seeds, and establish the first stage of the agricultural resource loop.',
+              image: '/home/feat-1.webp',
+              alt: 'Resource farming screenshot'
+            },
+            {
+              title: 'Machines and processing',
+              body: 'Use the Crop Transmuter and advanced rituals to automate large-scale resource production and item crafting.',
+              image: '/home/feat-2.webp',
+              alt: 'Machines and processing screenshot'
+            },
+            {
+              title: 'Modpack customization',
+              body: 'Tools like the recipe generator and Generator API help you expand and enrich modpack gameplay.',
+              image: '/home/feat-3.webp',
+              alt: 'Modpack customization screenshot'
+            }
+          ]
+        }
 )
 
 function resolveImage(path: string): string {
@@ -205,12 +215,12 @@ function resolveImage(path: string): string {
         </div>
         <div class="home-landing__platform-list">
           <a
-            v-for="action in content.downloadActions"
-            :key="action.label"
-            :class="['home-landing__platform', `is-${action.accent}`]"
-            :href="action.href"
-            :target="action.external ? '_blank' : undefined"
-            :rel="action.external ? 'noreferrer' : undefined"
+              v-for="action in content.downloadActions"
+              :key="action.label"
+              :class="['home-landing__platform', `is-${action.accent}`]"
+              :href="action.href"
+              :target="action.external ? '_blank' : undefined"
+              :rel="action.external ? 'noreferrer' : undefined"
           >
             {{ action.label }}
           </a>
@@ -226,12 +236,12 @@ function resolveImage(path: string): string {
       </div>
       <div class="home-landing__platform-list">
         <a
-          v-for="action in content.supportActions"
-          :key="action.label"
-          :class="['home-landing__platform', `is-${action.accent}`]"
-          :href="action.href"
-          :target="action.external ? '_blank' : undefined"
-          :rel="action.external ? 'noreferrer' : undefined"
+            v-for="action in content.supportActions"
+            :key="action.label"
+            :class="['home-landing__platform', `is-${action.accent}`]"
+            :href="action.href"
+            :target="action.external ? '_blank' : undefined"
+            :rel="action.external ? 'noreferrer' : undefined"
         >
           {{ action.label }}
         </a>
@@ -246,10 +256,10 @@ function resolveImage(path: string): string {
       </div>
       <div class="home-landing__cards">
         <a
-          v-for="card in content.navCards"
-          :key="card.title"
-          class="home-landing__card home-landing__doc-card"
-          :href="card.href"
+            v-for="card in content.navCards"
+            :key="card.title"
+            class="home-landing__card home-landing__doc-card"
+            :href="card.href"
         >
           <h3>{{ card.title }}</h3>
           <p>{{ card.body }}</p>
@@ -267,7 +277,7 @@ function resolveImage(path: string): string {
       <div class="home-landing__gallery">
         <article v-for="item in content.gallery" :key="item.title" class="home-landing__gallery-item">
           <div class="home-landing__image-frame">
-            <img :src="resolveImage(item.image)" :alt="item.alt" loading="lazy" />
+            <img :src="resolveImage(item.image)" :alt="item.alt" loading="lazy"/>
           </div>
           <div class="home-landing__gallery-text">
             <h3>{{ item.title }}</h3>

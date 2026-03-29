@@ -1,16 +1,19 @@
+import {withBase} from "vitepress";
+
 export type ItemLocale = 'zh' | 'en' | 'es'
 
-export interface ItemNameMap {
-  zh?: string
-  en?: string
-  es?: string
+export interface LocaleMap {
+  zh: string
+  en: string
+  es: string
 
   [locale: string]: string | undefined
 }
 
 export interface ItemPayload {
-  name: ItemNameMap
+  name: LocaleMap
   registerName: string
+  CreativeTabName: LocaleMap
   OredictList: string | string[]
   smallIcon: string
   largeIcon: string
@@ -19,8 +22,9 @@ export interface ItemPayload {
 }
 
 export interface ItemData {
-  name: ItemNameMap
+  name: LocaleMap
   registerName: string
+  CreativeTabName: LocaleMap
   OredictList: string[]
   smallIcon: string
   largeIcon: string
@@ -49,7 +53,7 @@ function normalizeOredictList(list: string | string[] | undefined): string[] {
 
   return normalized
     .replace(/^\[/, '')
-    .replace(/\]$/, '')
+    .replace(/]$/, '')
     .split(',')
     .map(entry => entry.trim())
     .filter(Boolean)
@@ -78,11 +82,12 @@ function normalizeItem(payload: ItemPayload, fallbackRegisterName = payload.regi
     smallIconSrc: toImageSrc(smallIcon),
     largeIconSrc: toImageSrc(largeIcon),
     maxStacksSize: payload.maxStacksSize ?? 64,
-    minTool: payload.minTool
+    minTool: payload.minTool,
+    CreativeTabName: payload.CreativeTabName
   }
 }
 
-export function createFallbackItem(registerName: string, name?: ItemNameMap): ItemData {
+export function createFallbackItem(registerName: string, name?: LocaleMap): ItemData {
   return normalizeItem(
     {
       name: name ?? {
@@ -94,7 +99,12 @@ export function createFallbackItem(registerName: string, name?: ItemNameMap): It
       OredictList: [],
       maxStacksSize: 99,
       smallIcon: FALLBACK_SMALL_ICON,
-      largeIcon: FALLBACK_LARGE_ICON
+      largeIcon: FALLBACK_LARGE_ICON,
+      CreativeTabName: {
+        'zh': "未知",
+        'en': 'Unknown',
+        'es': ''
+      }
     },
     registerName
   )
@@ -103,7 +113,7 @@ export function createFallbackItem(registerName: string, name?: ItemNameMap): It
 export async function fetchItem(registerName: string): Promise<ItemData> {
   try {
     const [namespace, path] = parseRegisterName(registerName)
-    const response = await fetch(`./data/item/${namespace}/${path}.json`)
+    const response = await fetch(`${withBase(`/data/item/${namespace}/${path}.json`)}`)
     if (!response.ok) throw new Error(`Failed to fetch item ${registerName}`)
     const item = await response.json() as ItemPayload
     return normalizeItem(item, registerName)

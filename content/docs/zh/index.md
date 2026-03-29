@@ -1,4 +1,3 @@
-import HomeLanding from "../../../.vitepress/theme/components/HomeLanding.vue";
 ---
 layout: home
 title: Croparia IF Docs
@@ -26,4 +25,4 @@ hero:
       link: /#home-navigation
 ---
 
-<HomeLanding locale="zh" />
+<HomeLanding locale="zh"></HomeLanding>
