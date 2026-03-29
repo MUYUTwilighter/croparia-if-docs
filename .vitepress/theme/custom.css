@@ -129,10 +129,6 @@ body .VPNavBarTitle .title::before {
     background: url("/assets/logo.webp") center / contain no-repeat;
 }
 
-body:has(.VPHome) .VPNavBarTitle .title span {
-    opacity: 0;
-}
-
 .VPFeature {
     border-radius: 24px !important;
     border: 1px solid rgba(129, 168, 87, 0.16) !important;
@@ -183,7 +179,4 @@ body:has(.VPHome) .VPNavBarTitle .title span {
         flex-basis: 20px;
     }
 
-    body:has(.VPHome) .VPNavBarTitle .title span {
-        opacity: 1;
-    }
 }
