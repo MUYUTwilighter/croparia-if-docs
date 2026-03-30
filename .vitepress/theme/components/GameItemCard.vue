@@ -13,7 +13,7 @@ const {
 } = defineProps<{
   locale: string,
   id: string,
-}>();
+}>()=
 
 const item = ref<ItemData>(createFallbackItem("tagOrId"));
 
