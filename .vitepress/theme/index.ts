@@ -10,6 +10,7 @@ import GameSlot from "./components/GameSlot.vue";
 import GameArrowButton from "./components/GameArrowButton.vue";
 import GameItemDisplay from "./components/GameItemDisplay.vue";
 import GameItemCard from "./components/GameItemCard.vue";
+import GameItemInput from "./components/GameItemInput.vue";
 
 const theme: Theme = {
   extends: DefaultTheme,
@@ -19,6 +20,7 @@ const theme: Theme = {
     app.component('GameGuiFrame', GameGuiFrame);
     app.component('GameItemCard', GameItemCard);
     app.component('GameItemDisplay', GameItemDisplay);
+    app.component('GameItemInput', GameItemInput);
     app.component('GameSlot', GameSlot);
     app.component('GameText', GameText);
     app.component('HomeLanding', HomeLanding);
