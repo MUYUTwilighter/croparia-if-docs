@@ -28,6 +28,7 @@ function getMcShadow(hex: string) {
 }
 
 const display = notFullLine ? 'inline' : 'block';
+const width = notFullLine ? 'fit-content' : 'auto';
 </script>
 
 <template>
@@ -42,9 +43,11 @@ const display = notFullLine ? 'inline' : 'block';
 <style scoped>
 .game-text {
   display: v-bind(display);
+  width: v-bind(width);
   font-family: "Noto Sans SC", monospace;
   font-size: calc(var(--vp-unit-size) * 7);
   font-weight: v-bind(fontWeight);
   font-style: v-bind(fontStyle);
+  word-break: keep-all;
 }
 </style>
