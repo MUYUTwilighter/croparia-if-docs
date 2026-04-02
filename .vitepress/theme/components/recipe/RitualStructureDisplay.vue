@@ -49,8 +49,9 @@ function getLocale(c: string, lang: string): string {
 }
 
 const layer = ref<number>(0);
-const currentLayer = computed(() => recipe.pattern[layer.value] ?? []);
 const totalLayers = computed(() => recipe.pattern.length);
+const maxColumns = computed(() => Math.max(0, ...recipe.pattern.flatMap(current => current.map(row => row.length))));
+const maxRows = computed(() => Math.max(0, ...recipe.pattern.map(current => current.length)));
 
 function getEntryAt(row: string, index: number) {
   return recipe.keys[row.charAt(index)];
@@ -71,9 +72,14 @@ function nextLayer() {
 <template>
   <div class="ritual-structure">
     <div class="structure">
-      <div class="layer">
-        <div v-for="(row, rowIndex) in currentLayer" :key="`${layer}-${rowIndex}`" class="row">
-          <GameSlot v-for="(char, columnIndex) in row" :key="`${layer}-${rowIndex}-${columnIndex}`">
+      <div
+        v-for="(patternLayer, layerIndex) in recipe.pattern"
+        :key="`layer-${layerIndex}`"
+        class="layer"
+        :class="{ 'layer--active': layerIndex === layer, 'layer--hidden': layerIndex !== layer }"
+      >
+        <div v-for="(row, rowIndex) in patternLayer" :key="`${layerIndex}-${rowIndex}`" class="row">
+          <GameSlot v-for="(char, columnIndex) in row" :key="`${layerIndex}-${rowIndex}-${columnIndex}`">
             <GameBlockEntry v-if="char === ' '"
                             :nameHook="name => getLocale(' ', locale)"
                             :idHook="id => ''" :categoryHook="cat => ''"
@@ -96,7 +102,7 @@ function nextLayer() {
     </div>
     <div class="buttons">
       <GameArrowButton direction="left" :onClick="previousLayer"></GameArrowButton>
-      <GameText class="layer-number">{{ getLocale('layer', locale).replace('%s', (layer + 1).toString()) }}</GameText>
+      <GameText color="#3F3F3F" class="layer-number" noShadow>{{ getLocale('layer', locale).replace('%s', (layer + 1).toString()) }}</GameText>
       <GameArrowButton direction="right" :onClick="nextLayer"></GameArrowButton>
     </div>
   </div>
@@ -123,6 +129,24 @@ function nextLayer() {
   align-items: center;
   justify-content: center;
   gap: calc(var(--vp-unit-size) * 2);
+  position: absolute;
+  inset: 0;
+  transition: opacity 160ms ease;
+}
+
+.ritual-structure .structure {
+  position: relative;
+  width: calc(var(--vp-unit-size) * 18 * v-bind(maxColumns));
+  min-height: calc(var(--vp-unit-size) * 18 * v-bind(maxRows));
+}
+
+.ritual-structure .layer--hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.ritual-structure .layer--active {
+  opacity: 1;
 }
 
 .ritual-structure .buttons {
