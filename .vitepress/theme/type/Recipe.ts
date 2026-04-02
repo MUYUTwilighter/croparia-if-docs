@@ -2,6 +2,7 @@ import {withBase} from "vitepress";
 import {CraftingRecipe} from "./CraftingRecipe";
 import {InfusorRecipe} from "./InfusorRecipe";
 import {RitualRecipe} from "./RitualRecipe";
+import {SoakRecipe} from "./SoakRecipe";
 
 export interface Recipe {
   type: string;
@@ -14,6 +15,7 @@ export const TYPE_MAP: {
   'minecraft:crafting_shapeless': CraftingRecipe.normalize,
   'croparia:infusor': InfusorRecipe.normalize,
   'croparia:ritual': RitualRecipe.normalize,
+  'croparia:soak': SoakRecipe.normalize
 }
 
 export const Recipe = {

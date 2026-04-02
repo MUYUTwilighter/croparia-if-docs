@@ -9,6 +9,8 @@ import InfusorRecipeDisplay from "./InfusorRecipeDisplay.vue";
 import {NormalizedInfusorRecipe} from "../../type/InfusorRecipe";
 import RitualRecipeDisplay from "./RitualRecipeDisplay.vue";
 import {NormalizedRitualRecipe} from "../../type/RitualRecipe";
+import SoakRecipeDisplay from "./SoakRecipeDisplay.vue";
+import {NormalizedSoakRecipe} from "../../type/SoakRecipe";
 
 const {
   locale,
@@ -35,6 +37,8 @@ watchEffect(async () => {
                             :recipe="recipe as NormalizedInfusorRecipe"/>
       <RitualRecipeDisplay class="recipe-content" v-if="recipe.type === 'croparia:ritual'" :locale="locale"
                            :recipe="recipe as NormalizedRitualRecipe"/>
+      <SoakRecipeDisplay class="recipe-content" v-if="recipe.type=== 'croparia:soak'" :locale="locale"
+                         :recipe="recipe as NormalizedSoakRecipe"/>
     </div>
   </GameGuiFrame>
 </template>

@@ -1,37 +1,38 @@
 <script setup lang="ts">
-import {NormalizedInfusorRecipe} from "../../type/InfusorRecipe";
 import GameItemEntry from "../GameItemEntry.vue";
 import GameItemDisplay from "../GameItemDisplay.vue";
+import {NormalizedSoakRecipe} from "../../type/SoakRecipe";
+import GameBlockEntry from "../GameBlockEntry.vue";
 
 const {
   locale,
   recipe
 } = defineProps<{
   locale: string,
-  recipe: NormalizedInfusorRecipe
+  recipe: NormalizedSoakRecipe
 }>();
 
 </script>
 
 <template>
   <div class="soak-recipe">
-    <div></div>
-    <div></div>
-    <GameItemEntry :locale="locale" :props="recipe.ingredient"/>
-    <div></div>
-    <div></div>
-
-    <div></div>
-    <div></div>
-    <img class="connector" src="assets/gui/item_drop.png" alt="item drop"/>
-    <div></div>
-    <div></div>
-
     <GameItemEntry :locale="locale" :props="recipe.element"/>
+    <img class="connector" src="assets/gui/elem_infuse.png" alt="element infuse"/>
+    <GameItemEntry :locale="locale" props="croparia:infusor"/>
+    <div></div>
+    <div></div>
+
+    <div></div>
+    <div></div>
+    <img class="connector" src="assets/gui/block_place_upon.png" alt="item drop"/>
+    <div></div>
+    <div></div>
+
+    <GameBlockEntry :locale="locale" :props="recipe.input"/>
     <img class="connector" src="assets/gui/elem_infuse.png" alt="element infuse"/>
     <GameItemDisplay :locale="locale" id="croparia:infusor"/>
     <img class="arrow" src='assets/gui/recipe-arrow.png' alt="recipe arrow"/>
-    <GameItemEntry :locale="locale" :props="recipe.result"/>
+    <GameBlockEntry :locale="locale" :props="recipe.output"/>
   </div>
 </template>
 
@@ -45,7 +46,6 @@ const {
   image-rendering: pixelated;
 }
 
-.soak-recipe .connector,
 .soak-recipe .connector {
   width: calc(var(--vp-unit-size) * 16);
   height: calc(var(--vp-unit-size) * 16);

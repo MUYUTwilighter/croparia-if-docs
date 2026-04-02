@@ -16,6 +16,7 @@ import CraftingRecipeDisplay from "./components/recipe/CraftingRecipeDisplay.vue
 import InfusorRecipeDisplayDisplay from "./components/recipe/InfusorRecipeDisplay.vue";
 import RitualRecipeDisplay from "./components/recipe/RitualRecipeDisplay.vue";
 import GameBlockEntry from "./components/GameBlockEntry.vue";
+import SoakRecipeDisplay from "./components/recipe/SoakRecipeDisplay.vue";
 
 const theme: Theme = {
   extends: DefaultTheme,
@@ -32,6 +33,7 @@ const theme: Theme = {
     app.component('CraftingRecipeDisplay', CraftingRecipeDisplay);
     app.component('InfusorRecipeDisplayDisplay', InfusorRecipeDisplayDisplay);
     app.component('RitualRecipeDisplay', RitualRecipeDisplay);
+    app.component('SoakRecipeDisplay', SoakRecipeDisplay);
     app.component('RecipeDisplay', RecipeDisplay);
     app.component('HomeLanding', HomeLanding);
   }
