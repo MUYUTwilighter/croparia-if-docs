@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { withBase } from "vitepress";
 import {NormalizedInfusorRecipe} from "../../type/InfusorRecipe";
 import GameItemEntry from "../GameItemEntry.vue";
 import GameItemDisplay from "../GameItemDisplay.vue";
@@ -10,6 +11,10 @@ const {
   locale: string,
   recipe: NormalizedInfusorRecipe
 }>();
+
+const itemDropSrc = withBase('/assets/gui/item_drop.png');
+const elementInfuseSrc = withBase('/assets/gui/elem_infuse.png');
+const recipeArrowSrc = withBase('/assets/gui/recipe-arrow.png');
 
 </script>
 
@@ -23,14 +28,14 @@ const {
 
     <div></div>
     <div></div>
-    <img class="connector" src="assets/gui/item_drop.png" alt="item drop"/>
+    <img class="connector" :src="itemDropSrc" alt="item drop"/>
     <div></div>
     <div></div>
 
     <GameItemEntry :locale="locale" :props="recipe.element"/>
-    <img class="connector" src="assets/gui/elem_infuse.png" alt="element infuse"/>
+    <img class="connector" :src="elementInfuseSrc" alt="element infuse"/>
     <GameItemDisplay :locale="locale" id="croparia:infusor"/>
-    <img class="arrow" src='assets/gui/recipe-arrow.png' alt="recipe arrow"/>
+    <img class="arrow" :src="recipeArrowSrc" alt="recipe arrow"/>
     <GameItemEntry :locale="locale" :props="recipe.result"/>
   </div>
 </template>

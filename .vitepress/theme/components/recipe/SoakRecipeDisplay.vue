@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { withBase } from "vitepress";
 import GameItemEntry from "../GameItemEntry.vue";
 import GameItemDisplay from "../GameItemDisplay.vue";
 import {NormalizedSoakRecipe} from "../../type/SoakRecipe";
@@ -12,26 +13,30 @@ const {
   recipe: NormalizedSoakRecipe
 }>();
 
+const elementInfuseSrc = withBase('/assets/gui/elem_infuse.png');
+const blockPlaceUponSrc = withBase('/assets/gui/block_place_upon.png');
+const recipeArrowSrc = withBase('/assets/gui/recipe-arrow.png');
+
 </script>
 
 <template>
   <div class="soak-recipe">
     <GameItemEntry :locale="locale" :props="recipe.element"/>
-    <img class="connector" src="assets/gui/elem_infuse.png" alt="element infuse"/>
+    <img class="connector" :src="elementInfuseSrc" alt="element infuse"/>
     <GameItemEntry :locale="locale" props="croparia:infusor"/>
     <div></div>
     <div></div>
 
     <div></div>
     <div></div>
-    <img class="connector" src="assets/gui/block_place_upon.png" alt="item drop"/>
+    <img class="connector" :src="blockPlaceUponSrc" alt="item drop"/>
     <div></div>
     <div></div>
 
     <GameBlockEntry :locale="locale" :props="recipe.input"/>
-    <img class="connector" src="assets/gui/elem_infuse.png" alt="element infuse"/>
+    <img class="connector" :src="elementInfuseSrc" alt="element infuse"/>
     <GameItemDisplay :locale="locale" id="croparia:infusor"/>
-    <img class="arrow" src='assets/gui/recipe-arrow.png' alt="recipe arrow"/>
+    <img class="arrow" :src="recipeArrowSrc" alt="recipe arrow"/>
     <GameBlockEntry :locale="locale" :props="recipe.output"/>
   </div>
 </template>

@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { withBase } from "vitepress";
 import {NormalizedCraftingRecipe} from "../../type/CraftingRecipe";
 import GameItemEntry from "../GameItemEntry.vue";
 import GameItemDisplay from "../GameItemDisplay.vue";
@@ -12,6 +13,8 @@ const {
   recipe: NormalizedCraftingRecipe
 }>();
 
+const recipeArrowSrc = withBase('/assets/gui/recipe-arrow.png');
+
 </script>
 
 <template>
@@ -23,7 +26,7 @@ const {
         <div v-else class="empty"/>
       </GameSlot>
     </div>
-    <img class="arrow" src='assets/gui/recipe-arrow.png' alt="recipe arrow"/>
+    <img class="arrow" :src="recipeArrowSrc" alt="recipe arrow"/>
     <GameSlot class="output">
       <GameItemEntry :locale='locale' :props="recipe.output"/>
     </GameSlot>
