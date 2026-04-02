@@ -66,7 +66,8 @@
     var(--vp-unit-size)
     var(--vp-unit-size);
 
-  width: fit-content;
+  width: max-content;
+  max-width: max-content;
 }
 
 /* ===== 外边框 ===== */
@@ -107,5 +108,7 @@
   background: var(--bg);
   display: flex;
   flex-direction: column;
+  align-items: stretch;
+  min-width: max-content;
 }
 </style>
