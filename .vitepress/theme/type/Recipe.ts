@@ -3,6 +3,7 @@ import {CraftingRecipe} from "./CraftingRecipe";
 import {InfusorRecipe} from "./InfusorRecipe";
 import {RitualRecipe} from "./RitualRecipe";
 import {SoakRecipe} from "./SoakRecipe";
+import {RitualStructure} from "./RitualStructure";
 
 export interface Recipe {
   type: string;
@@ -15,7 +16,8 @@ export const TYPE_MAP: {
   'minecraft:crafting_shapeless': CraftingRecipe.normalize,
   'croparia:infusor': InfusorRecipe.normalize,
   'croparia:ritual': RitualRecipe.normalize,
-  'croparia:soak': SoakRecipe.normalize
+  'croparia:soak': SoakRecipe.normalize,
+  'croparia:ritual_structure': RitualStructure.normalize,
 }
 
 export const Recipe = {

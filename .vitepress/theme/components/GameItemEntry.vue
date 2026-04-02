@@ -5,12 +5,13 @@ import {ItemData} from "../type/ItemData";
 import GameItemDisplay from "./GameItemDisplay.vue";
 import GameText from "./GameText.vue";
 import {Tag} from "../type/Tag";
+import EntryHook from "../type/EntryHook";
 
 const componentProps = defineProps<{
   locale: string,
   link?: string,
   props: ItemEntry
-}>();
+} & EntryHook>();
 
 const normalized = computed(() => ItemEntry.normalize(componentProps.props));
 
@@ -74,6 +75,10 @@ const tagLocale: Record<string, string> = {
       :locale="componentProps.locale"
       :count="normalized.amount"
       :link="componentProps.link"
+      :nameHook="nameHook"
+      :idHook="idHook"
+      :categoryHook="categoryHook"
+      :tagHook="tagHook"
   >
     <GameText v-for="[key, value] in Object.entries(normalized.components)" :key="key">
       {{ `${key}: ${value}` }}
