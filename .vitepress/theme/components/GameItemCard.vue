@@ -3,7 +3,7 @@
 import GameSlot from "./GameSlot.vue";
 import GameItemDisplay from "./GameItemDisplay.vue";
 import {ref, watchEffect} from "vue";
-import {createFallbackItem, fetchItem, ItemData} from "../type/Item";
+import {ItemData} from "../type/ItemData";
 import GameText from "./GameText.vue";
 import GameGuiFrame from "./GameGuiFrame.vue";
 
@@ -15,10 +15,10 @@ const {
   id: string,
 }>();
 
-const item = ref<ItemData>(createFallbackItem("tagOrId"));
+const item = ref<ItemData>(ItemData.createFallbackItem("loading"));
 
 watchEffect(async () => {
-  item.value = await fetchItem(id);
+  item.value = await ItemData.fetch(id);
 });
 
 const attrLocales: Record<string, {
@@ -57,32 +57,55 @@ const attrLocale = attrLocales[locale] || attrLocales.en;
 <template>
   <GameGuiFrame class="game-item-card">
     <div class="wrapper">
-      <GameText class="name" :content="(item.name[locale] || item.name.en)" color="#3F3F3F" fontWeight="bold"
-                notFullLine noShadow/>
+      <GameText class="name" color="#3F3F3F" fontWeight="bold"
+                notFullLine noShadow>{{ item.name[locale] || item.name.en }}
+      </GameText>
       <GameItemDisplay class="icon" :id=id :locale=locale :size=64 noFloatBox/>
       <GameSlot>
-        <table><tbody>
+        <table>
+          <tbody>
           <tr>
-            <td class="attr"><GameText :content=attrLocale.id color="#3F3F3F" noShadow/></td>
-            <td class="value"><GameText :content=item.registerName /></td>
+            <td class="attr">
+              <GameText color="#3F3F3F" noShadow>{{ attrLocale.id }}</GameText>
+            </td>
+            <td class="value">
+              <GameText>{{ item.registerName }}</GameText>
+            </td>
           </tr>
           <tr>
-            <td class="attr"><GameText :content=attrLocale.category color="#3F3F3F" noShadow/></td>
-            <td class="value"><GameText :content="(item.CreativeTabName[locale] || item.CreativeTabName.en)"/></td>
+            <td class="attr">
+              <GameText color="#3F3F3F" noShadow>{{ attrLocale.category }}</GameText>
+            </td>
+            <td class="value">
+              <GameText>{{ item.CreativeTabName[locale] || item.CreativeTabName.en }}</GameText>
+            </td>
           </tr>
           <tr v-if="item.OredictList.length > 0">
-            <td class="attr"><GameText :content=attrLocale.tag color="#3F3F3F" noShadow/></td>
-            <td class="value"><GameText v-for="tag in item.OredictList" :content="`#${tag}`"/></td>
+            <td class="attr">
+              <GameText color="#3F3F3F" noShadow>{{ attrLocale.tag }}</GameText>
+            </td>
+            <td class="value">
+              <GameText v-for="tag in item.OredictList">{{ `#${tag}` }}</GameText>
+            </td>
           </tr>
           <tr>
-            <td class="attr"><GameText :content=attrLocale.maxStacking color="#3F3F3F" noShadow/></td>
-            <td class="value"><GameText :content=item.maxStacksSize.toString() /></td>
+            <td class="attr">
+              <GameText color="#3F3F3F" noShadow>{{ attrLocale.maxStacking }}</GameText>
+            </td>
+            <td class="value">
+              <GameText>{{ item.maxStacksSize.toString() }}</GameText>
+            </td>
           </tr>
           <tr v-if="item.minTool">
-            <td class="attr"><GameText :content=attrLocale.minTool color="#3F3F3F" noShadow/></td>
-            <td class="value"><GameItemDisplay :id=item.minTool :locale=locale /></td>
+            <td class="attr">
+              <GameText color="#3F3F3F" noShadow>{{ attrLocale.minTool }}</GameText>
+            </td>
+            <td class="value">
+              <GameItemDisplay :id='item.minTool' :locale='locale'/>
+            </td>
           </tr>
-        </tbody></table>
+          </tbody>
+        </table>
       </GameSlot>
     </div>
   </GameGuiFrame>

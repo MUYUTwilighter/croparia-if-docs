@@ -1,18 +1,18 @@
 <script setup lang="ts">
-import { computed, onBeforeUnmount, ref, watch } from "vue";
-import { ItemInput, normalizeItemInput } from "../type/ItemInput";
-import { fetchItem, ItemData } from "../type/Item";
-import { fetchItems } from "../type/Tag";
+import {computed, onBeforeUnmount, ref, watch} from "vue";
+import {ItemData} from "../type/ItemData";
+import {Tag} from "../type/Tag";
 import GameItemDisplay from "./GameItemDisplay.vue";
 import GameText from "./GameText.vue";
+import {BlockEntry} from "../type/BlockEntry";
 
 const componentProps = defineProps<{
   locale: string,
   link?: string,
-  props: ItemInput
+  props: BlockEntry
 }>();
 
-const normalized = computed(() => normalizeItemInput(componentProps.props));
+const normalized = computed(() => BlockEntry.normalize(componentProps.props));
 
 const items = ref<ItemData[]>([]);
 const currentIndex = ref(0);
@@ -42,15 +42,15 @@ watch(normalized, async (current) => {
   const name = current.id || current.tag;
   if (name) {
     items.value = name.startsWith('#')
-      ? await fetchItems(name)
-      : [await fetchItem(name)];
+        ? await Tag.fetch(name)
+        : [await ItemData.fetch(name)];
   } else {
-    items.value = [await fetchItem('croparia:placeholder')];
+    items.value = [await ItemData.fetch('croparia:placeholder_block')];
   }
 
   currentIndex.value = 0;
   startRotation();
-}, { immediate: true });
+}, {immediate: true});
 
 const currentItem = computed(() => {
   if (items.value.length === 0) return null;
@@ -61,18 +61,26 @@ onBeforeUnmount(() => {
   stopRotation();
 });
 
+const tagLocale: Record<string, string> = {
+  zh: `任意属于 ${normalized.value.tag} 的方块`,
+  en: `Any block of ${normalized.value.tag}`,
+  es: `Cualquier bloque de ${normalized.value.tag}`
+};
+
 </script>
 
 <template>
   <GameItemDisplay
-    v-if="currentItem"
-    :id="currentItem.registerName"
-    :locale="componentProps.locale"
-    :count="normalized.amount"
-    :link="componentProps.link"
+      v-if="currentItem"
+      :id="currentItem.registerName"
+      :locale="componentProps.locale"
+      :link="componentProps.link"
   >
-    <GameText v-for="key in Object.keys(normalized.components)" :key="key">
-      {{ `${key}: ${normalized.components[key]}` }}
+    <GameText v-for="[key, value] in Object.entries(normalized.properties)" :key="key">
+      {{ `${key}: ${value}` }}
+    </GameText>
+    <GameText v-if="normalized.tag">
+      {{ `${tagLocale[locale] || tagLocale.en}` }}
     </GameText>
   </GameItemDisplay>
 </template>

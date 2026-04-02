@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import {ref, watchEffect} from 'vue'
-import {createFallbackItem, fetchItem, ItemData} from "../type/Item";
+import {ItemData} from "../type/ItemData";
 import GameFloatBox from "./GameFloatBox.vue";
 import GameText from "./GameText.vue";
 
@@ -20,10 +20,10 @@ const {
   noFloatBox?: boolean,
 }>();
 
-const item = ref<ItemData>(createFallbackItem("tagOrId"));
+const item = ref<ItemData>(ItemData.createFallbackItem("tagOrId"));
 
 watchEffect(async () => {
-  item.value = await fetchItem(id);
+  item.value = await ItemData.fetch(id);
 });
 
 const hoverBgColor = link || !noFloatBox ? "rgba(255, 255, 255, 0.5)" : "transparent";
@@ -33,15 +33,24 @@ const hoverBgColor = link || !noFloatBox ? "rgba(255, 255, 255, 0.5)" : "transpa
 <template>
   <div class="game-item-display">
     <img class="icon" :src="item.largeIconSrc" :alt="item.registerName"/>
-    <GameText v-if="count !== 1" class="count" :content="count.toString()"/>
+    <GameText v-if="count !== 1" class="count">
+      {{ count.toString() }}
+    </GameText>
     <a v-if="!!link" class="link" :href="link"></a>
     <GameFloatBox class="float-box" v-if="!noFloatBox">
-      <GameText class="name" :content="item.name[locale] || item.name.en"/>
-      <GameText class="creative-tab" :content="item.CreativeTabName[locale] || item.CreativeTabName.en"
-                color="#5454FC"/>
-      <GameText class="id" :content="id" color="#545454"/>
+      <GameText class="name">
+        {{ item.name[locale] || item.name.en }}
+      </GameText>
+      <GameText class="creative-tab" color="#5454FC">
+        {{ item.CreativeTabName[locale] || item.CreativeTabName.en }}
+      </GameText>
+      <GameText class="id" color="#545454">
+        {{ id }}
+      </GameText>
       <slot/>
-      <GameText v-for="tag in item.OredictList" class="tag" :content="'#' + tag" color="#A7A7A7" font-style="italic"/>
+      <GameText v-for="tag in item.OredictList" class="tag" color="#A7A7A7" font-style="italic">
+        {{ `#${tag}` }}
+      </GameText>
     </GameFloatBox>
   </div>
 </template>
@@ -69,6 +78,7 @@ const hoverBgColor = link || !noFloatBox ? "rgba(255, 255, 255, 0.5)" : "transpa
 
 .game-item-display .float-box {
   display: none;
+  z-index: 1;
 }
 
 .game-item-display:hover .float-box {

@@ -1,0 +1,7 @@
+{
+  "type": "croparia:soak",
+  "element": "water",
+  "input": "minecraft:dead_bush",
+  "output": "minecraft:tube_coral",
+  "probability": 1.0
+}

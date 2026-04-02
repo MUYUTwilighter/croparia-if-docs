@@ -1,13 +1,11 @@
 <script setup lang="ts">
 const {
-  content,
   color = '#FCFCFC',
   noShadow = false,
   notFullLine = false,
   fontStyle = 'normal',
   fontWeight = 'normal',
 } = defineProps<{
-  content: string;
   color?: string;
   noShadow?: boolean;
   notFullLine?: boolean;
@@ -37,7 +35,7 @@ const display = notFullLine ? 'inline' : 'block';
     color,
     textShadow: noShadow ? 'none' : `var(--vp-unit-size) var(--vp-unit-size) 0 ${getMcShadow(color)}`
   }">
-    {{ content }}
+    <slot/>
   </span>
 </template>
 

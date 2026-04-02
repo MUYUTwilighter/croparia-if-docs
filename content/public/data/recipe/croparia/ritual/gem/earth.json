@@ -1,0 +1,10 @@
+{
+  "type": "croparia:ritual",
+  "ritual": "#croparia:ritual_stands",
+  "ingredient": "croparia:gem_elemental",
+  "block": "minecraft:coarse_dirt",
+  "result": {
+    "id": "croparia:gem_earth",
+    "amount": 1
+  }
+}

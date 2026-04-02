@@ -1,0 +1,17 @@
+{
+  "type": "croparia:soak",
+  "element": "air",
+  "input": {
+    "id": "croparia:infusor",
+    "properties": {
+      "element": "empty"
+    }
+  },
+  "output": {
+    "id": "croparia:infusor",
+    "properties": {
+      "element": "air"
+    }
+  },
+  "probability": 0.1
+}
