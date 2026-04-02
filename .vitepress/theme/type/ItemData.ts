@@ -32,17 +32,29 @@ export interface ItemData {
   minTool?: string
 }
 
+const itemFetchCache = new Map<string, Promise<ItemData>>();
+
 export const ItemData = {
   async fetch(id: string): Promise<ItemData> {
-    try {
-      const [namespace, path] = parseRegisterName(id);
-      const response = await fetch(`${withBase(`/data/item/${namespace}/${path}.json`)}`);
-      if (!response.ok) throw new Error(`Failed to fetch item ${id}`);
-      const item = await response.json() as ItemPayload;
-      return normalizeItem(item, id);
-    } catch {
-      return ItemData.createFallbackItem(id);
+    const cached = itemFetchCache.get(id);
+    if (cached) {
+      return cached;
     }
+
+    const request = (async () => {
+      try {
+        const [namespace, path] = parseRegisterName(id);
+        const response = await fetch(`${withBase(`/data/item/${namespace}/${path}.json`)}`);
+        if (!response.ok) throw new Error(`Failed to fetch item ${id}`);
+        const item = await response.json() as ItemPayload;
+        return normalizeItem(item, id);
+      } catch {
+        return ItemData.createFallbackItem(id);
+      }
+    })();
+
+    itemFetchCache.set(id, request);
+    return request;
   },
 
   createFallbackItem(registerName: string, name?: LocaleMap): ItemData {

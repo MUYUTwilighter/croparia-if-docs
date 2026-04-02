@@ -52,6 +52,24 @@ const layer = ref<number>(0);
 const totalLayers = computed(() => recipe.pattern.length);
 const maxColumns = computed(() => Math.max(0, ...recipe.pattern.flatMap(current => current.map(row => row.length))));
 const maxRows = computed(() => Math.max(0, ...recipe.pattern.map(current => current.length)));
+const anyBlockHooks = {
+  nameHook: () => getLocale(' ', locale),
+  idHook: () => '',
+  categoryHook: () => '',
+  tagHook: () => []
+};
+const inputBlockHooks = {
+  nameHook: () => getLocale('$', locale),
+  idHook: () => '',
+  categoryHook: () => '',
+  tagHook: () => []
+};
+const airOnlyHooks = {
+  nameHook: () => getLocale('.', locale),
+  idHook: () => '',
+  categoryHook: () => '',
+  tagHook: () => []
+};
 
 function getEntryAt(row: string, index: number) {
   return recipe.keys[row.charAt(index)];
@@ -81,19 +99,13 @@ function nextLayer() {
         <div v-for="(row, rowIndex) in patternLayer" :key="`${layerIndex}-${rowIndex}`" class="row">
           <GameSlot v-for="(char, columnIndex) in row" :key="`${layerIndex}-${rowIndex}-${columnIndex}`">
             <GameBlockEntry v-if="char === ' '"
-                            :nameHook="name => getLocale(' ', locale)"
-                            :idHook="id => ''" :categoryHook="cat => ''"
-                            :tagHook="tag => []" :locale="locale"
+                            v-bind="anyBlockHooks" :locale="locale"
                             :props="getEntryAt(row, columnIndex)"></GameBlockEntry>
             <GameBlockEntry v-else-if="char === '$'"
-                            :nameHook="name => getLocale('$', locale)"
-                            :idHook="id => ''" :categoryHook="cat => ''"
-                            :tagHook="tag => []" :locale="locale"
+                            v-bind="inputBlockHooks" :locale="locale"
                             :props="getEntryAt(row, columnIndex)"></GameBlockEntry>
             <GameBlockEntry v-else-if="char === '.'"
-                            :nameHook="name => getLocale('.', locale)"
-                            :idHook="id => ''" :categoryHook="cat => ''"
-                            :tagHook="tag => []" :locale="locale"
+                            v-bind="airOnlyHooks" :locale="locale"
                             :props="getEntryAt(row, columnIndex)"></GameBlockEntry>
             <GameBlockEntry v-else :locale="locale" :props="getEntryAt(row, columnIndex)"></GameBlockEntry>
           </GameSlot>
@@ -116,6 +128,7 @@ function nextLayer() {
   flex-direction: row;
   align-items: center;
   justify-content: center;
+  margin: 0;
 }
 
 .ritual-structure {
@@ -128,7 +141,6 @@ function nextLayer() {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: calc(var(--vp-unit-size) * 2);
   position: absolute;
   inset: 0;
   transition: opacity 160ms ease;
@@ -141,11 +153,12 @@ function nextLayer() {
 }
 
 .ritual-structure .layer--hidden {
-  opacity: 0;
+  z-index: -1;
   pointer-events: none;
 }
 
 .ritual-structure .layer--active {
+  z-index: 0;
   opacity: 1;
 }
 

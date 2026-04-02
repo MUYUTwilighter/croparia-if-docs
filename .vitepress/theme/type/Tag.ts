@@ -5,26 +5,38 @@ export interface Tag {
   values: string[]
 }
 
+const tagFetchCache = new Map<string, Promise<ItemData[]>>();
+
 export const Tag = {
   async fetch(name: string): Promise<ItemData[]> {
-    try {
-      const [namespace, path] = parseTagName(name);
-      const response = await fetch(withBase(`data/tag/item/${namespace}/${path}.json`));
-      if (!response.ok) throw new Error(`Failed to fetch tag ${name}`);
-
-      const tag = await response.json() as Tag;
-      const nestedItems = await Promise.all(
-        tag.values.map(async entry => {
-          if (entry.startsWith('#')) return Tag.fetch(entry);
-          return [await ItemData.fetch(entry)];
-        })
-      );
-
-      const items = nestedItems.flat();
-      return items.length > 0 ? items : [createFallbackTagItem(name)];
-    } catch {
-      return [createFallbackTagItem(name)];
+    const cached = tagFetchCache.get(name);
+    if (cached) {
+      return cached;
     }
+
+    const request = (async () => {
+      try {
+        const [namespace, path] = parseTagName(name);
+        const response = await fetch(withBase(`data/tag/item/${namespace}/${path}.json`));
+        if (!response.ok) throw new Error(`Failed to fetch tag ${name}`);
+
+        const tag = await response.json() as Tag;
+        const nestedItems = await Promise.all(
+          tag.values.map(async entry => {
+            if (entry.startsWith('#')) return Tag.fetch(entry);
+            return [await ItemData.fetch(entry)];
+          })
+        );
+
+        const items = nestedItems.flat();
+        return items.length > 0 ? items : [createFallbackTagItem(name)];
+      } catch {
+        return [createFallbackTagItem(name)];
+      }
+    })();
+
+    tagFetchCache.set(name, request);
+    return request;
   }
 }
 
