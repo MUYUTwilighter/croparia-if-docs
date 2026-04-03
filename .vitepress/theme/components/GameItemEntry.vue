@@ -44,7 +44,7 @@ function startRotation() {
 watch(normalized, async (current) => {
   if (current.id) items.value = [await ItemData.fetch(current.id)];
   else if (current.tag) {
-    items.value = await Tag.fetch(current.tag);
+    items.value = await Tag.fetch('#' + current.tag);
   } else {
     items.value = [await ItemData.fetch('croparia:placeholder')]
   }

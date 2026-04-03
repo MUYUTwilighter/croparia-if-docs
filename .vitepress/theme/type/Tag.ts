@@ -17,7 +17,7 @@ export const Tag = {
     const request = (async () => {
       try {
         const [namespace, path] = parseTagName(name);
-        const response = await fetch(withBase(`data/tag/item/${namespace}/${path}.json`));
+        const response = await fetch(withBase(`/data/tag/item/${namespace}/${path}.json`));
         if (!response.ok) throw new Error(`Failed to fetch tag ${name}`);
 
         const tag = await response.json() as Tag;
@@ -31,6 +31,7 @@ export const Tag = {
         const items = nestedItems.flat();
         return items.length > 0 ? items : [createFallbackTagItem(name)];
       } catch {
+        console.error(`Failed to fetch tag ${name}`);
         return [createFallbackTagItem(name)];
       }
     })();

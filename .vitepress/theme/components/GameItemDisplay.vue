@@ -1,10 +1,14 @@
 <script setup lang="ts">
-import {computed, nextTick, onBeforeUnmount, ref, toRef, watchEffect} from 'vue'
+import {computed, nextTick, onBeforeUnmount, ref, toRef, useAttrs, watchEffect} from 'vue'
 import {ItemData} from "../type/ItemData";
 import GameFloatBox from "./GameFloatBox.vue";
 import GameText from "./GameText.vue";
 import type EntryHook from "../type/EntryHook";
 import { useLocale } from "../composables/useLocale";
+
+defineOptions({
+  inheritAttrs: false,
+});
 
 const props = withDefaults(defineProps<{
   locale?: string,
@@ -27,6 +31,7 @@ const floatBoxTop = ref(0);
 const floatBoxLeft = ref(0);
 let animationFrame = 0;
 const locale = useLocale(toRef(props, "locale"));
+const attrs = useAttrs();
 
 watchEffect(async () => {
   item.value = await ItemData.fetch(props.id);
@@ -114,7 +119,13 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <div ref="displayRef" class="game-item-display" @mouseenter="openFloatBox" @mouseleave="closeFloatBox">
+  <div
+    ref="displayRef"
+    class="game-item-display"
+    v-bind="attrs"
+    @mouseenter="openFloatBox"
+    @mouseleave="closeFloatBox"
+  >
     <img class="icon" :src="item.largeIconSrc" :alt="item.registerName"/>
     <GameText v-if="props.count !== 1" class="count">
       {{ props.count.toString() }}

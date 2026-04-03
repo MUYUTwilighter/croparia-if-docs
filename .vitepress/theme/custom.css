@@ -180,3 +180,10 @@ body .VPNavBarTitle .title::before {
     }
 
 }
+
+.doc-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
