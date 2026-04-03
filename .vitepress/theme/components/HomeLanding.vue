@@ -200,7 +200,8 @@ const content = computed<LocalizedContent>(() =>
 )
 
 function resolveImage(path: string): string {
-  return withBase(path)
+  const normalizedPath = path.startsWith('/') ? path : `/${path}`
+  return withBase(normalizedPath)
 }
 </script>
 
