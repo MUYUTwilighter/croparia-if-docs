@@ -1,5 +1,5 @@
 import {ItemData} from "./ItemData";
-import {withBase} from "vitepress";
+import { loadPublicJson } from "./dataLoader";
 
 export interface Tag {
   values: string[]
@@ -17,10 +17,7 @@ export const Tag = {
     const request = (async () => {
       try {
         const [namespace, path] = parseTagName(name);
-        const response = await fetch(withBase(`/data/tag/item/${namespace}/${path}.json`));
-        if (!response.ok) throw new Error(`Failed to fetch tag ${name}`);
-
-        const tag = await response.json() as Tag;
+        const tag = await loadPublicJson<Tag>(`/data/tag/item/${namespace}/${path}.json`);
         const nestedItems = await Promise.all(
           tag.values.map(async entry => {
             if (entry.startsWith('#')) return Tag.fetch(entry);

@@ -1,4 +1,4 @@
-import {withBase} from "vitepress";
+import { loadPublicJson } from "./dataLoader";
 
 export interface LocaleMap {
   zh: string
@@ -44,9 +44,7 @@ export const ItemData = {
     const request = (async () => {
       try {
         const [namespace, path] = parseRegisterName(id);
-        const response = await fetch(`${withBase(`/data/item/${namespace}/${path}.json`)}`);
-        if (!response.ok) throw new Error(`Failed to fetch item ${id}`);
-        const item = await response.json() as ItemPayload;
+        const item = await loadPublicJson<ItemPayload>(`/data/item/${namespace}/${path}.json`);
         return normalizeItem(item, id);
       } catch {
         return ItemData.createFallbackItem(id);
