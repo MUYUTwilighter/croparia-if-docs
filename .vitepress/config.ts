@@ -64,110 +64,51 @@ function sectionLink(locale: LocaleKey, path: string): string {
 function buildNav(locale: LocaleKey): DefaultTheme.NavItem[] {
   return [
     {
-      text: localizedText(locale, '首页', 'Home'),
-      link: `${localePrefix(locale)}/`
-    },
-    {
       text: localizedText(locale, '通用', 'General'),
       link: sectionLink(locale, '/general/')
-    },
-    {
-      text: localizedText(locale, '玩家', 'Player'),
-      link: sectionLink(locale, '/player/')
-    },
-    {
-      text: localizedText(locale, '整合包作者', 'Modpack'),
-      link: sectionLink(locale, '/modpack/')
-    },
-    {
-      text: localizedText(locale, '开发者', 'Developer'),
-      link: sectionLink(locale, '/developer/')
-    },
-    {
-      text: localizedText(locale, '社区', 'Support'),
-      items: [
-        {
-          text: 'MCMOD',
-          link: 'https://www.mcmod.cn/class/13639.html'
-        },
-        {
-          text: localizedText(locale, '问题反馈 Discord', 'Issue Discord'),
-          link: 'https://discord.gg/JunKeKCJAY'
-        },
-        {
-          text: localizedText(locale, '问题反馈 QQ', 'Issue QQ'),
-          link: 'https://qm.qq.com/q/OedneeO0Uw'
-        }
-      ]
-    },
-    buildVersionNav(locale)
+    }
   ]
 }
 
-function buildDocSections(locale: LocaleKey, prefix: string): DefaultTheme.SidebarItem[] {
+function buildGeneralSidebar(locale: LocaleKey, prefix: string): DefaultTheme.SidebarItem[] {
+  if (locale === 'root') {
+    return [
+      {
+        text: '通用',
+        items: [
+          {text: '概览', link: `${prefix}general/`},
+          {
+            text: '核心概念',
+            collapsed: false,
+            items: [
+              {text: '作物', link: `${prefix}general/concepts/crop`},
+              {text: '元素', link: `${prefix}general/concepts/element`}
+            ]
+          },
+          {
+            text: '方块与物品',
+            collapsed: false,
+            items: [
+              {text: '基础魔种', link: `${prefix}general/blocks-and-items/croparia`},
+              {text: '圣物', link: `${prefix}general/blocks-and-items/relic`},
+              {text: '工作方块', link: `${prefix}general/blocks-and-items/workstations`},
+              {text: '其他', link: `${prefix}general/blocks-and-items/others`}
+            ]
+          }
+        ]
+      }
+    ]
+  }
+
   return [
     {
-      text: localizedText(locale, '通用', 'General'),
+      text: 'General',
       items: [
-        {text: localizedText(locale, '概览', 'Overview'), link: `${prefix}general/`},
-        {text: localizedText(locale, '术语与核心概念', 'Terms and Core Concepts'), link: `${prefix}general/concepts`},
-        {text: localizedText(locale, '内容总览', 'Content Overview'), link: `${prefix}general/content-overview`},
-        {text: localizedText(locale, '物品与方块清单', 'Blocks and Items'), link: `${prefix}general/blocks-and-items`},
-        {text: localizedText(locale, '元素与介质', 'Elements and Media'), link: `${prefix}general/elements`}
-      ]
-    },
-    {
-      text: localizedText(locale, '玩家', 'Player'),
-      items: [
-        {text: localizedText(locale, '入门', 'Getting Started'), link: `${prefix}player/`},
-        {text: localizedText(locale, '种植与甜瓜', 'Farming and Melons'), link: `${prefix}player/farming-and-melons`},
-        {
-          text: localizedText(locale, 'Croparia 进阶', 'Croparia Progression'),
-          link: `${prefix}player/croparia-progression`
-        },
-        {
-          text: localizedText(locale, '机器与仪式', 'Machines and Rituals'),
-          link: `${prefix}player/machines-and-rituals`
-        },
-        {text: localizedText(locale, '自动化思路', 'Automation'), link: `${prefix}player/automation`},
-        {text: localizedText(locale, '实用道具', 'Utility Items'), link: `${prefix}player/utility-items`},
-        {text: localizedText(locale, '常见问题', 'FAQ'), link: `${prefix}player/faq`}
-      ]
-    },
-    {
-      text: localizedText(locale, '整合包作者', 'Modpack Authors'),
-      items: [
-        {text: localizedText(locale, '概览', 'Overview'), link: `${prefix}modpack/`},
-        {text: localizedText(locale, '自定义能力概览', 'Customization Overview'), link: `${prefix}modpack/overview`},
-        {
-          text: localizedText(locale, '数据包与资源包', 'Datapacks and Resource Packs'),
-          link: `${prefix}modpack/datapacks-and-resourcepacks`
-        },
-        {text: localizedText(locale, '自定义作物', 'Custom Crops'), link: `${prefix}modpack/custom-crops`},
-        {
-          text: localizedText(locale, '配方与结构', 'Recipes and Structures'),
-          link: `${prefix}modpack/recipes-and-structures`
-        },
-        {
-          text: localizedText(locale, '生成器与工具', 'Generators and Tools'),
-          link: `${prefix}modpack/generators-and-tools`
-        },
-        {text: localizedText(locale, '配置与整合建议', 'Configuration'), link: `${prefix}modpack/configuration`},
-        {text: localizedText(locale, '调试与排错', 'Debugging'), link: `${prefix}modpack/debugging`}
-      ]
-    },
-    {
-      text: localizedText(locale, '开发者', 'Developer'),
-      items: [
-        {text: localizedText(locale, '概览', 'Overview'), link: `${prefix}developer/`},
-        {text: localizedText(locale, '架构概览', 'Architecture'), link: `${prefix}developer/architecture`},
-        {text: localizedText(locale, '包结构', 'Package Layout'), link: `${prefix}developer/package-layout`},
-        {text: localizedText(locale, '注册体系', 'Registrations'), link: `${prefix}developer/registrations`},
-        {text: localizedText(locale, '核心数据模型', 'Data Models'), link: `${prefix}developer/data-models`},
-        {text: localizedText(locale, '内容加载', 'Content Loading'), link: `${prefix}developer/content-loading`},
-        {text: localizedText(locale, '网络与界面', 'Networking and UI'), link: `${prefix}developer/networking-and-ui`},
-        {text: localizedText(locale, '兼容层', 'Compatibility'), link: `${prefix}developer/compatibility`},
-        {text: localizedText(locale, 'API 总览', 'API Overview'), link: `${prefix}developer/api-overview`}
+        {text: 'Overview', link: `${prefix}general/`},
+        {text: 'Core Concepts', link: `${prefix}general/concepts`},
+        {text: 'Content Overview', link: `${prefix}general/content-overview`},
+        {text: 'Blocks and Items', link: `${prefix}general/blocks-and-items`},
+        {text: 'Elements and Media', link: `${prefix}general/elements`}
       ]
     }
   ]
@@ -176,6 +117,7 @@ function buildDocSections(locale: LocaleKey, prefix: string): DefaultTheme.Sideb
 function buildGuideSection(locale: LocaleKey, prefix: string): DefaultTheme.SidebarItem {
   return {
     text: localizedText(locale, '指南', 'Guide'),
+    collapsed: false,
     items: [
       {
         text: localizedText(locale, '开始阅读', 'Start Here'),
@@ -204,16 +146,14 @@ function buildSidebar(locale: LocaleKey): DefaultTheme.Sidebar {
   }))
 
   const sidebar: DefaultTheme.Sidebar = {
-    [`${localePrefix(locale)}/general/`]: buildDocSections(locale, `${localePrefix(locale)}/`),
-    [`${localePrefix(locale)}/player/`]: buildDocSections(locale, `${localePrefix(locale)}/`),
-    [`${localePrefix(locale)}/modpack/`]: buildDocSections(locale, `${localePrefix(locale)}/`),
-    [`${localePrefix(locale)}/developer/`]: buildDocSections(locale, `${localePrefix(locale)}/`),
+    [`${localePrefix(locale)}/general/`]: buildGeneralSidebar(locale, `${localePrefix(locale)}/`),
     [`${localePrefix(locale)}/guide/`]: [
       buildGuideSection(locale, `${localePrefix(locale)}/`)
     ],
     [`${localePrefix(locale)}/versions/`]: [
       {
         text: localizedText(locale, '版本', 'Versions'),
+        collapsed: false,
         items: [
           {
             text: localizedText(locale, '版本策略', 'Versioning Policy'),
@@ -227,10 +167,7 @@ function buildSidebar(locale: LocaleKey): DefaultTheme.Sidebar {
 
   for (const version of archivedVersions) {
     const prefix = `${localePrefix(locale)}/versions/${version.slug}/`
-    sidebar[`${prefix}general/`] = buildDocSections(locale, prefix)
-    sidebar[`${prefix}player/`] = buildDocSections(locale, prefix)
-    sidebar[`${prefix}modpack/`] = buildDocSections(locale, prefix)
-    sidebar[`${prefix}developer/`] = buildDocSections(locale, prefix)
+    sidebar[`${prefix}general/`] = buildGeneralSidebar(locale, prefix)
     sidebar[`${prefix}guide/`] = [buildGuideSection(locale, prefix)]
   }
 
