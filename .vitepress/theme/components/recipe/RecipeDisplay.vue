@@ -28,32 +28,25 @@ watchEffect(async () => {
 </script>
 
 <template>
-  <div class="overflow">
-    <GameGuiFrame class="recipe-frame" v-if="recipe">
-      <div class="recipe-wrapper">
-        <GameText class="recipe-id" color="#3F3F3F" noShadow>{{ id }}</GameText>
-        <CraftingRecipeDisplay class="recipe-content"
-                               v-if="recipe.type === 'minecraft:crafting_shaped' || recipe.type === 'minecraft:crafting_shapeless'"
-                               :recipe="recipe as NormalizedCraftingRecipe"/>
-        <InfusorRecipeDisplay class="recipe-content" v-if="recipe.type=== 'croparia:infusor'"
-                              :recipe="recipe as NormalizedInfusorRecipe"/>
-        <RitualRecipeDisplay class="recipe-content" v-if="recipe.type === 'croparia:ritual'"
-                             :recipe="recipe as NormalizedRitualRecipe"/>
-        <SoakRecipeDisplay class="recipe-content" v-if="recipe.type=== 'croparia:soak'"
-                           :recipe="recipe as NormalizedSoakRecipe"/>
-        <RitualStructureDisplay class="recipe-content" v-if="recipe.type=== 'croparia:ritual_structure'"
-                                :recipe="recipe as NormalizedRitualStructure"/>
-      </div>
-    </GameGuiFrame>
-  </div>
+  <GameGuiFrame class="recipe-frame" v-if="recipe">
+    <div class="recipe-wrapper">
+      <GameText class="recipe-id" color="#3F3F3F" noShadow>{{ id }}</GameText>
+      <CraftingRecipeDisplay class="recipe-content"
+                             v-if="recipe.type === 'minecraft:crafting_shaped' || recipe.type === 'minecraft:crafting_shapeless'"
+                             :recipe="recipe as NormalizedCraftingRecipe"/>
+      <InfusorRecipeDisplay class="recipe-content" v-if="recipe.type=== 'croparia:infusor'"
+                            :recipe="recipe as NormalizedInfusorRecipe"/>
+      <RitualRecipeDisplay class="recipe-content" v-if="recipe.type === 'croparia:ritual'"
+                           :recipe="recipe as NormalizedRitualRecipe"/>
+      <SoakRecipeDisplay class="recipe-content" v-if="recipe.type=== 'croparia:soak'"
+                         :recipe="recipe as NormalizedSoakRecipe"/>
+      <RitualStructureDisplay class="recipe-content" v-if="recipe.type=== 'croparia:ritual_structure'"
+                              :recipe="recipe as NormalizedRitualStructure"/>
+    </div>
+  </GameGuiFrame>
 </template>
 
 <style scoped>
-div.overflow {
-  overflow-x: auto;
-  overflow-y: visible;
-}
-
 .recipe-wrapper {
   display: flex;
   flex-direction: column;

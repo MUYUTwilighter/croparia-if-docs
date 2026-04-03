@@ -17,6 +17,7 @@ import InfusorRecipeDisplayDisplay from "./components/recipe/InfusorRecipeDispla
 import RitualRecipeDisplay from "./components/recipe/RitualRecipeDisplay.vue";
 import GameBlockEntry from "./components/GameBlockEntry.vue";
 import SoakRecipeDisplay from "./components/recipe/SoakRecipeDisplay.vue";
+import RowGallery from "./components/RowGallery.vue";
 
 const theme: Theme = {
   extends: DefaultTheme,
@@ -30,6 +31,7 @@ const theme: Theme = {
     app.component('GameItemEntry', GameItemEntry);
     app.component('GameSlot', GameSlot);
     app.component('GameText', GameText);
+    app.component('RowGallery', RowGallery);
     app.component('CraftingRecipeDisplay', CraftingRecipeDisplay);
     app.component('InfusorRecipeDisplayDisplay', InfusorRecipeDisplayDisplay);
     app.component('RitualRecipeDisplay', RitualRecipeDisplay);
