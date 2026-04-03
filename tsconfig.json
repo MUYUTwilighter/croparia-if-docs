@@ -11,10 +11,11 @@
     "isolatedModules": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
-    "types": ["node", "vitepress"]
+    "types": ["node", "vite/client", "vitepress"]
   },
   "include": [
     ".vitepress/**/*.ts",
+    ".vitepress/**/*.d.ts",
     "scripts/**/*.mjs",
     "docs.config.mjs"
   ],

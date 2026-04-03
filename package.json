@@ -20,6 +20,7 @@
     "docs:preview": "npm run docs:prepare && vitepress preview"
   },
   "devDependencies": {
+    "@types/node": "^25.5.2",
     "typescript": "^6.0.2",
     "vitepress": "^1.6.4"
   }
