@@ -79,6 +79,7 @@ function buildGeneralSidebar(locale: LocaleKey, prefix: string): DefaultTheme.Si
           {text: '概览', link: `${prefix}general/`},
           {
             text: '核心概念',
+            link: `${prefix}general/concepts/`,
             collapsed: false,
             items: [
               {text: '作物', link: `${prefix}general/concepts/crop`},
@@ -87,10 +88,11 @@ function buildGeneralSidebar(locale: LocaleKey, prefix: string): DefaultTheme.Si
           },
           {
             text: '方块与物品',
+            link: `${prefix}general/blocks-and-items/`,
             collapsed: false,
             items: [
-              {text: '基础魔种', link: `${prefix}general/blocks-and-items/croparia`},
-              {text: '圣物', link: `${prefix}general/blocks-and-items/relic`},
+              {text: '魔种', link: `${prefix}general/blocks-and-items/croparia`},
+              {text: '遗物', link: `${prefix}general/blocks-and-items/relic`},
               {text: '工作方块', link: `${prefix}general/blocks-and-items/workstations`},
               {text: '其他', link: `${prefix}general/blocks-and-items/others`}
             ]
