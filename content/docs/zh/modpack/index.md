@@ -21,11 +21,6 @@ modVersions:
 
 ## 当前计划页面
 
-- [数据包与资源包](/modpack/datapacks-and-resourcepacks)
-- [自定义作物](/modpack/custom-crops)
-- [配方与结构](/modpack/recipes-and-structures)
-- [生成器与工具](/modpack/generators-and-tools)
-- [配置与整合建议](/modpack/configuration)
 
 ## 写作边界
 

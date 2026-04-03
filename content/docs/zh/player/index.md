@@ -22,12 +22,7 @@ modVersions:
 
 ## 当前计划页面
 
-- [入门](/player/farming-and-melons)
-- [作物进阶](/player/croparia-progression)
-- [机器与仪式](/player/machines-and-rituals)
-- [自动化思路](/player/automation)
-- [实用道具](/player/utility-items)
-- [常见问题](/player/faq)
+
 
 ## 页面规划
 
