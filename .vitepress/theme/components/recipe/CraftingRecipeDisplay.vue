@@ -6,10 +6,9 @@ import GameItemDisplay from "../GameItemDisplay.vue";
 import GameSlot from "../GameSlot.vue";
 
 const {
-  locale,
   recipe
 } = defineProps<{
-  locale: string,
+  locale?: string,
   recipe: NormalizedCraftingRecipe
 }>();
 
@@ -19,16 +18,16 @@ const recipeArrowSrc = withBase('/assets/gui/recipe-arrow.png');
 
 <template>
   <div class="crafting-recipe">
-    <GameItemDisplay class="workstation" :locale='locale' id="minecraft:crafting_table"></GameItemDisplay>
+    <GameItemDisplay class="workstation" id="minecraft:crafting_table"></GameItemDisplay>
     <div class="input">
       <GameSlot v-for="i in 9">
-        <GameItemEntry v-if="recipe.input[i - 1]" :props="recipe.input[i - 1]" :locale='locale'/>
+        <GameItemEntry v-if="recipe.input[i - 1]" :props="recipe.input[i - 1]"/>
         <div v-else class="empty"/>
       </GameSlot>
     </div>
     <img class="arrow" :src="recipeArrowSrc" alt="recipe arrow"/>
     <GameSlot class="output">
-      <GameItemEntry :locale='locale' :props="recipe.output"/>
+      <GameItemEntry :props="recipe.output"/>
     </GameSlot>
   </div>
 </template>

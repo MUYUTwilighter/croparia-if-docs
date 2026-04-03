@@ -2,23 +2,22 @@
 
 import GameSlot from "./GameSlot.vue";
 import GameItemDisplay from "./GameItemDisplay.vue";
-import {ref, watchEffect} from "vue";
+import {computed, ref, toRef, watchEffect} from "vue";
 import {ItemData} from "../type/ItemData";
 import GameText from "./GameText.vue";
 import GameGuiFrame from "./GameGuiFrame.vue";
+import { useLocale } from "../composables/useLocale";
 
-const {
-  locale,
-  id,
-} = defineProps<{
-  locale: string,
+const props = defineProps<{
+  locale?: string,
   id: string,
 }>();
+const locale = useLocale(toRef(props, "locale"));
 
 const item = ref<ItemData>(ItemData.createFallbackItem("loading"));
 
 watchEffect(async () => {
-  item.value = await ItemData.fetch(id);
+  item.value = await ItemData.fetch(props.id);
 });
 
 const attrLocales: Record<string, {
@@ -50,7 +49,7 @@ const attrLocales: Record<string, {
     category: "Categoría"
   }
 }
-const attrLocale = attrLocales[locale] || attrLocales.en;
+const attrLocale = computed(() => attrLocales[locale.value] || attrLocales.en);
 
 </script>
 
@@ -60,7 +59,7 @@ const attrLocale = attrLocales[locale] || attrLocales.en;
       <GameText class="name" color="#3F3F3F" fontWeight="bold"
                 notFullLine noShadow>{{ item.name[locale] || item.name.en }}
       </GameText>
-      <GameItemDisplay class="icon" :id=id :locale=locale :size=64 noFloatBox/>
+      <GameItemDisplay class="icon" :id="props.id" :size="64" noFloatBox/>
       <GameSlot>
         <table>
           <tbody>
@@ -101,7 +100,7 @@ const attrLocale = attrLocales[locale] || attrLocales.en;
               <GameText color="#3F3F3F" noShadow>{{ attrLocale.minTool }}</GameText>
             </td>
             <td class="value">
-              <GameItemDisplay :id='item.minTool' :locale='locale'/>
+              <GameItemDisplay :id='item.minTool'/>
             </td>
           </tr>
           </tbody>

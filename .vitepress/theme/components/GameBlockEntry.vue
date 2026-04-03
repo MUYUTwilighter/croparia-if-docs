@@ -1,17 +1,19 @@
 <script setup lang="ts">
-import {computed, onBeforeUnmount, ref, watch} from "vue";
+import {computed, onBeforeUnmount, ref, toRef, watch} from "vue";
 import {ItemData} from "../type/ItemData";
 import {Tag} from "../type/Tag";
 import GameItemDisplay from "./GameItemDisplay.vue";
 import GameText from "./GameText.vue";
 import {BlockEntry} from "../type/BlockEntry";
-import EntryHook from "../type/EntryHook";
+import type EntryHook from "../type/EntryHook";
+import { useLocale } from "../composables/useLocale";
 
 const componentProps = defineProps<{
-  locale: string,
+  locale?: string,
   link?: string,
   props: BlockEntry,
 } & EntryHook>();
+const locale = useLocale(toRef(componentProps, "locale"));
 
 const normalized = computed(() => BlockEntry.normalize(componentProps.props));
 
@@ -74,7 +76,6 @@ const tagLocale: Record<string, string> = {
   <GameItemDisplay
       v-if="currentItem"
       :id="currentItem.registerName"
-      :locale="componentProps.locale"
       :link="componentProps.link"
       :nameHook="nameHook"
       :idHook="idHook"

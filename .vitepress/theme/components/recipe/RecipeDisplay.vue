@@ -15,10 +15,9 @@ import RitualStructureDisplay from "./RitualStructureDisplay.vue";
 import {NormalizedRitualStructure} from "../../type/RitualStructure";
 
 const {
-  locale,
   id
 } = defineProps<{
-  locale: string,
+  locale?: string,
   id: string
 }>();
 const recipe = ref<Recipe | undefined>();
@@ -35,15 +34,14 @@ watchEffect(async () => {
         <GameText class="recipe-id" color="#3F3F3F" noShadow>{{ id }}</GameText>
         <CraftingRecipeDisplay class="recipe-content"
                                v-if="recipe.type === 'minecraft:crafting_shaped' || recipe.type === 'minecraft:crafting_shapeless'"
-                               :locale="locale" :recipe="recipe as NormalizedCraftingRecipe"/>
-        <InfusorRecipeDisplay class="recipe-content" v-if="recipe.type=== 'croparia:infusor'" :locale="locale"
+                               :recipe="recipe as NormalizedCraftingRecipe"/>
+        <InfusorRecipeDisplay class="recipe-content" v-if="recipe.type=== 'croparia:infusor'"
                               :recipe="recipe as NormalizedInfusorRecipe"/>
-        <RitualRecipeDisplay class="recipe-content" v-if="recipe.type === 'croparia:ritual'" :locale="locale"
+        <RitualRecipeDisplay class="recipe-content" v-if="recipe.type === 'croparia:ritual'"
                              :recipe="recipe as NormalizedRitualRecipe"/>
-        <SoakRecipeDisplay class="recipe-content" v-if="recipe.type=== 'croparia:soak'" :locale="locale"
+        <SoakRecipeDisplay class="recipe-content" v-if="recipe.type=== 'croparia:soak'"
                            :recipe="recipe as NormalizedSoakRecipe"/>
         <RitualStructureDisplay class="recipe-content" v-if="recipe.type=== 'croparia:ritual_structure'"
-                                :locale="locale"
                                 :recipe="recipe as NormalizedRitualStructure"/>
       </div>
     </GameGuiFrame>

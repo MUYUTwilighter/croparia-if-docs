@@ -7,10 +7,9 @@ import {NormalizedRitualRecipe} from "../../type/RitualRecipe";
 import GameBlockEntry from "../GameBlockEntry.vue";
 
 const {
-  locale,
   recipe
 } = defineProps<{
-  locale: string,
+  locale?: string,
   recipe: NormalizedRitualRecipe
 }>();
 
@@ -24,7 +23,7 @@ const recipeArrowSrc = withBase('/assets/gui/recipe-arrow.png');
   <div class="soak-recipe">
     <div></div>
     <div></div>
-    <GameItemEntry :locale="locale" :props="recipe.ingredient"/>
+    <GameItemEntry :props="recipe.ingredient"/>
     <div></div>
     <div></div>
 
@@ -34,11 +33,11 @@ const recipeArrowSrc = withBase('/assets/gui/recipe-arrow.png');
     <div></div>
     <div></div>
 
-    <GameBlockEntry :locale="locale" :props="recipe.block"/>
+    <GameBlockEntry :props="recipe.block"/>
     <img class="connector" :src="blockPlaceSrc" alt="place block"/>
-    <GameBlockEntry :locale="locale" :props="recipe.ritual"/>
+    <GameBlockEntry :props="recipe.ritual"/>
     <img class="arrow" :src="recipeArrowSrc" alt="recipe arrow"/>
-    <GameItemEntry :locale="locale" :props="recipe.result"/>
+    <GameItemEntry :props="recipe.result"/>
   </div>
 </template>
 

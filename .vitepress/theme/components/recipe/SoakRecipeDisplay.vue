@@ -6,10 +6,9 @@ import {NormalizedSoakRecipe} from "../../type/SoakRecipe";
 import GameBlockEntry from "../GameBlockEntry.vue";
 
 const {
-  locale,
   recipe
 } = defineProps<{
-  locale: string,
+  locale?: string,
   recipe: NormalizedSoakRecipe
 }>();
 
@@ -21,9 +20,9 @@ const recipeArrowSrc = withBase('/assets/gui/recipe-arrow.png');
 
 <template>
   <div class="soak-recipe">
-    <GameItemEntry :locale="locale" :props="recipe.element"/>
+    <GameItemEntry :props="recipe.element"/>
     <img class="connector" :src="elementInfuseSrc" alt="element infuse"/>
-    <GameItemEntry :locale="locale" props="croparia:infusor"/>
+    <GameItemEntry props="croparia:infusor"/>
     <div></div>
     <div></div>
 
@@ -33,11 +32,11 @@ const recipeArrowSrc = withBase('/assets/gui/recipe-arrow.png');
     <div></div>
     <div></div>
 
-    <GameBlockEntry :locale="locale" :props="recipe.input"/>
+    <GameBlockEntry :props="recipe.input"/>
     <img class="connector" :src="elementInfuseSrc" alt="element infuse"/>
-    <GameItemDisplay :locale="locale" id="croparia:infusor"/>
+    <GameItemDisplay id="croparia:infusor"/>
     <img class="arrow" :src="recipeArrowSrc" alt="recipe arrow"/>
-    <GameBlockEntry :locale="locale" :props="recipe.output"/>
+    <GameBlockEntry :props="recipe.output"/>
   </div>
 </template>
 

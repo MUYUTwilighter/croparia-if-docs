@@ -1,29 +1,23 @@
 <script setup lang="ts">
-import {computed, nextTick, onBeforeUnmount, ref, watchEffect} from 'vue'
+import {computed, nextTick, onBeforeUnmount, ref, toRef, watchEffect} from 'vue'
 import {ItemData} from "../type/ItemData";
 import GameFloatBox from "./GameFloatBox.vue";
 import GameText from "./GameText.vue";
 import type EntryHook from "../type/EntryHook";
+import { useLocale } from "../composables/useLocale";
 
-const {
-  locale,
-  id,
-  count = 1,
-  link,
-  size = 16,
-  noFloatBox = false,
-  nameHook,
-  idHook,
-  categoryHook,
-  tagHook,
-} = defineProps<{
-  locale: string,
+const props = withDefaults(defineProps<{
+  locale?: string,
   id: string,
   count?: number,
   link?: string,
   size?: number,
   noFloatBox?: boolean,
-} & EntryHook>();
+} & EntryHook>(), {
+  count: 1,
+  size: 16,
+  noFloatBox: false,
+});
 
 const item = ref<ItemData>(ItemData.createFallbackItem("tagOrId"));
 const displayRef = ref<HTMLElement | null>(null);
@@ -32,12 +26,13 @@ const showFloatBox = ref(false);
 const floatBoxTop = ref(0);
 const floatBoxLeft = ref(0);
 let animationFrame = 0;
+const locale = useLocale(toRef(props, "locale"));
 
 watchEffect(async () => {
-  item.value = await ItemData.fetch(id);
+  item.value = await ItemData.fetch(props.id);
 });
 
-const hoverBgColor = link || !noFloatBox ? "rgba(255, 255, 255, 0.5)" : "transparent";
+const hoverBgColor = props.link || !props.noFloatBox ? "rgba(255, 255, 255, 0.5)" : "transparent";
 const floatBoxStyle = computed(() => ({
   position: "fixed",
   top: `${floatBoxTop.value}px`,
@@ -74,7 +69,7 @@ function updateFloatBoxPosition() {
 }
 
 async function openFloatBox() {
-  if (noFloatBox) {
+  if (props.noFloatBox) {
     return;
   }
   showFloatBox.value = true;
@@ -121,37 +116,37 @@ onBeforeUnmount(() => {
 <template>
   <div ref="displayRef" class="game-item-display" @mouseenter="openFloatBox" @mouseleave="closeFloatBox">
     <img class="icon" :src="item.largeIconSrc" :alt="item.registerName"/>
-    <GameText v-if="count !== 1" class="count">
-      {{ count.toString() }}
+    <GameText v-if="props.count !== 1" class="count">
+      {{ props.count.toString() }}
     </GameText>
-    <a v-if="!!link" class="link" :href="link"></a>
+    <a v-if="!!props.link" class="link" :href="props.link"></a>
   </div>
   <Teleport to="body">
-    <GameFloatBox ref="floatBoxRef" class="float-box" v-if="showFloatBox && !noFloatBox" :style="floatBoxStyle">
-      <GameText v-if="nameHook" class="name">
-        {{ nameHook(item.name[locale] || item.name.en) }}
+    <GameFloatBox ref="floatBoxRef" class="float-box" v-if="showFloatBox && !props.noFloatBox" :style="floatBoxStyle">
+      <GameText v-if="props.nameHook" class="name">
+        {{ props.nameHook(item.name[locale] || item.name.en) }}
       </GameText>
       <GameText v-else class="name">
         {{ item.name[locale] || item.name.en }}
       </GameText>
 
-      <GameText v-if="categoryHook" class="creative-tab" color="#5454FC">
-        {{ categoryHook(item.CreativeTabName[locale] || item.CreativeTabName.en) }}
+      <GameText v-if="props.categoryHook" class="creative-tab" color="#5454FC">
+        {{ props.categoryHook(item.CreativeTabName[locale] || item.CreativeTabName.en) }}
       </GameText>
       <GameText v-else class="creative-tab" color="#5454FC">
         {{ item.CreativeTabName[locale] || item.CreativeTabName.en }}
       </GameText>
 
-      <GameText v-if="idHook" class="id" color="#545454">
-        {{ idHook(id) }}
+      <GameText v-if="props.idHook" class="id" color="#545454">
+        {{ props.idHook(props.id) }}
       </GameText>
       <GameText v-else class="id" color="#545454">
-        {{ id }}
+        {{ props.id }}
       </GameText>
 
       <slot/>
 
-      <GameText v-if="tagHook" v-for="tag in tagHook(item.OredictList)" class="tag" color="#A7A7A7" font-style="italic">
+      <GameText v-if="props.tagHook" v-for="tag in props.tagHook(item.OredictList)" class="tag" color="#A7A7A7" font-style="italic">
         {{ `#${tag}` }}
       </GameText>
       <GameText v-for="tag in item.OredictList" class="tag" color="#A7A7A7" font-style="italic">
@@ -184,8 +179,8 @@ onBeforeUnmount(() => {
 
 .game-item-display .icon {
   image-rendering: pixelated;
-  width: calc(var(--vp-unit-size) * v-bind(size));
-  height: calc(var(--vp-unit-size) * v-bind(size));
+  width: calc(var(--vp-unit-size) * v-bind('props.size'));
+  height: calc(var(--vp-unit-size) * v-bind('props.size'));
 }
 
 .game-item-display:hover .icon {

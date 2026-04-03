@@ -5,15 +5,14 @@ import GameText from "../GameText.vue";
 import GameBlockEntry from "../GameBlockEntry.vue";
 import GameSlot from "../GameSlot.vue";
 import GameArrowButton from "../GameArrowButton.vue";
-import {computed, ref} from "vue";
+import {computed, ref, toRef} from "vue";
+import { useLocale } from "../../composables/useLocale";
 
-const {
-  locale,
-  recipe,
-} = defineProps<{
-  locale: string,
+const props = defineProps<{
+  locale?: string,
   recipe: NormalizedRitualStructure,
 }>();
+const locale = useLocale(toRef(props, "locale"));
 
 const locales: {
   [k: string]: {
@@ -49,30 +48,30 @@ function getLocale(c: string, lang: string): string {
 }
 
 const layer = ref<number>(0);
-const totalLayers = computed(() => recipe.pattern.length);
-const maxColumns = computed(() => Math.max(0, ...recipe.pattern.flatMap(current => current.map(row => row.length))));
-const maxRows = computed(() => Math.max(0, ...recipe.pattern.map(current => current.length)));
+const totalLayers = computed(() => props.recipe.pattern.length);
+const maxColumns = computed(() => Math.max(0, ...props.recipe.pattern.flatMap(current => current.map(row => row.length))));
+const maxRows = computed(() => Math.max(0, ...props.recipe.pattern.map(current => current.length)));
 const anyBlockHooks = {
-  nameHook: () => getLocale(' ', locale),
+  nameHook: () => getLocale(' ', locale.value),
   idHook: () => '',
   categoryHook: () => '',
   tagHook: () => []
 };
 const inputBlockHooks = {
-  nameHook: () => getLocale('$', locale),
+  nameHook: () => getLocale('$', locale.value),
   idHook: () => '',
   categoryHook: () => '',
   tagHook: () => []
 };
 const airOnlyHooks = {
-  nameHook: () => getLocale('.', locale),
+  nameHook: () => getLocale('.', locale.value),
   idHook: () => '',
   categoryHook: () => '',
   tagHook: () => []
 };
 
 function getEntryAt(row: string, index: number) {
-  return recipe.keys[row.charAt(index)];
+  return props.recipe.keys[row.charAt(index)];
 }
 
 function previousLayer() {
@@ -91,7 +90,7 @@ function nextLayer() {
   <div class="ritual-structure">
     <div class="structure">
       <div
-        v-for="(patternLayer, layerIndex) in recipe.pattern"
+        v-for="(patternLayer, layerIndex) in props.recipe.pattern"
         :key="`layer-${layerIndex}`"
         class="layer"
         :class="{ 'layer--active': layerIndex === layer, 'layer--hidden': layerIndex !== layer }"
@@ -99,15 +98,15 @@ function nextLayer() {
         <div v-for="(row, rowIndex) in patternLayer" :key="`${layerIndex}-${rowIndex}`" class="row">
           <GameSlot v-for="(char, columnIndex) in row" :key="`${layerIndex}-${rowIndex}-${columnIndex}`">
             <GameBlockEntry v-if="char === ' '"
-                            v-bind="anyBlockHooks" :locale="locale"
+                            v-bind="anyBlockHooks"
                             :props="getEntryAt(row, columnIndex)"></GameBlockEntry>
             <GameBlockEntry v-else-if="char === '$'"
-                            v-bind="inputBlockHooks" :locale="locale"
+                            v-bind="inputBlockHooks"
                             :props="getEntryAt(row, columnIndex)"></GameBlockEntry>
             <GameBlockEntry v-else-if="char === '.'"
-                            v-bind="airOnlyHooks" :locale="locale"
+                            v-bind="airOnlyHooks"
                             :props="getEntryAt(row, columnIndex)"></GameBlockEntry>
-            <GameBlockEntry v-else :locale="locale" :props="getEntryAt(row, columnIndex)"></GameBlockEntry>
+            <GameBlockEntry v-else :props="getEntryAt(row, columnIndex)"></GameBlockEntry>
           </GameSlot>
         </div>
       </div>
