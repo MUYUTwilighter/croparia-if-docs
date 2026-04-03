@@ -3,7 +3,7 @@ import {InfusorRecipe} from "./InfusorRecipe";
 import {RitualRecipe} from "./RitualRecipe";
 import {SoakRecipe} from "./SoakRecipe";
 import {RitualStructure} from "./RitualStructure";
-import { loadPublicJson } from "./dataLoader";
+import { loadPublicJson } from "../util/dataLoader";
 
 export interface Recipe {
   type: string;

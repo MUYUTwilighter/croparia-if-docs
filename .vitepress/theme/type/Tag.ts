@@ -1,5 +1,5 @@
 import {ItemData} from "./ItemData";
-import { loadPublicJson } from "./dataLoader";
+import { loadPublicJson } from "../util/dataLoader";
 
 export interface Tag {
   values: string[]

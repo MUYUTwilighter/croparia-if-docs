@@ -1,4 +1,4 @@
-import { loadPublicJson } from "./dataLoader";
+import { loadPublicJson } from "../util/dataLoader";
 
 export interface LocaleMap {
   zh: string

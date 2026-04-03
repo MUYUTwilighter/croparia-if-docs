@@ -7,19 +7,16 @@
     --vp-home-hero-text-color: #f1ebd0;
     --vp-home-hero-image-background-image: radial-gradient(circle at center, rgba(185, 232, 136, 0.26), rgba(185, 232, 136, 0.02) 62%);
     --vp-home-hero-image-filter: drop-shadow(0 28px 48px rgba(14, 20, 13, 0.28));
-    --vp-font-family-mc: "ArkPixelLatin", "ArkPixelZhCN", monospace;
     --vp-unit-size: 3px;
 }
 
 @font-face {
     font-family: "ArkPixelLatin";
-    src: url("/fonts/ark-pixel-latin.woff") format("woff");
     font-display: swap;
 }
 
 @font-face {
     font-family: "ArkPixelZhCN";
-    src: url("/fonts/ark-pixel-zh-cn.woff") format("woff");
     font-display: swap;
 }
 
