@@ -20,12 +20,16 @@ modVersions:
 
 # 占位符解析器（Placeholder API）
 
-占位符解析器是模板真正读取数据的接口。模板中的 `${...}` 表达式在运行时会交给对应的 `Placeholder` 解析，再替换成最终的文本或 JSON 片段。
+占位符解析器是[模板](index.md#template)真正读取数据的接口。模板中的 `${...}` 表达式在运行时会交给对应的 `Placeholder` 解析，再替换成最终的文本或 JSON 片段。
 
 对于整合包作者来说，可以把它理解为：
 
 - `Template` 决定文件长什么样；
 - `Placeholder` 决定模板里能读哪些值、这些值怎么继续往下取。
+
+如果你还没有读过运行时数据生成系统的整体介绍，建议先看[运行时数据生成系统](index.md)；如果你想知道这些表达式最终写在什么位置，可以继续看[创建数据生成器](create-generator.md)。
+
+<a id="syntax"></a>
 
 ## 基本语法
 
@@ -53,6 +57,8 @@ ${字段.get(0)}
 - 占位符总是写在 `${...}` 中；
 - 点号 `.` 表示继续访问子字段或调用内置查询方法。
 
+<a id="quote"></a>
+
 ## 字符串与引号
 
 `Placeholder` 返回的值本质上是 JSON 值。若结果本身是字符串，直接放进 JSON 字符串字面量时要注意引号。
@@ -77,7 +83,11 @@ ${字段.get(0)}
 }
 ```
 
+<a id="basic-types"></a>
+
 ## 基本类型
+
+<a id="string"></a>
 
 ### 字符串 `string`
 
@@ -90,6 +100,8 @@ ${id.path}
 ${type._qis}
 ```
 
+<a id="number"></a>
+
 ### 数字 `number`
 
 数字通常直接嵌入 JSON：
@@ -99,13 +111,19 @@ ${tier}
 ${color.dec}
 ```
 
+<a id="boolean"></a>
+
 ### 布尔 `boolean`
 
 源码中存在布尔占位符支持，但当前常用生成条目里很少直接暴露布尔字段。若某个条目提供了布尔值，可以像数字一样直接使用。
 
+<a id="compound-types"></a>
+
 ## 复合类型
 
 `Placeholder` 最实用的能力在于处理列表与字典。
+
+<a id="list"></a>
 
 ### 列表 `T[]`
 
@@ -124,6 +142,8 @@ ${translations.keys()._size}
 ${translations.keys().get(0)}
 ${translations.keys().getOr(0, en_us)}
 ```
+
+<a id="map"></a>
 
 ### 字典 `Map<String, T>`
 
@@ -145,9 +165,13 @@ ${translations.getOr(zh_cn, 未翻译)}
 ${translations.keys().get(0)}
 ```
 
+<a id="builtin-types"></a>
+
 ## 常用内置类型
 
 以下类型在很多条目里都会出现。
+
+<a id="id"></a>
 
 ### `id`
 
@@ -165,6 +189,8 @@ ${fruit.namespace}
 ${fruit.path}
 ```
 
+<a id="color"></a>
+
 ### `color`
 
 颜色类型支持：
@@ -172,6 +198,8 @@ ${fruit.path}
 - `${color}`：标准颜色字符串，如 `#00FFAA`
 - `${color.hex}`：不带前缀的十六进制
 - `${color.dec}`：十进制整数
+
+<a id="material"></a>
 
 ### `material`
 
@@ -187,13 +215,17 @@ ${fruit.path}
 - `${material.result}`：作为配方输出条目读取
 - `${material.components}`：组件补丁
 
+<a id="common-entries"></a>
+
 ## 当前常用生成条目的可用字段
 
-下面这些字段来自当前 `1.1.0a` 源码中的 `Placeholder` 定义，适合直接在整合包文档里引用。
+下面这些字段来自当前 `1.1.0a` 源码中的 `Placeholder` 定义，适合直接在整合包文档里引用。它们分别对应运行时数据生成系统中的[生成条目](index.md)与[生成条目集](index.md)。
+
+<a id="crops"></a>
 
 ## 果实作物 `croparia:crops`
 
-果实作物条目实现于 `Crop`，并继承了通用的可翻译条目字段。
+果实作物条目实现于 `Crop`，并继承了下文的[可翻译条目通用字段](#translatable-entry)。
 
 可直接使用的核心字段：
 
@@ -231,6 +263,10 @@ template = """
 """
 ```
 
+如果你正在为自定义果实作物编写生成器，可以与[创建数据生成器](create-generator.md)配合阅读。
+
+<a id="melons"></a>
+
 ## 巨果作物 `croparia:melons`
 
 巨果作物条目实现于 `Melon`。
@@ -265,6 +301,8 @@ template = """
 """
 ```
 
+<a id="elements"></a>
+
 ## 元素 `croparia:elements`
 
 元素条目实现于 `Element`。
@@ -298,6 +336,8 @@ template = """
 """
 ```
 
+<a id="translatable-entry"></a>
+
 ## 可翻译条目通用字段
 
 `Crop` 与 `Melon` 都继承了 `TranslatableEntry`，因此都支持：
@@ -315,6 +355,10 @@ template = """
 ```toml
 template = '"${translation_key}": "${translations.get(_lang)}"'
 ```
+
+这类写法尤其适合与[语言生成器](index.md)配合使用。
+
+<a id="tips"></a>
 
 ## 使用建议
 
