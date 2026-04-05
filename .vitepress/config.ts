@@ -66,6 +66,10 @@ function buildNav(locale: LocaleKey): DefaultTheme.NavItem[] {
     {
       text: localizedText(locale, '通用', 'General'),
       link: sectionLink(locale, '/general/')
+    },
+    {
+      text: localizedText(locale, '玩家', 'Player'),
+      link: sectionLink(locale, '/player/')
     }
   ]
 }
@@ -139,6 +143,38 @@ function buildGuideSection(locale: LocaleKey, prefix: string): DefaultTheme.Side
   }
 }
 
+function buildPlayerSidebar(locale: LocaleKey, prefix: string): DefaultTheme.SidebarItem[] {
+  if (locale === 'root') {
+    return [
+      {
+        text: '玩家',
+        link: `${prefix}player/`,
+        items: [
+          {text: '快速入门', link: `${prefix}player/`},
+          {text: '自动化示例', link: `${prefix}player/automation`},
+          {text: '常见问题与解答', link: `${prefix}player/faq`}
+        ]
+      }
+    ]
+  }
+
+  return [
+    {
+      text: 'Player',
+      link: `${prefix}player/`,
+      items: [
+        {text: 'Overview', link: `${prefix}player/`},
+        {text: 'Farming and Melons', link: `${prefix}player/farming-and-melons`},
+        {text: 'Croparia Progression', link: `${prefix}player/croparia-progression`},
+        {text: 'Machines and Rituals', link: `${prefix}player/machines-and-rituals`},
+        {text: 'Automation', link: `${prefix}player/automation`},
+        {text: 'Utility Items', link: `${prefix}player/utility-items`},
+        {text: 'FAQ', link: `${prefix}player/faq`}
+      ]
+    }
+  ]
+}
+
 function buildSidebar(locale: LocaleKey): DefaultTheme.Sidebar {
   const archivedVersionItems = archivedVersions.map((version) => ({
     text: versionLabel(locale, version),
@@ -147,6 +183,7 @@ function buildSidebar(locale: LocaleKey): DefaultTheme.Sidebar {
 
   const sidebar: DefaultTheme.Sidebar = {
     [`${localePrefix(locale)}/general/`]: buildGeneralSidebar(locale, `${localePrefix(locale)}/`),
+    [`${localePrefix(locale)}/player/`]: buildPlayerSidebar(locale, `${localePrefix(locale)}/`),
     [`${localePrefix(locale)}/guide/`]: [
       buildGuideSection(locale, `${localePrefix(locale)}/`)
     ],
@@ -168,6 +205,7 @@ function buildSidebar(locale: LocaleKey): DefaultTheme.Sidebar {
   for (const version of archivedVersions) {
     const prefix = `${localePrefix(locale)}/versions/${version.slug}/`
     sidebar[`${prefix}general/`] = buildGeneralSidebar(locale, prefix)
+    sidebar[`${prefix}player/`] = buildPlayerSidebar(locale, prefix)
     sidebar[`${prefix}guide/`] = [buildGuideSection(locale, prefix)]
   }
 
