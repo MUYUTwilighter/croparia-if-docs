@@ -126,7 +126,7 @@ modVersions:
 
 ### 使用方式
 
-![作物嬗变仪界面](/assets/crop_transmuter_example.png)
+![作物嬗变仪界面](/assets/crop_transmuter_example.webp)
 
 右键打开 GUI，在左侧放入作物果实，中间即可选择要输出的材料物品，右侧为输出物品槽。转换速度为 1 次/游戏刻。
 
