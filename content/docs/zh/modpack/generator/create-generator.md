@@ -75,25 +75,19 @@ template = """
 
 ## 核心字段
 
-- `registry`
-  - 用途：指定要遍历哪个[生成条目集](index.md#entry-registry)
+- `registry`：指定要遍历哪个[生成条目集](index.md#entry-registry)
   - 常见值：
     - `croparia:crops`
     - `croparia:melons`
     - `croparia:elements`
-
-- `path`
-  - 用途：指定生成产物的相对路径
-  - 说明：本身也是一个[模板](index.md#template)
+- `path`：指定生成产物的相对路径，本身也是一个[模板](index.md#template)
   - 示例：
 
 ```toml
 path = "${id.namespace}/models/item/${seed.path}.json"
 ```
 
-- `template`
-  - 用途：指定最终写入的文件内容
-  - 说明：本身也是模板字符串
+- `template`：指定最终写入的文件内容，本身也是模板字符串
   - 示例：
 
 ```toml
@@ -104,21 +98,15 @@ template = """
 """
 ```
 
-- `type`
-  - 用途：指定生成器类型
+- `type`：指定生成器类型
   - 可选值：
-    - `croparia:generator`
-    - `croparia:aggregated`
-    - `croparia:lang`
-  - 默认值：`croparia:generator`
+    - [`croparia:generator`](#type-generator)（默认）
+    - [`croparia:aggregated`](#type-aggregated)
+    - [`croparia:lang`](#type-lang)
 
-- `startup`
-  - 用途：控制是否在服务器完全启动前参与生成
-  - 常见场景：静态资源、标签、语言这类内置式内容
+- `startup`：控制是否在服务器完全启动前参与生成
 
-- `enabled`
-  - 用途：控制生成器是否启用
-  - 常见用法：临时停用但保留文件
+- `enabled`：控制生成器是否启用，可临时停用但保留文件
   - 示例：
 
 ```toml
@@ -137,6 +125,8 @@ whitelist = ["croparia:coal", "croparia:iron"]
 <a id="generator-types"></a>
 
 ## 生成器类型
+
+<a id="type-generator"></a>
 
 ### 普通生成器 `croparia:generator`
 
@@ -159,6 +149,8 @@ template = """
 }
 """
 ```
+
+<a id="type-aggregated"></a>
 
 ### 聚合生成器 `croparia:aggregated`
 
@@ -189,6 +181,8 @@ ${content}
 }
 """
 ```
+
+<a id="type-lang"></a>
 
 ### 语言生成器 `croparia:lang`
 
