@@ -6,6 +6,11 @@ keywords:
   - 元素矿石
   - 活化尖啸体
   - 配方生成器
+  - 深层元素矿石
+  - Recipe Wizard
+  - 创造模式工具
+  - 调试工具
+  - 1.1.0a
 modVersions:
   - 1.1.0a
 ---

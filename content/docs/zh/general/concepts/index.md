@@ -5,6 +5,11 @@ keywords:
   - Croparia IF
   - 核心概念
   - 索引
+  - 作物
+  - 元素
+  - 术语
+  - 名词解释
+  - 1.1.0a
 modVersions:
   - 1.1.0a
 ---
