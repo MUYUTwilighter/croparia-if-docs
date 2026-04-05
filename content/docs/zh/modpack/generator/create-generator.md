@@ -29,8 +29,6 @@ modVersions:
 - 数据包处理器：`[游戏目录]/croparia/datapack/generator/`
 - 资源包处理器：`[游戏目录]/croparia/resourcepack/generator/`
 
-注意，这里源码中的目录名是 `generator`，不是 `generators`。
-
 生成器触发后，真正的[生成产物](index.md#pack-handler)会被写入：
 
 - 数据包：`[游戏目录]/croparia/datapack/data/`

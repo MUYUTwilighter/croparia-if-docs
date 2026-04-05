@@ -223,7 +223,7 @@ ${fruit.path}
 
 <a id="crops"></a>
 
-## 果实作物 `croparia:crops`
+### 果实作物 `croparia:crops`
 
 果实作物条目实现于 `Crop`，并继承了下文的[可翻译条目通用字段](#translatable-entry)。
 
@@ -267,7 +267,7 @@ template = """
 
 <a id="melons"></a>
 
-## 巨果作物 `croparia:melons`
+### 巨果作物 `croparia:melons`
 
 巨果作物条目实现于 `Melon`。
 
@@ -303,7 +303,7 @@ template = """
 
 <a id="elements"></a>
 
-## 元素 `croparia:elements`
+### 元素 `croparia:elements`
 
 元素条目实现于 `Element`。
 
