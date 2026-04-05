@@ -185,24 +185,67 @@ function buildPlayerSidebar(locale: LocaleKey, prefix: string): DefaultTheme.Sid
 }
 
 function buildModpackSidebar(locale: LocaleKey, prefix: string): DefaultTheme.SidebarItem[] {
-  if (locale !== 'root') {
-    return []
+  if (locale === 'root') {
+    return [
+      {
+        text: '整合包作者',
+        items: [
+          {text: '概览', link: `${prefix}modpack/`},
+          {
+            text: '基础配置',
+            collapsed: false,
+            items: [
+              {text: '设置与指令', link: `${prefix}modpack/configuration-command`},
+              {text: '自定义作物', link: `${prefix}modpack/custom-crops`},
+              {text: '配方与结构', link: `${prefix}modpack/recipe-structure`}
+            ]
+          },
+          {
+            text: '运行时数据生成系统',
+            collapsed: false,
+            items: [
+              {text: '概览', link: `${prefix}modpack/generator/`},
+              {text: '创建数据生成器', link: `${prefix}modpack/generator/create-generator`},
+              {text: '占位符解析器', link: `${prefix}modpack/generator/placeholder`}
+            ]
+          },
+          {
+            text: '配方生成器',
+            collapsed: false,
+            items: [
+              {text: '概览', link: `${prefix}modpack/recipe-wizard/`},
+              {text: '自定义用法', link: `${prefix}modpack/recipe-wizard/custom-usage`}
+            ]
+          }
+        ]
+      }
+    ]
   }
 
   return [
     {
-      text: '整合包作者',
-      link: `${prefix}modpack/`,
+      text: 'Modpack Authors',
       items: [
-        {text: '概览', link: `${prefix}modpack/`},
-        {text: '设置与指令', link: `${prefix}modpack/configuration-command`},
-        {text: '自定义作物', link: `${prefix}modpack/custom-crops`},
-        {text: '运行时数据生成系统', link: `${prefix}modpack/generator/`},
-        {text: '创建数据生成器', link: `${prefix}modpack/generator/create-generator`},
-        {text: '占位符解析器', link: `${prefix}modpack/generator/placeholder`},
-        {text: '配方与结构', link: `${prefix}modpack/recipe-structure`},
-        {text: '配方生成器', link: `${prefix}modpack/recipe-wizard/`},
-        {text: '创建自定义配方生成器', link: `${prefix}modpack/recipe-wizard/custom-usage`}
+        {text: 'Overview', link: `${prefix}modpack/`},
+        {
+          text: 'Content Customization',
+          collapsed: false,
+          items: [
+            {text: 'Customization Overview', link: `${prefix}modpack/overview`},
+            {text: 'Datapacks and Resource Packs', link: `${prefix}modpack/datapacks-and-resourcepacks`},
+            {text: 'Custom Crops', link: `${prefix}modpack/custom-crops`},
+            {text: 'Recipes and Structures', link: `${prefix}modpack/recipes-and-structures`}
+          ]
+        },
+        {
+          text: 'Tooling and Maintenance',
+          collapsed: false,
+          items: [
+            {text: 'Generators and Tools', link: `${prefix}modpack/generators-and-tools`},
+            {text: 'Configuration', link: `${prefix}modpack/configuration`},
+            {text: 'Debugging', link: `${prefix}modpack/debugging`}
+          ]
+        }
       ]
     }
   ]
