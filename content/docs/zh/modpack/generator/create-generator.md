@@ -154,17 +154,11 @@ template = """
 
 ### 聚合生成器 `croparia:aggregated`
 
-先让每个条目生成一段 `content`，再统一塞进一个 `template`。
+先让每个条目生成一段 `content`，再统一塞进一个 `template`。适合标签文件等多条目合并成一个文件的场景
 
 额外字段：
 
 - `content`
-
-适合：
-
-- 标签文件
-- `variants`
-- 多条目合并成一个文件的场景
 
 ```toml
 registry = "croparia:crops"
