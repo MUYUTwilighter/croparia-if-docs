@@ -51,7 +51,14 @@ Croparia IF 目前和整合包作者最相关的核心数据类型主要有四�
 
 这几类配方内部大量复用了 `ItemInput`、`ItemOutput`、`BlockInput` 与 `BlockOutput`。它们通常都支持“简写”和“对象写法”两种形式。
 
+<a id="item-input"></a>
+
 ### 物品输入 `ItemInput`
+
+类型概览：
+
+- 简写：[`string`](./generator/placeholder.md#string)
+- 对象：[`Map<String, T>`](./generator/placeholder.md#map)
 
 可写成：
 
@@ -72,12 +79,19 @@ Croparia IF 目前和整合包作者最相关的核心数据类型主要有四�
 
 对象写法中常用字段：
 
-- `id`
-- `tag`
-- `components`
-- `amount`
+- `id: string`
+- `tag: string`
+- `components: Map<String, T>`
+- `amount: number`
+
+<a id="item-output"></a>
 
 ### 物品输出 `ItemOutput`
+
+类型概览：
+
+- 简写：[`string`](./generator/placeholder.md#string)
+- 对象：[`Map<String, T>`](./generator/placeholder.md#map)
 
 可写成：
 
@@ -96,11 +110,18 @@ Croparia IF 目前和整合包作者最相关的核心数据类型主要有四�
 
 对象写法中常用字段：
 
-- `id`
-- `components`
-- `amount`
+- `id: string`
+- `components: Map<String, T>`
+- `amount: number`
+
+<a id="block-input"></a>
 
 ### 方块输入 `BlockInput`
+
+类型概览：
+
+- 简写：[`string`](./generator/placeholder.md#string)
+- 对象：[`Map<String, T>`](./generator/placeholder.md#map)
 
 可写成：
 
@@ -123,11 +144,18 @@ Croparia IF 目前和整合包作者最相关的核心数据类型主要有四�
 
 对象写法中常用字段：
 
-- `id`
-- `tag`
-- `properties`
+- `id: string`
+- `tag: string`
+- `properties: Map<String, string>`
+
+<a id="block-output"></a>
 
 ### 方块输出 `BlockOutput`
+
+类型概览：
+
+- 简写：[`string`](./generator/placeholder.md#string)
+- 对象：[`Map<String, T>`](./generator/placeholder.md#map)
 
 可写成：
 
@@ -146,15 +174,20 @@ Croparia IF 目前和整合包作者最相关的核心数据类型主要有四�
 }
 ```
 
+对象写法中常用字段：
+
+- `id: string`
+- `properties: Map<String, string>`
+
 <a id="infusor"></a>
 
 ## 注魔台配方 `croparia:infusor`
 
 `InfusorRecipe` 的字段非常直接：
 
-- `element`
-- `ingredient`
-- `result`
+- `element: string`
+- `ingredient: [ItemInput](#item-input)`
+- `result: [ItemOutput](#item-output)`
 
 最简示例：
 
@@ -175,9 +208,9 @@ Croparia IF 目前和整合包作者最相关的核心数据类型主要有四�
 
 字段说明：
 
-- `element`：要求注魔台当前填充的元素类型，不能为 `empty`
-- `ingredient`：要丢入或右键放入注魔台的物品输入
-- `result`：成功后产出的物品输出
+- `element: string`：要求注魔台当前填充的元素类型，不能为 `empty`
+- `ingredient: ItemInput`：要丢入或右键放入注魔台的物品输入
+- `result: ItemOutput`：成功后产出的物品输出
 
 如果你要批量生成这类配方，通常最适合用普通[数据生成器](./generator/create-generator.md#generator-types)。
 
@@ -187,10 +220,10 @@ Croparia IF 目前和整合包作者最相关的核心数据类型主要有四�
 
 `RitualRecipe` 的字段包括：
 
-- `ritual`
-- `block`
-- `ingredient`
-- `result`
+- `ritual: string`
+- `block: [BlockInput](#block-input)`
+- `ingredient: [ItemInput](#item-input)`
+- `result: [ItemOutput](#item-output)`
 
 最简示例：
 
@@ -206,10 +239,10 @@ Croparia IF 目前和整合包作者最相关的核心数据类型主要有四�
 
 字段说明：
 
-- `ritual`：要求中心仪式台满足的等级或标签
-- `block`：结构中 `$` 标记位置必须放置的输入方块
-- `ingredient`：要丢在或右键仪式台的输入物品
-- `result`：配方成功后的结果物品
+- `ritual: string`：要求中心仪式台满足的等级或标签
+- `block: BlockInput`：结构中 `$` 标记位置必须放置的输入方块
+- `ingredient: ItemInput`：要丢在或右键仪式台的输入物品
+- `result: ItemOutput`：配方成功后的结果物品
 
 需要特别注意的是：
 
@@ -224,10 +257,10 @@ Croparia IF 目前和整合包作者最相关的核心数据类型主要有四�
 
 `SoakRecipe` 的字段包括：
 
-- `element`
-- `probability`
-- `input`
-- `output`
+- `element: string`
+- `probability: [number](./generator/placeholder.md#number)`
+- `input: [BlockInput](#block-input)`
+- `output: [BlockOutput](#block-output)`
 
 最简示例：
 
@@ -243,10 +276,10 @@ Croparia IF 目前和整合包作者最相关的核心数据类型主要有四�
 
 字段说明：
 
-- `element`：上方注魔台当前的元素类型，不能为 `empty`
-- `probability`：本次浸润成功的概率
-- `input`：被浸润的输入方块
-- `output`：成功时要变成的输出方块
+- `element: string`：上方注魔台当前的元素类型，不能为 `empty`
+- `probability: number`：本次浸润成功的概率
+- `input: BlockInput`：被浸润的输入方块
+- `output: BlockOutput`：成功时要变成的输出方块
 
 其中 `probability` 是 `float`，源码匹配逻辑会把当前随机值与这个概率比较，因此：
 
@@ -261,9 +294,9 @@ Croparia IF 目前和整合包作者最相关的核心数据类型主要有四�
 
 `RitualStructure` 不是配方，而是仪式台的多方块结构定义。其字段包括：
 
-- `ritual`
-- `keys`
-- `pattern`
+- `ritual: string`
+- `keys: [Map<String, BlockInput>](./generator/placeholder.md#map)`
+- `pattern: [string[]](./generator/placeholder.md#list)`
 
 内置示例：
 
@@ -300,22 +333,28 @@ Croparia IF 目前和整合包作者最相关的核心数据类型主要有四�
 }
 ```
 
+<a id="ritual-structure-ritual"></a>
+
 ### `ritual`
 
 表示这个结构对应的中心仪式台类型。
 
+<a id="ritual-structure-keys"></a>
+
 ### `keys`
 
-定义 `pattern` 中各字符代表什么方块输入。保留字符不能写进 `keys`：
+类型为 `Map<String, BlockInput>`，定义 `pattern` 中各字符代表什么方块输入。保留字符不能写进 `keys`：
 
 - `*`
 - `$`
 - `.`
 - 空格
 
+<a id="ritual-structure-pattern"></a>
+
 ### `pattern`
 
-是一个三维字符结构。
+类型为 `string[][]`，是一个三维字符结构。
 
 - 最外层：从下到上的层列表
 - 每层内部：按行排列的二维字符图案
