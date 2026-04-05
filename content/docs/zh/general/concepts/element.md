@@ -1,3 +1,16 @@
+---
+title: 元素
+description: 介绍 Croparia IF 1.1.0a 中的元素体系，包括元素宝石、元素药水、元素流体及其在玩法中的基础作用。
+keywords:
+  - Croparia IF
+  - 元素
+  - 元素宝石
+  - 元素药水
+  - 元素流体
+modVersions:
+  - 1.1.0a
+---
+
 # 元素
 
 元素是 Croparia IF 背景设定的一部分，本身的游玩内容不多，主要作为合成与升级[魔种](../blocks-and-items/croparia.md#croparia:croparia)的材料。

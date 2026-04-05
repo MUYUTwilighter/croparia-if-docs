@@ -1,3 +1,15 @@
+---
+title: 作物
+description: 介绍 Croparia IF 1.1.0a 中的果实作物与巨果作物，包括基础定义、组成对象与材料产出方式。
+keywords:
+  - Croparia IF
+  - 作物
+  - 果实作物
+  - 巨果作物
+modVersions:
+  - 1.1.0a
+---
+
 # 作物
 
 作物是 Croparia IF 玩法内容的核心，它以耕作为框架，实现各种资源物品的量产。

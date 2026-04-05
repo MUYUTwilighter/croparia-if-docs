@@ -1,3 +1,16 @@
+---
+title: 魔种
+description: 整理 Croparia IF 1.1.0a 中各阶魔种的用途与合成入口，作为作物体系的核心基础材料说明页。
+keywords:
+  - Croparia IF
+  - 魔种
+  - 一阶魔种
+  - 二阶魔种
+  - 三阶魔种
+modVersions:
+  - 1.1.0a
+---
+
 # 魔种
 
 魔种是合成所有作物种子的核心材料，其本身不可种植。

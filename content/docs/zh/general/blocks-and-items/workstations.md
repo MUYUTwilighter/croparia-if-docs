@@ -1,3 +1,18 @@
+---
+title: 工作方块
+description: 介绍 Croparia IF 1.1.0a 中的主要工作方块，包括温室、注魔台、元素石、作物嬗变仪与仪式台。
+keywords:
+  - Croparia IF
+  - 工作方块
+  - 温室
+  - 注魔台
+  - 元素石
+  - 作物嬗变仪
+  - 仪式台
+modVersions:
+  - 1.1.0a
+---
+
 # 工作方块
 
 <a id='croparia:greenhouse'></a>
