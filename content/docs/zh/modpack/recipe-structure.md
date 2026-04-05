@@ -55,34 +55,25 @@ Croparia IF 目前和整合包作者最相关的核心数据类型主要有四�
 
 ### 物品输入 `ItemInput`
 
-类型概览：
+简写：
 
-- 简写：[`string`](./generator/placeholder.md#string)
-- 对象：[`Map<String, T>`](./generator/placeholder.md#map)
+- 物品 ID 字符串：`"minecraft:comparator"`
+- 标签字符串：`"#croparia:seed_ingredient"`
 
-可写成：
-
-- 物品 ID 字符串
-- 标签字符串，前缀为 `#`
-- 对象写法
-
-示例：
+对象写法：
 
 ```json
-"minecraft:comparator"
-"#croparia:seed_ingredient"
 {
-  "tag": "croparia:seed_ingredient",
-  "amount": 4
+  "id": "minecraft:comparator",
+  "amount": 1,
+  "components": {}
 }
 ```
 
-对象写法中常用字段：
-
-- `id: string`
-- `tag: string`
-- `components: Map<String, T>`
-- `amount: number`
+- `id: string` 匹配唯一物品 ID
+- `tag: string` 匹配物品标签
+- `components: Map<String, T>` 可选，物品组件
+- `amount: number` 可选，物品数量，默认为 1
 
 `id` 与 `tag` 不能同时指定。
 
@@ -90,52 +81,36 @@ Croparia IF 目前和整合包作者最相关的核心数据类型主要有四�
 
 ### 物品输出 `ItemOutput`
 
-类型概览：
+简写：
 
-- 简写：[`string`](./generator/placeholder.md#string)
-- 对象：[`Map<String, T>`](./generator/placeholder.md#map)
+- 物品 ID 字符串：`"croparia:croparia"`
 
-可写成：
-
-- 物品 ID 字符串
-- 对象写法
-
-示例：
+对象写法：
 
 ```json
-"croparia:croparia"
 {
   "id": "croparia:croparia",
-  "amount": 1
+  "amount": 1,
+  "components": {}
 }
 ```
 
-对象写法中常用字段：
-
-- `id: string`
-- `components: Map<String, T>`
-- `amount: number`
+- `id: string` 匹配唯一物品 ID
+- `components: Map<String, T>` 可选，物品组件
+- `amount: number` 可选，物品数量，默认为 1
 
 <a id="block-input"></a>
 
 ### 方块输入 `BlockInput`
 
-类型概览：
+简写：
 
-- 简写：[`string`](./generator/placeholder.md#string)
-- 对象：[`Map<String, T>`](./generator/placeholder.md#map)
+- 方块 ID 字符串：`"minecraft:sculk"`
+- 标签字符串：`"#croparia:ritual_stands"`
 
-可写成：
-
-- 方块 ID 字符串
-- 标签字符串，前缀为 `#`
-- 对象写法
-
-示例：
+对象写法：
 
 ```json
-"minecraft:sculk"
-"#croparia:ritual_stands"
 {
   "id": "croparia:block_crop_coal",
   "properties": {
@@ -144,11 +119,9 @@ Croparia IF 目前和整合包作者最相关的核心数据类型主要有四�
 }
 ```
 
-对象写法中常用字段：
-
-- `id: string`
-- `tag: string`
-- `properties: Map<String, string>`
+- `id: string` 匹配唯一方块 ID
+- `tag: string` 匹配方块标签
+- `properties: Map<String, string>` 可选，限制方块状态
 
 `id` 与 `tag` 不能同时指定。
 
@@ -156,20 +129,13 @@ Croparia IF 目前和整合包作者最相关的核心数据类型主要有四�
 
 ### 方块输出 `BlockOutput`
 
-类型概览：
+简写：
 
-- 简写：[`string`](./generator/placeholder.md#string)
-- 对象：[`Map<String, T>`](./generator/placeholder.md#map)
+- 方块 ID 字符串：`"minecraft:end_stone"`
 
-可写成：
-
-- 方块 ID 字符串
-- 对象写法
-
-示例：
+对象写法：
 
 ```json
-"minecraft:end_stone"
 {
   "id": "minecraft:oak_log",
   "properties": {
@@ -178,10 +144,8 @@ Croparia IF 目前和整合包作者最相关的核心数据类型主要有四�
 }
 ```
 
-对象写法中常用字段：
-
-- `id: string`
-- `properties: Map<String, string>`
+- `id: string` 匹配唯一方块 ID
+- `properties: Map<String, string>` 可选，输出方块状态
 
 <a id="infusor"></a>
 
@@ -189,9 +153,9 @@ Croparia IF 目前和整合包作者最相关的核心数据类型主要有四�
 
 `InfusorRecipe` 的字段非常直接：
 
-- `element: [string](./generator/placeholder.md#string)`
-- `ingredient: [ItemInput](#item-input)`
-- `result: [ItemOutput](#item-output)`
+- `element`: `string` 要求注魔台当前填充的元素类型，不能为 `empty`
+- `ingredient`: [`ItemInput`](#item-input) 要丢入或右键放入注魔台的物品输入
+- `result`: [`ItemOutput`](#item-output) 成功后产出的物品输出
 
 最简示例：
 
@@ -210,19 +174,13 @@ Croparia IF 目前和整合包作者最相关的核心数据类型主要有四�
 }
 ```
 
-字段说明：
-
-- `element: string`：要求注魔台当前填充的元素类型，不能为 `empty`
-- `ingredient: ItemInput`：要丢入或右键放入注魔台的物品输入
-- `result: ItemOutput`：成功后产出的物品输出
-
 <a id="ritual"></a>
 
 ## 元素仪式配方 `croparia:ritual`
 
 `RitualRecipe` 的字段包括：
 
-- `ritual: [string](./generator/placeholder.md#string)`
+- `ritual: string`
 - `block: [BlockInput](#block-input)`
 - `ingredient: [ItemInput](#item-input)`
 - `result: [ItemOutput](#item-output)`
@@ -259,7 +217,7 @@ Croparia IF 目前和整合包作者最相关的核心数据类型主要有四�
 
 `SoakRecipe` 的字段包括：
 
-- `element: [string](./generator/placeholder.md#string)`
+- `element: string`
 - `probability: [number](./generator/placeholder.md#number)`
 - `input: [BlockInput](#block-input)`
 - `output: [BlockOutput](#block-output)`
@@ -296,7 +254,7 @@ Croparia IF 目前和整合包作者最相关的核心数据类型主要有四�
 
 `RitualStructure` 不是配方，而是仪式台的多方块结构定义。其字段包括：
 
-- `ritual: [string](./generator/placeholder.md#string)`
+- `ritual: string`
 - `keys: [Map<String, BlockInput>](./generator/placeholder.md#map)`
 - `pattern: [string[]](./generator/placeholder.md#list)`
 
@@ -334,12 +292,6 @@ Croparia IF 目前和整合包作者最相关的核心数据类型主要有四�
   ]
 }
 ```
-
-字段说明：
-
-- `ritual: string`：这个结构对应的中心仪式台类型
-- `keys: Map<String, BlockInput>`：定义 `pattern` 中各字符映射到什么方块输入
-- `pattern: string[][]`：从下到上排列的三维字符结构
 
 <a id="ritual-structure-ritual"></a>
 
