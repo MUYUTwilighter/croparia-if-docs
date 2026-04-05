@@ -1,3 +1,20 @@
+---
+title: 运行时数据生成系统
+description: 介绍 Croparia IF 1.1.0a 面向整合包作者的运行时数据生成系统，包括 PackHandler、数据生成器、模板与工作流。
+keywords:
+  - Croparia IF
+  - 1.1.0a
+  - 整合包
+  - 运行时数据生成系统
+  - Generator API
+  - PackHandler
+  - 数据生成器
+  - Template
+  - Placeholder
+modVersions:
+  - 1.1.0a
+---
+
 # 运行时数据生成系统（整合包作者）
 
 **运行时数据生成系统（Generator API）**是矿石魔种中举足轻重的一个核心 API，它可以基于**数据生成器**批量生成数据包或资源包文件，并通过
@@ -86,7 +103,7 @@
 根据想要的效果，编写数据生成器文件。在先前确定的生成包处理器下的 `generator` 文件夹中创建一个 `toml`（推荐），`cdg` 或
 `json` 文件即可开始实际编写。
 
-具体的编写教程详见[创建数据生成器](create-generator.md)。
+具体的编写教程见[创建数据生成器](create-generator.md)。
 
 ### 5. 运行与测试
 
@@ -97,3 +114,9 @@
 如果查询不到（没有补全提示），则说明生成器存在问题，查阅日志可以获取更详细的信息。
 
 如果一切正常，你就能在目录包的 `assets` 或 `data` 文件夹中找到生成产物。进一步的效果需要自行在游戏中测试。
+
+## 修改/禁用内置数据生成器
+
+使用 `/croparia|cropariaServer generator dumpBuiltin [生成包处理器 ID] [数据生成器名称]` 导出数据生成器即可修改。
+
+添加或修改 `enabled = false` 即可禁用这个数据生成器。

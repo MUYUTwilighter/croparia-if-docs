@@ -29,7 +29,7 @@ Croparia IF 目前和整合包作者最相关的核心数据类型主要有四�
 - `croparia:soak`
 - `croparia:ritual_structure`
 
-此页面将介绍这集中配方的结构。如果你需要批量生成数据，请参照[运行时数据生成系统](./generator/index.md)与[创建数据生成器](./generator/create-generator.md)。
+此页面将介绍这几种配方与结构的写法。如果你需要批量生成数据，请参照[运行时数据生成系统](./generator/index.md)与[创建数据生成器](./generator/create-generator.md)。
 
 <a id="entry-shapes"></a>
 
@@ -130,8 +130,8 @@ Croparia IF 目前和整合包作者最相关的核心数据类型主要有四�
 }
 ```
 
-- `id`: `string`1 匹配唯一方块 ID
-- `properties`: `Map<string, string>` 可选，输出方块状态
+- `id: string` 匹配唯一方块 ID
+- `properties: Map<String, string>` 可选，输出方块状态
 
 <a id="infusor"></a>
 
@@ -215,16 +215,22 @@ Croparia IF 目前和整合包作者最相关的核心数据类型主要有四�
 
 `RitualStructure` 不是配方，而是仪式台的多方块结构定义。其字段包括：
 
-- `ritual`: [`BlockInput`](#block-input) 表示这个结构对应的中心仪式台类型。
-- `keys`: [`Map<String, BlockInput>`](#block-input) 定义 `pattern` 中各字符代表什么方块输入。保留字符不能写进 `keys`
-- - `*` 中心仪式台位置，必须与当前 `ritual` 匹配
-- - `$` 输入方块位置，运行仪式时会检查这里放的方块，并在成功后销毁
-- - `.` 表示仅空气方块
-- - ` ` 表示任意方块
-- `pattern`: `string[][]` 三维字符结构，需要至少包含一个 `*` 和 `$`。
-- - 最外层：从下到上的层列表
-- - 每层内部：按行排列的二维字符图案
-- - 每个字符：表示当前位置的方块要求
+- `ritual: string` 表示这个结构对应的中心仪式台类型
+- `keys: Map<String, BlockInput>` 定义 `pattern` 中各字符代表什么方块输入
+- `pattern: string[][]` 三维字符结构，需要至少包含一个 `*` 和 `$`
+
+`keys` 的保留字符不能直接写入映射：
+
+- `*`：中心仪式台位置，必须与当前 `ritual` 匹配
+- `$`：输入方块位置，运行仪式时会检查这里放的方块，并在成功后销毁
+- `.`：表示仅空气方块
+- ` `：表示任意方块
+
+`pattern` 的层级结构如下：
+
+- 最外层：从下到上的层列表
+- 每层内部：按行排列的二维字符图案
+- 每个字符：表示当前位置的方块要求
 
 内置示例：
 

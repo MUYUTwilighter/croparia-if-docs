@@ -62,7 +62,7 @@ function sectionLink(locale: LocaleKey, path: string): string {
 }
 
 function buildNav(locale: LocaleKey): DefaultTheme.NavItem[] {
-  return [
+  const items: DefaultTheme.NavItem[] = [
     {
       text: localizedText(locale, '通用', 'General'),
       link: sectionLink(locale, '/general/')
@@ -72,6 +72,15 @@ function buildNav(locale: LocaleKey): DefaultTheme.NavItem[] {
       link: sectionLink(locale, '/player/')
     }
   ]
+
+  if (locale === 'root') {
+    items.push({
+      text: '整合包作者',
+      link: sectionLink(locale, '/modpack/')
+    })
+  }
+
+  return items
 }
 
 function buildGeneralSidebar(locale: LocaleKey, prefix: string): DefaultTheme.SidebarItem[] {
@@ -175,6 +184,30 @@ function buildPlayerSidebar(locale: LocaleKey, prefix: string): DefaultTheme.Sid
   ]
 }
 
+function buildModpackSidebar(locale: LocaleKey, prefix: string): DefaultTheme.SidebarItem[] {
+  if (locale !== 'root') {
+    return []
+  }
+
+  return [
+    {
+      text: '整合包作者',
+      link: `${prefix}modpack/`,
+      items: [
+        {text: '概览', link: `${prefix}modpack/`},
+        {text: '设置与指令', link: `${prefix}modpack/configuration-command`},
+        {text: '自定义作物', link: `${prefix}modpack/custom-crops`},
+        {text: '运行时数据生成系统', link: `${prefix}modpack/generator/`},
+        {text: '创建数据生成器', link: `${prefix}modpack/generator/create-generator`},
+        {text: '占位符解析器', link: `${prefix}modpack/generator/placeholder`},
+        {text: '配方与结构', link: `${prefix}modpack/recipe-structure`},
+        {text: '配方生成器', link: `${prefix}modpack/recipe-wizard/`},
+        {text: '创建自定义配方生成器', link: `${prefix}modpack/recipe-wizard/custom-usage`}
+      ]
+    }
+  ]
+}
+
 function buildSidebar(locale: LocaleKey): DefaultTheme.Sidebar {
   const archivedVersionItems = archivedVersions.map((version) => ({
     text: versionLabel(locale, version),
@@ -184,6 +217,7 @@ function buildSidebar(locale: LocaleKey): DefaultTheme.Sidebar {
   const sidebar: DefaultTheme.Sidebar = {
     [`${localePrefix(locale)}/general/`]: buildGeneralSidebar(locale, `${localePrefix(locale)}/`),
     [`${localePrefix(locale)}/player/`]: buildPlayerSidebar(locale, `${localePrefix(locale)}/`),
+    [`${localePrefix(locale)}/modpack/`]: buildModpackSidebar(locale, `${localePrefix(locale)}/`),
     [`${localePrefix(locale)}/guide/`]: [
       buildGuideSection(locale, `${localePrefix(locale)}/`)
     ],
@@ -206,6 +240,7 @@ function buildSidebar(locale: LocaleKey): DefaultTheme.Sidebar {
     const prefix = `${localePrefix(locale)}/versions/${version.slug}/`
     sidebar[`${prefix}general/`] = buildGeneralSidebar(locale, prefix)
     sidebar[`${prefix}player/`] = buildPlayerSidebar(locale, prefix)
+    sidebar[`${prefix}modpack/`] = buildModpackSidebar(locale, prefix)
     sidebar[`${prefix}guide/`] = [buildGuideSection(locale, prefix)]
   }
 

@@ -162,7 +162,7 @@ D:/packs/croparia/recipe_wizard/output/croparia/ritual_2026-04-06_12.30.00.json
 - `croparia:infusor`
 - `croparia:ritual`
 - `croparia:soak`
-- `furnace`
+- `minecraft:furnace`
 
 `default` 组会始终自动启用，不需要手写。
 
@@ -177,7 +177,7 @@ extensions = "croparia:ritual"
 ```toml
 extensions = [
   "croparia:ritual",
-  "furnace"
+  "minecraft:furnace"
 ]
 ```
 
@@ -273,7 +273,7 @@ ${neighbor._qis}
 
 要求点击的是元素石，且其上方存在带元素状态的注魔台。返回值是当前浸润使用的元素名。
 
-### `furnace`
+### `minecraft:furnace`
 
 - `${furnace_input}`
 - `${furnace_time}`
