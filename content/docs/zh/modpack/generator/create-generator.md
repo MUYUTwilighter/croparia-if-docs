@@ -75,27 +75,26 @@ template = """
 
 ## 核心字段
 
-### `registry`
+- `registry`
+  - 用途：指定要遍历哪个[生成条目集](index.md#entry-registry)
+  - 常见值：
+    - `croparia:crops`
+    - `croparia:melons`
+    - `croparia:elements`
 
-要遍历哪个[生成条目集](index.md#entry-registry)。
-
-常见值：
-
-- `croparia:crops`
-- `croparia:melons`
-- `croparia:elements`
-
-### `path`
-
-生成产物的相对路径，也是一个[模板](index.md#template)。
+- `path`
+  - 用途：指定生成产物的相对路径
+  - 说明：本身也是一个[模板](index.md#template)
+  - 示例：
 
 ```toml
 path = "${id.namespace}/models/item/${seed.path}.json"
 ```
 
-### `template`
-
-最终文件内容，也是模板字符串。
+- `template`
+  - 用途：指定最终写入的文件内容
+  - 说明：本身也是模板字符串
+  - 示例：
 
 ```toml
 template = """
@@ -105,31 +104,31 @@ template = """
 """
 ```
 
-### `type`
+- `type`
+  - 用途：指定生成器类型
+  - 可选值：
+    - `croparia:generator`
+    - `croparia:aggregated`
+    - `croparia:lang`
+  - 默认值：`croparia:generator`
 
-生成器类型，可选：
+- `startup`
+  - 用途：控制是否在服务器完全启动前参与生成
+  - 常见场景：静态资源、标签、语言这类内置式内容
 
-- `croparia:generator`
-- `croparia:aggregated`
-- `croparia:lang`
-
-默认是 `croparia:generator`。
-
-### `startup`
-
-是否在服务器完全启动前参与生成。内置很多静态资源生成器会写 `startup = true`。
-
-### `enabled`
-
-是否启用。临时停用时最常用：
+- `enabled`
+  - 用途：控制生成器是否启用
+  - 常见用法：临时停用但保留文件
+  - 示例：
 
 ```toml
 enabled = false
 ```
 
-### `whitelist`
-
-只为指定条目生成，适合调试：
+- `whitelist`
+  - 用途：只为指定条目生成，而不是遍历整个 `registry`
+  - 常见场景：调试、局部覆盖
+  - 示例：
 
 ```toml
 whitelist = ["croparia:coal", "croparia:iron"]
@@ -193,7 +192,7 @@ ${content}
 
 ### 语言生成器 `croparia:lang`
 
-面向可翻译条目，会按语言拆分输出，并注入可用占位符 `lang`。
+面向可翻译条目，会按语言拆分输出，并注入可用占位符 `_lang`。
 
 适合：
 
@@ -208,40 +207,3 @@ template = '"${translation_key}": "${translations.get(_lang)}"'
 ```
 
 语言字段详见[占位符解析器](placeholder.md#translatable-entry)。
-
-<a id="workflow"></a>
-
-## 推荐顺序
-
-1. 先决定写到数据包还是资源包。
-2. 再选 `registry`。
-3. 再选 `type`。
-4. 最后写 `path` 和 `template`。
-
-第一次写时，建议先把 `path` 写死、确认生成位置正确，再逐步替换成占位符。
-
-<a id="debug"></a>
-
-## 调试
-
-常用检查顺序：
-
-1. 用 `/croparia|cropariaServer generator query ...` 看生成器是否被识别。
-2. 到对应处理器的 `data/` 或 `assets/` 查看生成产物。
-3. 查日志定位语法、`registry`、`type` 或占位符错误。
-
-如果查询不到生成器，通常就是：
-
-- 文件位置不对
-- 语法有误
-- `registry` 或 `type` 不合法
-- 模板里用了当前条目不存在的字段
-
-<a id="tips"></a>
-
-## 实用建议
-
-- 一个条目一个文件，用 `generator`。
-- 多条目拼一个文件，用 `aggregated`。
-- 生成语言文件，用 `lang`。
-- 第一次写时，先抄一份内置生成器再改。
