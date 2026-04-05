@@ -84,6 +84,8 @@ Croparia IF 目前和整合包作者最相关的核心数据类型主要有四�
 - `components: Map<String, T>`
 - `amount: number`
 
+`id` 与 `tag` 不能同时指定。
+
 <a id="item-output"></a>
 
 ### 物品输出 `ItemOutput`
@@ -148,6 +150,8 @@ Croparia IF 目前和整合包作者最相关的核心数据类型主要有四�
 - `tag: string`
 - `properties: Map<String, string>`
 
+`id` 与 `tag` 不能同时指定。
+
 <a id="block-output"></a>
 
 ### 方块输出 `BlockOutput`
@@ -185,7 +189,7 @@ Croparia IF 目前和整合包作者最相关的核心数据类型主要有四�
 
 `InfusorRecipe` 的字段非常直接：
 
-- `element: string`
+- `element: [string](./generator/placeholder.md#string)`
 - `ingredient: [ItemInput](#item-input)`
 - `result: [ItemOutput](#item-output)`
 
@@ -212,15 +216,13 @@ Croparia IF 目前和整合包作者最相关的核心数据类型主要有四�
 - `ingredient: ItemInput`：要丢入或右键放入注魔台的物品输入
 - `result: ItemOutput`：成功后产出的物品输出
 
-如果你要批量生成这类配方，通常最适合用普通[数据生成器](./generator/create-generator.md#generator-types)。
-
 <a id="ritual"></a>
 
 ## 元素仪式配方 `croparia:ritual`
 
 `RitualRecipe` 的字段包括：
 
-- `ritual: string`
+- `ritual: [string](./generator/placeholder.md#string)`
 - `block: [BlockInput](#block-input)`
 - `ingredient: [ItemInput](#item-input)`
 - `result: [ItemOutput](#item-output)`
@@ -257,7 +259,7 @@ Croparia IF 目前和整合包作者最相关的核心数据类型主要有四�
 
 `SoakRecipe` 的字段包括：
 
-- `element: string`
+- `element: [string](./generator/placeholder.md#string)`
 - `probability: [number](./generator/placeholder.md#number)`
 - `input: [BlockInput](#block-input)`
 - `output: [BlockOutput](#block-output)`
@@ -294,7 +296,7 @@ Croparia IF 目前和整合包作者最相关的核心数据类型主要有四�
 
 `RitualStructure` 不是配方，而是仪式台的多方块结构定义。其字段包括：
 
-- `ritual: string`
+- `ritual: [string](./generator/placeholder.md#string)`
 - `keys: [Map<String, BlockInput>](./generator/placeholder.md#map)`
 - `pattern: [string[]](./generator/placeholder.md#list)`
 
@@ -332,6 +334,12 @@ Croparia IF 目前和整合包作者最相关的核心数据类型主要有四�
   ]
 }
 ```
+
+字段说明：
+
+- `ritual: string`：这个结构对应的中心仪式台类型
+- `keys: Map<String, BlockInput>`：定义 `pattern` 中各字符映射到什么方块输入
+- `pattern: string[][]`：从下到上排列的三维字符结构
 
 <a id="ritual-structure-ritual"></a>
 
