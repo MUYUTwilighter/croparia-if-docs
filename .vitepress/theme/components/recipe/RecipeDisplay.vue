@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {ref, watchEffect} from "vue";
+import {ref, watch} from "vue";
 import {Recipe} from "../../type/Recipe";
 import CraftingRecipeDisplay from "./CraftingRecipeDisplay.vue";
 import GameGuiFrame from "../GameGuiFrame.vue";
@@ -21,10 +21,32 @@ const {
   id: string
 }>();
 const recipe = ref<Recipe | undefined>();
+const loadError = ref(false);
 
-watchEffect(async () => {
-  recipe.value = await Recipe.fetch(id);
-});
+watch(
+  () => id,
+  async (nextId, _previousId, onCleanup) => {
+    let cancelled = false;
+    onCleanup(() => {
+      cancelled = true;
+    });
+
+    loadError.value = false;
+
+    try {
+      const nextRecipe = await Recipe.fetch(nextId);
+      if (!cancelled) {
+        recipe.value = nextRecipe;
+      }
+    } catch (error) {
+      if (!cancelled) {
+        loadError.value = true;
+        console.warn(`Failed to hot-reload recipe ${nextId}`, error);
+      }
+    }
+  },
+  { immediate: true }
+);
 </script>
 
 <template>
@@ -44,6 +66,12 @@ watchEffect(async () => {
                               :recipe="recipe as NormalizedRitualStructure"/>
     </div>
   </GameGuiFrame>
+  <GameGuiFrame class="recipe-frame" v-else-if="loadError">
+    <div class="recipe-wrapper">
+      <GameText class="recipe-id" color="#3F3F3F" noShadow>{{ id }}</GameText>
+      <GameText class="recipe-error" color="#AA0000" noShadow>Recipe temporarily unavailable during reload.</GameText>
+    </div>
+  </GameGuiFrame>
 </template>
 
 <style scoped>
@@ -59,5 +87,9 @@ watchEffect(async () => {
 
 .recipe-id {
   margin: calc(var(--vp-unit-size) * 2);
+}
+
+.recipe-error {
+  margin: calc(var(--vp-unit-size) * 4);
 }
 </style>
