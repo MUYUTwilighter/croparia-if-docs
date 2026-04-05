@@ -3,7 +3,23 @@ title: 自动化思路
 description: 规划 Croparia IF 1.1.0a 的玩家自动化文档，整理温室、转化器、红石模式与空间约束。
 keywords:
   - Croparia IF
+  - 矿石魔种
+  - 1.1.0a
+  - 玩家
   - 自动化
+  - 自动化示例
+  - 温室
+  - 植物盆栽
+  - Botany Pots
+  - 注魔台
+  - 仪式台
+  - 元素灌注
+  - 元素仪式
+  - 元素药水
+  - 一阶魔种
+  - 红石自动化
+  - 物流
+  - 管道
 modVersions:
   - 1.1.0a
 ---
