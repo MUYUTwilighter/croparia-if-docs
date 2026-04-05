@@ -79,7 +79,6 @@ function buildGeneralSidebar(locale: LocaleKey, prefix: string): DefaultTheme.Si
           {text: '概览', link: `${prefix}general/`},
           {
             text: '核心概念',
-            link: `${prefix}general/concepts/`,
             collapsed: false,
             items: [
               {text: '作物', link: `${prefix}general/concepts/crop`},
