@@ -40,7 +40,7 @@ ${字段.get(0)}
 
 例如：
 
-```json
+```txt
 {
   "item": "${fruit}",
   "tier": ${tier},
@@ -70,7 +70,7 @@ ${字段.get(0)}
 
 示例：
 
-```json
+```txt
 {
   "raw_name": "${name}",
   "safe_name": ${name._qis}
