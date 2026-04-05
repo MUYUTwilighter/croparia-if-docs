@@ -25,17 +25,17 @@ modVersions:
 目前支持的方块与参数提供方式：
 
 - [注魔台](../../general/blocks-and-items/workstations.md)：元素灌注
-- 注魔台放置的物品：输入物品
-- 副手手持物品：输出物品
-- 注魔台的元素灌注状态：元素种类
+    - 注魔台放置的物品：输入物品
+    - 副手手持物品：输出物品
+    - 注魔台的元素灌注状态：元素种类
 - [元素石](../../general/blocks-and-items/workstations.md)：元素浸润
-- 元素石上方的注魔台元素灌注状态：元素种类
-- 元素石周围的方块：输入方块
-- 元素石下方的方块：输出方块
+    - 元素石上方的注魔台元素灌注状态：元素种类
+    - 元素石周围的方块：输入方块
+    - 元素石下方的方块：输出方块
 - [仪式台](../../general/blocks-and-items/workstations.md)：元素仪式
-- 仪式结构的输入方块位置的方块：输入方块
-- 仪式台上的物品：输入物品
-- 副手手持物品：输出物品
+    - 仪式结构的输入方块位置的方块：输入方块
+    - 仪式台上的物品：输入物品
+    - 副手手持物品：输出物品
 
 **注**：配方生成器可以自定义生成行为，详见[创建自定义配方生成器](custom-usage.md)
 
@@ -44,5 +44,6 @@ modVersions:
 潜行时手持配方生成器右键目标方块可以触发一些特殊行为。
 
 - [注魔台](../../general/blocks-and-items/workstations.md)：切换注魔台的元素灌注状态
-- [元素石](../../general/blocks-and-items/workstations.md)：在元素石的上方生成一个[注魔台](../../general/blocks-and-items/workstations.md)
+- [元素石](../../general/blocks-and-items/workstations.md)
+  ：在元素石的上方生成一个[注魔台](../../general/blocks-and-items/workstations.md)
 - [仪式台](../../general/blocks-and-items/workstations.md)：以仪式台为中心，生成对应的仪式结构
