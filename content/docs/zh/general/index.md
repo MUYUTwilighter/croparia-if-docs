@@ -18,7 +18,7 @@ modVersions:
 矿石魔种（Croparia IF）是一款我的世界 Java 版模组，它向游戏中添加了许多可以产生各种材料的作物，包括矿物、生物掉落物以及各种稀有资源。同时，本模
 组提供了相当多的自定义功能来为整合包作者提供便利。
 
-起初，这个模组是基于原作者 [Dalarion 的 Croparia](https://github.com/Dalarion/Croparia)
+起初，这个模组是基于原作者 [Dalarion 的 Croparia 4.5 - 1.20.1](https://github.com/Dalarion/Croparia)
 模组制作的修复与自定义功能增强版本。但随着多轮重构与功能拓展，该模组的代码、美术等已完全革新。
 
 ## 版本支持
