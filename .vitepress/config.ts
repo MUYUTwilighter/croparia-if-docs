@@ -88,7 +88,6 @@ function buildGeneralSidebar(locale: LocaleKey, prefix: string): DefaultTheme.Si
           },
           {
             text: '方块与物品',
-            link: `${prefix}general/blocks-and-items/`,
             collapsed: false,
             items: [
               {text: '魔种', link: `${prefix}general/blocks-and-items/croparia`},

@@ -26,4 +26,4 @@ modVersions:
 ## 阅读建议
 
 - 如果你不确定“果实作物、巨果作物、元素药水、元素流体”这些词分别指什么，先看这里。
-- 如果你已经知道概念，只是想查具体方块或物品，可以跳去[方块与物品](/general/blocks-and-items/)。
+- 如果你已经知道概念，只是想查具体方块或物品，可以直接进入[魔种](/general/blocks-and-items/croparia)、[遗物](/general/blocks-and-items/relic)、[工作方块](/general/blocks-and-items/workstations)或[其他](/general/blocks-and-items/others)。
