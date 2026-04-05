@@ -19,7 +19,8 @@ modVersions:
 
 # 创建数据生成器
 
-这页只回答一件事：如何写出一个可运行的数据生成器文件。整体概念见[运行时数据生成系统](index.md)，字段取值方式见[占位符解析器](placeholder.md)。
+这页只回答一件事：如何写出一个可运行的数据生成器文件。整体概念见[运行时数据生成系统](index.md)
+，字段取值方式见[占位符解析器](placeholder.md)。
 
 <a id="file-format"></a>
 
@@ -76,19 +77,19 @@ template = """
 ## 核心字段
 
 - `registry`：指定要遍历哪个[生成条目集](index.md#entry-registry)
-  - 常见值：
-    - `croparia:crops`
-    - `croparia:melons`
-    - `croparia:elements`
+    - 常见值：
+        - `croparia:crops`
+        - `croparia:melons`
+        - `croparia:elements`
 - `path`：指定生成产物的相对路径，本身也是一个[模板](index.md#template)
-  - 示例：
+    - 示例：
 
 ```toml
 path = "${id.namespace}/models/item/${seed.path}.json"
 ```
 
 - `template`：指定最终写入的文件内容，本身也是模板字符串
-  - 示例：
+    - 示例：
 
 ```toml
 template = """
@@ -99,24 +100,24 @@ template = """
 ```
 
 - `type`：指定生成器类型
-  - 可选值：
-    - [`croparia:generator`](#type-generator)（默认）
-    - [`croparia:aggregated`](#type-aggregated)
-    - [`croparia:lang`](#type-lang)
+    - 可选值：
+        - [`croparia:generator`](#type-generator)（默认）
+        - [`croparia:aggregated`](#type-aggregated)
+        - [`croparia:lang`](#type-lang)
 
 - `startup`：控制是否在服务器完全启动前参与生成
 
 - `enabled`：控制生成器是否启用，可临时停用但保留文件
-  - 示例：
+    - 示例：
 
 ```toml
 enabled = false
 ```
 
 - `whitelist`
-  - 用途：只为指定条目生成，而不是遍历整个 `registry`
-  - 常见场景：调试、局部覆盖
-  - 示例：
+    - 用途：只为指定条目生成，而不是遍历整个 `registry`
+    - 常见场景：调试、局部覆盖
+    - 示例：
 
 ```toml
 whitelist = ["croparia:coal", "croparia:iron"]
