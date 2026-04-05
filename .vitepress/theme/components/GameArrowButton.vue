@@ -13,8 +13,8 @@ const {
   onClick?: (event: Event) => void
 }>();
 
-const darkImg = `url(${withBase(`/assets/gui/arrow-button/${direction}-dark.png`)})`;
-const whiteImg = `url(${withBase(`/assets/gui/arrow-button/${direction}-white.png`)})`;
+const darkImg = `url(${withBase(`/assets/gui/arrow-button/${direction}-dark.webp`)})`;
+const whiteImg = `url(${withBase(`/assets/gui/arrow-button/${direction}-white.webp`)})`;
 </script>
 
 <template>

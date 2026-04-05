@@ -24,13 +24,13 @@ modVersions:
 
 温室实现了物流交互，所以你可以用其他模组的管道来实现收集。
 
-![温室的物流交互](/assets/greenhouse-transport.png)
+![温室的物流交互](/assets/greenhouse-transport.webp)
 
 ### 2. 植物盆栽
 
 矿石魔种内置了对[植物盆栽](https://modrinth.com/mod/botany-pots)的兼容。
 
-![植物盆栽](/assets/botany-pots.png)
+![植物盆栽](/assets/botany-pots.webp)
 
 ## 元素灌注与元素仪式
 
@@ -39,8 +39,8 @@ modVersions:
 这里提供一个元素灌注的自动化示例：
 
 <RowGallery>
-<img src='/assets/infusor-auto-1.png' alt="自动化元素灌注">
-<img src='/assets/infusor-auto-1.png' alt="自动化元素灌注 - 俯视图">
+<img src='/assets/infusor-auto-1.webp' alt="自动化元素灌注">
+<img src='/assets/infusor-auto-1.webp' alt="自动化元素灌注 - 俯视图">
 </RowGallery>
 
 如图所示，注魔台旁边分别为发射器（装有[元素药水](../general/concepts/element.md#potion)，激活时会为注魔台填充元素）和投掷器（装有[一阶魔种](../general/blocks-and-items/croparia.md#croparia:croparia)，激活时会在注魔台上放置物品）；注魔台的下方是箱子

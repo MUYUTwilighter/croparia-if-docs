@@ -12,7 +12,7 @@ const {
   recipe: NormalizedCraftingRecipe
 }>();
 
-const recipeArrowSrc = withBase('/assets/gui/recipe-arrow.png');
+const recipeArrowSrc = withBase('/assets/gui/recipe-arrow.webp');
 
 </script>
 

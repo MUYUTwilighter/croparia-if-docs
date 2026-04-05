@@ -12,9 +12,9 @@ const {
   recipe: NormalizedSoakRecipe
 }>();
 
-const elementInfuseSrc = withBase('/assets/gui/elem_infuse.png');
-const blockPlaceUponSrc = withBase('/assets/gui/block_place_upon.png');
-const recipeArrowSrc = withBase('/assets/gui/recipe-arrow.png');
+const elementInfuseSrc = withBase('/assets/gui/elem_infuse.webp');
+const blockPlaceUponSrc = withBase('/assets/gui/block_place_upon.webp');
+const recipeArrowSrc = withBase('/assets/gui/recipe-arrow.webp');
 
 </script>
 

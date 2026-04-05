@@ -13,9 +13,9 @@ const {
   recipe: NormalizedRitualRecipe
 }>();
 
-const itemDropSrc = withBase('/assets/gui/item_drop.png');
-const blockPlaceSrc = withBase('/assets/gui/block_place.png');
-const recipeArrowSrc = withBase('/assets/gui/recipe-arrow.png');
+const itemDropSrc = withBase('/assets/gui/item_drop.webp');
+const blockPlaceSrc = withBase('/assets/gui/block_place.webp');
+const recipeArrowSrc = withBase('/assets/gui/recipe-arrow.webp');
 
 </script>
 

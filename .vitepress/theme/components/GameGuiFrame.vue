@@ -48,19 +48,19 @@
 }
 
 .left-top {
-  background-image: url('/assets/gui/left-top.png');
+  background-image: url('/assets/gui/left-top.webp');
 }
 
 .right-top {
-  background-image: url('/assets/gui/right-top.png');
+  background-image: url('/assets/gui/right-top.webp');
 }
 
 .left-bottom {
-  background-image: url('/assets/gui/left-bottom.png');
+  background-image: url('/assets/gui/left-bottom.webp');
 }
 
 .right-bottom {
-  background-image: url('/assets/gui/right-bottom.png');
+  background-image: url('/assets/gui/right-bottom.webp');
 }
 
 /* ===== 横边 ===== */
@@ -75,11 +75,11 @@
 }
 
 .top {
-  background-image: url('/assets/gui/border-top.png');
+  background-image: url('/assets/gui/border-top.webp');
 }
 
 .bottom {
-  background-image: url('/assets/gui/border-bottom.png');
+  background-image: url('/assets/gui/border-bottom.webp');
 }
 
 /* ===== 竖边 ===== */
@@ -93,11 +93,11 @@
 }
 
 .left {
-  background-image: url('/assets/gui/border-left.png');
+  background-image: url('/assets/gui/border-left.webp');
 }
 
 .right {
-  background-image: url('/assets/gui/border-right.png');
+  background-image: url('/assets/gui/border-right.webp');
 }
 
 /* ===== 内容 ===== */

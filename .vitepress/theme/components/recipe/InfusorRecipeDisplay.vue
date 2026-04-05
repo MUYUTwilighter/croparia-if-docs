@@ -11,9 +11,9 @@ const {
   recipe: NormalizedInfusorRecipe
 }>();
 
-const itemDropSrc = withBase('/assets/gui/item_drop.png');
-const elementInfuseSrc = withBase('/assets/gui/elem_infuse.png');
-const recipeArrowSrc = withBase('/assets/gui/recipe-arrow.png');
+const itemDropSrc = withBase('/assets/gui/item_drop.webp');
+const elementInfuseSrc = withBase('/assets/gui/elem_infuse.webp');
+const recipeArrowSrc = withBase('/assets/gui/recipe-arrow.webp');
 
 </script>
 
