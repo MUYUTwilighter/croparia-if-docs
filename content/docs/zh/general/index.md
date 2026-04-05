@@ -9,23 +9,30 @@ modVersions:
   - 1.1.0a
 ---
 
-# 通用
+# 概览：通用
 
-这一部分整理 Croparia IF `1.1.0a` 中最适合作为共通知识基础的内容。
+矿石魔种（Croparia IF）是一款我的世界 Java 版模组，它向游戏中添加了许多可以产生各种材料的作物，包括矿物、生物掉落物以及各种稀有资源。同时，本模
+组提供了相当多的自定义功能来为整合包作者提供便利。
 
-## 核心概念
+起初，这个模组是基于原作者 [Dalarion 的 Croparia](https://github.com/Dalarion/Croparia)
+模组制作的修复与自定义功能增强版本。但随着多轮重构与功能拓展，该模组的代码、美术等已完全革新。
 
-- [作物](/general/concepts/crop)
-- [元素](/general/concepts/element)
+## 版本支持
 
-## 方块与物品
+模组加载器：Fabric、NeoForge（1.21+）与 Forge（1.20-）
 
-- [魔种](/general/blocks-and-items/croparia)
-- [遗物](/general/blocks-and-items/relic)
-- [工作方块](/general/blocks-and-items/workstations)
-- [其他](/general/blocks-and-items/others)
+我的世界版本：
 
-## 阅读建议
+- 长期支持计划：**1.18.2**、**1.20.1**、**1.21.1**
+-
+    - 注：不论未来最新的我的世界更新到哪里，这些版本会在模组的新功能稳定后及时同步更新。
+- 短期支持计划：**1.21**，**1.21.2**，**1.21.3**，**1.21.4**
 
-- 想先建立基本概念时，从“核心概念”开始。
-- 想查某个对象的用途或配方时，直接进入“方块与物品”。
+## 版权
+
+本模组使用[**具有附加条款的** MIT 开源协议](https://github.com/MUYUTwilighter/croparia-if/blob/master/LICENSE.md)
+，如果你有任意以下需求，请阅读并遵循协议条款后再行动。
+
+- 将本模组文件打包进你要公开发布的整合包中；
+- 直接基于本模组进行再开发、移植并公开发布；
+- 将本模组已有的公开资料（包括但不限于文档、发布站模组页文案等）搬运到其他公开运营的网站/工具。
