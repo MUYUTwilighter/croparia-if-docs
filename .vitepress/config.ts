@@ -31,10 +31,19 @@ function versionGuideRoot(locale: LocaleKey, version: VersionMeta): string {
 }
 
 function versionLabel(locale: LocaleKey, version: VersionMeta): string {
+  const statusSuffix =
+    version.status === 'current'
+      ? localizedText(locale, '（当前）', ' (current)')
+      : version.status === 'sts'
+        ? localizedText(locale, '（STS）', ' (STS)')
+        : version.status === 'lts'
+          ? localizedText(locale, '（LTS）', ' (LTS)')
+          : ''
+
   return localizedText(
     locale,
-    `${version.slug}${version.status === 'current' ? '（当前）' : ''}`,
-    `${version.slug}${version.status === 'current' ? ' (current)' : ''}`
+    `${version.slug}${statusSuffix}`,
+    `${version.slug}${statusSuffix}`
   )
 }
 
