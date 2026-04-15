@@ -1,3 +1,22 @@
+---
+title: 添加新的资源类型
+description: 介绍 Repo API 所依赖的 Resource API，包括 TypeToken、TypedResource，以及如何为 Croparia IF 扩展新的资源类型。
+keywords:
+  - Croparia IF
+  - Resource API
+  - TypeToken
+  - TypedResource
+  - ItemSpec
+  - FluidSpec
+  - 资源类型
+  - 自定义资源
+  - 开发者文档
+  - Repo API
+  - 1.1.0a
+modVersions:
+  - 1.1.0a
+---
+
 # Resource API
 
 Resource API 是 Croparia IF 为了兼容多种资源类型以及它们在模组平台下的差异而建立的一层类型抽象。

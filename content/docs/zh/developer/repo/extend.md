@@ -1,3 +1,23 @@
+---
+title: 扩展新的存储方式
+description: 介绍如何围绕 Repo API 扩展新的存储方式，包括 Resource API 注册、RepoProxy 平台包装，以及 ProxyProvider 的注册与发现流程。
+keywords:
+  - Croparia IF
+  - Repo API
+  - RepoProxy
+  - ProxyProvider
+  - Resource API
+  - PlatformFluidProxy
+  - PlatformItemProxy
+  - 存储扩展
+  - 多平台适配
+  - Architectury
+  - 开发者文档
+  - 1.1.0a
+modVersions:
+  - 1.1.0a
+---
+
 # 扩充 Repo API
 
 Repo API 当前默认只内置了物品与流体两种资源类型，并围绕方块或方块实体的存储暴露提供支持。如果你需要额外的资源类型或者存储方式，可以参照 Croparia IF 的做法。

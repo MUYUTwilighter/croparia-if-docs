@@ -1,3 +1,23 @@
+---
+title: 建立你的存储交互
+description: 介绍如何在 Croparia IF 中创建 Repo、包装 RepoProxy、注册 ProxyProvider，并查询其他存储系统的 Repo API 入门流程。
+keywords:
+  - Croparia IF
+  - Repo API
+  - Repo
+  - RepoProxy
+  - ProxyProvider
+  - ContainerRepo
+  - ItemSpec
+  - PlatformItemProxy
+  - PlatformFluidProxy
+  - 存储交互
+  - 开发教程
+  - 1.1.0a
+modVersions:
+  - 1.1.0a
+---
+
 # 教程：Repo API
 
 此页面将指引开发者借助 Repo API 实现多平台存储接口。

@@ -1,3 +1,22 @@
+---
+title: Repo API
+description: 面向 Croparia IF 下游开发者的 Repo API 架构概览，介绍 Repo、RepoProxy、ProxyProvider、PlatformItemProxy 与 PlatformFluidProxy 的职责关系。
+keywords:
+  - Croparia IF
+  - Repo API
+  - Repo
+  - RepoProxy
+  - ProxyProvider
+  - PlatformItemProxy
+  - PlatformFluidProxy
+  - 存储接口
+  - 多平台存储
+  - 开发者文档
+  - 1.1.0a
+modVersions:
+  - 1.1.0a
+---
+
 # Repo API
 
 Repo API 是 Croparia IF 为了实现多模组平台存储交互而建立的一组抽象与代理接口。当前默认只内置了物品与流体两种资源类型，主要用于方块或方块实体的存储暴露与访问。
