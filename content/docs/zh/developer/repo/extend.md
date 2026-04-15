@@ -1,5 +1,5 @@
 ---
-title: 扩展新的存储方式
+title: 扩充 Repo API
 description: 介绍如何围绕 Repo API 扩展新的存储方式，包括 Resource API 注册、RepoProxy 平台包装，以及 ProxyProvider 的注册与发现流程。
 keywords:
   - Croparia IF
