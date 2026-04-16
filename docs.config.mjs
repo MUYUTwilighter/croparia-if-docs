@@ -5,13 +5,6 @@ export const locales = {
     lang: 'zh-CN',
     contentDir: 'zh',
     routePrefix: ''
-  },
-  en: {
-    key: 'en',
-    label: 'English',
-    lang: 'en-US',
-    contentDir: 'en',
-    routePrefix: '/en'
   }
 }
 
@@ -29,8 +22,8 @@ export const archivedVersions = []
 
 export const allVersions = [currentVersion, ...archivedVersions]
 
-export function localePrefix(localeKey) {
-  return locales[localeKey].routePrefix
+export function localePrefix(_localeKey) {
+  return ''
 }
 
 export function versionRoot(localeKey, version) {
@@ -45,8 +38,8 @@ export function guideRoot(localeKey, version) {
   return root === '/' ? '/guide/' : `${root}guide/`
 }
 
-export function localizedText(localeKey, zh, en) {
-  return localeKey === 'root' ? zh : en
+export function localizedText(_localeKey, zh, _en) {
+  return zh
 }
 
 export function normalizeSiteUrl(url) {
@@ -80,14 +73,6 @@ export function absoluteUrlForPath(routePath) {
   }
 
   return `${baseUrl}${normalizedRoute}`
-}
-
-export function alternateLocalePath(routePath, localeKey) {
-  if (localeKey === 'root') {
-    return routePath.startsWith('/en/') ? routePath.slice(3) || '/' : routePath
-  }
-
-  return routePath.startsWith('/en') ? routePath : `/en${routePath === '/' ? '/' : routePath}`
 }
 
 export function resolveVersionChain(version) {

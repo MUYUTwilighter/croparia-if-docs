@@ -12,9 +12,8 @@ This repository contains the VitePress documentation site for the Croparia IF Mi
 ## Current Stack
 
 - VitePress `^1.6.4`
-- Default locales:
+- Default docs locale:
   - Simplified Chinese at `/`
-  - English at `/en/`
 - Current recorded mod version:
   - Croparia IF `1.1.0a`
   - Minecraft `1.21.1`
@@ -46,7 +45,7 @@ This site uses a generated content model so long-term multi-version maintenance 
 ### Source Directories
 
 - `content/docs/`
-  - Authored Markdown source for all locales.
+  - Authored Markdown source for the Chinese docs.
 - `docs/`
   - Prepared output consumed by VitePress via `srcDir`.
 - `content/public/`
@@ -65,18 +64,16 @@ modVersions:
 Generation rules:
 
 1. Pages with `modVersions` are emitted to every matching mod version route.
-2. If a matching version is the current release, the page is emitted at the locale root route.
-3. If a matching version is archived, the page is emitted under `/versions/<version>/` or `/en/versions/<version>/`.
+2. If a matching version is the current release, the page is emitted at the site root route.
+3. If a matching version is archived, the page is emitted under `/versions/<version>/`.
 4. Pages without `modVersions` are treated as fixed site pages and emitted once.
 
 The generated `docs/` directory should still be treated as build output, not as the primary authoring source.
 
 ## Routing Convention
 
-- Current Chinese docs: `/`
-- Current English docs: `/en/`
-- Archived Chinese docs: `/versions/<version>/`
-- Archived English docs: `/en/versions/<version>/`
+- Current docs: `/`
+- Archived docs: `/versions/<version>/`
 
 The current release lives at the locale root. Archived releases should only get their own pages when content actually differs.
 
@@ -85,7 +82,7 @@ The current release lives at the locale root. Archived releases should only get 
 - `memory.md`
   - Project memory and workflow constraints.
 - `docs.config.mjs`
-  - Shared locale and version metadata.
+  - Shared version metadata and site routing helpers.
 - `.vitepress/config.ts`
   - VitePress config, nav, sidebar, and route-aware UI setup.
 - `scripts/prepare-docs.mjs`
@@ -98,7 +95,7 @@ The site now includes a baseline SEO setup:
 - `sitemap.xml` generation through VitePress `sitemap`
 - `robots.txt` in `content/public/`
 - automatic canonical URLs
-- alternate `hreflang` links for Chinese and English pages
+- alternate `hreflang` links for the Chinese site
 - default Open Graph and Twitter meta tags
 - page-level `description`, `keywords`, `tags`, and `robots` frontmatter support
 

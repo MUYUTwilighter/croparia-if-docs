@@ -25,4 +25,4 @@ hero:
       link: /#home-navigation
 ---
 
-<HomeLanding locale="zh"></HomeLanding>
+<HomeLanding />

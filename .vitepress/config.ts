@@ -1,32 +1,26 @@
-import {defineConfig} from 'vitepress'
-import type {HeadConfig} from 'vitepress'
-import type {DefaultTheme} from 'vitepress'
+import { defineConfig } from 'vitepress'
+import type { HeadConfig } from 'vitepress'
+import type { DefaultTheme } from 'vitepress'
 import {
   absoluteUrlForPath,
-  alternateLocalePath,
   allVersions,
   archivedVersions,
   currentVersion,
-  localePrefix,
   localizedText,
   routePathFromRelativePath,
   siteBase,
   siteUrl
 } from '../docs.config.mjs'
 
-type LocaleKey = 'root' | 'en'
-
+type LocaleKey = 'root'
 type VersionMeta = (typeof allVersions)[number]
 
-function versionRoot(locale: LocaleKey, version: VersionMeta): string {
-  const prefix = localePrefix(locale)
-  return version.status === 'current'
-    ? `${prefix}/`
-    : `${prefix}/versions/${version.slug}/`
+function versionRoot(version: VersionMeta): string {
+  return version.status === 'current' ? '/' : `/versions/${version.slug}/`
 }
 
-function versionGuideRoot(locale: LocaleKey, version: VersionMeta): string {
-  const root = versionRoot(locale, version)
+function versionGuideRoot(version: VersionMeta): string {
+  const root = versionRoot(version)
   return root === '/' ? '/guide/' : `${root}guide/`
 }
 
@@ -40,219 +34,82 @@ function versionLabel(locale: LocaleKey, version: VersionMeta): string {
           ? localizedText(locale, '（LTS）', ' (LTS)')
           : ''
 
-  return localizedText(
-    locale,
-    `${version.slug}${statusSuffix}`,
-    `${version.slug}${statusSuffix}`
-  )
+  return `${version.slug}${statusSuffix}`
 }
 
 function buildVersionNav(locale: LocaleKey): DefaultTheme.NavItemWithChildren {
   return {
-    text:
-      currentVersion.status === 'current'
-        ? localizedText(locale, `版本 ${currentVersion.slug}`, `Version ${currentVersion.slug}`)
-        : currentVersion.slug,
+    text: `版本 ${currentVersion.slug}`,
     items: [
       {
-        text: localizedText(locale, '版本策略', 'Versioning Policy'),
-        link: `${localePrefix(locale)}/versions/`
+        text: '版本策略',
+        link: '/versions/'
       },
       ...allVersions.map((version) => ({
         text: versionLabel(locale, version),
-        link: versionRoot(locale, version)
+        link: versionRoot(version)
       }))
     ]
   }
 }
 
-function sectionLink(locale: LocaleKey, path: string): string {
-  return `${localePrefix(locale)}${path}`
-}
-
 function buildNav(locale: LocaleKey): DefaultTheme.NavItem[] {
-  const items: DefaultTheme.NavItem[] = [
+  return [
     {
-      text: localizedText(locale, '通用', 'General'),
-      link: sectionLink(locale, '/general/')
+      text: '通用',
+      link: '/general/'
     },
     {
-      text: localizedText(locale, '玩家', 'Player'),
-      link: sectionLink(locale, '/player/')
-    }
-  ]
-
-  if (locale === 'root') {
-    items.push({
+      text: '玩家',
+      link: '/player/'
+    },
+    {
       text: '整合包作者',
-      link: sectionLink(locale, '/modpack/')
-    })
-  }
-
-  return items
-}
-
-function buildGeneralSidebar(locale: LocaleKey, prefix: string): DefaultTheme.SidebarItem[] {
-  if (locale === 'root') {
-    return [
-      {
-        text: '通用',
-        items: [
-          {text: '概览', link: `${prefix}general/`},
-          {
-            text: '核心概念',
-            collapsed: false,
-            items: [
-              {text: '作物', link: `${prefix}general/concepts/crop`},
-              {text: '元素', link: `${prefix}general/concepts/element`}
-            ]
-          },
-          {
-            text: '方块与物品',
-            collapsed: false,
-            items: [
-              {text: '魔种', link: `${prefix}general/blocks-and-items/croparia`},
-              {text: '遗物', link: `${prefix}general/blocks-and-items/relic`},
-              {text: '工作方块', link: `${prefix}general/blocks-and-items/workstations`},
-              {text: '其他', link: `${prefix}general/blocks-and-items/others`}
-            ]
-          }
-        ]
-      }
-    ]
-  }
-
-  return [
+      link: '/modpack/'
+    },
     {
-      text: 'General',
+      text: '社区',
       items: [
-        {text: 'Overview', link: `${prefix}general/`},
-        {text: 'Core Concepts', link: `${prefix}general/concepts`},
-        {text: 'Content Overview', link: `${prefix}general/content-overview`},
-        {text: 'Blocks and Items', link: `${prefix}general/blocks-and-items`},
-        {text: 'Elements and Media', link: `${prefix}general/elements`}
-      ]
-    }
-  ]
-}
-
-function buildGuideSection(locale: LocaleKey, prefix: string): DefaultTheme.SidebarItem {
-  return {
-    text: localizedText(locale, '指南', 'Guide'),
-    collapsed: false,
-    items: [
-      {
-        text: localizedText(locale, '开始阅读', 'Start Here'),
-        link: `${prefix}guide/`
-      },
-      {
-        text: localizedText(locale, '文档架构', 'Docs Architecture'),
-        link: `${prefix}guide/architecture`
-      },
-      {
-        text: localizedText(locale, '多语言与多版本', 'I18n and Versioning'),
-        link: `${prefix}guide/i18n-and-versioning`
-      },
-      {
-        text: localizedText(locale, '版本标签生成', 'Content Version Tags'),
-        link: `${prefix}guide/content-version-tags`
-      }
-    ]
-  }
-}
-
-function buildPlayerSidebar(locale: LocaleKey, prefix: string): DefaultTheme.SidebarItem[] {
-  if (locale === 'root') {
-    return [
-      {
-        text: '玩家',
-        link: `${prefix}player/`,
-        items: [
-          {text: '快速入门', link: `${prefix}player/`},
-          {text: '自动化示例', link: `${prefix}player/automation`},
-          {text: '常见问题与解答', link: `${prefix}player/faq`}
-        ]
-      }
-    ]
-  }
-
-  return [
-    {
-      text: 'Player',
-      link: `${prefix}player/`,
-      items: [
-        {text: 'Overview', link: `${prefix}player/`},
-        {text: 'Farming and Melons', link: `${prefix}player/farming-and-melons`},
-        {text: 'Croparia Progression', link: `${prefix}player/croparia-progression`},
-        {text: 'Machines and Rituals', link: `${prefix}player/machines-and-rituals`},
-        {text: 'Automation', link: `${prefix}player/automation`},
-        {text: 'Utility Items', link: `${prefix}player/utility-items`},
-        {text: 'FAQ', link: `${prefix}player/faq`}
-      ]
-    }
-  ]
-}
-
-function buildModpackSidebar(locale: LocaleKey, prefix: string): DefaultTheme.SidebarItem[] {
-  if (locale === 'root') {
-    return [
-      {
-        text: '整合包作者',
-        items: [
-          {text: '概览', link: `${prefix}modpack/`},
-          {
-            text: '基础配置',
-            collapsed: false,
-            items: [
-              {text: '设置与指令', link: `${prefix}modpack/configuration-command`},
-              {text: '自定义作物', link: `${prefix}modpack/custom-crops`},
-              {text: '配方与结构', link: `${prefix}modpack/recipe-structure`}
-            ]
-          },
-          {
-            text: '运行时数据生成系统',
-            collapsed: false,
-            items: [
-              {text: '概览', link: `${prefix}modpack/generator/`},
-              {text: '创建数据生成器', link: `${prefix}modpack/generator/create-generator`},
-              {text: '占位符解析器', link: `${prefix}modpack/generator/placeholder`}
-            ]
-          },
-          {
-            text: '配方生成器',
-            collapsed: false,
-            items: [
-              {text: '概览', link: `${prefix}modpack/recipe-wizard/`},
-              {text: '自定义用法', link: `${prefix}modpack/recipe-wizard/custom-usage`}
-            ]
-          }
-        ]
-      }
-    ]
-  }
-
-  return [
-    {
-      text: 'Modpack Authors',
-      items: [
-        {text: 'Overview', link: `${prefix}modpack/`},
         {
-          text: 'Content Customization',
+          text: 'MCMOD',
+          link: 'https://www.mcmod.cn/class/13639.html'
+        },
+        {
+          text: '问题反馈 Discord',
+          link: 'https://discord.gg/JunKeKCJAY'
+        },
+        {
+          text: '问题反馈 QQ',
+          link: 'https://qm.qq.com/q/OedneeO0Uw'
+        }
+      ]
+    },
+    buildVersionNav(locale)
+  ]
+}
+
+function buildGeneralSidebar(prefix: string): DefaultTheme.SidebarItem[] {
+  return [
+    {
+      text: '通用',
+      items: [
+        { text: '概览', link: `${prefix}general/` },
+        {
+          text: '核心概念',
           collapsed: false,
           items: [
-            {text: 'Customization Overview', link: `${prefix}modpack/overview`},
-            {text: 'Datapacks and Resource Packs', link: `${prefix}modpack/datapacks-and-resourcepacks`},
-            {text: 'Custom Crops', link: `${prefix}modpack/custom-crops`},
-            {text: 'Recipes and Structures', link: `${prefix}modpack/recipes-and-structures`}
+            { text: '作物', link: `${prefix}general/concepts/crop` },
+            { text: '元素', link: `${prefix}general/concepts/element` }
           ]
         },
         {
-          text: 'Tooling and Maintenance',
+          text: '方块与物品',
           collapsed: false,
           items: [
-            {text: 'Generators and Tools', link: `${prefix}modpack/generators-and-tools`},
-            {text: 'Configuration', link: `${prefix}modpack/configuration`},
-            {text: 'Debugging', link: `${prefix}modpack/debugging`}
+            { text: '魔种', link: `${prefix}general/blocks-and-items/croparia` },
+            { text: '遗物', link: `${prefix}general/blocks-and-items/relic` },
+            { text: '工作方块', link: `${prefix}general/blocks-and-items/workstations` },
+            { text: '其他', link: `${prefix}general/blocks-and-items/others` }
           ]
         }
       ]
@@ -260,27 +117,101 @@ function buildModpackSidebar(locale: LocaleKey, prefix: string): DefaultTheme.Si
   ]
 }
 
-function buildSidebar(locale: LocaleKey): DefaultTheme.Sidebar {
+function buildGuideSection(prefix: string): DefaultTheme.SidebarItem {
+  return {
+    text: '指南',
+    collapsed: false,
+    items: [
+      {
+        text: '开始阅读',
+        link: `${prefix}guide/`
+      },
+      {
+        text: '文档架构',
+        link: `${prefix}guide/architecture`
+      },
+      {
+        text: '多语言与多版本',
+        link: `${prefix}guide/i18n-and-versioning`
+      },
+      {
+        text: '版本标签生成',
+        link: `${prefix}guide/content-version-tags`
+      }
+    ]
+  }
+}
+
+function buildPlayerSidebar(prefix: string): DefaultTheme.SidebarItem[] {
+  return [
+    {
+      text: '玩家',
+      link: `${prefix}player/`,
+      items: [
+        { text: '快速入门', link: `${prefix}player/` },
+        { text: '自动化示例', link: `${prefix}player/automation` },
+        { text: '常见问题与解答', link: `${prefix}player/faq` }
+      ]
+    }
+  ]
+}
+
+function buildModpackSidebar(prefix: string): DefaultTheme.SidebarItem[] {
+  return [
+    {
+      text: '整合包作者',
+      items: [
+        { text: '概览', link: `${prefix}modpack/` },
+        {
+          text: '基础配置',
+          collapsed: false,
+          items: [
+            { text: '设置与指令', link: `${prefix}modpack/configuration-command` },
+            { text: '自定义作物', link: `${prefix}modpack/custom-crops` },
+            { text: '配方与结构', link: `${prefix}modpack/recipe-structure` }
+          ]
+        },
+        {
+          text: '运行时数据生成系统',
+          collapsed: false,
+          items: [
+            { text: '概览', link: `${prefix}modpack/generator/` },
+            { text: '创建数据生成器', link: `${prefix}modpack/generator/create-generator` },
+            { text: '占位符解析器', link: `${prefix}modpack/generator/placeholder` }
+          ]
+        },
+        {
+          text: '配方生成器',
+          collapsed: false,
+          items: [
+            { text: '概览', link: `${prefix}modpack/recipe-wizard/` },
+            { text: '自定义用法', link: `${prefix}modpack/recipe-wizard/custom-usage` }
+          ]
+        }
+      ]
+    }
+  ]
+}
+
+function buildSidebar(): DefaultTheme.Sidebar {
   const archivedVersionItems = archivedVersions.map((version) => ({
-    text: versionLabel(locale, version),
-    link: versionGuideRoot(locale, version)
+    text: versionLabel('root', version),
+    link: versionGuideRoot(version)
   }))
 
   const sidebar: DefaultTheme.Sidebar = {
-    [`${localePrefix(locale)}/general/`]: buildGeneralSidebar(locale, `${localePrefix(locale)}/`),
-    [`${localePrefix(locale)}/player/`]: buildPlayerSidebar(locale, `${localePrefix(locale)}/`),
-    [`${localePrefix(locale)}/modpack/`]: buildModpackSidebar(locale, `${localePrefix(locale)}/`),
-    [`${localePrefix(locale)}/guide/`]: [
-      buildGuideSection(locale, `${localePrefix(locale)}/`)
-    ],
-    [`${localePrefix(locale)}/versions/`]: [
+    '/general/': buildGeneralSidebar('/'),
+    '/player/': buildPlayerSidebar('/'),
+    '/modpack/': buildModpackSidebar('/'),
+    '/guide/': [buildGuideSection('/')],
+    '/versions/': [
       {
-        text: localizedText(locale, '版本', 'Versions'),
+        text: '版本',
         collapsed: false,
         items: [
           {
-            text: localizedText(locale, '版本策略', 'Versioning Policy'),
-            link: `${localePrefix(locale)}/versions/`
+            text: '版本策略',
+            link: '/versions/'
           },
           ...archivedVersionItems
         ]
@@ -289,11 +220,11 @@ function buildSidebar(locale: LocaleKey): DefaultTheme.Sidebar {
   }
 
   for (const version of archivedVersions) {
-    const prefix = `${localePrefix(locale)}/versions/${version.slug}/`
-    sidebar[`${prefix}general/`] = buildGeneralSidebar(locale, prefix)
-    sidebar[`${prefix}player/`] = buildPlayerSidebar(locale, prefix)
-    sidebar[`${prefix}modpack/`] = buildModpackSidebar(locale, prefix)
-    sidebar[`${prefix}guide/`] = [buildGuideSection(locale, prefix)]
+    const prefix = `/versions/${version.slug}/`
+    sidebar[`${prefix}general/`] = buildGeneralSidebar(prefix)
+    sidebar[`${prefix}player/`] = buildPlayerSidebar(prefix)
+    sidebar[`${prefix}modpack/`] = buildModpackSidebar(prefix)
+    sidebar[`${prefix}guide/`] = [buildGuideSection(prefix)]
   }
 
   return sidebar
@@ -304,18 +235,12 @@ const sharedThemeConfig = {
     provider: 'local' as const
   },
   socialLinks: [
-    {icon: 'github', link: 'https://github.com/MUYUTwilighter/croparia-if-docs'}
+    { icon: 'github', link: 'https://github.com/MUYUTwilighter/croparia-if-docs' }
   ]
 }
 
 function isArchivedVersionPath(routePath: string): boolean {
-  return /^\/(?:en\/)?versions\/[^/]+(?:\/|$)/.test(routePath)
-}
-
-function localeOfRoute(routePath: string): LocaleKey {
-  return routePath.startsWith('/en/') || routePath === '/en/' || routePath === '/en'
-    ? 'en'
-    : 'root'
+  return /^\/versions\/[^/]+(?:\/|$)/.test(routePath)
 }
 
 function pushHeadTag(head: HeadConfig[], tag: HeadConfig) {
@@ -341,9 +266,9 @@ export default defineConfig({
   title: 'Croparia IF Docs',
   description: 'Croparia IF 文档站',
   head: [
-    ['link', {rel: 'icon', type: 'image/webp', href: `${siteBase}/assets/logo.webp`}],
-    ['meta', {property: 'og:site_name', content: 'Croparia IF Docs'}],
-    ['meta', {name: 'twitter:card', content: 'summary'}]
+    ['link', { rel: 'icon', type: 'image/webp', href: `${siteBase}/assets/logo.webp` }],
+    ['meta', { property: 'og:site_name', content: 'Croparia IF Docs' }],
+    ['meta', { name: 'twitter:card', content: 'summary' }]
   ],
   cleanUrls: true,
   lastUpdated: true,
@@ -353,18 +278,13 @@ export default defineConfig({
   transformPageData(pageData) {
     const routePath = routePathFromRelativePath(pageData.relativePath)
     const absoluteUrl = absoluteUrlForPath(routePath)
-    const locale = localeOfRoute(routePath)
-    const alternateRoot = absoluteUrlForPath(alternateLocalePath(routePath, 'root'))
-    const alternateEn = absoluteUrlForPath(alternateLocalePath(routePath, 'en'))
     const title =
       pageData.frontmatter.title ??
       (pageData.frontmatter.layout === 'home' ? 'Croparia IF Docs' : pageData.title || 'Croparia IF Docs')
     const description =
       pageData.description ||
       pageData.frontmatter.description ||
-      (locale === 'root'
-        ? 'Croparia IF 的多语言、多版本文档站。'
-        : 'Multilingual, multi-version documentation for Croparia IF.')
+      'Croparia IF 的多版本中文文档站。'
     const keywords = normalizeKeywords(pageData.frontmatter.keywords ?? pageData.frontmatter.tags)
     const robots = pageData.frontmatter.robots
       ? String(pageData.frontmatter.robots)
@@ -373,65 +293,34 @@ export default defineConfig({
         : 'index,follow'
     const head = (pageData.frontmatter.head ??= [])
 
-    pushHeadTag(head, ['link', {rel: 'canonical', href: absoluteUrl}])
-    pushHeadTag(head, ['link', {rel: 'alternate', hreflang: 'zh-CN', href: alternateRoot}])
-    pushHeadTag(head, ['link', {rel: 'alternate', hreflang: 'en-US', href: alternateEn}])
-    pushHeadTag(head, ['link', {rel: 'alternate', hreflang: 'x-default', href: alternateRoot}])
-    pushHeadTag(head, ['meta', {name: 'description', content: description}])
-    pushHeadTag(head, ['meta', {name: 'robots', content: robots}])
-    pushHeadTag(head, ['meta', {property: 'og:type', content: 'website'}])
-    pushHeadTag(head, ['meta', {property: 'og:title', content: title}])
-    pushHeadTag(head, ['meta', {property: 'og:description', content: description}])
-    pushHeadTag(head, ['meta', {property: 'og:url', content: absoluteUrl}])
-    pushHeadTag(head, ['meta', {property: 'og:locale', content: locale === 'root' ? 'zh_CN' : 'en_US'}])
-    pushHeadTag(head, ['meta', {name: 'twitter:title', content: title}])
-    pushHeadTag(head, ['meta', {name: 'twitter:description', content: description}])
+    pushHeadTag(head, ['link', { rel: 'canonical', href: absoluteUrl }])
+    pushHeadTag(head, ['link', { rel: 'alternate', hreflang: 'zh-CN', href: absoluteUrl }])
+    pushHeadTag(head, ['link', { rel: 'alternate', hreflang: 'x-default', href: absoluteUrl }])
+    pushHeadTag(head, ['meta', { name: 'description', content: description }])
+    pushHeadTag(head, ['meta', { name: 'robots', content: robots }])
+    pushHeadTag(head, ['meta', { property: 'og:type', content: 'website' }])
+    pushHeadTag(head, ['meta', { property: 'og:title', content: title }])
+    pushHeadTag(head, ['meta', { property: 'og:description', content: description }])
+    pushHeadTag(head, ['meta', { property: 'og:url', content: absoluteUrl }])
+    pushHeadTag(head, ['meta', { property: 'og:locale', content: 'zh_CN' }])
+    pushHeadTag(head, ['meta', { name: 'twitter:title', content: title }])
+    pushHeadTag(head, ['meta', { name: 'twitter:description', content: description }])
 
     if (keywords.length > 0) {
-      pushHeadTag(head, ['meta', {name: 'keywords', content: keywords.join(', ')}])
+      pushHeadTag(head, ['meta', { name: 'keywords', content: keywords.join(', ') }])
     }
   },
-  locales: {
-    root: {
-      label: '简体中文',
-      lang: 'zh-CN',
-      title: 'Croparia IF Docs',
-      description: 'Croparia IF 文档站',
-      themeConfig: {
-        ...sharedThemeConfig,
-        nav: buildNav('root'),
-        sidebar: buildSidebar('root'),
-        outline: {
-          label: '页面导航'
-        },
-        docFooter: {
-          prev: '上一页',
-          next: '下一页'
-        },
-        lastUpdatedText: '最后更新',
-        langMenuLabel: '语言'
-      }
+  themeConfig: {
+    ...sharedThemeConfig,
+    nav: buildNav('root'),
+    sidebar: buildSidebar(),
+    outline: {
+      label: '页面导航'
     },
-    en: {
-      label: 'English',
-      lang: 'en-US',
-      link: '/en/',
-      title: 'Croparia IF Docs',
-      description: 'Documentation site for Croparia IF',
-      themeConfig: {
-        ...sharedThemeConfig,
-        nav: buildNav('en'),
-        sidebar: buildSidebar('en'),
-        outline: {
-          label: 'On this page'
-        },
-        docFooter: {
-          prev: 'Previous page',
-          next: 'Next page'
-        },
-        lastUpdatedText: 'Last updated',
-        langMenuLabel: 'Languages'
-      }
-    }
+    docFooter: {
+      prev: '上一页',
+      next: '下一页'
+    },
+    lastUpdatedText: '最后更新'
   }
 })
