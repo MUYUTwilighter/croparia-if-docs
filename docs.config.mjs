@@ -9,7 +9,7 @@ export const locales = {
 }
 
 export const siteOrigin = 'https://muyutwilighter.github.io'
-export const siteBase = '/croparia-if-docs/'
+export const siteBase = '/'
 export const siteUrl = `${siteOrigin}${siteBase}`
 
 export const currentVersion = {
