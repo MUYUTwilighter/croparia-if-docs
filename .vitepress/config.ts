@@ -41,10 +41,6 @@ function buildVersionNav(locale: LocaleKey): DefaultTheme.NavItemWithChildren {
   return {
     text: `版本 ${currentVersion.slug}`,
     items: [
-      {
-        text: '版本策略',
-        link: '/versions/'
-      },
       ...allVersions.map((version) => ({
         text: versionLabel(locale, version),
         link: versionRoot(version)
@@ -223,9 +219,20 @@ function buildDeveloperSidebar(prefix: string): DefaultTheme.SidebarItem[] {
             { text: 'Repo API', link: `${prefix}developer/repo/` },
             { text: '数据生成系统', link: `${prefix}developer/generator/` },
             { text: 'Codec API', link: `${prefix}developer/codec/` },
-            { text: 'Recipe API', link: `${prefix}developer/recipe/` },
-            { text: '其他常用 API', link: `${prefix}developer/other/` },
-            { text: '自定义物品组件', link: `${prefix}developer/other/item-components` }
+            { text: 'Recipe API', link: `${prefix}developer/recipe/` }
+          ]
+        },
+        {
+          text: '其他常用 API',
+          collapsed: false,
+          items: [
+            { text: '概览', link: `${prefix}developer/other/` },
+            { text: 'JSON 转换', link: `${prefix}developer/other/json` },
+            { text: '配置系统', link: `${prefix}developer/other/config` },
+            { text: '自定义物品组件', link: `${prefix}developer/other/item-components` },
+            { text: '访问与修改方块属性', link: `${prefix}developer/other/block-property` },
+            { text: '可放置物品接口', link: `${prefix}developer/other/item-placeable` },
+            { text: 'Supplier 工具', link: `${prefix}developer/other/supplier` }
           ]
         },
         {
