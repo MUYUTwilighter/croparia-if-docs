@@ -1,4 +1,25 @@
+---
+title: 自定义数据生成器
+description: 介绍如何为 Croparia IF 运行时数据生成系统扩展自定义 DataGenerator，包括流程控制、PackCache 与 Codec 注册。
+keywords:
+  - Croparia IF
+  - Generator API
+  - DataGenerator
+  - AggregatedGenerator
+  - LangGenerator
+  - PackHandler
+  - PackCache
+  - CodecUtil.extend
+  - 自定义数据生成器
+  - 开发者文档
+  - 1.1.0a
+modVersions:
+  - 1.1.0a
+---
+
 # 自定义数据生成器
+
+<a id="overview"></a>
 
 在开发视角，数据生成器 `DataGenerator` 是生成器脚本的运行时实体对象，同时也是数据生成的直接处理者。
 
@@ -9,6 +30,8 @@
 - `LangGenerator`
 
 此页面将介绍如何创建一个新的数据生成器类型。
+
+<a id="create-generator-class"></a>
 
 ## 1. 创建生成器类
 
@@ -56,6 +79,8 @@ public class MyDataGenerator extends DataGenerator {
 
 如果你的生成器还需要自己的字段，例如聚合内容、额外配置或附加模板，可以像上面的 `content` 一样在子类中自行声明。
 
+<a id="flow-control"></a>
+
 ## 2. 自定义数据生成流程
 
 `DataGenerator` 默认的生成流程并不复杂：
@@ -84,6 +109,8 @@ public class MyDataGenerator extends DataGenerator {
 
 如果你的生成器仍然是“一个条目对应一个文件”，通常只需要覆写 `generate(DgEntry entry, PackHandler pack)`。
 如果你的生成器需要“多条目先聚合，最后统一输出”，那么 `onGenerated(PackHandler pack)` 才是最关键的入口。
+
+<a id="pack-cache"></a>
 
 ### 生成包缓存
 
@@ -141,6 +168,8 @@ public class AggregatedGenerator extends DataGenerator {
 
 可以把它理解成一个“按路径去重、按生成器记录所有权”的中间结果表。对于普通生成器来说，通常只会 `cache(...)` 一次；对于聚合生成器来说，它更像一个可重新接管的工作区。
 
+<a id="register-generator"></a>
+
 ## 3. 注册
 
 你需要创建 `MapCodec<MyDataGenerator>` 以让生成包管理器明白如何将读取到的生成器脚本转换为你创建的生成器对象实例。
@@ -190,3 +219,5 @@ static {
 type = "modid:my_data_generator"
 # ...
 ```
+
+如果你的生成器还依赖额外字段解析，通常还需要配套实现[占位符解析器](placeholder.md#bridge-existing)与[生成条目](entry.md#create-entry)。

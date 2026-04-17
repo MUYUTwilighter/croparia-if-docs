@@ -1,4 +1,25 @@
+---
+title: 创建占位符解析器
+description: 介绍如何为 Croparia IF 运行时数据生成系统创建 Placeholder 与 PlaceholderBuilder，包括桥接、集合字段与内置解析器复用。
+keywords:
+  - Croparia IF
+  - Generator API
+  - Placeholder
+  - PlaceholderBuilder
+  - TypeMapper
+  - PatternKey
+  - Template
+  - DgEntry
+  - 占位符解析器
+  - 开发者文档
+  - 1.1.0a
+modVersions:
+  - 1.1.0a
+---
+
 # 占位符解析器（开发者）
+
+<a id="overview"></a>
 
 占位符解析器 `Placeholder<T>` 负责把生成条目的运行时数据解析成模板 `${...}` 中可用的值。
 它和 `Codec` 有些相似：都是“声明字段结构，再交给运行时读取”的接口；区别在于 `Codec` 面向序列化，而 `Placeholder` 面向模板解析。
@@ -10,6 +31,8 @@
 - `DgEntry` 通过 `placeholder()` 提供自己的解析器
 
 此页面主要介绍如何为新的生成条目实现自定义占位符解析器。
+
+<a id="basic-creation"></a>
 
 ## 基本创建方式
 
@@ -60,6 +83,8 @@ public class MyEntry implements DgEntry {
 
 当你完成了占位符解析器后，下一步通常就是把它接入生成条目，详见[添加生成条目](entry.md)。
 
+<a id="builder-methods"></a>
+
 ## `PlaceholderBuilder` 的常用方法
 
 `PlaceholderBuilder<T>` 是扩展解析器时最重要的工具。常用方法如下：
@@ -91,6 +116,8 @@ public class MyEntry implements DgEntry {
 
 对于大多数条目来说，`self(...) + then(...) + concat(...)` 就已经够用了。
 
+<a id="bridge-existing"></a>
+
 ## 桥接到已有解析器
 
 为了减少重复定义，最推荐的做法是把“已有的子类型解析器”桥接到目标类型，而不是从零开始重写所有字段。
@@ -112,6 +139,8 @@ public static final Placeholder<MyEntry> PLACEHOLDER = Placeholder.build(builder
 - 后续如果内置解析器增强了字段，你的条目通常也会自动受益
 
 这也是 Generator API 里最常见的占位符实现方式。
+
+<a id="map-list-fields"></a>
 
 ## 列表与字典字段
 
@@ -151,6 +180,8 @@ ${drops.map(id)}
 
 这一类能力不是由 `Template` 提供的，而是 `PlaceholderBuilder.ofMap(...)` 与 `ofList(...)` 在内部自动补上的。
 
+<a id="extend-existing"></a>
+
 ## 扩展已有解析器
 
 如果你的条目继承了另一个条目，或者你想在已有条目基础上只增加几个字段，最方便的做法是使用 `concat(...)`。
@@ -186,6 +217,8 @@ public static final Placeholder<MyEntry> PLACEHOLDER = Placeholder.build(builder
 
 - 只补新字段时，用 `concat(...)`
 - 要改父类字段行为时，用 `overwrite(...)`
+
+<a id="builtins"></a>
 
 ## 可直接复用的内置解析器
 
@@ -236,3 +269,5 @@ public static final Placeholder<MyEntry> PLACEHOLDER = Placeholder.build(builder
   - `${block.properties}`
 
 如果你要给整合包作者暴露一个字段，优先考虑是否能桥接到这些内置解析器，而不是自己重新设计一套访问语法。
+
+如果你已经完成了解析器定义，下一步通常是把它接入[生成条目](entry.md#add-placeholder)，或者进一步用于[自定义数据生成器](generator.md#register-generator)。
