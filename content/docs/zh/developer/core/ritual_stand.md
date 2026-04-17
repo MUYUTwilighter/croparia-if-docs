@@ -130,7 +130,7 @@ modVersions:
 不过这里还有一条特殊分支：
 
 - 如果结果物品是 `SpawnEggItem`
-- 就会走 `FakePlayer.useAllItemsOn(...)`
+- 就会走 [FakePlayer](fake-player.md#overview) 的 `useAllItemsOn(...)`
 
 这意味着某些仪式结果不是“简单掉出一个物品”就结束，而是会进一步触发一次“像玩家一样使用这个物品”的流程。
 

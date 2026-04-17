@@ -44,6 +44,8 @@ modVersions:
   - 一个典型的“方块状态 + 掉落物配方”模块
 - [Ritual Stand](ritual_stand.md#overview)
   - 一个更依赖结构校验与配方匹配的掉落物驱动模块
+- [FakePlayer](fake-player.md#overview)
+  - 一个服务于核心模块世界交互的执行部件
 
 <a id="how-to-read"></a>
 

@@ -211,7 +211,8 @@ function buildDeveloperSidebar(prefix: string): DefaultTheme.SidebarItem[] {
             { text: 'Crop Transmuter', link: `${prefix}developer/core/crop-transmuter` },
             { text: 'Greenhouse', link: `${prefix}developer/core/greenhouse` },
             { text: 'Infusor', link: `${prefix}developer/core/infusor` },
-            { text: 'Ritual Stand', link: `${prefix}developer/core/ritual_stand` }
+            { text: 'Ritual Stand', link: `${prefix}developer/core/ritual_stand` },
+            { text: 'FakePlayer', link: `${prefix}developer/core/fake-player` }
           ]
         },
         {
@@ -223,7 +224,8 @@ function buildDeveloperSidebar(prefix: string): DefaultTheme.SidebarItem[] {
             { text: 'Generator', link: `${prefix}developer/generator/` },
             { text: 'Codec', link: `${prefix}developer/codec/` },
             { text: 'Recipe', link: `${prefix}developer/recipe/` },
-            { text: 'Other', link: `${prefix}developer/other/` }
+            { text: 'Other', link: `${prefix}developer/other/` },
+            { text: '自定义物品组件', link: `${prefix}developer/other/item-components` }
           ]
         }
       ]

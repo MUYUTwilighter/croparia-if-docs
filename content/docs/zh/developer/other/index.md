@@ -34,6 +34,7 @@ modVersions:
 
 - [JSON 转换](json.md#overview)
 - [配置系统](config.md#overview)
+- [自定义物品组件](item-components.md#overview)
 - [访问与修改方块属性](block-property.md#overview)
 - [可放置物品接口](item-placeable.md#overview)
 - [Supplier 工具](supplier.md#overview)
