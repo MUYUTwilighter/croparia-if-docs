@@ -1,5 +1,5 @@
 ---
-title: 创建占位符解析器
+title: 占位符解析器（开发者）
 description: 介绍如何为 Croparia IF 运行时数据生成系统创建 Placeholder 与 PlaceholderBuilder，包括桥接、集合字段与内置解析器复用。
 keywords:
   - Croparia IF
