@@ -61,20 +61,21 @@ modVersions:
 
 源码里这个映射关系保存在 `JsonTransformer.TRANSFORMERS` 中。
 
-对开发者来说，最重要的不是它的代码量，而是这种职责划分：
-
-- “文件格式判断” 与 “对象解码” 应该分开
-
 <a id="formats"></a>
 
 ## 为什么这层有价值
 
-如果没有 `JsonTransformer`，上层系统通常会面临两种糟糕情况：
+它的价值主要体现在边界清晰：
+
+- 文件格式判断集中在入口层
+- 上层系统只需要面对统一的 `JsonElement`
+
+如果没有 `JsonTransformer`，上层系统通常会面临两种常见问题：
 
 - 每个功能模块都自己判断 `.json / .toml / .cdg`
 - codec 本身被迫承担“文本格式转换”职责
 
-Croparia IF 选择的是更清晰的一种：
+Croparia IF 在这里采用的是：
 
 - 文本先统一转成 `JsonElement`
 - 之后一律按 JSON 数据结构继续流动
@@ -90,7 +91,7 @@ Croparia IF 选择的是更清晰的一种：
 
 ## 什么时候该复用
 
-适合直接复用 `JsonTransformer` 思路的场景：
+如果你在开发中遇到下面这些场景，就可以直接参考 `JsonTransformer` 这套写法：
 
 - 你要支持多种文本配置格式
 - 这些格式最终都要进入统一 codec 流程
