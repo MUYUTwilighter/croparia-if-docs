@@ -181,9 +181,10 @@ public class MyDataGenerator extends DataGenerator {
 
 ```java
 static {
-    DataGenerator.register("modid:my_data_generator", CODEC);
+    DataGenerator.register(Identifier.of("modid:my_data_generator"), CODEC);
 }
 ```
+
 
 ```toml
 type = "modid:my_data_generator"

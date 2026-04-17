@@ -11,7 +11,7 @@
 
 此页面主要介绍如何为新的生成条目实现自定义占位符解析器。
 
-## 1. 基本创建方式
+## 基本创建方式
 
 通常我们不会直接手写 `new Placeholder<>(...)`，而是通过 `Placeholder.build(...)` 与 `PlaceholderBuilder` 来构建：
 
@@ -50,7 +50,7 @@ public class MyEntry implements DgEntry {
 
 - `self(...)`
   - 定义“当前对象本身”在 `${}` 为空路径时如何解析。
-  - 上例中它把 `MyEntry` 的默认输出桥接到了 `Identifier`，因此 `${id}` 风格的字段可以继续访问 `namespace`、`path` 等子域。
+  - 上例中它把 `MyEntry` 的默认输出桥接到了 `Identifier`，因此空路径会按 `Identifier` 解析；如果你还想显式支持 `${id}` 这样的子字段，仍然需要再单独用 `then(...)` 注册 `id`。
 - `then(...)`
   - 定义一个子字段，并把它桥接到另一个占位符解析器。
   - 上例中的 `${example}` 使用 `Placeholder.STRING`，`${tier}` 使用 `Placeholder.NUMBER`。
@@ -58,7 +58,9 @@ public class MyEntry implements DgEntry {
   - 用于把当前类型手动映射到子类型。
   - 这是最常见的写法；由于 Java 泛型推断有限，很多场景都需要显式使用 `TypeMapper`。
 
-## 2. `PlaceholderBuilder` 的常用方法
+当你完成了占位符解析器后，下一步通常就是把它接入生成条目，详见[添加生成条目](entry.md)。
+
+## `PlaceholderBuilder` 的常用方法
 
 `PlaceholderBuilder<T>` 是扩展解析器时最重要的工具。常用方法如下：
 
@@ -89,7 +91,7 @@ public class MyEntry implements DgEntry {
 
 对于大多数条目来说，`self(...) + then(...) + concat(...)` 就已经够用了。
 
-## 3. 桥接到已有解析器
+## 桥接到已有解析器
 
 为了减少重复定义，最推荐的做法是把“已有的子类型解析器”桥接到目标类型，而不是从零开始重写所有字段。
 
@@ -111,7 +113,7 @@ public static final Placeholder<MyEntry> PLACEHOLDER = Placeholder.build(builder
 
 这也是 Generator API 里最常见的占位符实现方式。
 
-## 4. 列表与字典字段
+## 列表与字典字段
 
 如果你的条目里有集合字段，最好不要自己手写 `get(...)` 之类的方法，而是直接使用 `thenMap(...)` 或 `thenList(...)`。
 
@@ -149,7 +151,7 @@ ${drops.map(id)}
 
 这一类能力不是由 `Template` 提供的，而是 `PlaceholderBuilder.ofMap(...)` 与 `ofList(...)` 在内部自动补上的。
 
-## 5. 扩展已有解析器
+## 扩展已有解析器
 
 如果你的条目继承了另一个条目，或者你想在已有条目基础上只增加几个字段，最方便的做法是使用 `concat(...)`。
 
@@ -185,7 +187,7 @@ public static final Placeholder<MyEntry> PLACEHOLDER = Placeholder.build(builder
 - 只补新字段时，用 `concat(...)`
 - 要改父类字段行为时，用 `overwrite(...)`
 
-## 6. 可直接复用的内置解析器
+## 可直接复用的内置解析器
 
 当前源码中最常用的内置解析器有这些：
 
@@ -234,32 +236,3 @@ public static final Placeholder<MyEntry> PLACEHOLDER = Placeholder.build(builder
   - `${block.properties}`
 
 如果你要给整合包作者暴露一个字段，优先考虑是否能桥接到这些内置解析器，而不是自己重新设计一套访问语法。
-
-## 7. 与 `Template` 的关系
-
-`Template` 本身并不知道字段含义，它只做三件事：
-
-1. 扫描 `${...}` 片段
-2. 将占位符内容交给 `Placeholder.parseStart(...)`
-3. 把解析结果回填到模板文本中
-
-也就是说：
-
-- 字段结构是 `Placeholder` 决定的
-- 模板中的转义、占位符扫描与替换是 `Template` 决定的
-
-如果你在开发时遇到“模板写法没问题，但字段取不到”的情况，优先检查：
-
-- `placeholder()` 是否返回了正确解析器
-- 对应字段是否真的在 `PlaceholderBuilder` 中注册
-- `TypeMapper` 是否把当前对象正确映射到了子类型
-
-## 8. 实践建议
-
-- 优先桥接已有解析器，不要重复定义 `Identifier`、`ItemOutput` 这类基础结构。
-- 列表和字典字段优先使用 `thenList(...)` 与 `thenMap(...)`，不要手动重造 `get(...)` 语法。
-- 有继承关系的条目至少要 `concat(DgEntry.PLACEHOLDER, ...)`，否则会丢掉通用字段。
-- `concat(...)` 与 `overwrite(...)` 的差别要分清；前者保留已有定义，后者直接替换。
-- 如果某个字段天然有 `Codec`，但不需要额外子域，使用 `then(..., codec)` 会比手写 JSON 输出更稳。
-
-当你完成了占位符解析器后，下一步通常就是把它接入生成条目，详见[添加生成条目](entry.md)。
