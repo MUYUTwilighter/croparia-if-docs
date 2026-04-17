@@ -17,7 +17,8 @@
     "docs:prepare": "node scripts/prepare-docs.mjs",
     "docs:dev": "vitepress dev",
     "docs:build": "npm run docs:prepare && vitepress build",
-    "docs:preview": "npm run docs:prepare && vitepress preview"
+    "docs:preview": "npm run docs:prepare && vitepress preview",
+    "docs:publish": "npm run docs:build && node scripts/publish-dist.mjs"
   },
   "devDependencies": {
     "@types/node": "^25.5.2",

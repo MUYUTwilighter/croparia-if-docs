@@ -28,6 +28,7 @@ npm run docs:watch
 npm run docs:dev
 npm run docs:build
 npm run docs:preview
+npm run docs:publish -- <deploy-dir>
 ```
 
 Notes:
@@ -36,7 +37,17 @@ Notes:
 - `docs:watch` watches `content/` and `docs.config.mjs`, then regenerates `docs/` automatically.
 - `docs:dev` starts both the content watcher and the VitePress dev server.
 - `docs:build` and `docs:preview` still run `docs:prepare` first.
+- `docs:publish` runs `docs:prepare`, builds VitePress, then mirrors `.vitepress/dist` into the deploy directory you pass in.
 - On this machine, `npm.cmd` may be needed instead of `npm` in PowerShell.
+
+PowerShell example:
+
+```powershell
+npm.cmd run docs:publish -- "D:\sites\croparia-if-docs"
+```
+
+You can also set `DOCS_DEPLOY_DIR` and run `npm run docs:publish`.
+By default the publish script refuses to sync into a directory inside this repository, to avoid wiping local source files by mistake.
 
 ## Content Model
 
