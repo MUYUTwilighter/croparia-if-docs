@@ -1,12 +1,12 @@
 ---
 title: 占位符解析器
-description: 介绍 Croparia IF Generator API 中 Placeholder 的语法、类型操作，以及 crop、melon、element 等常用生成条目的可用字段。
+description: 介绍 Croparia IF 运行时数据生成系统中 Placeholder 的语法、类型操作，以及 crop、melon、element 等常用生成条目的可用字段。
 keywords:
   - Croparia IF
   - 矿石魔种
   - 1.1.0a
   - 整合包
-  - Generator API
+  - 运行时数据生成系统
   - Placeholder
   - 占位符解析器
   - 模板
@@ -18,7 +18,7 @@ modVersions:
   - 1.1.0a
 ---
 
-# 占位符解析器（Placeholder API）
+# 占位符解析器（Placeholder）
 
 占位符解析器是[模板](index.md#template)真正读取数据的接口。模板中的 `${...}` 表达式在运行时会交给对应的 `Placeholder` 解析，再替换成最终的文本或 JSON 片段。
 
@@ -219,7 +219,7 @@ ${fruit.path}
 
 ## 当前常用生成条目的可用字段
 
-下面这些字段来自当前 `1.1.0a` 源码中的 `Placeholder` 定义，适合直接在整合包文档里引用。它们分别对应运行时数据生成系统中的[生成条目](index.md)与[生成条目集](index.md)。
+下面这些字段来自当前 `1.1.0a` 源码中的 `Placeholder` 定义，适合直接在整合包文档里引用。它们分别对应运行时数据生成系统中的[生成条目](index.md#entry)与[生成条目集](index.md#entry-registry)。
 
 <a id="crops"></a>
 

@@ -323,6 +323,6 @@ Croparia IF 自己目前就是在这里定义大部分内置果实作物，并�
 
 ## 下一步该看哪里
 
-- 如果你想看这套内容定义如何进入数据生成系统，看 [Generator API](generator/index.md#overview)
+- 如果你想看这套内容定义如何进入数据生成系统，看 [运行时数据生成系统](generator/index.md#overview)
 - 如果你想看整合包层面的自定义写法，看 [自定义作物](../modpack/custom-crops.md)
 - 如果你想看这些作物内容最终如何被核心模块消费，通常可以从 [Crop Transmuter](core/crop-transmuter.md#overview) 开始

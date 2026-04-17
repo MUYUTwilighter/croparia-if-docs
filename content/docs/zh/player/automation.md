@@ -50,7 +50,7 @@ modVersions:
 
 ## 元素灌注与元素仪式
 
-[注魔台](../general/blocks-and-items/workstations.md#croparia:infusor)与[仪式台](../general/blocks-and-items/workstations.md#croparia:ritual_stand)对一些红石器具和存储方块有着联动特性（详见[工作方块](../general/blocks-and-items/workstations.md)）。借助这些功能，注魔台本身可以实现批量灌注。
+[注魔台](../general/blocks-and-items/workstations.md#croparia:infusor)与[仪式台](../general/blocks-and-items/workstations.md#croparia:ritual_stand)对一些红石器具和存储方块有着联动特性。借助这些功能，注魔台本身可以实现批量灌注。
 
 这里提供一个元素灌注的自动化示例：
 

@@ -47,7 +47,7 @@ modVersions:
 
 - 把某种文本格式变成 `JsonElement`
 
-这也是为什么 Generator API 可以同时读取 `.json`、`.toml`、`.cdg` 文件，但后续的读取流程仍然保持统一。
+这也是为什么运行时数据生成系统可以同时读取 `.json`、`.toml`、`.cdg` 文件，但后续的读取流程仍然保持统一。
 
 <a id="workflow"></a>
 
@@ -82,7 +82,7 @@ Croparia IF 在这里采用的是：
 
 这让：
 
-- [Generator API](../generator/index.md#overview)
+- [运行时数据生成系统](../generator/index.md#overview)
 - [Codec API](../codec/index.md#overview)
 
 这两类系统都能保持更干净的边界。

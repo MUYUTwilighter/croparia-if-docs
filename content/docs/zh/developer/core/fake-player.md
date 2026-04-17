@@ -90,7 +90,7 @@ modVersions:
 
 ## 在 Ritual Stand 里的作用
 
-`RitualStand` 在处理仪式结果时有一条特殊分支：
+`Ritual Stand` 在处理仪式结果时有一条特殊分支：
 
 - 如果结果物品是 `SpawnEggItem`
 - 就不直接把这个蛋作为普通掉落导出
@@ -147,5 +147,5 @@ modVersions:
 
 - 如果模块真正关心的是“像玩家一样使用物品会发生什么”，优先考虑 `FakePlayer`，而不是手写近似逻辑。
 - 如果你只需要最终产物，不一定非要走 `FakePlayer`；它更适合有真实使用语义的物品。
-- 当你把 `FakePlayer` 接进某个核心模块时，最好像 `RitualStand` 一样，把它当作特殊分支处理，而不是默认路径。
+- 当你把 `FakePlayer` 接进某个核心模块时，最好像 `Ritual Stand` 一样，把它当作特殊分支处理，而不是默认路径。
 - 如果你后续要扩展更多“行为型结果物”，可以先围绕 `useAllItemsOn(...)` 这一层抽象，而不是直接在模块里重复写 `useOn + finishUsingItem`。

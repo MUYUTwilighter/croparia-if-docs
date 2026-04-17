@@ -179,5 +179,5 @@ modVersions:
 
 - 如果你要改元素切换行为，优先看 `tryInfuse(...)` 和 `tryDefuse(...)`。
 - 如果你要改配方匹配语义，优先看 `InfusorContainer` 与 `InfusorRecipe`，而不是先动玩家交互层。
-- 如果你要研究“掉落物驱动的配方机器”应该怎么写，这个模块是比 `RitualStand` 更容易上手的入口。
+- 如果你要研究“掉落物驱动的配方机器”应该怎么写，这个模块是比 `Ritual Stand` 更容易上手的入口。
 - 如果你想兼容新的投放方式，优先保持 `ItemPlaceable -> ItemEntity -> stepOn(...)` 这条主链不变。
