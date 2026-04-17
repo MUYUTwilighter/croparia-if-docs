@@ -204,10 +204,10 @@ function buildDeveloperSidebar(prefix: string): DefaultTheme.SidebarItem[] {
           collapsed: false,
           items: [
             { text: '概览', link: `${prefix}developer/core/` },
-            { text: 'Crop Transmuter', link: `${prefix}developer/core/crop-transmuter` },
-            { text: 'Greenhouse', link: `${prefix}developer/core/greenhouse` },
-            { text: 'Infusor', link: `${prefix}developer/core/infusor` },
-            { text: 'Ritual Stand', link: `${prefix}developer/core/ritual_stand` },
+            { text: '作物嬗变仪', link: `${prefix}developer/core/crop-transmuter` },
+            { text: '温室', link: `${prefix}developer/core/greenhouse` },
+            { text: '注魔台', link: `${prefix}developer/core/infusor` },
+            { text: '仪式台', link: `${prefix}developer/core/ritual_stand` },
             { text: 'FakePlayer', link: `${prefix}developer/core/fake-player` }
           ]
         },
