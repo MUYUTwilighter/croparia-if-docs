@@ -68,6 +68,10 @@ function buildNav(locale: LocaleKey): DefaultTheme.NavItem[] {
       link: '/modpack/'
     },
     {
+      text: '开发者',
+      link: '/developer/'
+    },
+    {
       text: '社区',
       items: [
         {
@@ -193,6 +197,40 @@ function buildModpackSidebar(prefix: string): DefaultTheme.SidebarItem[] {
   ]
 }
 
+function buildDeveloperSidebar(prefix: string): DefaultTheme.SidebarItem[] {
+  return [
+    {
+      text: '开发者',
+      items: [
+        { text: '概览', link: `${prefix}developer/` },
+        {
+          text: '核心模块',
+          collapsed: false,
+          items: [
+            { text: '概览', link: `${prefix}developer/core/` },
+            { text: 'Crop Transmuter', link: `${prefix}developer/core/crop-transmuter` },
+            { text: 'Greenhouse', link: `${prefix}developer/core/greenhouse` },
+            { text: 'Infusor', link: `${prefix}developer/core/infusor` },
+            { text: 'Ritual Stand', link: `${prefix}developer/core/ritual_stand` }
+          ]
+        },
+        {
+          text: '核心 API',
+          collapsed: false,
+          items: [
+            { text: 'Network', link: `${prefix}developer/network` },
+            { text: 'Repo', link: `${prefix}developer/repo/` },
+            { text: 'Generator', link: `${prefix}developer/generator/` },
+            { text: 'Codec', link: `${prefix}developer/codec/` },
+            { text: 'Recipe', link: `${prefix}developer/recipe/` },
+            { text: 'Other', link: `${prefix}developer/other/` }
+          ]
+        }
+      ]
+    }
+  ]
+}
+
 function buildSidebar(): DefaultTheme.Sidebar {
   const archivedVersionItems = archivedVersions.map((version) => ({
     text: versionLabel('root', version),
@@ -203,6 +241,7 @@ function buildSidebar(): DefaultTheme.Sidebar {
     '/general/': buildGeneralSidebar('/'),
     '/player/': buildPlayerSidebar('/'),
     '/modpack/': buildModpackSidebar('/'),
+    '/developer/': buildDeveloperSidebar('/'),
     '/guide/': [buildGuideSection('/')],
     '/versions/': [
       {
@@ -224,6 +263,7 @@ function buildSidebar(): DefaultTheme.Sidebar {
     sidebar[`${prefix}general/`] = buildGeneralSidebar(prefix)
     sidebar[`${prefix}player/`] = buildPlayerSidebar(prefix)
     sidebar[`${prefix}modpack/`] = buildModpackSidebar(prefix)
+    sidebar[`${prefix}developer/`] = buildDeveloperSidebar(prefix)
     sidebar[`${prefix}guide/`] = [buildGuideSection(prefix)]
   }
 
