@@ -1,3 +1,4 @@
+import 'dotenv/config'
 import { existsSync } from 'node:fs'
 import path from 'node:path'
 import { spawnSync } from 'node:child_process'

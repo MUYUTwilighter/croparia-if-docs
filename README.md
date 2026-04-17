@@ -51,6 +51,9 @@ npm.cmd run docs:publish -- "D:\sites\croparia-if-docs"
 You can also set `DOCS_DEPLOY_DIR` and run `npm run docs:publish`.
 By default the publish script refuses to sync into a directory inside this repository, to avoid wiping local source files by mistake.
 
+Both publish scripts now load environment variables from `.env` / `.env.local` through `dotenv`.
+You can start from [.env.example](D:/Documents/WebStormProjects/croparia-if-docs/.env.example) and create your own local `.env`.
+
 SSH publish example:
 
 ```powershell
