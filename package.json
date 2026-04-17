@@ -18,7 +18,8 @@
     "docs:dev": "vitepress dev",
     "docs:build": "npm run docs:prepare && vitepress build",
     "docs:preview": "npm run docs:prepare && vitepress preview",
-    "docs:publish": "npm run docs:build && node scripts/publish-dist.mjs"
+    "docs:publish": "npm run docs:build && node scripts/publish-dist.mjs",
+    "docs:publish:ssh": "npm run docs:build && node scripts/publish-ssh.mjs"
   },
   "devDependencies": {
     "@types/node": "^25.5.2",

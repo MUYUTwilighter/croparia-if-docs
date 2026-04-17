@@ -29,6 +29,7 @@ npm run docs:dev
 npm run docs:build
 npm run docs:preview
 npm run docs:publish -- <deploy-dir>
+npm run docs:publish:ssh
 ```
 
 Notes:
@@ -38,6 +39,7 @@ Notes:
 - `docs:dev` starts both the content watcher and the VitePress dev server.
 - `docs:build` and `docs:preview` still run `docs:prepare` first.
 - `docs:publish` runs `docs:prepare`, builds VitePress, then mirrors `.vitepress/dist` into the deploy directory you pass in.
+- `docs:publish:ssh` runs `docs:prepare`, builds VitePress, uploads `.vitepress/dist` to a remote server through SSH, then replaces the remote target directory.
 - On this machine, `npm.cmd` may be needed instead of `npm` in PowerShell.
 
 PowerShell example:
@@ -48,6 +50,24 @@ npm.cmd run docs:publish -- "D:\sites\croparia-if-docs"
 
 You can also set `DOCS_DEPLOY_DIR` and run `npm run docs:publish`.
 By default the publish script refuses to sync into a directory inside this repository, to avoid wiping local source files by mistake.
+
+SSH publish example:
+
+```powershell
+$env:DOCS_SSH_HOST="example.com"
+$env:DOCS_SSH_USER="deploy"
+$env:DOCS_SSH_TARGET_DIR="/var/www/croparia-if-docs"
+$env:DOCS_SSH_PORT="22"
+$env:DOCS_SSH_KEY="C:\Users\you\.ssh\id_ed25519"
+npm.cmd run docs:publish:ssh
+```
+
+SSH publish notes:
+
+- Required variables: `DOCS_SSH_HOST`, `DOCS_SSH_USER`, `DOCS_SSH_TARGET_DIR`
+- Optional variables: `DOCS_SSH_PORT`, `DOCS_SSH_KEY`
+- Set `DOCS_SSH_KEEP_BACKUP=1` if you want the previous remote directory kept as `<target>.codex-backup`
+- The current script assumes the remote server provides a POSIX shell with `sh`, `mkdir`, `mv`, and `rm`
 
 ## Content Model
 
