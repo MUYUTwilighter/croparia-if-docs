@@ -1,6 +1,6 @@
 ---
-title: Ritual Stand
-description: 介绍 Ritual Stand 模块如何围绕掉落物、结构校验与 Ritual 配方组织运行流程，帮助开发者理解它与 DropsCache、结构容器和假玩家的配合。
+title: 仪式台
+description: 介绍仪式台模块如何围绕掉落物、结构校验与 Ritual 配方组织运行流程，帮助开发者理解它与 DropsCache、结构容器和假玩家的配合。
 keywords:
   - Croparia IF
   - 开发者文档
@@ -14,17 +14,17 @@ modVersions:
   - 1.1.0a
 ---
 
-# Ritual Stand
+# 仪式台
 
 <a id="overview"></a>
 
-`Ritual Stand` 和 `Infusor` 一样，也是掉落物驱动的模块；但它更复杂，因为它不只关心“掉下来了什么物品”，还关心：
+仪式台和注魔台一样，也是掉落物驱动的模块；但它更复杂，因为它不只关心“掉下来了什么物品”，还关心：
 
 - 当前仪式台方块状态
 - 周围结构是否匹配
 - 对应结构下是否存在合法仪式配方
 
-所以如果说 `Infusor` 是“状态 + 掉落物配方”，那么 `Ritual Stand` 更接近“状态 + 结构 + 掉落物配方”。
+所以如果说注魔台是“状态 + 掉落物配方”，那么仪式台更接近“状态 + 结构 + 掉落物配方”。
 
 <a id="module-role"></a>
 
@@ -65,7 +65,7 @@ modVersions:
 - 屏蔽配方生成器的直接投放
 - 对主手物品调用 `placeItem(...)`
 
-和 [Infusor](infusor.md#item-placeable) 一样，这一层只负责把物品放到世界里。
+和 [注魔台](infusor.md#item-placeable) 一样，这一层只负责把物品放到世界里。
 
 真正的仪式逻辑发生在 `stepOn(...)`：
 
@@ -115,7 +115,7 @@ modVersions:
 - 当前掉落物集合
 - 已经匹配成功的结构结果
 
-这也是 `Ritual Stand` 比 `Infusor` 更复杂的根本原因。
+这也是仪式台比注魔台更复杂的根本原因。
 
 <a id="result-flow"></a>
 
@@ -160,7 +160,7 @@ modVersions:
 
 ## 为什么同样依赖 `DropsCache`
 
-`RitualStand` 和 `Infusor` 一样都用到了 `DropsCache`，但作用更重。
+`RitualStand` 和注魔台一样都用到了 `DropsCache`，但作用更重。
 
 在这里，`DropsCache` 不只是为了避免重复读取掉落物，而是为了让“本次仪式的输入集合”稳定下来。否则你很难在结构匹配之后，再对一组掉落物做确定性的仪式匹配。
 

@@ -1,6 +1,6 @@
 ---
-title: Greenhouse
-description: 介绍 Greenhouse 模块的自动收获、库存存储与自动化代理，帮助开发者理解它如何围绕作物状态与掉落处理组织逻辑。
+title: 温室
+description: 介绍温室模块的自动收获、库存存储与自动化代理，帮助开发者理解它如何围绕作物状态与掉落处理组织逻辑。
 keywords:
   - Croparia IF
   - 开发者文档
@@ -14,11 +14,11 @@ modVersions:
   - 1.1.0a
 ---
 
-# Greenhouse
+# 温室
 
 <a id="overview"></a>
 
-`Greenhouse` 比 `CropTransmuter` 简单得多，但它很适合用来理解另一类模块：
+温室比作物嬗变仪简单得多，但它很适合用来理解另一类模块：
 
 - 没有复杂 UI
 - 没有单独网络包
@@ -30,7 +30,7 @@ modVersions:
 
 ## 模块职责
 
-`Greenhouse` 的核心职责是：
+温室的核心职责是：
 
 - 观察自身下方的作物状态
 - 在合适时机触发生长或收获
@@ -77,7 +77,7 @@ modVersions:
 
 ## 收获流程
 
-`Greenhouse` 的收获不是靠独立 tick 方法驱动，而是主要通过方块更新链条进入：
+温室的收获不是靠独立 tick 方法驱动，而是主要通过方块更新链条进入：
 
 - `onPlace(...)`
 - `updateShape(...)`
@@ -95,7 +95,7 @@ modVersions:
 - `AttachedStemBlock`
   - 走 `tryHarvestMelon(...)`
 
-这说明 `Greenhouse` 的核心不是“统一模拟所有植物生长”，而是：
+这说明温室的核心不是“统一模拟所有植物生长”，而是：
 
 - 识别下方是不是它支持的植物类型
 - 再按类型走不同的收获逻辑
@@ -132,7 +132,7 @@ modVersions:
 
 这里不需要年龄回退，因为巨果结构本身就是“藤蔓 + 果实”两段式。
 
-所以 `Greenhouse` 对不同植物的处理重点并不是统一算法，而是：
+所以温室对不同植物的处理重点并不是统一算法，而是：
 
 - 普通作物关注“年龄重置”
 - 巨果关注“找到实际果实并收走”
@@ -141,7 +141,7 @@ modVersions:
 
 ## 生长加速
 
-除了收获，`Greenhouse` 还在 `randomTick(...)` 中对下方 `CropBlock` 调用了原版 `randomTick(...)`。
+除了收获，温室还在 `randomTick(...)` 中对下方 `CropBlock` 调用了原版 `randomTick(...)`。
 
 这意味着温室的行为其实分成两部分：
 

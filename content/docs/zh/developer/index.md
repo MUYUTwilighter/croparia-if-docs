@@ -35,7 +35,7 @@ modVersions:
 如果你第一次读这一组文档，最推荐的起点通常有三个：
 
 - [核心模块](core/index.md#overview)
-  - 先理解 `Infusor`、`Ritual Stand`、`Crop Transmuter`、`Greenhouse` 这几类核心功能是怎么跑起来的
+  - 先理解注魔台、仪式台、作物嬗变仪、温室这几类核心功能是怎么跑起来的
 - [网络 API](network.md#overview)
   - 适合想看菜单交互、配方同步和包注册抽象的读者
 - [Repo API](repo/index.md#overview)
@@ -55,10 +55,10 @@ modVersions:
 ### 核心模块
 
 - [核心模块总览](core/index.md#overview)
-- [Crop Transmuter](core/crop-transmuter.md#overview)
-- [Greenhouse](core/greenhouse.md#overview)
-- [Infusor](core/infusor.md#overview)
-- [Ritual Stand](core/ritual_stand.md#overview)
+- [作物嬗变仪](core/crop-transmuter.md#overview)
+- [温室](core/greenhouse.md#overview)
+- [注魔台](core/infusor.md#overview)
+- [仪式台](core/ritual_stand.md#overview)
 - [FakePlayer](core/fake-player.md#overview)
 
 这一组更适合回答：

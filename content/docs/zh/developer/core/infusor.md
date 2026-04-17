@@ -1,6 +1,6 @@
 ---
-title: Infusor
-description: 介绍 Infusor 模块的方块状态、元素灌注、掉落物配方与 ItemPlaceable 联动，帮助开发者理解它的完整工作流。
+title: 注魔台
+description: 介绍注魔台模块的方块状态、元素灌注、掉落物配方与 ItemPlaceable 联动，帮助开发者理解它的完整工作流。
 keywords:
   - Croparia IF
   - 开发者文档
@@ -14,13 +14,13 @@ modVersions:
   - 1.1.0a
 ---
 
-# Infusor
+# 注魔台
 
 <a id="overview"></a>
 
-`Infusor` 是 Croparia IF 里最典型的“方块状态驱动 + 掉落物配方”模块。
+注魔台是 Croparia IF 里最典型的“方块状态驱动 + 掉落物配方”模块。
 
-它比 `Greenhouse` 更强调配方处理，比 `CropTransmuter` 更少依赖 GUI，但它非常适合帮助开发者理解：
+它比温室更强调配方处理，比作物嬗变仪更少依赖 GUI，但它非常适合帮助开发者理解：
 
 - 一个方块状态如何参与配方匹配
 - 掉落物为什么要和 `DropsCache` 结合
@@ -30,12 +30,12 @@ modVersions:
 
 ## 模块职责
 
-`Infusor` 的职责可以拆成两层：
+注魔台的职责可以拆成两层：
 
 - 通过元素药水把自身切换到某个元素状态
 - 在有元素状态时，把掉到方块上的物品作为输入去匹配 `InfusorRecipe`
 
-也就是说，`Infusor` 不是“固定方块 + 固定配方”的关系，而是：
+也就是说，注魔台不是“固定方块 + 固定配方”的关系，而是：
 
 - 方块状态决定当前元素
 - 当前元素再参与后续配方匹配
@@ -61,7 +61,7 @@ modVersions:
 
 ## 方块状态
 
-`Infusor` 最核心的状态字段是：
+注魔台最核心的状态字段是：
 
 - `ELEMENT`
 
@@ -74,7 +74,7 @@ modVersions:
 
 如果你要理解这个模块，最先要接受的一点是：
 
-- `Infusor` 的“配方条件”不只来自输入物，还来自方块自身的当前状态
+- 注魔台的“配方条件”不只来自输入物，还来自方块自身的当前状态
 
 <a id="player-flow"></a>
 
@@ -107,7 +107,7 @@ modVersions:
 
 如果既不是配方生成器，也不是上述两种元素交互，就会调用 `placeItem(...)` 把物品投到方块中心。
 
-这一点很重要，因为它直接把 `Infusor` 接到了 [ItemPlaceable](../other/item-placeable.md#integration-chain) 那条统一的物品投放链上。
+这一点很重要，因为它直接把注魔台接到了 [ItemPlaceable](../other/item-placeable.md#integration-chain) 那条统一的物品投放链上。
 
 <a id="recipe-flow"></a>
 
@@ -145,7 +145,7 @@ modVersions:
 
 ## 为什么依赖 `DropsCache`
 
-如果只看表面，你可能会觉得 `Infusor` 似乎只需要读取当前踩到方块上的那个 `ItemEntity`。但源码没有这么做，而是通过 `DropsCache` 汇总附近掉落物。
+如果只看表面，你可能会觉得注魔台似乎只需要读取当前踩到方块上的那个 `ItemEntity`。但源码没有这么做，而是通过 `DropsCache` 汇总附近掉落物。
 
 原因很直接：
 
@@ -159,13 +159,13 @@ modVersions:
 
 ## 和 `ItemPlaceable` 的关系
 
-`Infusor` 实现 `ItemPlaceable` 的意义，不是为了少写几行生成 `ItemEntity` 的代码，而是为了接入整套现成交互链：
+注魔台实现 `ItemPlaceable` 的意义，不是为了少写几行生成 `ItemEntity` 的代码，而是为了接入整套现成交互链：
 
 - 玩家右键时可以直接把物品投到方块上
 - `ElementalPotion` 的发射器行为在无法灌注时会回退到 `Infusor.placeItem(...)`
 - `DropperBlockMixin` 也可以把投掷器输出重定向到它
 
-这意味着 `Infusor` 的入口是统一的：
+这意味着注魔台的入口是统一的：
 
 - 无论物品来自玩家、投掷器还是发射器
 - 最后都会转成“一个掉到方块上的 `ItemEntity`”
@@ -179,5 +179,5 @@ modVersions:
 
 - 如果你要改元素切换行为，优先看 `tryInfuse(...)` 和 `tryDefuse(...)`。
 - 如果你要改配方匹配语义，优先看 `InfusorContainer` 与 `InfusorRecipe`，而不是先动玩家交互层。
-- 如果你要研究“掉落物驱动的配方机器”应该怎么写，这个模块是比 `Ritual Stand` 更容易上手的入口。
+- 如果你要研究“掉落物驱动的配方机器”应该怎么写，这个模块是比仪式台更容易上手的入口。
 - 如果你想兼容新的投放方式，优先保持 `ItemPlaceable -> ItemEntity -> stepOn(...)` 这条主链不变。

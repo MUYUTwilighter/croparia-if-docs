@@ -1,6 +1,6 @@
 ---
 title: 核心模块
-description: 面向下游开发者介绍 Croparia IF 的核心功能模块，包括 Infusor、Ritual Stand、Crop Transmuter 与 Greenhouse 的职责、数据流和扩展切入点。
+description: 面向下游开发者介绍 Croparia IF 的核心功能模块，包括注魔台、仪式台、作物嬗变仪与温室的职责、数据流和扩展切入点。
 keywords:
   - Croparia IF
   - 开发者文档
@@ -36,13 +36,13 @@ modVersions:
 
 ## 当前覆盖的模块
 
-- [Crop Transmuter](crop-transmuter.md#overview)
+- [作物嬗变仪](crop-transmuter.md#overview)
   - 一个带方块实体、菜单、界面和 `C2S` 交互的完整模块
-- [Greenhouse](greenhouse.md#overview)
+- [温室](greenhouse.md#overview)
   - 一个更偏“自动处理与存储”的模块
-- [Infusor](infusor.md#overview)
+- [注魔台](infusor.md#overview)
   - 一个典型的“方块状态 + 掉落物配方”模块
-- [Ritual Stand](ritual_stand.md#overview)
+- [仪式台](ritual_stand.md#overview)
   - 一个更依赖结构校验与配方匹配的掉落物驱动模块
 - [FakePlayer](fake-player.md#overview)
   - 一个服务于核心模块世界交互的执行部件
@@ -51,9 +51,9 @@ modVersions:
 
 ## 建议阅读顺序
 
-- 如果你想看“GUI、菜单与网络如何配合”，先读 [Crop Transmuter](crop-transmuter.md#overview)
-- 如果你想看“掉落物驱动配方是怎么做的”，先读 [Infusor](infusor.md#overview) 和 [Ritual Stand](ritual_stand.md#overview)
-- 如果你想看“方块实体如何对接自动化与库存”，先读 [Greenhouse](greenhouse.md#overview)
+- 如果你想看“GUI、菜单与网络如何配合”，先读 [作物嬗变仪](crop-transmuter.md#overview)
+- 如果你想看“掉落物驱动配方是怎么做的”，先读 [注魔台](infusor.md#overview) 和 [仪式台](ritual_stand.md#overview)
+- 如果你想看“方块实体如何对接自动化与库存”，先读 [温室](greenhouse.md#overview)
 
 <a id="common-patterns"></a>
 

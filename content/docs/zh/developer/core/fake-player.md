@@ -1,6 +1,6 @@
 ---
 title: FakePlayer
-description: 介绍 Croparia IF 中的 FakePlayer 如何以服务端伪玩家身份执行物品使用逻辑，以及它在 Ritual Stand 等模块中的用途与边界。
+description: 介绍 Croparia IF 中的 FakePlayer 如何以服务端伪玩家身份执行物品使用逻辑，以及它在仪式台等模块中的用途与边界。
 keywords:
   - Croparia IF
   - 开发者文档
@@ -23,7 +23,7 @@ modVersions:
 
 - 当某个核心模块需要像玩家一样去对方块使用一个物品时，应该如何在服务端安全地执行这一步
 
-当前最典型的使用点在 [Ritual Stand](ritual_stand.md#result-flow)，所以它放在 `core` 里比放到纯工具页更合适。
+当前最典型的使用点在 [仪式台](ritual_stand.md#result-flow)，所以它放在 `core` 里比放到纯工具页更合适。
 
 <a id="core-idea"></a>
 
@@ -88,9 +88,9 @@ modVersions:
 
 <a id="ritual-stand"></a>
 
-## 在 Ritual Stand 里的作用
+## 在仪式台里的作用
 
-`Ritual Stand` 在处理仪式结果时有一条特殊分支：
+仪式台在处理仪式结果时有一条特殊分支：
 
 - 如果结果物品是 `SpawnEggItem`
 - 就不直接把这个蛋作为普通掉落导出
@@ -147,5 +147,5 @@ modVersions:
 
 - 如果模块真正关心的是“像玩家一样使用物品会发生什么”，优先考虑 `FakePlayer`，而不是手写近似逻辑。
 - 如果你只需要最终产物，不一定非要走 `FakePlayer`；它更适合有真实使用语义的物品。
-- 当你把 `FakePlayer` 接进某个核心模块时，最好像 `Ritual Stand` 一样，把它当作特殊分支处理，而不是默认路径。
+- 当你把 `FakePlayer` 接进某个核心模块时，最好像仪式台一样，把它当作特殊分支处理，而不是默认路径。
 - 如果你后续要扩展更多“行为型结果物”，可以先围绕 `useAllItemsOn(...)` 这一层抽象，而不是直接在模块里重复写 `useOn + finishUsingItem`。

@@ -1,6 +1,6 @@
 ---
-title: Crop Transmuter
-description: 介绍 Crop Transmuter 模块的方块、方块实体、菜单、界面与网络交互，帮助开发者理解其输入材料读取、候选产物选择与红石控制流程。
+title: 作物嬗变仪
+description: 介绍作物嬗变仪模块的方块、方块实体、菜单、界面与网络交互，帮助开发者理解其输入材料读取、候选产物选择与红石控制流程。
 keywords:
   - Croparia IF
   - 开发者文档
@@ -15,11 +15,11 @@ modVersions:
   - 1.1.0a
 ---
 
-# Crop Transmuter
+# 作物嬗变仪
 
 <a id="overview"></a>
 
-`Crop Transmuter` 是 Croparia IF 里一个很适合拿来读架构的模块，因为它同时涉及：
+作物嬗变仪是 Croparia IF 里一个很适合拿来读架构的模块，因为它同时涉及：
 
 - 方块与方块状态
 - 方块实体持久化
