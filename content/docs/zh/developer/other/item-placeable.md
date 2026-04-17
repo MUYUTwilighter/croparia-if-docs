@@ -2,16 +2,17 @@
 title: 可放置物品接口
 description: 介绍 Croparia IF 中的 ItemPlaceable 接口，以及它如何统一“将物品以实体形式放置到世界中”的行为。
 keywords:
-  - Croparia IF
-  - ItemPlaceable
-  - ItemEntity
+- Croparia IF
+- ItemPlaceable
+- ItemEntity
   - 放置物品
   - Dropper
-  - Dispenser
-  - ElementalPotion
-  - Infusor
+- Dispenser
+- ElementalPotion
+- Infusor
+- Ritual Stand
   - RitualStand
-  - DropsCache
+- DropsCache
   - 开发者文档
   - 1.1.0a
 modVersions:
@@ -61,8 +62,8 @@ Croparia IF 用它来统一“如何把一个 `ItemStack` 转成世界中的 `It
 
 源码里比较典型的使用场景包括：
 
-- [Infusor](../../general/blocks-and-items/workstations.md)
-- [RitualStand](../../general/blocks-and-items/workstations.md)
+- [Infusor](../core/infusor.md#overview)
+- [Ritual Stand](../core/ritual_stand.md#overview)
 - `ElementalPotion` 与某些目标方块交互时
 - `DropperBlockMixin` 中对可放置方块的特殊处理
 
@@ -105,9 +106,9 @@ Croparia IF 用它来统一“如何把一个 `ItemStack` 转成世界中的 `It
 
 这说明 `ItemPlaceable` 不只是给方块右键交互用的接口，它还被当成“这个方块可以接住被发射出来的物品”的能力标记。
 
-### `Infusor` 与 `RitualStand`
+### `Infusor` 与 `Ritual Stand`
 
-`Infusor` 和 `RitualStand` 本身都实现了 `ItemPlaceable`，但真正的配方处理并不发生在 `placeItem(...)` 里。
+`Infusor` 和 `Ritual Stand` 本身都实现了 `ItemPlaceable`，但真正的配方处理并不发生在 `placeItem(...)` 里。
 
 它们的实际工作流更接近：
 
@@ -117,28 +118,6 @@ Croparia IF 用它来统一“如何把一个 `ItemStack` 转成世界中的 `It
 4. 再结合 `DropsCache`、配方匹配或结构匹配执行后续逻辑
 
 也就是说，`ItemPlaceable` 负责“把物品送到正确位置”，而不是直接负责“完成配方”。
-
-<a id="with-mixins-and-apis"></a>
-
-## 和其他 API / Mixin 的关系
-
-目前源码里最明确的联动有：
-
-- `DropperBlockMixin`
-  - 把原版投掷器输出重定向到 `ItemPlaceable`
-- `ElementalPotion`
-  - 把发射器行为接到 `Infusor` 或其他 `ItemPlaceable` 方块
-- `CifUtil.createItemEntity(...)`
-  - 负责生成真正加入世界的 `ItemEntity`
-- `DropsCache`
-  - 在 `Infusor`、`RitualStand` 这类实现方块中缓存附近掉落物，用于后续配方判断
-
-相对地，它和 [访问与修改方块属性](block-property.md#overview) 那条链并没有直接关系：
-
-- `ItemPlaceable` 不依赖 `StateHolderMixin`
-- 也不负责像 `StateHolderAccess` 那样读写方块状态属性
-
-如果一个系统的重点是“把物品投放到世界并触发方块后续逻辑”，就看 `ItemPlaceable`；如果重点是“按字符串读写方块状态”，则应看 `StateHolderAccess` / `BlockProperties`。
 
 <a id="when-to-use"></a>
 

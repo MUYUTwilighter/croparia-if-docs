@@ -219,13 +219,20 @@ function buildDeveloperSidebar(prefix: string): DefaultTheme.SidebarItem[] {
           text: '核心 API',
           collapsed: false,
           items: [
-            { text: 'Network', link: `${prefix}developer/network` },
-            { text: 'Repo', link: `${prefix}developer/repo/` },
-            { text: 'Generator', link: `${prefix}developer/generator/` },
-            { text: 'Codec', link: `${prefix}developer/codec/` },
-            { text: 'Recipe', link: `${prefix}developer/recipe/` },
-            { text: 'Other', link: `${prefix}developer/other/` },
+            { text: '网络 API', link: `${prefix}developer/network` },
+            { text: 'Repo API', link: `${prefix}developer/repo/` },
+            { text: '数据生成系统', link: `${prefix}developer/generator/` },
+            { text: 'Codec API', link: `${prefix}developer/codec/` },
+            { text: 'Recipe API', link: `${prefix}developer/recipe/` },
+            { text: '其他常用 API', link: `${prefix}developer/other/` },
             { text: '自定义物品组件', link: `${prefix}developer/other/item-components` }
+          ]
+        },
+        {
+          text: '内容维护参考',
+          collapsed: false,
+          items: [
+            { text: '添加内置作物', link: `${prefix}developer/crop` }
           ]
         }
       ]

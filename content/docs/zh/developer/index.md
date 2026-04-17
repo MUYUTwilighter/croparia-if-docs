@@ -36,17 +36,17 @@ modVersions:
 
 - [核心模块](core/index.md#overview)
   - 先理解 `Infusor`、`Ritual Stand`、`Crop Transmuter`、`Greenhouse` 这几类核心功能是怎么跑起来的
-- [Network](network.md#overview)
+- [网络 API](network.md#overview)
   - 适合想看菜单交互、配方同步和包注册抽象的读者
-- [Repo](repo/index.md#overview)
+- [Repo API](repo/index.md#overview)
   - 适合想看库存、自动化输入输出和平台能力桥接的读者
 
 如果你更偏向“我已经知道模块做什么，现在只想看通用工具怎么用”，那就可以直接从下面这些专题里挑：
 
-- [Generator](generator/index.md#overview)
-- [Recipe](recipe/index.md#overview)
-- [Codec](codec/index.md#overview)
-- [Other](other/index.md#overview)
+- [数据生成系统](generator/index.md#overview)
+- [Recipe API](recipe/index.md#overview)
+- [Codec API](codec/index.md#overview)
+- [其他常用 API](other/index.md#overview)
 
 <a id="sections"></a>
 
@@ -69,12 +69,12 @@ modVersions:
 
 ### 通用 API
 
-- [Repo](repo/index.md#overview)
-- [Generator](generator/index.md#overview)
-- [Recipe](recipe/index.md#overview)
-- [Codec](codec/index.md#overview)
-- [Network](network.md#overview)
-- [Other](other/index.md#overview)
+- [Repo API](repo/index.md#overview)
+- [数据生成系统](generator/index.md#overview)
+- [Recipe API](recipe/index.md#overview)
+- [Codec API](codec/index.md#overview)
+- [网络 API](network.md#overview)
+- [其他常用 API](other/index.md#overview)
 
 这一组更适合回答：
 
@@ -108,6 +108,6 @@ modVersions:
 ## 下一步建议
 
 - 如果你要理解“模组整体是怎么跑起来的”，先读 [核心模块](core/index.md#overview)
-- 如果你要接库存、自动化或平台物品能力，先读 [Repo](repo/index.md#overview)
-- 如果你要接运行时数据生成，先读 [Generator](generator/index.md#overview)
-- 如果你要排查界面交互或客户端同步，先读 [Network](network.md#overview)
+- 如果你要接库存、自动化或平台物品能力，先读 [Repo API](repo/index.md#overview)
+- 如果你要接运行时数据生成，先读 [数据生成系统](generator/index.md#overview)
+- 如果你要排查界面交互或客户端同步，先读 [网络 API](network.md#overview)

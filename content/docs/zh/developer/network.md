@@ -145,7 +145,7 @@ Croparia IF 的网络层可以理解成三层：
 - `CropTransmuterSelectPacket`
 - `CropTransmuterRedstoneModePacket`
 
-它们都由客户端界面 [CropTransmuterScreen](core/crop-transmuter.md) 中的按钮或点击操作发出，再由服务端更新对应的方块实体。
+它们都由客户端界面 [CropTransmuterScreen](core/crop-transmuter.md#network-and-ui) 中的按钮或点击操作发出，再由服务端更新对应的方块实体。
 
 ### 选择产物
 
