@@ -80,6 +80,12 @@ const content = computed<LocalizedContent>(() => ({
       body: '查看自定义能力、数据包、资源包、配方与工具。',
       href: '/modpack/',
       cta: '进入整合包文档'
+    },
+    {
+      title: '开发者',
+      body: '查看核心模块、通用 API、内容维护参考与下游开发说明。',
+      href: '/developer/',
+      cta: '进入开发者文档'
     }
   ],
   galleryTitle: '玩法预览',
