@@ -1,9 +1,11 @@
 import DefaultTheme from 'vitepress/theme'
 import type { Theme } from 'vitepress'
+import { h } from 'vue'
 
 import GameFloatBox from './components/GameFloatBox.vue'
 import GameText from './components/GameText.vue'
 import HomeLanding from './components/HomeLanding.vue'
+import RecordFooter from './components/RecordFooter.vue'
 import './custom.css'
 import GameGuiFrame from "./components/GameGuiFrame.vue";
 import GameSlot from "./components/GameSlot.vue";
@@ -21,6 +23,11 @@ import RowGallery from "./components/RowGallery.vue";
 
 const theme: Theme = {
   extends: DefaultTheme,
+  Layout() {
+    return h(DefaultTheme.Layout, null, {
+      'layout-bottom': () => h(RecordFooter)
+    })
+  },
   enhanceApp({ app }) {
     app.component('GameArrowButton', GameArrowButton);
     app.component('GameFloatBox', GameFloatBox);
