@@ -216,10 +216,47 @@ function buildDeveloperSidebar(prefix: string): DefaultTheme.SidebarItem[] {
           collapsed: false,
           items: [
             { text: '网络 API', link: `${prefix}developer/network` },
-            { text: 'Repo API', link: `${prefix}developer/repo/` },
-            { text: '数据生成系统', link: `${prefix}developer/generator/` },
-            { text: 'Codec API', link: `${prefix}developer/codec/` },
-            { text: 'Recipe API', link: `${prefix}developer/recipe/` }
+            {
+              text: 'Repo API',
+              collapsed: false,
+              items: [
+                { text: '概览', link: `${prefix}developer/repo/` },
+                { text: '快速开始', link: `${prefix}developer/repo/start` },
+                { text: '资源访问', link: `${prefix}developer/repo/resource` },
+                { text: '扩展', link: `${prefix}developer/repo/extend` }
+              ]
+            },
+            {
+              text: '数据生成系统',
+              collapsed: false,
+              items: [
+                { text: '概览', link: `${prefix}developer/generator/` },
+                { text: 'Entry', link: `${prefix}developer/generator/entry` },
+                { text: 'Generator', link: `${prefix}developer/generator/generator` },
+                { text: '占位符', link: `${prefix}developer/generator/placeholder` }
+              ]
+            },
+            {
+              text: 'Codec API',
+              collapsed: false,
+              items: [
+                { text: '概览', link: `${prefix}developer/codec/` },
+                { text: 'Multi Codec', link: `${prefix}developer/codec/multi-codec` },
+                { text: 'Multi Field Codec', link: `${prefix}developer/codec/multi-field-codec` },
+                { text: 'Other', link: `${prefix}developer/codec/other` },
+                { text: 'Tested Codec', link: `${prefix}developer/codec/tested-codec` }
+              ]
+            },
+            {
+              text: 'Recipe API',
+              collapsed: false,
+              items: [
+                { text: '概览', link: `${prefix}developer/recipe/` },
+                { text: 'Entries', link: `${prefix}developer/recipe/entries` },
+                { text: 'JEI', link: `${prefix}developer/recipe/jei` },
+                { text: 'REI', link: `${prefix}developer/recipe/rei` }
+              ]
+            }
           ]
         },
         {
