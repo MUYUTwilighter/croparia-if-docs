@@ -8,7 +8,7 @@ export const locales = {
   }
 }
 
-export const siteOrigin = 'https://croparia.muyucloud.cool/'
+export const siteOrigin = 'https://croparia.muyucloud.cool'
 export const siteBase = '/'
 export const siteUrl = `${siteOrigin}${siteBase}`
 
