@@ -1,6 +1,6 @@
 <script setup lang="ts">
-const currentYear = 2026
-const icpRecordNumber = ''
+const currentYear = 2026;
+const icpRecordNumber = '皖ICP备2026011109号';
 </script>
 
 <template>
@@ -13,10 +13,10 @@ const icpRecordNumber = ''
       <div class="record-footer__meta">
         <p>{{ `© ${currentYear} 暮宇_Twilighter. All rights reserved.` }}</p>
         <a
-          v-if="icpRecordNumber"
-          href="https://beian.miit.gov.cn"
-          target="_blank"
-          rel="noopener noreferrer nofollow"
+            v-if="icpRecordNumber"
+            href="https://beian.miit.gov.cn"
+            target="_blank"
+            rel="noopener noreferrer nofollow"
         >
           {{ icpRecordNumber }}
         </a>
