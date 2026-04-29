@@ -114,7 +114,7 @@ public class GreenhouseBlockEntity extends BlockEntity implements Container {
 
 **注**：代理类 `RepoProxy` 由 Croparia IF 在不同模组平台自动实例化，手动实例化 `new RepoProxy<>(...)` 无法正常在具体的模组平台下工作。
 
-在 `1.1.1a` 里，更常见的写法是先构造一个带锁定视图的 `Repo`，再把这个视图包装成 `RepoProxy`。例如作物嬗变仪会分别导出“输入视图”和“输出视图”：
+实践中，更常见的写法是先构造一个带锁定视图的 `Repo`，再把这个视图包装成 `RepoProxy`。例如作物嬗变仪会分别导出“输入视图”和“输出视图”：
 
 ```java
 private final RepoProxy<ItemSpec> inputProxy = RepoProxy.item(

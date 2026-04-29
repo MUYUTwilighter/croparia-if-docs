@@ -21,15 +21,12 @@ modVersions:
 
 Repo API 是 Croparia IF 为了实现多模组平台存储交互而建立的一组抽象与代理接口。当前默认只内置了物品与流体两种资源类型，主要用于方块或方块实体的存储暴露与访问。
 
-从 `1.1.1a` 开始，Repo 的访问限制模型改成了“分离式出入锁定”：
+Repo 的访问限制模型采用“分离式出入锁定”：
 
 - `accept` 与 `consume` 分别有自己的锁定状态
 - 锁定是视图级过滤，不会改写底层仓库本身
 - `capacityFor(...)` 与 `amountFor(...)` 仍然返回底层原始查询结果，不会因为锁定而变化
-
-如果你正在从旧版本迁移，最需要注意的变化就是：
-
-- 旧的 `asAcceptOnly()` / `asConsumeOnly()` / `asLocked()` 语义已经被 `lockAccept(...)` / `lockConsume(...)` / `lock(...)` 取代
+- 常用的锁定入口是 `lockAccept(...)`、`lockConsume(...)` 与 `lock(...)`
 - 这些锁定视图最终都建立在 `DelegateRepo` 之上，因此可以继续链式组合，并在需要时通过 `trim()` 压平成单层包装
 
 相关代码位于：`cool.muyucloud.croparia.api.repo` 包名下。
