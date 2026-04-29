@@ -14,10 +14,9 @@
   "type": "module",
   "main": "index.js",
   "scripts": {
-    "docs:prepare": "node scripts/prepare-docs.mjs",
     "docs:dev": "vitepress dev",
-    "docs:build": "npm run docs:prepare && vitepress build",
-    "docs:preview": "npm run docs:prepare && vitepress preview",
+    "docs:build": "vitepress build",
+    "docs:preview": "vitepress preview",
     "docs:publish": "npm run docs:build && node scripts/publish-dist.mjs",
     "docs:publish:ssh": "npm run docs:build && node scripts/publish-ssh.mjs"
   },
