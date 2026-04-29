@@ -1,10 +1,10 @@
 ---
 title: 配置与指令
-description: 介绍 Croparia IF 1.1.0a 的配置文件、服务端配置指令，以及 crop、generator 等常用查询与导出命令。
+description: 介绍 Croparia IF 1.1.1a 的配置文件、服务端配置指令，以及 crop、generator 等常用查询与导出命令。
 keywords:
   - Croparia IF
   - 矿石魔种
-  - 1.1.0a
+  - 1.1.1a
   - 整合包
   - 配置
   - 指令
@@ -19,7 +19,7 @@ keywords:
   - dumpBuiltin
   - clearBuiltin
 modVersions:
-  - 1.1.0a
+  - 1.1.1a
 ---
 
 # 设置与指令
@@ -32,7 +32,7 @@ modVersions:
 
 ## 设置项
 
-下表中的设置项来自当前 `1.1.0a` 源码中的 `Config` 实现。
+下表中的设置项来自当前 `1.1.1a` 源码中的 `Config` 实现。
 
 | 名称             | 默认值                             | 简介                                         |
 |----------------|---------------------------------|--------------------------------------------|

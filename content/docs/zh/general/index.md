@@ -1,6 +1,6 @@
 ---
 title: 通用
-description: Croparia IF 1.1.0a 中文通用文档索引，汇总核心概念、方块与物品等基础信息入口。
+description: Croparia IF 1.1.1a 中文通用文档索引，汇总核心概念、方块与物品等基础信息入口。
 keywords:
   - Croparia IF
   - 矿石魔种
@@ -8,9 +8,9 @@ keywords:
   - 索引
   - 我的世界模组
   - Minecraft Mod
-  - 1.1.0a
+  - 1.1.1a
 modVersions:
-  - 1.1.0a
+  - 1.1.1a
 ---
 
 # 概览：通用

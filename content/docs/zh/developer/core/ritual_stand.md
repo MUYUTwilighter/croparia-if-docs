@@ -9,9 +9,9 @@ keywords:
   - RitualStructureContainer
   - DropsCache
   - FakePlayer
-  - 1.1.0a
+  - 1.1.1a
 modVersions:
-  - 1.1.0a
+  - 1.1.1a
 ---
 
 # 仪式台

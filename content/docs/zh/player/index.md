@@ -1,10 +1,10 @@
 ---
 title: 玩家入门
-description: Croparia IF 1.1.0a 玩家快速入门，涵盖安装、元素矿石、注魔台、魔种升级与早期游玩路线。
+description: Croparia IF 1.1.1a 玩家快速入门，涵盖安装、元素矿石、注魔台、魔种升级与早期游玩路线。
 keywords:
   - Croparia IF
   - 矿石魔种
-  - 1.1.0a
+  - 1.1.1a
   - 玩家
   - 入门
   - 新手教程
@@ -22,7 +22,7 @@ keywords:
   - 巨果作物
   - 配方生成器
 modVersions:
-  - 1.1.0a
+  - 1.1.1a
 ---
 
 # 快速入门：玩家

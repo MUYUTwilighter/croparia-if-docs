@@ -8,7 +8,7 @@ keywords:
   - 文档
   - VitePress
 modVersions:
-  - 1.1.0a
+  - 1.1.1a
 hero:
   name: "Croparia IF"
   text: "资源农业、装置推进与强自定义"

@@ -1,10 +1,10 @@
 ---
 title: 配方与结构
-description: 介绍 Croparia IF 1.1.0a 中 Infusor、Ritual、Soak 与 Ritual Structure 的数据格式、字段语义与编写示例。
+description: 介绍 Croparia IF 1.1.1a 中 Infusor、Ritual、Soak 与 Ritual Structure 的数据格式、字段语义与编写示例。
 keywords:
   - Croparia IF
   - 矿石魔种
-  - 1.1.0a
+  - 1.1.1a
   - 整合包
   - 配方
   - 结构
@@ -17,7 +17,7 @@ keywords:
   - 元素仪式
   - 元素浸润
 modVersions:
-  - 1.1.0a
+  - 1.1.1a
 ---
 
 # 配方与结构

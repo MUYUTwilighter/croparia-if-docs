@@ -12,14 +12,25 @@ keywords:
   - 存储接口
   - 多平台存储
   - 开发者文档
-  - 1.1.0a
+  - 1.1.1a
 modVersions:
-  - 1.1.0a
+  - 1.1.1a
 ---
 
 # Repo API
 
 Repo API 是 Croparia IF 为了实现多模组平台存储交互而建立的一组抽象与代理接口。当前默认只内置了物品与流体两种资源类型，主要用于方块或方块实体的存储暴露与访问。
+
+从 `1.1.1a` 开始，Repo 的访问限制模型改成了“分离式出入锁定”：
+
+- `accept` 与 `consume` 分别有自己的锁定状态
+- 锁定是视图级过滤，不会改写底层仓库本身
+- `capacityFor(...)` 与 `amountFor(...)` 仍然返回底层原始查询结果，不会因为锁定而变化
+
+如果你正在从旧版本迁移，最需要注意的变化就是：
+
+- 旧的 `asAcceptOnly()` / `asConsumeOnly()` / `asLocked()` 语义已经被 `lockAccept(...)` / `lockConsume(...)` / `lock(...)` 取代
+- 这些锁定视图最终都建立在 `DelegateRepo` 之上，因此可以继续链式组合，并在需要时通过 `trim()` 压平成单层包装
 
 相关代码位于：`cool.muyucloud.croparia.api.repo` 包名下。
 
@@ -28,6 +39,7 @@ Repo API 是 Croparia IF 为了实现多模组平台存储交互而建立的一�
 Repo API 主要由资源仓库 `Repo`、接口注册机 `ProxyProvider`、仓库代理 `RepoProxy`，以及平台代理接口 `PlatformItemProxy`、`PlatformFluidProxy` 构成。
 
 - `Repo`: 通用模块下的直接交互层。它以槽位索引为基准，建立了一套资源存储视图。
+- `DelegateRepo`：对 `Repo` 进行轻量包装，用来叠加出入锁定这类视图级限制。
 - `RepoProxy`：对 `Repo` 进行包装以适配不同模组平台。
 - `ProxyProvider`：将 `RepoProxy` 注册进具体模组平台，以保证它能被外部的存储系统发现。
 - `PlatformItemProxy` / `PlatformFluidProxy`：对各个平台物品或流体存储接口的统一代理包装，保证通用模块能够以 `Repo` 风格访问它们。

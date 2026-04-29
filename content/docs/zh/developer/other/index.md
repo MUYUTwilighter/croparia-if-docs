@@ -11,9 +11,9 @@ keywords:
   - ItemPlaceable
   - LazySupplier
   - OnLoadSupplier
-  - 1.1.0a
+  - 1.1.1a
 modVersions:
-  - 1.1.0a
+  - 1.1.1a
 ---
 
 # 其他常用 API

@@ -10,9 +10,9 @@ keywords:
   - CropTransmuterScreen
   - CropTransmuterSelectPacket
   - RepoProxy
-  - 1.1.0a
+  - 1.1.1a
 modVersions:
-  - 1.1.0a
+  - 1.1.1a
 ---
 
 # 作物嬗变仪
@@ -159,15 +159,26 @@ modVersions:
 
 真正的输入输出约束在 `CropTransmuterBlockEntity` 里定义：
 
-- 输入侧使用 `repo.asAcceptOnly().asLocked(OUTPUT_SLOT)`
-- 输出侧使用 `repo.asConsumeOnly().asLocked(INPUT_SLOT)`
+- 输入侧使用 `repo.lockConsume(INPUT_SLOT, OUTPUT_SLOT).lockAccept(OUTPUT_SLOT).trim()`
+- 输出侧使用 `repo.lockAccept(INPUT_SLOT, OUTPUT_SLOT).lockConsume(INPUT_SLOT).trim()`
 
 最后分别包装成两个 `RepoProxy<ItemSpec>`：
 
 - 从顶部和侧面访问时给输入代理
 - 从底部访问时给输出代理
 
-这一点很值得参考，因为它让自动化约束保持在仓储层，而不是散落在机器逻辑里。更详细的背景可以看 [Repo API](../repo/index.md#overview)。
+换成行为来理解会更直观：
+
+- 输入视图
+  - 不允许从任意槽位抽取
+  - 不允许向输出槽填入
+  - 最终只允许向输入槽填入果实
+- 输出视图
+  - 不允许向任意槽位填入
+  - 不允许从输入槽抽取
+  - 最终只允许从输出槽取走结果
+
+这一点很值得参考，因为它让自动化约束保持在仓储层，而不是散落在机器逻辑里。更详细的背景可以看 [Repo API](../repo/index.md) 和 [建立你的存储交互](../repo/start.md)。
 
 <a id="network-and-ui"></a>
 

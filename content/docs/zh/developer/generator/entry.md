@@ -11,9 +11,9 @@ keywords:
   - Data Generator Registry
   - 生成条目
   - 开发者文档
-  - 1.1.0a
+  - 1.1.1a
 modVersions:
-  - 1.1.0a
+  - 1.1.1a
 ---
 
 # 添加生成条目

@@ -12,9 +12,9 @@ keywords:
   - decodeJson
   - StreamCodec
   - 开发者文档
-  - 1.1.0a
+  - 1.1.1a
 modVersions:
-  - 1.1.0a
+  - 1.1.1a
 ---
 
 # 其他工具方法

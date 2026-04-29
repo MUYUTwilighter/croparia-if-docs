@@ -9,9 +9,9 @@ keywords:
   - CropBlock
   - RepoProxy
   - 自动收获
-  - 1.1.0a
+  - 1.1.1a
 modVersions:
-  - 1.1.0a
+  - 1.1.1a
 ---
 
 # 温室

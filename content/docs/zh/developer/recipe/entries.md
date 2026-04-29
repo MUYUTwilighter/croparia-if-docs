@@ -11,9 +11,9 @@ keywords:
   - SlotDisplay
   - 配方输入输出
   - 开发者文档
-  - 1.1.0a
+  - 1.1.1a
 modVersions:
-  - 1.1.0a
+  - 1.1.1a
 ---
 
 # 预设输入输出类型

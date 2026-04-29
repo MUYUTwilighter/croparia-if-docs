@@ -1,9 +1,9 @@
 ---
 title: 创建自定义配方生成器
-description: 介绍 Croparia IF 1.1.0a 中 Recipe Wizard 自定义生成器的目录、字段、扩展占位符与实际编写方式。
+description: 介绍 Croparia IF 1.1.1a 中 Recipe Wizard 自定义生成器的目录、字段、扩展占位符与实际编写方式。
 keywords:
   - Croparia IF
-  - 1.1.0a
+  - 1.1.1a
   - 配方生成器
   - Recipe Wizard
   - 自定义配方生成器
@@ -14,7 +14,7 @@ keywords:
   - TOML
   - CDG
 modVersions:
-  - 1.1.0a
+  - 1.1.1a
 ---
 
 # 创建自定义配方生成器
@@ -289,7 +289,7 @@ ${neighbor._qis}
 
 ## 内置模板示例
 
-当前 `1.1.0a` 内置了三份模板，正好也反映了最典型的写法。
+当前 `1.1.1a` 内置了三份模板，正好也反映了最典型的写法。
 
 ### 注魔台配方
 

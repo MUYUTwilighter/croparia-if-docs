@@ -9,9 +9,9 @@ keywords:
   - InfusorRecipe
   - DropsCache
   - ItemPlaceable
-  - 1.1.0a
+  - 1.1.1a
 modVersions:
-  - 1.1.0a
+  - 1.1.1a
 ---
 
 # 注魔台

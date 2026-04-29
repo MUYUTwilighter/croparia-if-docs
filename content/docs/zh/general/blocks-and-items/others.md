@@ -1,6 +1,6 @@
 ---
 title: 其他
-description: 收录 Croparia IF 1.1.0a 中不属于魔种、遗物或工作方块分类的其他条目，如元素矿石、活化尖啸体与配方生成器。
+description: 收录 Croparia IF 1.1.1a 中不属于魔种、遗物或工作方块分类的其他条目，如元素矿石、活化尖啸体与配方生成器。
 keywords:
   - Croparia IF
   - 元素矿石
@@ -10,9 +10,9 @@ keywords:
   - Recipe Wizard
   - 创造模式工具
   - 调试工具
-  - 1.1.0a
+  - 1.1.1a
 modVersions:
-  - 1.1.0a
+  - 1.1.1a
 ---
 
 # 其他

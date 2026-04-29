@@ -13,9 +13,9 @@ keywords:
   - 多平台适配
   - Architectury
   - 开发者文档
-  - 1.1.0a
+  - 1.1.1a
 modVersions:
-  - 1.1.0a
+  - 1.1.1a
 ---
 
 # 扩充 Repo API
@@ -66,6 +66,8 @@ public class FluidRepoProxy extends RepoProxy<FluidSpec> implements Storage<Flui
     // ...
 }
 ```
+
+这里有一个 `1.1.1a` 之后很值得利用的细节：`RepoProxy` 本身继承自 `DelegateRepo`，因此你传入的如果已经是一个经过 `lockAccept(...)`、`lockConsume(...)` 或 `lock(...)` 处理的视图，平台代理层会直接继承这层限制，而不需要再在平台实现里手动补一套槽位过滤逻辑。
 
 ## 3. 注册与发现
 

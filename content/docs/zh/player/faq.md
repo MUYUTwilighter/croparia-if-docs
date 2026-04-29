@@ -1,10 +1,10 @@
 ---
 title: 常见问题
-description: 规划 Croparia IF 1.1.0a 玩家常见问题页，用于集中收纳高频困惑与排错入口。
+description: 规划 Croparia IF 1.1.1a 玩家常见问题页，用于集中收纳高频困惑与排错入口。
 keywords:
   - Croparia IF
   - 矿石魔种
-  - 1.1.0a
+  - 1.1.1a
   - FAQ
   - 玩家
   - 常见问题
@@ -22,7 +22,7 @@ keywords:
   - 日志
   - 生成器模板
 modVersions:
-  - 1.1.0a
+  - 1.1.1a
 ---
 
 # 常见问题与解答

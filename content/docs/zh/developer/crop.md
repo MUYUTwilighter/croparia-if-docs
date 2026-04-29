@@ -11,9 +11,9 @@ keywords:
   - DgRegistries
   - ItemMaterial
   - BlockMaterial
-  - 1.1.0a
+  - 1.1.1a
 modVersions:
-  - 1.1.0a
+  - 1.1.1a
 ---
 
 # 添加内置作物

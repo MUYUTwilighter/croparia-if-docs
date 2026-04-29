@@ -10,9 +10,9 @@ keywords:
   - 延迟加载
   - 数据重载
   - 开发者文档
-  - 1.1.0a
+  - 1.1.1a
 modVersions:
-  - 1.1.0a
+  - 1.1.1a
 ---
 
 # Supplier 工具

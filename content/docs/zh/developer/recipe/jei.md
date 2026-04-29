@@ -11,9 +11,9 @@ keywords:
   - DisplayableRecipe
   - 配方展示
   - 开发者文档
-  - 1.1.0a
+  - 1.1.1a
 modVersions:
-  - 1.1.0a
+  - 1.1.1a
 ---
 
 # JEI 接入

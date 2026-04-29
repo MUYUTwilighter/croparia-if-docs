@@ -13,7 +13,7 @@ export const siteBase = '/'
 export const siteUrl = `${siteOrigin}${siteBase}`
 
 export const currentVersion = {
-  slug: '1.1.0a',
+  slug: '1.1.1a',
   status: 'current',
   inheritsFrom: null
 }

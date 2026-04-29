@@ -14,9 +14,9 @@ keywords:
   - RitualStand
 - DropsCache
   - 开发者文档
-  - 1.1.0a
+  - 1.1.1a
 modVersions:
-  - 1.1.0a
+  - 1.1.1a
 ---
 
 # 可放置物品接口

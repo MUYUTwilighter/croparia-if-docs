@@ -4,7 +4,7 @@ description: 介绍 Croparia IF 运行时数据生成系统中 Placeholder 的�
 keywords:
   - Croparia IF
   - 矿石魔种
-  - 1.1.0a
+  - 1.1.1a
   - 整合包
   - 运行时数据生成系统
   - Placeholder
@@ -15,7 +15,7 @@ keywords:
   - melon
   - element
 modVersions:
-  - 1.1.0a
+  - 1.1.1a
 ---
 
 # 占位符解析器（Placeholder）
@@ -219,7 +219,7 @@ ${fruit.path}
 
 ## 当前常用生成条目的可用字段
 
-下面这些字段来自当前 `1.1.0a` 源码中的 `Placeholder` 定义，适合直接在整合包文档里引用。它们分别对应运行时数据生成系统中的[生成条目](index.md#entry)与[生成条目集](index.md#entry-registry)。
+下面这些字段来自当前 `1.1.1a` 源码中的 `Placeholder` 定义，适合直接在整合包文档里引用。它们分别对应运行时数据生成系统中的[生成条目](index.md#entry)与[生成条目集](index.md#entry-registry)。
 
 <a id="crops"></a>
 

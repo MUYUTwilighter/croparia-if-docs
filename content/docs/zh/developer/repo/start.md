@@ -13,9 +13,9 @@ keywords:
   - PlatformFluidProxy
   - 存储交互
   - 开发教程
-  - 1.1.0a
+  - 1.1.1a
 modVersions:
-  - 1.1.0a
+  - 1.1.1a
 ---
 
 # 教程：Repo API
@@ -79,10 +79,22 @@ public class GreenhouseBlockEntity extends BlockEntity implements Container {
 - `long capacityFor`: 查询某个资源或存储单元的最大容量
 - `long amountFor`: 查询某个资源或存储单元已存储的资源数量
 
-限制器（以下方法执行后不会影响原仓库）：
-- `AcceptOnlyRepo<T> asAcceptOnly` 返回一个只可存不可取的仓库包装
-- `ConsumeOnlyRepo<T> asConsumeOnly` 返回一个只可取不可存的仓库包装
-- `LockedRepo<T> asLocked` 返回一个锁定某些存储单元的仓库包装
+锁定视图（以下方法返回新的包装视图，不会改写原仓库）：
+- `boolean isAcceptLocked(int i)` 查询某个存储单元是否拒绝填入
+- `boolean isConsumeLocked(int i)` 查询某个存储单元是否拒绝抽取
+- `DelegateRepo<T> lockAccept(Integer... idx)` 锁定指定存储单元的填入操作
+- `DelegateRepo<T> lockAccept()` 锁定全部存储单元的填入操作
+- `DelegateRepo<T> lockConsume(Integer... idx)` 锁定指定存储单元的抽取操作
+- `DelegateRepo<T> lockConsume()` 锁定全部存储单元的抽取操作
+- `DelegateRepo<T> lock(Integer... idx)` 同时锁定指定存储单元的填入与抽取
+- `DelegateRepo<T> lock()` 同时锁定全部存储单元的填入与抽取
+- `DelegateRepo<T> trim()` 压平多层 `DelegateRepo`，把链式锁定合并成单层视图
+
+需要特别注意的是：
+
+- 锁定只影响 `accept` / `simAccept` / `consume` / `simConsume`
+- `capacityFor(...)` 与 `amountFor(...)` 仍然返回底层仓库的原始容量与原始存量
+- 如果调用方需要同时知道“这个槽能不能插入”和“这个槽理论容量是多少”，要分别查询锁状态与容量
 
 ## 2. 注册仓库代理
 
@@ -101,6 +113,28 @@ public class GreenhouseBlockEntity extends BlockEntity implements Container {
 ```
 
 **注**：代理类 `RepoProxy` 由 Croparia IF 在不同模组平台自动实例化，手动实例化 `new RepoProxy<>(...)` 无法正常在具体的模组平台下工作。
+
+在 `1.1.1a` 里，更常见的写法是先构造一个带锁定视图的 `Repo`，再把这个视图包装成 `RepoProxy`。例如作物嬗变仪会分别导出“输入视图”和“输出视图”：
+
+```java
+private final RepoProxy<ItemSpec> inputProxy = RepoProxy.item(
+    repo.lockConsume(INPUT_SLOT, OUTPUT_SLOT).lockAccept(OUTPUT_SLOT).trim()
+);
+private final RepoProxy<ItemSpec> outputProxy = RepoProxy.item(
+    repo.lockAccept(INPUT_SLOT, OUTPUT_SLOT).lockConsume(INPUT_SLOT).trim()
+);
+```
+
+这段代码的含义是：
+
+- `inputProxy`
+  - 禁止从输入视图抽取任意槽位
+  - 禁止向输出槽填入物品
+  - 最终只允许向输入槽填入
+- `outputProxy`
+  - 禁止向输出视图填入任意槽位
+  - 禁止从输入槽抽取物品
+  - 最终只允许从输出槽抽取
 
 之后，我们将代理注册进 `ProxyProvider`，让存储仓库能被其他存储系统发现：
 

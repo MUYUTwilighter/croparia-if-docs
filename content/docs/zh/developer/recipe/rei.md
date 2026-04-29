@@ -11,9 +11,9 @@ keywords:
   - TypedSerializer
   - DisplayableRecipe
   - 开发者文档
-  - 1.1.0a
+  - 1.1.1a
 modVersions:
-  - 1.1.0a
+  - 1.1.1a
 ---
 
 # REI 接入

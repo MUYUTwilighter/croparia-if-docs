@@ -1,12 +1,12 @@
 ---
 title: 整合包作者文档
-description: 面向整合包作者的 Croparia IF 1.1.0a 文档入口，规划自定义、配置、生成器与调试相关内容。
+description: 面向整合包作者的 Croparia IF 1.1.1a 文档入口，规划自定义、配置、生成器与调试相关内容。
 keywords:
   - Croparia IF
   - 整合包
   - 自定义
 modVersions:
-  - 1.1.0a
+  - 1.1.1a
 ---
 
 # 整合包作者文档

@@ -8,9 +8,9 @@ keywords:
   - 方块属性
   - DataComponent
   - 开发者文档
-  - 1.1.0a
+  - 1.1.1a
 modVersions:
-  - 1.1.0a
+  - 1.1.1a
 ---
 
 # 访问与修改方块属性

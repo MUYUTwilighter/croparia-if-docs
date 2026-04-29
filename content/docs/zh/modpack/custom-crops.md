@@ -1,9 +1,9 @@
 ---
 title: 自定义作物
-description: 介绍 Croparia IF 1.1.0a 中自定义果实作物与巨果作物的基本思路、指令生成方式、手写 JSON 字段，以及 KubeJS 扩展方案。
+description: 介绍 Croparia IF 1.1.1a 中自定义果实作物与巨果作物的基本思路、指令生成方式、手写 JSON 字段，以及 KubeJS 扩展方案。
 keywords:
   - Croparia IF
-  - 1.1.0a
+  - 1.1.1a
   - 整合包
   - 自定义作物
   - 果实作物
@@ -14,7 +14,7 @@ keywords:
   - KubeJS
   - 指令
 modVersions:
-  - 1.1.0a
+  - 1.1.1a
 ---
 
 # 自定义作物

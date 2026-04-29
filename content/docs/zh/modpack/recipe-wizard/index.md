@@ -1,9 +1,9 @@
 ---
 title: 配方生成器
-description: 介绍 Croparia IF 1.1.0a 中 Recipe Wizard 的基础用途，包括游戏内配方生成与潜行调试功能。
+description: 介绍 Croparia IF 1.1.1a 中 Recipe Wizard 的基础用途，包括游戏内配方生成与潜行调试功能。
 keywords:
   - Croparia IF
-  - 1.1.0a
+  - 1.1.1a
   - 整合包
   - 配方生成器
   - Recipe Wizard
@@ -11,7 +11,7 @@ keywords:
   - 元素石
   - 仪式台
 modVersions:
-  - 1.1.0a
+  - 1.1.1a
 ---
 
 # 配方生成器

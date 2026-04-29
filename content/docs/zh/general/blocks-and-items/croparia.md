@@ -1,6 +1,6 @@
 ---
 title: 魔种
-description: 整理 Croparia IF 1.1.0a 中各阶魔种的用途与合成入口，作为作物体系的核心基础材料说明页。
+description: 整理 Croparia IF 1.1.1a 中各阶魔种的用途与合成入口，作为作物体系的核心基础材料说明页。
 keywords:
   - Croparia IF
   - 魔种
@@ -12,9 +12,9 @@ keywords:
   - Croparia
   - 作物种子
   - 注魔台
-  - 1.1.0a
+  - 1.1.1a
 modVersions:
-  - 1.1.0a
+  - 1.1.1a
 ---
 
 # 魔种
