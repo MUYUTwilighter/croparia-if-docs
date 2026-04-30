@@ -15,10 +15,11 @@ This repository contains the VitePress documentation site for the Croparia IF Mi
 - Default docs locale:
   - Simplified Chinese at `/`
 - Current recorded mod version:
-  - Croparia IF `1.1.0a`
+  - Croparia IF `1.1.1a`
   - Minecraft `1.21.1`
 
 The current version values come from `D:\Documents\JavaProjects\croparia-if\gradle.properties`.
+The active site origin and version routing metadata come from `docs.config.mjs`.
 
 ## Commands
 
@@ -100,7 +101,7 @@ Version switch behavior:
 - `memory.md`
   - Project memory and workflow constraints.
 - `docs.config.mjs`
-  - Shared version metadata and site routing helpers.
+  - Shared version metadata, sidebar profile selection, and site routing helpers.
 - `.vitepress/config.ts`
   - VitePress config, nav, sidebar, and route-aware UI setup.
 
@@ -117,7 +118,7 @@ The site now includes a baseline SEO setup:
 
 Archived version pages are prepared to default to `noindex,follow` so old versions do not compete with the current release in search results.
 
-The current SEO hostname/base assume GitHub Pages project-site deployment at `https://muyutwilighter.github.io/croparia-if-docs/`.
+The current SEO hostname/base target `https://croparia.muyucloud.cool/`.
 
 ## Adding A New Archived Version
 
