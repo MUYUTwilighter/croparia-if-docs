@@ -15,6 +15,7 @@ interface VersioningThemeConfig {
   currentVersionSlug: string
   versions: VersionNavItem[]
   archivedRouteManifest: Record<string, string[]>
+  versionFallbackChains: Record<string, string[]>
 }
 
 function isClient() {
@@ -67,10 +68,18 @@ export function useVersioning() {
   const versions = computed(() => versioning.value?.versions ?? [])
   const currentVersionSlug = computed(() => versioning.value?.currentVersionSlug ?? '')
   const archivedRouteManifest = computed(() => versioning.value?.archivedRouteManifest ?? {})
+  const versionFallbackChains = computed(() => versioning.value?.versionFallbackChains ?? {})
   const explicitVersionSlug = computed(() => route.path.match(/^\/versions\/([^/]+)(?:\/|$)/)?.[1] ?? null)
   const baseRoutePath = computed(() => stripVersionPrefix(route.path))
 
   const activeVersionSlug = computed(() => {
+    if (
+      preferredVersionSlug.value &&
+      resolvePathForVersion(preferredVersionSlug.value, baseRoutePath.value) === route.path
+    ) {
+      return preferredVersionSlug.value
+    }
+
     if (explicitVersionSlug.value) {
       return explicitVersionSlug.value
     }
@@ -86,14 +95,30 @@ export function useVersioning() {
     return archivedRouteManifest.value[versionSlug]?.includes(routePath) ?? false
   }
 
+  function getVersionFallbackChain(versionSlug: string) {
+    return versionFallbackChains.value[versionSlug] ?? [versionSlug]
+  }
+
   function resolvePathForVersion(versionSlug: string, routePath: string) {
     if (versionSlug === currentVersionSlug.value) {
+      const fallbackChain = getVersionFallbackChain(versionSlug).slice(1)
+
+      for (const fallbackVersionSlug of fallbackChain) {
+        if (hasArchivedOverride(fallbackVersionSlug, routePath)) {
+          return buildArchivedVersionPath(fallbackVersionSlug, routePath)
+        }
+      }
+
       return routePath
     }
 
-    return hasArchivedOverride(versionSlug, routePath)
-      ? buildArchivedVersionPath(versionSlug, routePath)
-      : routePath
+    for (const fallbackVersionSlug of getVersionFallbackChain(versionSlug)) {
+      if (hasArchivedOverride(fallbackVersionSlug, routePath)) {
+        return buildArchivedVersionPath(fallbackVersionSlug, routePath)
+      }
+    }
+
+    return routePath
   }
 
   async function navigateToVersion(versionSlug: string) {
@@ -115,7 +140,6 @@ export function useVersioning() {
     if (
       isSynchronizing.value ||
       !preferredVersion ||
-      preferredVersion === currentVersionSlug.value ||
       explicitVersionSlug.value
     ) {
       return
@@ -150,6 +174,16 @@ export function useVersioning() {
     () => route.path,
     async () => {
       if (explicitVersionSlug.value) {
+        const preferredVersion = preferredVersionSlug.value
+
+        if (
+          preferredVersion &&
+          resolvePathForVersion(preferredVersion, baseRoutePath.value) === route.path
+        ) {
+          writeStoredVersion(preferredVersion)
+          return
+        }
+
         writeStoredVersion(explicitVersionSlug.value)
         preferredVersionSlug.value = explicitVersionSlug.value
         return

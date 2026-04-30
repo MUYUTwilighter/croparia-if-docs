@@ -15,7 +15,7 @@ export const siteUrl = `${siteOrigin}${siteBase}`
 export const currentVersion = {
   slug: '1.1.1a',
   status: 'current',
-  inheritsFrom: null,
+  inheritsFrom: '1.1.0a',
   sidebarKey: 'default'
 }
 

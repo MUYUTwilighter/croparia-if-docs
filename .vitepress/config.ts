@@ -9,6 +9,7 @@ import {
   archivedVersions,
   currentVersion,
   localizedText,
+  resolveVersionChain,
   resolveSidebarKey,
   routePathFromRelativePath,
   siteBase,
@@ -18,6 +19,7 @@ import {
 type LocaleKey = 'root'
 type VersionMeta = (typeof allVersions)[number]
 type ArchivedRouteManifest = Record<string, string[]>
+type VersionFallbackChains = Record<string, string[]>
 
 function versionRoot(version: VersionMeta): string {
   return version.status === 'current' ? '/' : `/versions/${version.slug}/`
@@ -116,6 +118,16 @@ function buildArchivedRouteManifest(): ArchivedRouteManifest {
   }
 
   return manifest
+}
+
+function buildVersionFallbackChains(): VersionFallbackChains {
+  const chains: VersionFallbackChains = {}
+
+  for (const version of allVersions) {
+    chains[version.slug] = [...resolveVersionChain(version)].reverse()
+  }
+
+  return chains
 }
 
 function buildGeneralSidebar(prefix: string): DefaultTheme.SidebarItem[] {
@@ -444,6 +456,7 @@ const sharedThemeConfig = {
 }
 
 const archivedRouteManifest = buildArchivedRouteManifest()
+const versionFallbackChains = buildVersionFallbackChains()
 
 function isArchivedVersionPath(routePath: string): boolean {
   return /^\/versions\/[^/]+(?:\/|$)/.test(routePath)
@@ -528,7 +541,8 @@ export default defineConfig({
         status: version.status,
         sidebarKey: resolveSidebarKey(version)
       })),
-      archivedRouteManifest
+      archivedRouteManifest,
+      versionFallbackChains
     },
     outline: {
       label: '页面导航'

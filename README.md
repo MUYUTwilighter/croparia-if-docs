@@ -91,8 +91,9 @@ The current release lives at the locale root. Archived releases should only get 
 
 Version switch behavior:
 
-- The header version selector prefers `/versions/<version>/<same-path>` when that archived page exists.
-- If the archived version does not provide a dedicated page for the current path, the site falls back to the main page under `/`.
+- The header version selector first tries the selected version's archived page at `/versions/<version>/<same-path>`.
+- If that page does not exist, it walks back through the version inheritance chain and uses the nearest older archived page that exists.
+- If neither the selected version nor any inherited older version provides a dedicated page, the site falls back to the main page under `/`.
 - Shared pages are therefore authored once in `docs/`, while version-specific overrides live under `docs/versions/<version>/`.
 - Sidebars now follow the version metadata. By default a version inherits the main sidebar profile, but a version can opt into its own sidebar profile when its page topology diverges.
 
@@ -125,10 +126,11 @@ The current SEO hostname/base target `https://croparia.muyucloud.cool/`.
 1. Add the version metadata in `docs.config.mjs`.
 2. Create `docs/versions/<version>/` and add only the pages that differ from the main docs tree.
 3. Keep the same relative path as the main page you are overriding. For example, override `docs/player/index.md` with `docs/versions/<version>/player/index.md`.
-4. If a page is not created under `docs/versions/<version>/`, that version will fall back to the main page content at the same route.
-5. If that version needs a different sidebar topology, set `sidebarKey` in `docs.config.mjs` and add the corresponding sidebar profile in `.vitepress/config.ts`.
-6. Only create separate pages when wording, behavior, or information architecture truly diverges across versions.
-7. Run `npm.cmd run docs:build` to verify routing and content generation.
+4. Set `inheritsFrom` in `docs.config.mjs` when that version should fall back to an older archived version before using the main docs page.
+5. If a page is not created under `docs/versions/<version>/`, that version will first try inherited older versions, then fall back to the main page content at the same route.
+6. If that version needs a different sidebar topology, set `sidebarKey` in `docs.config.mjs` and add the corresponding sidebar profile in `.vitepress/config.ts`.
+7. Only create separate pages when wording, behavior, or information architecture truly diverges across versions.
+8. Run `npm.cmd run docs:build` to verify routing and content generation.
 
 ## Assets
 
