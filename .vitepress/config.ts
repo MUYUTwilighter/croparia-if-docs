@@ -1,3 +1,5 @@
+import fs from 'node:fs'
+import path from 'node:path'
 import { defineConfig } from 'vitepress'
 import type { HeadConfig } from 'vitepress'
 import type { DefaultTheme } from 'vitepress'
@@ -14,6 +16,7 @@ import {
 
 type LocaleKey = 'root'
 type VersionMeta = (typeof allVersions)[number]
+type ArchivedRouteManifest = Record<string, string[]>
 
 function versionRoot(version: VersionMeta): string {
   return version.status === 'current' ? '/' : `/versions/${version.slug}/`
@@ -35,18 +38,6 @@ function versionLabel(locale: LocaleKey, version: VersionMeta): string {
           : ''
 
   return `${version.slug}${statusSuffix}`
-}
-
-function buildVersionNav(locale: LocaleKey): DefaultTheme.NavItemWithChildren {
-  return {
-    text: `版本 ${currentVersion.slug}`,
-    items: [
-      ...allVersions.map((version) => ({
-        text: versionLabel(locale, version),
-        link: versionRoot(version)
-      }))
-    ]
-  }
 }
 
 function buildNav(locale: LocaleKey): DefaultTheme.NavItem[] {
@@ -83,9 +74,47 @@ function buildNav(locale: LocaleKey): DefaultTheme.NavItem[] {
           link: 'https://qm.qq.com/q/OedneeO0Uw'
         }
       ]
-    },
-    buildVersionNav(locale)
+    }
   ]
+}
+
+function collectMarkdownFiles(directory: string): string[] {
+  if (!fs.existsSync(directory)) {
+    return []
+  }
+
+  const markdownFiles: string[] = []
+
+  for (const entry of fs.readdirSync(directory, { withFileTypes: true })) {
+    const absolutePath = path.join(directory, entry.name)
+
+    if (entry.isDirectory()) {
+      markdownFiles.push(...collectMarkdownFiles(absolutePath))
+      continue
+    }
+
+    if (/\.mdx?$/i.test(entry.name)) {
+      markdownFiles.push(absolutePath)
+    }
+  }
+
+  return markdownFiles
+}
+
+function buildArchivedRouteManifest(): ArchivedRouteManifest {
+  const docsRoot = path.resolve(process.cwd(), 'docs')
+  const manifest: ArchivedRouteManifest = {}
+
+  for (const version of archivedVersions) {
+    const versionDocsRoot = path.join(docsRoot, 'versions', version.slug)
+    const routes = collectMarkdownFiles(versionDocsRoot)
+      .map((filePath) => routePathFromRelativePath(path.relative(versionDocsRoot, filePath)))
+      .sort()
+
+    manifest[version.slug] = routes
+  }
+
+  return manifest
 }
 
 function buildGeneralSidebar(prefix: string): DefaultTheme.SidebarItem[] {
@@ -332,6 +361,8 @@ const sharedThemeConfig = {
   ]
 }
 
+const archivedRouteManifest = buildArchivedRouteManifest()
+
 function isArchivedVersionPath(routePath: string): boolean {
   return /^\/versions\/[^/]+(?:\/|$)/.test(routePath)
 }
@@ -407,6 +438,15 @@ export default defineConfig({
     ...sharedThemeConfig,
     nav: buildNav('root'),
     sidebar: buildSidebar(),
+    versioning: {
+      currentVersionSlug: currentVersion.slug,
+      versions: allVersions.map((version) => ({
+        slug: version.slug,
+        label: versionLabel('root', version),
+        status: version.status
+      })),
+      archivedRouteManifest
+    },
     outline: {
       label: '页面导航'
     },

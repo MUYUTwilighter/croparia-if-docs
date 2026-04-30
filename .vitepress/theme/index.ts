@@ -6,6 +6,7 @@ import GameFloatBox from './components/GameFloatBox.vue'
 import GameText from './components/GameText.vue'
 import HomeLanding from './components/HomeLanding.vue'
 import RecordFooter from './components/RecordFooter.vue'
+import VersionSwitcher from './components/VersionSwitcher.vue'
 import './custom.css'
 import GameGuiFrame from "./components/GameGuiFrame.vue";
 import GameSlot from "./components/GameSlot.vue";
@@ -25,6 +26,8 @@ const theme: Theme = {
   extends: DefaultTheme,
   Layout() {
     return h(DefaultTheme.Layout, null, {
+      'nav-bar-content-after': () => h(VersionSwitcher),
+      'nav-screen-content-after': () => h(VersionSwitcher),
       'layout-bottom': () => h(RecordFooter)
     })
   },

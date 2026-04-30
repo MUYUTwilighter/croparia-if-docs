@@ -265,3 +265,49 @@ body .VPNavBarTitle .title::before {
         padding-bottom: 32px;
     }
 }
+
+.version-switcher {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-left: 16px;
+    color: var(--vp-c-text-2);
+}
+
+.version-switcher__label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+}
+
+.version-switcher__select {
+    min-width: 140px;
+    padding: 6px 28px 6px 10px;
+    border: 1px solid var(--vp-c-divider);
+    border-radius: 999px;
+    background: var(--vp-c-bg-soft);
+    color: var(--vp-c-text-1);
+    font-size: 0.9rem;
+    line-height: 1.2;
+    cursor: pointer;
+}
+
+.version-switcher__select:hover {
+    border-color: var(--vp-c-brand-1);
+}
+
+.version-switcher__select:focus {
+    outline: 2px solid color-mix(in srgb, var(--vp-c-brand-1) 35%, transparent);
+    outline-offset: 2px;
+}
+
+.VPNavScreen .version-switcher {
+    margin: 16px 24px 0;
+    justify-content: space-between;
+}
+
+@media (max-width: 960px) {
+    .VPNavBar .version-switcher {
+        display: none;
+    }
+}
