@@ -1,6 +1,6 @@
 ---
 title: 扩充 Repo API
-description: 介绍如何围绕 Croparia IF 1.1.0a 的 Repo API 扩展新的存储方式，包括 Resource API 注册、RepoProxy 平台包装，以及 ProxyProvider 的注册与发现流程。
+description: 介绍如何围绕 Repo API 扩展新的存储方式，包括 Resource API 注册、RepoProxy 平台包装，以及 ProxyProvider 的注册与发现流程。
 keywords:
   - Croparia IF
   - Repo API
@@ -13,7 +13,6 @@ keywords:
   - 多平台适配
   - Architectury
   - 开发者文档
-  - 1.1.0a
 modVersions:
   - 1.1.0a
 ---
@@ -24,7 +23,7 @@ Repo API 当前默认只内置了物品与流体两种资源类型，并围绕�
 
 ## 1. 注册 Resource API
 
-Repo API 是通过 [Resource API](resource.md) 进行的类型管理，详见[注册说明](resource.md#add-resource-type)。
+Repo API 是通过 [Resource API](/developer/repo/resource) 进行的类型管理，详见[注册说明](/developer/repo/resource#add-resource-type)。
 
 ## 2. 代理包装
 
@@ -109,4 +108,3 @@ public class ProxyProviderImpl {
     // ...
 }
 ```
-

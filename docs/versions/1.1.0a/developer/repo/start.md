@@ -1,6 +1,6 @@
 ---
 title: 教程：Repo API
-description: 介绍如何在 Croparia IF 1.1.0a 中创建 Repo、包装 RepoProxy、注册 ProxyProvider，并查询其他存储系统的 Repo API 入门流程。
+description: 介绍如何在 Croparia IF 中创建 Repo、包装 RepoProxy、注册 ProxyProvider，并查询其他存储系统的 Repo API 入门流程。
 keywords:
   - Croparia IF
   - Repo API
@@ -13,7 +13,6 @@ keywords:
   - PlatformFluidProxy
   - 存储交互
   - 开发教程
-  - 1.1.0a
 modVersions:
   - 1.1.0a
 ---
@@ -70,7 +69,7 @@ public class GreenhouseBlockEntity extends BlockEntity implements Container {
 基础存储交互：
 - `int size`: 存储单元的数量
 - `boolean isEmpty`: 判断仓库或指定存储单元是否为空
-- `TypeToken<T> getType`: 判断存储的资源类型，详见 [Resource API](resource.md)
+- `TypeToken<T> getType`: 判断存储的资源类型，详见 [Resource API](/developer/repo/resource)
 - `T resourceFor`: 获取某一个存储单元的资源种类
 - `long simConsume`: 模拟抽取资源，会返回模拟实际抽取的资源数量
 - `long consume`: 抽取资源，返回实际抽取的资源数量
@@ -142,4 +141,3 @@ itemProxy.ifPresent(proxy -> {
 ```
 
 **注**：由于平台差异，部分 `Repo` 接口方法在不同平台下存在能力差异，请查阅 `PlatformItemProxy` 与 `PlatformFluidProxy` 的接口 javadoc。
-

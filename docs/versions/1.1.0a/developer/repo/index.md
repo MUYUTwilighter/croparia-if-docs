@@ -1,6 +1,6 @@
 ---
 title: Repo API
-description: 面向 Croparia IF 1.1.0a 下游开发者的 Repo API 架构概览，介绍 Repo、RepoProxy、ProxyProvider、PlatformItemProxy 与 PlatformFluidProxy 的职责关系。
+description: 面向 Croparia IF 下游开发者的 Repo API 架构概览，介绍 Repo、RepoProxy、ProxyProvider、PlatformItemProxy 与 PlatformFluidProxy 的职责关系。
 keywords:
   - Croparia IF
   - Repo API
@@ -12,7 +12,6 @@ keywords:
   - 存储接口
   - 多平台存储
   - 开发者文档
-  - 1.1.0a
 modVersions:
   - 1.1.0a
 ---
@@ -32,11 +31,10 @@ Repo API 主要由资源仓库 `Repo`、接口注册机 `ProxyProvider`、仓库
 - `ProxyProvider`：将 `RepoProxy` 注册进具体模组平台，以保证它能被外部的存储系统发现。
 - `PlatformItemProxy` / `PlatformFluidProxy`：对各个平台物品或流体存储接口的统一代理包装，保证通用模块能够以 `Repo` 风格访问它们。
 
-此外，Repo API 使用了 [Resource API](resource.md) 来管理资源种类。
+此外，Repo API 使用了 [Resource API](/developer/repo/resource) 来管理资源种类。
 
 ## 导航
 
 - [建立你的存储交互](start.md)
 - [扩展新的存储方式](extend.md)
-- [添加新的资源类型](resource.md)
-
+- [添加新的资源类型](/developer/repo/resource)

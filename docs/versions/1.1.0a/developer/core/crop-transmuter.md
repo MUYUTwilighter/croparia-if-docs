@@ -1,6 +1,6 @@
 ---
 title: 作物嬗变仪
-description: 介绍 Croparia IF 1.1.0a 中作物嬗变仪模块的方块、方块实体、菜单、界面与网络交互，帮助开发者理解其输入材料读取、候选产物选择与红石控制流程。
+description: 介绍作物嬗变仪模块的方块、方块实体、菜单、界面与网络交互，帮助开发者理解其输入材料读取、候选产物选择与红石控制流程。
 keywords:
   - Croparia IF
   - 开发者文档
@@ -10,7 +10,6 @@ keywords:
   - CropTransmuterScreen
   - CropTransmuterSelectPacket
   - RepoProxy
-  - 1.1.0a
 modVersions:
   - 1.1.0a
 ---
@@ -58,9 +57,9 @@ modVersions:
 - `CropTransmuterScreen`
   - 客户端界面
   - 负责候选面板、分页、按钮与点击操作
-- [CropTransmuterSelectPacket](../network.md#c2s-flow)
+- [CropTransmuterSelectPacket](/developer/network#c2s-flow)
   - 负责把客户端选择同步到服务端
-- [CropTransmuterRedstoneModePacket](../network.md#c2s-flow)
+- [CropTransmuterRedstoneModePacket](/developer/network#c2s-flow)
   - 负责切换红石模式
 
 <a id="state-and-data"></a>

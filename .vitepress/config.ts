@@ -351,14 +351,14 @@ const sidebarProfileBuilders: Record<string, SidebarProfileBuilder> = {
             text: '核心 API',
             collapsed: false,
             items: [
-              { text: '网络', link: `${prefix}developer/network` },
+              { text: '网络', link: `/developer/network` },
               {
                 text: 'Repo API',
                 collapsed: false,
                 items: [
                   { text: '概览', link: `${prefix}developer/repo/` },
                   { text: '快速开始', link: `${prefix}developer/repo/start` },
-                  { text: '资源访问', link: `${prefix}developer/repo/resource` },
+                  { text: '资源访问', link: `/developer/repo/resource` },
                   { text: '扩展', link: `${prefix}developer/repo/extend` }
                 ]
               }
