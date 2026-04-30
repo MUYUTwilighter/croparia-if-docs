@@ -19,7 +19,14 @@ export const currentVersion = {
   sidebarKey: 'default'
 }
 
-export const archivedVersions = []
+export const archivedVersions = [
+  {
+    slug: '1.1.0a',
+    status: 'sts',
+    inheritsFrom: null,
+    sidebarKey: 'legacy110a'
+  }
+]
 
 export const allVersions = [currentVersion, ...archivedVersions]
 

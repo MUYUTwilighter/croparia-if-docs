@@ -329,6 +329,53 @@ const sidebarProfileBuilders: Record<string, SidebarProfileBuilder> = {
     modpack: buildModpackSidebar,
     developer: buildDeveloperSidebar,
     guide: (prefix) => [buildGuideSection(prefix)]
+  },
+  legacy110a: {
+    general: () => [],
+    player: () => [],
+    modpack: () => [],
+    developer: (prefix) => [
+      {
+        text: '开发者',
+        items: [
+          { text: '概览', link: `${prefix}developer/` },
+          {
+            text: '核心模块',
+            collapsed: false,
+            items: [
+              { text: '概览', link: `${prefix}developer/core/` },
+              { text: '作物嬗变仪', link: `${prefix}developer/core/crop-transmuter` }
+            ]
+          },
+          {
+            text: '核心 API',
+            collapsed: false,
+            items: [
+              { text: '网络', link: `${prefix}developer/network` },
+              {
+                text: 'Repo API',
+                collapsed: false,
+                items: [
+                  { text: '概览', link: `${prefix}developer/repo/` },
+                  { text: '快速开始', link: `${prefix}developer/repo/start` },
+                  { text: '资源访问', link: `${prefix}developer/repo/resource` },
+                  { text: '扩展', link: `${prefix}developer/repo/extend` }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    guide: (prefix) => [
+      {
+        text: '归档说明',
+        collapsed: false,
+        items: [
+          { text: '1.1.0a', link: `${prefix}guide/` }
+        ]
+      }
+    ]
   }
 }
 
