@@ -23,6 +23,7 @@ This repository is the VitePress front-end documentation site for the Croparia I
 - By default, assume the same Croparia IF mod version behaves the same across different supported Minecraft versions unless the user explicitly indicates a version-specific behavior difference.
 - Do not assume Minecraft version, loader version, or mod version from old docs text.
 - When docs content depends on behavior that may vary by version, record the exact version used in the docs or commit message.
+- The mod repository currently reports `mod_version=1.1.1a-dev` and `minecraft_version=1.21.1`.
 
 ## Asset And Resource Rules
 
@@ -61,24 +62,21 @@ This docs repo currently uses VitePress `^1.6.4` in `package.json`.
 ## Current Architecture
 
 - The current docs site is a VitePress project with config at `.vitepress/config.ts`.
-- Locale routing currently uses:
-  - Simplified Chinese at `/`
-  - English at `/en/`
-- Version routing currently uses:
-  - Chinese archives at `/versions/<version>/`
-  - English archives at `/en/versions/<version>/`
-- The authoritative hand-written content source is now `content/docs/`.
-- Static public files live in `content/public/` and are copied into the generated docs root.
-- `scripts/prepare-docs.mjs` now prepares content into `docs/`, and VitePress reads from `docs/` via `srcDir`.
-- `docs/` is generated build input, not the long-term hand-edited source of truth.
-- Multi-version distribution no longer uses `content/versioned/base` plus `content/versioned/releases` overlay directories.
-- Version compatibility is now declared per page with frontmatter `modVersions`, and `scripts/prepare-docs.mjs` distributes pages to current or archived routes automatically.
-- Pages with `modVersions` matching the current release emit to locale root routes.
-- Pages with `modVersions` matching archived releases emit under `/versions/<version>/` or `/en/versions/<version>/`.
-- Pages without `modVersions` are treated as fixed site pages and emitted once.
+- The authored docs source is `docs/`.
+- Static public files live in `docs/public/`.
+- There is no `content/` authoring tree and no prepare-docs generation chain in active use.
+- `srcDir` points directly to `docs`, so Markdown pages and static assets are edited in place.
+- The site currently serves a Simplified Chinese primary docs tree at `/`.
+- Archived docs use manual overrides under `docs/versions/<version>/`.
+- The main `docs/` tree is the fallback source of truth for all versions unless an archived page overrides the same relative path.
+- When documenting a new version, create files under `docs/versions/<version>/` only for pages whose wording, behavior, or information architecture truly differs from the main docs tree.
+- Version switching prefers the archived page at the same relative path when it exists.
+- If an archived version does not provide a page for the current route, the version switcher falls back to the main page under `/`.
 - Shared version metadata is maintained in `docs.config.mjs`.
-- README now contains maintenance guidance for the generated content model and routing conventions.
+- Version metadata can declare a `sidebarKey`, allowing a version to use an independent sidebar profile when its topology diverges from the main line.
+- Sidebar profiles are resolved in `.vitepress/config.ts`; by default versions use the `default` sidebar profile unless `sidebarKey` says otherwise.
+- README contains the current maintenance guidance for direct authoring, archive overrides, publishing, and routing conventions.
 - The SEO baseline remains in place, including sitemap, robots, canonical URLs, alternate `hreflang`, and default social metadata support.
-- Avoid reintroducing imported/local symbol collisions in `.vitepress/config.ts`, especially around helpers such as `guideRoot`.
-- The current recorded release in the docs stack is Croparia IF `1.1.0a` on Minecraft `1.21.1`.
+- Avoid reintroducing imported/local symbol collisions in `.vitepress/config.ts`.
+- `docs.config.mjs` currently declares `currentVersion.slug` as `1.1.1a`.
 - The backup copy at `D:\Documents\WebStormProjects\croparia-if-docs-old` is the safer place to recover old art or wording without reintroducing the old stack into this repo.
