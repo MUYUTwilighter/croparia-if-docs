@@ -9,6 +9,7 @@ import {
   archivedVersions,
   currentVersion,
   localizedText,
+  resolveSidebarKey,
   routePathFromRelativePath,
   siteBase,
   siteUrl
@@ -313,6 +314,47 @@ function buildDeveloperSidebar(prefix: string): DefaultTheme.SidebarItem[] {
   ]
 }
 
+type SidebarProfileBuilder = {
+  general: (prefix: string) => DefaultTheme.SidebarItem[]
+  player: (prefix: string) => DefaultTheme.SidebarItem[]
+  modpack: (prefix: string) => DefaultTheme.SidebarItem[]
+  developer: (prefix: string) => DefaultTheme.SidebarItem[]
+  guide: (prefix: string) => DefaultTheme.SidebarItem[]
+}
+
+const sidebarProfileBuilders: Record<string, SidebarProfileBuilder> = {
+  default: {
+    general: buildGeneralSidebar,
+    player: buildPlayerSidebar,
+    modpack: buildModpackSidebar,
+    developer: buildDeveloperSidebar,
+    guide: (prefix) => [buildGuideSection(prefix)]
+  }
+}
+
+function resolveSidebarProfile(version: VersionMeta): SidebarProfileBuilder {
+  const sidebarKey = resolveSidebarKey(version)
+  const sidebarProfile = sidebarProfileBuilders[sidebarKey]
+
+  if (!sidebarProfile) {
+    throw new Error(`Unknown sidebar profile: ${sidebarKey} (version ${version.slug})`)
+  }
+
+  return sidebarProfile
+}
+
+function applySidebarProfile(
+  sidebar: DefaultTheme.Sidebar,
+  prefix: string,
+  sidebarProfile: SidebarProfileBuilder
+) {
+  sidebar[`${prefix}general/`] = sidebarProfile.general(prefix)
+  sidebar[`${prefix}player/`] = sidebarProfile.player(prefix)
+  sidebar[`${prefix}modpack/`] = sidebarProfile.modpack(prefix)
+  sidebar[`${prefix}developer/`] = sidebarProfile.developer(prefix)
+  sidebar[`${prefix}guide/`] = sidebarProfile.guide(prefix)
+}
+
 function buildSidebar(): DefaultTheme.Sidebar {
   const archivedVersionItems = archivedVersions.map((version) => ({
     text: versionLabel('root', version),
@@ -320,11 +362,6 @@ function buildSidebar(): DefaultTheme.Sidebar {
   }))
 
   const sidebar: DefaultTheme.Sidebar = {
-    '/general/': buildGeneralSidebar('/'),
-    '/player/': buildPlayerSidebar('/'),
-    '/modpack/': buildModpackSidebar('/'),
-    '/developer/': buildDeveloperSidebar('/'),
-    '/guide/': [buildGuideSection('/')],
     '/versions/': [
       {
         text: '版本',
@@ -340,13 +377,11 @@ function buildSidebar(): DefaultTheme.Sidebar {
     ]
   }
 
+  applySidebarProfile(sidebar, '/', resolveSidebarProfile(currentVersion))
+
   for (const version of archivedVersions) {
     const prefix = `/versions/${version.slug}/`
-    sidebar[`${prefix}general/`] = buildGeneralSidebar(prefix)
-    sidebar[`${prefix}player/`] = buildPlayerSidebar(prefix)
-    sidebar[`${prefix}modpack/`] = buildModpackSidebar(prefix)
-    sidebar[`${prefix}developer/`] = buildDeveloperSidebar(prefix)
-    sidebar[`${prefix}guide/`] = [buildGuideSection(prefix)]
+    applySidebarProfile(sidebar, prefix, resolveSidebarProfile(version))
   }
 
   return sidebar
@@ -443,7 +478,8 @@ export default defineConfig({
       versions: allVersions.map((version) => ({
         slug: version.slug,
         label: versionLabel('root', version),
-        status: version.status
+        status: version.status,
+        sidebarKey: resolveSidebarKey(version)
       })),
       archivedRouteManifest
     },

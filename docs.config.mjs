@@ -15,12 +15,17 @@ export const siteUrl = `${siteOrigin}${siteBase}`
 export const currentVersion = {
   slug: '1.1.1a',
   status: 'current',
-  inheritsFrom: null
+  inheritsFrom: null,
+  sidebarKey: 'default'
 }
 
 export const archivedVersions = []
 
 export const allVersions = [currentVersion, ...archivedVersions]
+
+export function resolveSidebarKey(version) {
+  return version.sidebarKey ?? 'default'
+}
 
 export function localePrefix(_localeKey) {
   return ''
