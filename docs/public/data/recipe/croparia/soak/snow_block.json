@@ -1,7 +1,0 @@
-{
-  "type": "croparia:soak",
-  "element": "air",
-  "input": "minecraft:ice",
-  "output": "minecraft:snow_block",
-  "probability": 1.0
-}

@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://muyutwilighter.github.io/croparia-if-docs/sitemap.xml

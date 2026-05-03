@@ -1,7 +1,0 @@
-{
-  "type": "croparia:ritual",
-  "ritual": "#croparia:ritual_stands",
-  "ingredient": "minecraft:sculk_sensor",
-  "block": "minecraft:bell",
-  "result": "minecraft:sculk_shrieker"
-}

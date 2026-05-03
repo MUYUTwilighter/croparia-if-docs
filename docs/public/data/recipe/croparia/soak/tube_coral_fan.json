@@ -1,7 +1,0 @@
-{
-  "type": "croparia:soak",
-  "element": "water",
-  "input": "minecraft:glow_lichen",
-  "output": "minecraft:tube_coral_fan",
-  "probability": 1.0
-}

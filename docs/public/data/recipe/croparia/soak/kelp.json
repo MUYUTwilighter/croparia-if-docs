@@ -1,7 +1,0 @@
-{
-  "type": "croparia:soak",
-  "element": "water",
-  "input": "minecraft:seagrass",
-  "output": "minecraft:kelp",
-  "probability": 1.0
-}

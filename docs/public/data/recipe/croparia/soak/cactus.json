@@ -1,7 +1,0 @@
-{
-  "type": "croparia:soak",
-  "element": "fire",
-  "input": "minecraft:sugar_cane",
-  "output": "minecraft:cactus",
-  "probability": 1.0
-}

@@ -1,7 +1,0 @@
-{
-  "type": "croparia:soak",
-  "element": "fire",
-  "input": "minecraft:brown_mushroom_block",
-  "output": "minecraft:warped_wart_block",
-  "probability": 1.0
-}
