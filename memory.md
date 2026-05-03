@@ -1,6 +1,6 @@
 # Croparia IF Docs Project Memory
 
-This repository is the VitePress front-end documentation site for the Croparia IF Minecraft mod.
+This repository is the Next.js documentation frontend for the Croparia IF Minecraft mod.
 
 ## Startup Checklist For Every Future Conversation
 
@@ -14,7 +14,7 @@ This repository is the VitePress front-end documentation site for the Croparia I
 - The main mod project lives at `D:\Documents\JavaProjects\croparia-if`.
 - The mod project is built with Architectury Loom and targets Fabric plus NeoForge or Forge-family loaders.
 - The mod project is read-only from the docs agent perspective. Never modify files in `D:\Documents\JavaProjects\croparia-if`.
-- Legacy reusable art assets may be available at `D:\Documents\WebStormProjects\croparia-if-docs-old`.
+- Legacy reusable art assets may be available at `D:\Documents\WebStormProjects\croparia-if-docs-docusaurus` and `D:\Documents\WebStormProjects\croparia-if-docs-vp`.
 
 ## Mod Version And Source Of Truth
 
@@ -23,23 +23,22 @@ This repository is the VitePress front-end documentation site for the Croparia I
 - By default, assume the same Croparia IF mod version behaves the same across different supported Minecraft versions unless the user explicitly indicates a version-specific behavior difference.
 - Do not assume Minecraft version, loader version, or mod version from old docs text.
 - When docs content depends on behavior that may vary by version, record the exact version used in the docs or commit message.
-- The mod repository currently reports `mod_version=1.1.1a-dev` and `minecraft_version=1.21.1`.
 
 ## Asset And Resource Rules
 
-- If docs need assets from the mod project, copy them into this docs repository before referencing them.
-- If docs need legacy art that no longer exists in the current repo, check `D:\Documents\WebStormProjects\croparia-if-docs-old` first.
-- Never hotlink or directly reference files from the mod repository in site source.
-- Never reference assets directly from `D:\Documents\WebStormProjects\croparia-if-docs-old` in site source. Copy them into this docs repository before use.
-- Prefer storing reused static assets in a stable docs-side location such as `.vitepress/public/` with clear subfolders.
+- If docs need assets from the mod project or legacy docs projects, copy them into this docs repository before referencing them.
+- Never hotlink or directly reference files from the mod repository or legacy docs repositories in site source.
+- Prefer storing reused static assets in `public/`, with stable subfolders such as `public/assets/` and `public/data/`.
 - If imported assets are large, use local tools such as `cwebp` and `ffmpeg` to compress them before committing.
 - Keep source-to-doc asset mapping easy to trace in commit messages or nearby docs notes.
 
 ## Working Conventions
 
-- Default to reusable implementations. If logic, rendering, or content transformation may repeat, extract a util, helper, component, or shared content structure instead of duplicating it.
-- When adding reusable code for this site, keep the abstraction inside the docs repo, not the mod repo.
-- Favor conventions that work well with VitePress: Markdown-first content, shared Vue components only where they materially reduce duplication, and small focused utilities.
+- Default to reusable implementations. If logic, rendering, or content transformation may repeat, extract a util, parser helper, React component, shared provider, or hook instead of duplicating it.
+- Keep domain logic pure whenever possible. Parsing, routing, navigation derivation, SEO derivation, visibility checks, and search indexing belong in `src/lib/docs/`.
+- Keep UI consumption concerns in `src/components/docs/` and page route entrypoints in `app/`.
+- Do not move docs-specific business logic into ad hoc page components when it can live in the shared docs libraries.
+- The current architecture is parser-driven, not sidebar-config-driven and not “Markdown file maps directly to static site behavior without interpretation”.
 
 ## Git Workflow Expectations
 
@@ -52,31 +51,104 @@ This repository is the VitePress front-end documentation site for the Croparia I
 
 Use official documentation as the primary reference when architecture or framework behavior is unclear:
 
-- VitePress: <https://vitepress.dev/>
+- Next.js: <https://nextjs.org/docs>
+- React: <https://react.dev/>
+- MDX: <https://mdxjs.com/docs/>
 - Architectury docs, including API, Loom, and Plugin: <https://docs.architectury.dev/>
 - NeoForge docs: <https://docs.neoforged.net/>
 - Fabric docs: <https://docs.fabricmc.net/>
 
-This docs repo currently uses VitePress `^1.6.4` in `package.json`.
+This docs repo currently uses Next.js `16.2.4`, React `19.2.4`, and MDX through `@next/mdx`.
 
 ## Current Architecture
 
-- The current docs site is a VitePress project with config at `.vitepress/config.ts`.
-- The authored docs source is `docs/`.
-- Static public files live in `docs/public/`.
-- There is no `content/` authoring tree and no prepare-docs generation chain in active use.
-- `srcDir` points directly to `docs`, so Markdown pages and static assets are edited in place.
-- The site currently serves a Simplified Chinese primary docs tree at `/`.
-- Archived docs use manual overrides under `docs/versions/<version>/`.
-- The main `docs/` tree is the fallback source of truth for all versions unless an archived page overrides the same relative path.
-- When documenting a new version, create files under `docs/versions/<version>/` only for pages whose wording, behavior, or information architecture truly differs from the main docs tree.
-- Version switching prefers the archived page at the same relative path when it exists.
-- If an archived version does not provide a page for the current route, the version switcher falls back to the main page under `/`.
-- Shared version metadata is maintained in `docs.config.mjs`.
-- Version metadata can declare a `sidebarKey`, allowing a version to use an independent sidebar profile when its topology diverges from the main line.
-- Sidebar profiles are resolved in `.vitepress/config.ts`; by default versions use the `default` sidebar profile unless `sidebarKey` says otherwise.
-- README contains the current maintenance guidance for direct authoring, archive overrides, publishing, and routing conventions.
-- The SEO baseline remains in place, including sitemap, robots, canonical URLs, alternate `hreflang`, and default social metadata support.
-- Avoid reintroducing imported/local symbol collisions in `.vitepress/config.ts`.
-- `docs.config.mjs` currently declares `currentVersion.slug` as `1.1.1a`.
-- The backup copy at `D:\Documents\WebStormProjects\croparia-if-docs-old` is the safer place to recover old art or wording without reintroducing the old stack into this repo.
+- The docs frontend is a Next.js App Router project.
+- Route entrypoints live under `app/`.
+- The formal documentation space is normalized to `/doc/[locale]/[version]/[...slug]`.
+- Short paths and compatibility entrypoints still exist, but they ultimately normalize to the full `/doc/...` document path model.
+- Root-path special document pages are supported at `/`, `/<locale>`, `/[root-doc]`, and `/<locale>/[root-doc]`.
+- Root-path special document pages render document content without a sidebar, but their canonical URL still points to the full `/doc/...` path.
+
+## Content System
+
+- `content/` is the only document content source.
+- Documents are organized as `content/[locale]/[version]/...`.
+- `content/` is the source of truth; do not treat route files in `app/` as the authored docs source.
+- The docs system is parser-driven. Page rendering depends on resolved content, metadata, navigation state, visibility state, and fallback state rather than direct filesystem-to-page assumptions.
+
+## Core Directories
+
+- `app/` contains Next route entrypoints and route handlers.
+- `content/` contains authored documentation content by locale and version.
+- `src/lib/docs/` contains pure docs infrastructure such as parsing, routing, navigation derivation, SEO logic, search logic, and content resolution.
+- `src/components/docs/` contains the docs consumption layer, including shared components, context provider, and hooks.
+- `public/` contains static assets for the Next app.
+
+## Resolution And Fallback Rules
+
+- `resolveDoc()` is the central document resolver.
+- Resolution is version-first, then locale-fallback within that version, then inherited-version fallback.
+- When a document is requested, preserve the requested version semantics as long as possible before falling back across version inheritance.
+- Only return 404 after all applicable locale and version fallback paths are exhausted.
+- Resolved page state includes requested and resolved locale, version, and slug, plus fallback trace, frontmatter, and visibility state.
+
+## Navigation Model
+
+- Header and sidebar are content-driven, derived automatically from `content/` structure plus frontmatter.
+- Navigation no longer depends on a hand-written sidebar tree.
+- Top-level standalone docs that sit beside section directories may enter the header but do not enter the sidebar.
+- Section index pages enter the header.
+- Pages inside a section enter that section’s sidebar.
+- When a section page is open, the sidebar should show only navigation for the current section.
+
+## Frontmatter Rules
+
+- Supported content-driving frontmatter keys are `title`, `desc`, `nonav`, `navOrder`, and `sitemap`.
+- Other simple scalar frontmatter values should flow into metadata.
+- Default behavior is:
+  - `title`: first H1, otherwise `未知标题`
+  - `desc`: first paragraph following the H1, otherwise empty
+  - `nonav`: `false`
+  - `navOrder`: `0`
+  - `sitemap`: `true`
+
+## SEO And Indexing
+
+- Canonical URLs must be computed from the real resolved source page, not merely from the incoming request URL.
+- Fallback pages should default to `noindex,follow` to avoid duplicate-content indexing problems.
+- Sitemap entries should include only full document paths that satisfy visibility rules.
+- Root-path special document pages may render content directly, but canonical URLs should still point to `/doc/...`.
+
+## Search System
+
+- Site search is implemented with a generated index plus an API route at `/api/search`.
+- Search indexing should deduplicate by real source page, not create duplicate entries for fallback URLs.
+- Search responses should expose both the current-context href and the canonical href of the real source page.
+
+## Caching And Dev Mode
+
+- Document scanning, frontmatter parsing, slug listing, `resolveDoc()`, and sidebar resolution are cached.
+- MDX compilation results are cached.
+- `npm run dev` is wired to observe `content/` changes so Next development mode can pick up docs edits and trigger the hot-update chain.
+
+## Testing
+
+- The project uses Vitest-based tests aligned with the Next environment.
+- Key test coverage areas include document fallback order, route normalization, navigation and visibility rules, canonical behavior, and search URL or parameter contracts.
+- Primary test commands are `npm run test` and `npm run test:run`.
+
+## Consumption Layer
+
+- Low-level resolver and routing logic should remain pure functions, not be hookified prematurely.
+- Page consumption should flow through provider plus hooks.
+- The current docs consumption layer provides:
+  - `DocProvider`
+  - `useDocContext`
+  - `useOptionalDocContext`
+  - `useDocNavigation`
+  - `useFallbackNotice`
+  - `useDiscoveryState`
+  - `useLocaleSwitcher`
+  - `useVersionSwitcher`
+  - `useDocSearch`
+- New UI controls such as locale switchers, version switchers, fallback notices, header or sidebar UI, and search boxes should build on these hooks before inventing parallel state systems.
