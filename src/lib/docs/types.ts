@@ -15,9 +15,7 @@ export interface LocaleDefinition {
 }
 
 export interface VersionDefinition {
-  slug: VersionSlug;
-  label: string;
-  inheritsFrom: VersionSlug | null;
+  parent: VersionSlug | null;
 }
 
 export interface DocFrontmatter {

@@ -42,7 +42,7 @@ function buildVersionChain(requestedVersion: VersionSlug) {
 
     visited.add(cursor);
     chain.push(cursor);
-    cursor = getVersionDefinition(cursor).inheritsFrom;
+    cursor = getVersionDefinition(cursor).parent;
   }
 
   if (!chain.includes(docsConfig.defaultContentVersion)) {

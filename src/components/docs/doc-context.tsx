@@ -2,7 +2,7 @@
 
 import { createContext, useContext, useMemo } from "react";
 
-import { localeCodes, locales, versionSlugs, versions } from "@/src/lib/docs/config";
+import { localeCodes, locales, versionSlugs } from "@/src/lib/docs/config";
 import { buildDocPath } from "@/src/lib/docs/routing";
 import type { LocaleCode, ResolvedDoc, ResolvedSidebar, VersionSlug } from "@/src/lib/docs/types";
 
@@ -121,7 +121,7 @@ export function useVersionSwitcher() {
       currentVersion: doc.requestedVersion,
       versions: versionSlugs.map((version) => ({
         slug: version,
-        label: versions[version].label,
+        label: version,
         href: buildDocPath(doc.requestedLocale, version, doc.requestedSlug),
         isCurrent: version === doc.requestedVersion,
       })),

@@ -39,14 +39,10 @@ export const locales: Record<LocaleCode, LocaleDefinition> = {
 
 export const versions: Record<VersionSlug, VersionDefinition> = {
   "1.1.0a": {
-    slug: "1.1.0a",
-    label: "1.1.0a",
-    inheritsFrom: null,
+    parent: null,
   },
   "1.1.1a": {
-    slug: "1.1.1a",
-    label: "1.1.1a",
-    inheritsFrom: "1.1.0a",
+    parent: "1.1.0a",
   },
 };
 
