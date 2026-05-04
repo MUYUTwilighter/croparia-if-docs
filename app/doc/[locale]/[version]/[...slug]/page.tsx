@@ -73,7 +73,7 @@ export default async function DocPage({ params }: DocPageProps) {
 
   const requestedPath = buildDocPath(doc.requestedLocale, doc.requestedVersion, doc.requestedSlug);
   const resolvedPath = buildDocPath(doc.resolvedLocale, doc.resolvedVersion, doc.resolvedSlug);
-  const content = await renderMdxSource(doc.rawContent);
+  const content = await renderMdxSource(doc.body);
   const sidebar = resolveSidebar(doc.requestedLocale, doc.requestedVersion, doc.requestedSlug);
   const pageMetadata = buildDocMetadata(doc);
   const canonicalPath =

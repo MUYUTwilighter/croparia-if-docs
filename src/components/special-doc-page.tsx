@@ -12,7 +12,7 @@ interface SpecialDocPageProps {
 
 export async function SpecialDocPage({ doc, requestedPath }: SpecialDocPageProps) {
   const resolvedPath = buildDocPath(doc.resolvedLocale, doc.resolvedVersion, doc.resolvedSlug);
-  const content = await renderMdxSource(doc.rawContent);
+  const content = await renderMdxSource(doc.body);
   const sidebar = resolveSidebar(doc.requestedLocale, doc.requestedVersion, []);
 
   return (
