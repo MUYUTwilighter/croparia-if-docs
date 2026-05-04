@@ -49,7 +49,7 @@ function SidebarTree({ items }: { items: SidebarItem[] }) {
 
 export function DocChrome({ children }: { children: React.ReactNode }) {
   const { doc, requestedPath, resolvedPath, canonicalPath } = useDocContext();
-  const { headerItems, sidebarItems, currentSectionKey, currentSectionTitle } = useDocNavigation();
+  const { headerItems, sidebarItems, currentSectionTitle } = useDocNavigation();
   const { isFallback, message } = useFallbackNotice();
   const { isNavVisible, isSitemapIncluded, isHidden } = useDiscoveryState();
   const localeSwitcher = useLocaleSwitcher();

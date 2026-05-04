@@ -14,6 +14,14 @@ describe("sidebar and metadata", () => {
     expect(sidebar.headerItems.map((item) => item.text)).toEqual(["Croparia IF 文档", "玩家文档占位页"]);
   });
 
+  it("treats directory index docs as section roots instead of standalone pages", () => {
+    const sidebar = resolveSidebar("zh", "1.1.1a", ["player"]);
+
+    expect(sidebar.currentSectionKey).toBe("player");
+    expect(sidebar.currentSectionTitle).toBe("玩家文档占位页");
+    expect(sidebar.items.map((item) => item.text)).toEqual(["玩家文档占位页"]);
+  });
+
   it("resolves standalone root docs that are not part of a section tree", () => {
     const doc = resolveStandaloneRootDoc("zh", "1.1.1a", ["removed"]);
 

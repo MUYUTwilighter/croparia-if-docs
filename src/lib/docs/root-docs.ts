@@ -4,6 +4,25 @@ import { contentSignal } from "@/src/lib/docs/content-signal";
 import { listDocumentSlugs, resolveDoc } from "@/src/lib/docs/resolve-doc";
 import type { LocaleCode, ResolvedDoc, VersionSlug } from "@/src/lib/docs/types";
 
+function normalizePathSeparators(value: string) {
+  return value.replace(/\\/g, "/");
+}
+
+function isSectionRootDoc(doc: ResolvedDoc) {
+  if (doc.requestedSlug.length !== 1) {
+    return false;
+  }
+
+  const segment = doc.requestedSlug[0];
+
+  if (!segment) {
+    return false;
+  }
+
+  const normalizedSourcePath = normalizePathSeparators(doc.relativeSourcePath);
+  return normalizedSourcePath.endsWith(`/${segment}/index.mdx`) || normalizedSourcePath.endsWith(`/${segment}/index.md`);
+}
+
 const listResolvedDocsCached = cache((locale: LocaleCode, version: VersionSlug, signal: string) => {
   void signal;
 
@@ -19,8 +38,8 @@ export function listResolvedDocs(locale: LocaleCode, version: VersionSlug) {
 function listSectionKeys(locale: LocaleCode, version: VersionSlug) {
   return new Set(
     listResolvedDocs(locale, version)
-      .filter((doc) => doc.requestedSlug.length > 1)
-      .map((doc) => doc.requestedSlug[0])
+      .filter((doc) => doc.requestedSlug.length > 1 || isSectionRootDoc(doc))
+      .map((doc) => doc.requestedSlug[0] ?? null)
       .filter((value): value is string => Boolean(value)),
   );
 }
