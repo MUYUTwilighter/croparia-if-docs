@@ -137,7 +137,9 @@ function inferTitleAndDesc(body: string) {
 }
 
 function parseFrontmatter(rawContent: string): { frontmatter: DocFrontmatter; body: string } {
-  if (!rawContent.startsWith("---\n")) {
+  const frontmatterMatch = rawContent.match(/^---\r?\n([\s\S]*?)\r?\n---\r?\n?/);
+
+  if (!frontmatterMatch) {
     const { title, desc } = inferTitleAndDesc(rawContent);
     return {
       frontmatter: {
@@ -149,22 +151,8 @@ function parseFrontmatter(rawContent: string): { frontmatter: DocFrontmatter; bo
     };
   }
 
-  const closingMarker = rawContent.indexOf("\n---\n", 4);
-
-  if (closingMarker === -1) {
-    const { title, desc } = inferTitleAndDesc(rawContent);
-    return {
-      frontmatter: {
-        title,
-        desc,
-        metadata: {},
-      },
-      body: rawContent,
-    };
-  }
-
-  const rawFrontmatter = rawContent.slice(4, closingMarker);
-  const body = rawContent.slice(closingMarker + "\n---\n".length);
+  const rawFrontmatter = frontmatterMatch[1] ?? "";
+  const body = rawContent.slice(frontmatterMatch[0].length);
   const inferred = inferTitleAndDesc(body);
   const frontmatter: DocFrontmatter = {
     title: inferred.title,
