@@ -1,6 +1,15 @@
 "use client";
 
 import Link from "next/link";
+import {
+  Alert,
+  Box,
+  List,
+  ListItemButton,
+  Paper,
+  Stack,
+  Typography,
+} from "@mui/material";
 
 import {
   useDiscoveryState,
@@ -11,26 +20,30 @@ import {
   useVersionSwitcher,
 } from "@/src/components/docs/doc-context";
 import type { SidebarItem } from "@/src/lib/docs/types";
+import { ContentPaper, PageFooter, PageMetaBar, SiteHeader, docContentSx } from "@/src/components/docs/chrome-shared";
 
 function SidebarTree({ items }: { items: SidebarItem[] }) {
   return (
-    <ul className="space-y-3">
+    <List disablePadding sx={{ display: "flex", flexDirection: "column", gap: 1 }}>
       {items.map((item) => (
-        <li key={item.href} className="space-y-3">
-          <Link
+        <Box key={item.href}>
+          <ListItemButton
+            component={Link}
             href={item.href}
-            className="block rounded-xl px-3 py-2 text-sm font-medium text-stone-700 transition hover:bg-stone-100 hover:text-stone-950"
+            sx={{ borderRadius: 2, alignItems: "flex-start", px: 1.5, py: 1 }}
           >
-            {item.text}
-          </Link>
+            <Typography variant="body2" sx={{ fontWeight: 500, color: "text.primary" }}>
+              {item.text}
+            </Typography>
+          </ListItemButton>
           {item.items && item.items.length > 0 ? (
-            <div className="border-l border-stone-200 pl-3">
+            <Box sx={{ borderLeft: 1, borderColor: "divider", ml: 2, pl: 1.5, mt: 1 }}>
               <SidebarTree items={item.items} />
-            </div>
+            </Box>
           ) : null}
-        </li>
+        </Box>
       ))}
-    </ul>
+    </List>
   );
 }
 
@@ -41,147 +54,103 @@ export function DocChrome({ children }: { children: React.ReactNode }) {
   const { isNavVisible, isSitemapIncluded, isHidden } = useDiscoveryState();
   const localeSwitcher = useLocaleSwitcher();
   const versionSwitcher = useVersionSwitcher();
+  const localeItems = localeSwitcher.locales.map((locale) => ({
+    key: locale.code,
+    href: locale.href,
+    label: locale.label,
+    isCurrent: locale.isCurrent,
+  }));
+  const versionItems = versionSwitcher.versions.map((version) => ({
+    key: version.slug,
+    href: version.href,
+    label: version.label,
+    isCurrent: version.isCurrent,
+  }));
 
   return (
-    <main className="min-h-screen bg-stone-50 text-stone-900">
-      <div className="mx-auto flex w-full max-w-6xl flex-col gap-8 px-6 py-10 lg:px-8">
-        <header className="space-y-4 rounded-3xl border border-stone-200 bg-white p-8 shadow-sm">
-          <p className="text-sm font-medium tracking-[0.2em] text-stone-500 uppercase">Croparia IF Docs</p>
-          <div className="space-y-2">
-            <h1 className="text-3xl font-semibold tracking-tight">{doc.frontmatter.title ?? "未设置标题的文档页面"}</h1>
-            <p className="max-w-3xl text-sm leading-7 text-stone-600">
-              页面已由统一 resolver 决定实际来源，同时复用同一份结果来生成 metadata、canonical、导航与搜索索引。
-            </p>
-          </div>
-          <dl className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
-            <div className="rounded-2xl bg-stone-100 px-4 py-3">
-              <dt className="text-xs font-semibold tracking-wide text-stone-500 uppercase">请求路径</dt>
-              <dd className="mt-2 break-all font-mono text-sm text-stone-900">{requestedPath}</dd>
-            </div>
-            <div className="rounded-2xl bg-stone-100 px-4 py-3">
-              <dt className="text-xs font-semibold tracking-wide text-stone-500 uppercase">实际来源</dt>
-              <dd className="mt-2 break-all font-mono text-sm text-stone-900">{resolvedPath}</dd>
-            </div>
-            <div className="rounded-2xl bg-stone-100 px-4 py-3">
-              <dt className="text-xs font-semibold tracking-wide text-stone-500 uppercase">源文件</dt>
-              <dd className="mt-2 break-all font-mono text-sm text-stone-900">{doc.relativeSourcePath}</dd>
-            </div>
-            <div className="rounded-2xl bg-stone-100 px-4 py-3">
-              <dt className="text-xs font-semibold tracking-wide text-stone-500 uppercase">当前栏目</dt>
-              <dd className="mt-2 break-all font-mono text-sm text-stone-900">{currentSectionKey ?? "无"}</dd>
-            </div>
-            <div className="rounded-2xl bg-stone-100 px-4 py-3 md:col-span-2 xl:col-span-4">
-              <dt className="text-xs font-semibold tracking-wide text-stone-500 uppercase">Canonical</dt>
-              <dd className="mt-2 break-all font-mono text-sm text-stone-900">{canonicalPath}</dd>
-            </div>
-          </dl>
-          <nav className="flex flex-wrap gap-2">
-            {headerItems.map((item) => (
-              <Link
-                key={item.key}
-                href={item.href}
-                className={`rounded-full px-3 py-1.5 text-sm font-medium transition ${
-                  item.isCurrent
-                    ? "bg-stone-900 text-white"
-                    : "bg-stone-100 text-stone-700 hover:bg-stone-200 hover:text-stone-950"
-                }`}
+    <Box sx={{ minHeight: "100vh", display: "flex", flexDirection: "column", bgcolor: "background.default" }}>
+      <SiteHeader headerItems={headerItems} />
+      <Box component="main" sx={{ flex: 1, width: "100%" }}>
+        <Box sx={{ px: { xs: 2, md: 4 }, py: { xs: 3, md: 5 } }}>
+          <Stack spacing={3}>
+            <ContentPaper>
+              <Stack spacing={2.5}>
+                <Box>
+                  <Typography variant="overline" color="primary.main" sx={{ letterSpacing: "0.16em", fontWeight: 700 }}>
+                    Document
+                  </Typography>
+                  <Typography variant="h3" component="h1" sx={{ mt: 1 }}>
+                    {doc.frontmatter.title ?? "未设置标题的文档页面"}
+                  </Typography>
+                  <Typography variant="body1" color="text.secondary" sx={{ mt: 1.5, maxWidth: 960 }}>
+                    {doc.frontmatter.desc ?? "这里渲染的是 resolver 最终命中的 MDX 内容源，并沿用统一的导航、fallback 与 canonical 规则。"}
+                  </Typography>
+                </Box>
+                <PageMetaBar localeItems={localeItems} versionItems={versionItems} />
+                {isHidden ? (
+                  <Alert severity="warning">
+                    该页面通过 frontmatter 控制可发现性：
+                    {!isNavVisible ? " `nonav: true` 已将它从侧栏导航中排除；" : ""}
+                    {!isSitemapIncluded ? " `sitemap: false` 已将它从 sitemap 和默认索引策略中排除。" : ""}
+                  </Alert>
+                ) : null}
+                {!isHidden && isFallback && message ? (
+                  <Alert severity="info">
+                    {message} 此类 fallback 页面默认使用真实来源页的 canonical，并以 `noindex,follow` 暴露给搜索引擎。
+                  </Alert>
+                ) : null}
+                <Stack direction={{ xs: "column", md: "row" }} spacing={2} useFlexGap sx={{ flexWrap: "wrap" }}>
+                  <Typography variant="body2" color="text.secondary">
+                    请求路径：{requestedPath}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    实际来源：{resolvedPath}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    Canonical：{canonicalPath}
+                  </Typography>
+                </Stack>
+              </Stack>
+            </ContentPaper>
+
+            <Box
+              sx={{
+                display: "grid",
+                gap: 3,
+                gridTemplateColumns: { xs: "1fr", lg: "280px minmax(0, 1fr)" },
+                alignItems: "start",
+              }}
+            >
+              <Paper
+                elevation={0}
+                sx={{
+                  border: 1,
+                  borderColor: "divider",
+                  px: 2.5,
+                  py: 3,
+                  position: { lg: "sticky" },
+                  top: { lg: 96 },
+                }}
               >
-                {item.text}
-              </Link>
-            ))}
-          </nav>
-          <div className="flex flex-wrap gap-4 text-sm">
-            <div className="flex flex-wrap items-center gap-2">
-              <span className="font-medium text-stone-500">语言</span>
-              {localeSwitcher.locales.map((locale) => (
-                <Link
-                  key={locale.code}
-                  href={locale.href}
-                  className={`rounded-full px-3 py-1.5 transition ${
-                    locale.isCurrent
-                      ? "bg-stone-900 text-white"
-                      : "bg-stone-100 text-stone-700 hover:bg-stone-200 hover:text-stone-950"
-                  }`}
-                >
-                  {locale.label}
-                </Link>
-              ))}
-            </div>
-            <div className="flex flex-wrap items-center gap-2">
-              <span className="font-medium text-stone-500">版本</span>
-              {versionSwitcher.versions.map((version) => (
-                <Link
-                  key={version.slug}
-                  href={version.href}
-                  className={`rounded-full px-3 py-1.5 transition ${
-                    version.isCurrent
-                      ? "bg-stone-900 text-white"
-                      : "bg-stone-100 text-stone-700 hover:bg-stone-200 hover:text-stone-950"
-                  }`}
-                >
-                  {version.label}
-                </Link>
-              ))}
-            </div>
-          </div>
-          {isHidden ? (
-            <div className="rounded-2xl border border-rose-200 bg-rose-50 px-4 py-3 text-sm leading-7 text-rose-950">
-              该页面通过 frontmatter 控制可发现性：
-              {!isNavVisible ? " `nonav: true` 已将它从侧栏导航中排除；" : ""}
-              {!isSitemapIncluded ? " `sitemap: false` 已将它从 sitemap 和默认索引策略中排除。" : ""}
-            </div>
-          ) : null}
-          {!isHidden && isFallback && message ? (
-            <div className="rounded-2xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm leading-7 text-amber-950">
-              {message} 此类 fallback 页面默认使用真实来源页的 canonical，并以 `noindex,follow` 暴露给搜索引擎。
-            </div>
-          ) : null}
-        </header>
+                <Typography variant="h6">栏目导航</Typography>
+                <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>
+                  {currentSectionTitle ?? "当前页面不参与侧栏导航"}
+                </Typography>
+                <Box sx={{ mt: 2.5 }}>
+                  <SidebarTree items={sidebarItems} />
+                </Box>
+              </Paper>
 
-        <section className="grid gap-8 lg:grid-cols-[260px_minmax(0,1fr)_minmax(280px,1fr)]">
-          <aside className="rounded-3xl border border-stone-200 bg-white p-6 shadow-sm">
-            <h2 className="text-lg font-semibold tracking-tight">栏目导航</h2>
-            <p className="mt-2 text-sm leading-7 text-stone-600">
-              这部分导航完全由 `content/` 下的文档结构与 frontmatter 推导。顶层文档与栏目同级显示在 header，而侧栏只负责当前栏目内部导航。
-            </p>
-            <h3 className="mt-6 text-sm font-semibold tracking-wide text-stone-500 uppercase">
-              {currentSectionTitle ?? "当前页面不参与侧栏导航"}
-            </h3>
-            <nav className="mt-6">
-              <SidebarTree items={sidebarItems} />
-            </nav>
-          </aside>
-
-          <article className="rounded-3xl border border-stone-200 bg-white p-8 shadow-sm">
-            <h2 className="text-xl font-semibold tracking-tight">文档正文</h2>
-            <p className="mt-2 text-sm leading-7 text-stone-600">
-              这里渲染的是 resolver 最终命中的 MDX 内容源，所以即使 URL 保持在请求版本上，正文也可以来自回退链中的旧版本或默认语言。
-            </p>
-            <div className="doc-content mt-8">{children}</div>
-          </article>
-
-          <aside className="space-y-6">
-            <section className="rounded-3xl border border-stone-200 bg-white p-6 shadow-sm">
-              <h2 className="text-lg font-semibold tracking-tight">Fallback Trace</h2>
-              <ol className="mt-4 space-y-3">
-                {doc.fallbackTrace.map((attempt) => (
-                  <li key={`${attempt.locale}-${attempt.version}`} className="rounded-2xl bg-stone-100 px-4 py-3">
-                    <p className="font-mono text-sm text-stone-900">
-                      {attempt.locale}/{attempt.version}
-                    </p>
-                    <p className="mt-1 text-xs leading-6 text-stone-600">
-                      尝试路径：{attempt.relativeCandidates.join(" -> ")}
-                    </p>
-                    <p className="mt-1 text-xs leading-6 text-stone-600">
-                      {attempt.matchedRelativePath ? `命中：${attempt.matchedRelativePath}` : "未命中，继续向下回退"}
-                    </p>
-                  </li>
-                ))}
-              </ol>
-            </section>
-          </aside>
-        </section>
-      </div>
-    </main>
+              <ContentPaper sx={{ minWidth: 0 }}>
+                <Box className="doc-content" sx={docContentSx}>
+                  {children}
+                </Box>
+              </ContentPaper>
+            </Box>
+          </Stack>
+        </Box>
+      </Box>
+      <PageFooter />
+    </Box>
   );
 }

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { MuiProvider } from "@/src/components/mui-provider";
 
 export const metadata: Metadata = {
   title: "Croparia IF Docs",
@@ -12,8 +13,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="zh-CN" className="h-full antialiased">
-      <body className="min-h-full flex flex-col">{children}</body>
+    <html lang="zh-CN">
+      <body>
+        <MuiProvider>{children}</MuiProvider>
+      </body>
     </html>
   );
 }
