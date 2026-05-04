@@ -140,6 +140,7 @@ export function DocChrome({ children }: { children: React.ReactNode }) {
     isCurrent: version.isCurrent,
   }));
   const normalizedPathname = useMemo(() => normalizePathname(pathname ?? requestedPath), [pathname, requestedPath]);
+  const showDebugPanel = process.env.NODE_ENV !== "production";
 
   return (
     <Box sx={{ minHeight: "100vh", display: "flex", flexDirection: "column", bgcolor: "background.default" }}>
@@ -147,40 +148,34 @@ export function DocChrome({ children }: { children: React.ReactNode }) {
       <Box component="main" sx={{ flex: 1, width: "100%" }}>
         <Box sx={{ px: { xs: 2, md: 4 }, py: { xs: 3, md: 5 } }}>
           <Stack spacing={3}>
-            <ContentPaper>
-              <Stack spacing={2.5}>
-                <Box>
-                  <Typography variant="overline" color="primary.main" sx={{ letterSpacing: "0.16em", fontWeight: 700 }}>
-                    Document
-                  </Typography>
-                  <Typography variant="h3" component="h1" sx={{ mt: 1 }}>
-                    {doc.frontmatter.title ?? "未设置标题的文档页面"}
-                  </Typography>
-                  <Typography variant="body1" color="text.secondary" sx={{ mt: 1.5, maxWidth: 960 }}>
-                    {doc.frontmatter.desc ?? "这里渲染的是 resolver 最终命中的 MDX 内容源，并沿用统一的导航、fallback 与 canonical 规则。"}
-                  </Typography>
-                </Box>
-                {isHidden ? (
-                  <Alert severity="warning">
-                    该页面通过 frontmatter 控制可发现性：
-                    {!isNavVisible ? " `nonav: true` 已将它从侧栏导航中排除；" : ""}
-                    {!isSitemapIncluded ? " `sitemap: false` 已将它从 sitemap 和默认索引策略中排除。" : ""}
-                  </Alert>
-                ) : null}
-                {!isHidden ? <FallbackNotice /> : null}
-                <Stack direction={{ xs: "column", md: "row" }} spacing={2} useFlexGap sx={{ flexWrap: "wrap" }}>
-                  <Typography variant="body2" color="text.secondary">
-                    请求路径：{requestedPath}
-                  </Typography>
-                  <Typography variant="body2" color="text.secondary">
-                    实际来源：{resolvedPath}
-                  </Typography>
-                  <Typography variant="body2" color="text.secondary">
-                    Canonical：{canonicalPath}
-                  </Typography>
+            {showDebugPanel ? (
+              <ContentPaper>
+                <Stack spacing={2.5}>
+                  <Box>
+                    <Typography variant="overline" color="primary.main" sx={{ letterSpacing: "0.16em", fontWeight: 700 }}>
+                      Document Debug
+                    </Typography>
+                    <Typography variant="h5" component="h2" sx={{ mt: 1 }}>
+                      {doc.frontmatter.title ?? "未设置标题的文档页面"}
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary" sx={{ mt: 1.5, maxWidth: 960 }}>
+                      {doc.frontmatter.desc ?? "当前正在查看 resolver 最终命中的文档结果。"}
+                    </Typography>
+                  </Box>
+                  <Stack direction={{ xs: "column", md: "row" }} spacing={2} useFlexGap sx={{ flexWrap: "wrap" }}>
+                    <Typography variant="body2" color="text.secondary">
+                      请求路径：{requestedPath}
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary">
+                      实际来源：{resolvedPath}
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary">
+                      Canonical：{canonicalPath}
+                    </Typography>
+                  </Stack>
                 </Stack>
-              </Stack>
-            </ContentPaper>
+              </ContentPaper>
+            ) : null}
 
             <Box
               sx={{
@@ -239,9 +234,19 @@ export function DocChrome({ children }: { children: React.ReactNode }) {
               </Paper>
 
               <ContentPaper sx={{ minWidth: 0 }}>
-                <Box className="doc-content" sx={docContentSx}>
-                  {children}
-                </Box>
+                <Stack spacing={2.5}>
+                  {isHidden ? (
+                    <Alert severity="warning">
+                      该页面通过 frontmatter 控制可发现性：
+                      {!isNavVisible ? " `nonav: true` 已将它从侧栏导航中排除；" : ""}
+                      {!isSitemapIncluded ? " `sitemap: false` 已将它从 sitemap 和默认索引策略中排除。" : ""}
+                    </Alert>
+                  ) : null}
+                  {!isHidden ? <FallbackNotice /> : null}
+                  <Box className="doc-content" sx={docContentSx}>
+                    {children}
+                  </Box>
+                </Stack>
               </ContentPaper>
             </Box>
           </Stack>

@@ -30,6 +30,7 @@ export function SpecialDocChrome({ children }: { children: React.ReactNode }) {
     label: version.label,
     isCurrent: version.isCurrent,
   }));
+  const showDebugPanel = process.env.NODE_ENV !== "production";
 
   return (
     <Box sx={{ minHeight: "100vh", display: "flex", flexDirection: "column", bgcolor: "background.default" }}>
@@ -37,21 +38,27 @@ export function SpecialDocChrome({ children }: { children: React.ReactNode }) {
       <Box component="main" sx={{ flex: 1, width: "100%" }}>
         <Container maxWidth={false} sx={{ px: { xs: 2, md: 4 }, py: { xs: 3, md: 5 } }}>
           <Stack spacing={3}>
-            <ContentPaper>
-              <Stack spacing={2.5}>
-                <Box>
-                  <Typography variant="overline" color="primary.main" sx={{ letterSpacing: "0.16em", fontWeight: 700 }}>
-                    Root Document
-                  </Typography>
-                  <Typography variant="h3" component="h1" sx={{ mt: 1 }}>
-                    {doc.frontmatter.title ?? "未知标题"}
-                  </Typography>
-                  {doc.frontmatter.desc ? (
-                    <Typography variant="body1" color="text.secondary" sx={{ mt: 1.5, maxWidth: 960 }}>
-                      {doc.frontmatter.desc}
+            {showDebugPanel ? (
+              <ContentPaper>
+                <Stack spacing={2.5}>
+                  <Box>
+                    <Typography variant="overline" color="primary.main" sx={{ letterSpacing: "0.16em", fontWeight: 700 }}>
+                      Root Document Debug
                     </Typography>
-                  ) : null}
-                </Box>
+                    <Typography variant="h5" component="h2" sx={{ mt: 1 }}>
+                      {doc.frontmatter.title ?? "未知标题"}
+                    </Typography>
+                    {doc.frontmatter.desc ? (
+                      <Typography variant="body2" color="text.secondary" sx={{ mt: 1.5, maxWidth: 960 }}>
+                        {doc.frontmatter.desc}
+                      </Typography>
+                    ) : null}
+                  </Box>
+                </Stack>
+              </ContentPaper>
+            ) : null}
+            <ContentPaper sx={{ width: "100%" }}>
+              <Stack spacing={2.5}>
                 {isHidden ? (
                   <Alert severity="warning">
                     该页面通过 frontmatter 控制可发现性：
@@ -60,12 +67,10 @@ export function SpecialDocChrome({ children }: { children: React.ReactNode }) {
                   </Alert>
                 ) : null}
                 {!isHidden ? <FallbackNotice /> : null}
+                <Box className="doc-content" sx={docContentSx}>
+                  {children}
+                </Box>
               </Stack>
-            </ContentPaper>
-            <ContentPaper sx={{ width: "100%" }}>
-              <Box className="doc-content" sx={docContentSx}>
-                {children}
-              </Box>
             </ContentPaper>
           </Stack>
         </Container>
