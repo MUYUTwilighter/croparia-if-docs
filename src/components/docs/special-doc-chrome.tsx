@@ -34,7 +34,7 @@ export function SpecialDocChrome({ children }: { children: React.ReactNode }) {
 
   return (
     <Box sx={{ minHeight: "100vh", display: "flex", flexDirection: "column", bgcolor: "background.default" }}>
-      <SiteHeader headerItems={headerItems} />
+      <SiteHeader headerItems={headerItems} localeItems={localeItems} />
       <Box component="main" sx={{ flex: 1, width: "100%" }}>
         <Container maxWidth={false} sx={{ px: { xs: 2, md: 4 }, py: { xs: 3, md: 5 } }}>
           <Stack spacing={3}>
@@ -53,7 +53,7 @@ export function SpecialDocChrome({ children }: { children: React.ReactNode }) {
                     </Typography>
                   ) : null}
                 </Box>
-                <PageMetaBar localeItems={localeItems} versionItems={versionItems} />
+                <PageMetaBar versionItems={versionItems} />
                 {isHidden ? (
                   <Alert severity="warning">
                     该页面通过 frontmatter 控制可发现性：

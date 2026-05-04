@@ -21,6 +21,7 @@ type HeaderItem = ResolvedSidebar["headerItems"][number];
 
 interface SiteHeaderProps {
   headerItems: HeaderItem[];
+  localeItems?: SwitcherItem[];
 }
 
 interface SwitcherItem {
@@ -31,7 +32,6 @@ interface SwitcherItem {
 }
 
 interface PageMetaBarProps {
-  localeItems: SwitcherItem[];
   versionItems: SwitcherItem[];
 }
 
@@ -92,7 +92,7 @@ export const docContentSx: SxProps<Theme> = {
   },
 };
 
-export function SiteHeader({ headerItems }: SiteHeaderProps) {
+export function SiteHeader({ headerItems, localeItems = [] }: SiteHeaderProps) {
   return (
     <AppBar position="sticky" color="inherit" elevation={0} sx={{ borderBottom: 1, borderColor: "divider" }}>
       <Container maxWidth={false}>
@@ -118,31 +118,34 @@ export function SiteHeader({ headerItems }: SiteHeaderProps) {
               </Button>
             ))}
           </Stack>
+          {localeItems.length > 0 ? (
+            <Stack direction="row" spacing={1} useFlexGap sx={{ flexWrap: "wrap", alignItems: "center", ml: { xs: 0, md: 1 } }}>
+              <Typography variant="body2" color="text.secondary" sx={{ whiteSpace: "nowrap" }}>
+                语言
+              </Typography>
+              {localeItems.map((item) => (
+                <Chip
+                  key={item.key}
+                  component={Link}
+                  href={item.href}
+                  clickable
+                  color={item.isCurrent ? "primary" : "default"}
+                  label={item.label}
+                  variant={item.isCurrent ? "filled" : "outlined"}
+                  size="small"
+                />
+              ))}
+            </Stack>
+          ) : null}
         </Toolbar>
       </Container>
     </AppBar>
   );
 }
 
-export function PageMetaBar({ localeItems, versionItems }: PageMetaBarProps) {
+export function PageMetaBar({ versionItems }: PageMetaBarProps) {
   return (
     <Stack direction={{ xs: "column", md: "row" }} spacing={2} useFlexGap sx={{ flexWrap: "wrap" }}>
-      <Stack direction="row" spacing={1} useFlexGap sx={{ flexWrap: "wrap", alignItems: "center" }}>
-        <Typography variant="body2" color="text.secondary">
-          语言
-        </Typography>
-        {localeItems.map((item) => (
-          <Chip
-            key={item.key}
-            component={Link}
-            href={item.href}
-            clickable
-            color={item.isCurrent ? "primary" : "default"}
-            label={item.label}
-            variant={item.isCurrent ? "filled" : "outlined"}
-          />
-        ))}
-      </Stack>
       <Stack direction="row" spacing={1} useFlexGap sx={{ flexWrap: "wrap", alignItems: "center" }}>
         <Typography variant="body2" color="text.secondary">
           版本
