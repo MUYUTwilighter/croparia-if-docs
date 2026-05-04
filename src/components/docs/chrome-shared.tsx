@@ -149,21 +149,36 @@ export function SiteHeader({ headerItems, localeItems = [], versionItems = [] }:
               {siteConfig.siteName}
             </Typography>
           </Link>
-          <Stack direction="row" spacing={1} useFlexGap sx={{ ml: "auto", flexWrap: "wrap" }}>
-            {headerItems.map((item) => (
-              <Link key={item.key} href={item.href} style={{ textDecoration: "none" }}>
-                <Button
-                  variant={item.isCurrent ? "contained" : "text"}
-                  color={item.isCurrent ? "primary" : "inherit"}
-                  sx={{
-                    borderRadius: 999,
-                    px: 2,
-                    color: item.isCurrent ? "primary.contrastText" : "text.secondary",
-                  }}
-                >
-                  {item.text}
-                </Button>
-              </Link>
+          <Stack
+            direction="row"
+            spacing={1.25}
+            useFlexGap
+            sx={{ ml: "auto", flexWrap: "wrap", alignItems: "center", rowGap: 0.75 }}
+          >
+            {headerItems.map((item, index) => (
+              <Stack key={item.key} direction="row" spacing={1.25} sx={{ alignItems: "center" }}>
+                {index > 0 ? (
+                  <Typography variant="body2" sx={{ color: "text.disabled", userSelect: "none" }}>
+                    |
+                  </Typography>
+                ) : null}
+                <Link href={item.href} style={{ textDecoration: "none" }}>
+                  <Typography
+                    variant="body2"
+                    sx={{
+                      color: item.isCurrent ? "primary.main" : "text.secondary",
+                      fontWeight: item.isCurrent ? 700 : 500,
+                      letterSpacing: "0.02em",
+                      transition: "color 0.2s ease",
+                      "&:hover": {
+                        color: item.isCurrent ? "primary.dark" : "text.primary",
+                      },
+                    }}
+                  >
+                    {item.text}
+                  </Typography>
+                </Link>
+              </Stack>
             ))}
           </Stack>
           <Stack direction="row" spacing={1} useFlexGap sx={{ flexWrap: "wrap", alignItems: "center", ml: { xs: 0, md: 1 } }}>
