@@ -97,25 +97,26 @@ export function SiteHeader({ headerItems, localeItems = [] }: SiteHeaderProps) {
     <AppBar position="sticky" color="inherit" elevation={0} sx={{ borderBottom: 1, borderColor: "divider" }}>
       <Container maxWidth={false}>
         <Toolbar disableGutters sx={{ minHeight: 72, gap: 3, px: { xs: 2, md: 4 } }}>
-          <Typography variant="h6" component={Link} href="/" sx={{ color: "text.primary", textDecoration: "none", flexShrink: 0 }}>
-            {siteConfig.siteName}
-          </Typography>
+          <Link href="/" style={{ textDecoration: "none", flexShrink: 0 }}>
+            <Typography variant="h6" sx={{ color: "text.primary" }}>
+              {siteConfig.siteName}
+            </Typography>
+          </Link>
           <Stack direction="row" spacing={1} useFlexGap sx={{ ml: "auto", flexWrap: "wrap" }}>
             {headerItems.map((item) => (
-              <Button
-                key={item.key}
-                component={Link}
-                href={item.href}
-                variant={item.isCurrent ? "contained" : "text"}
-                color={item.isCurrent ? "primary" : "inherit"}
-                sx={{
-                  borderRadius: 999,
-                  px: 2,
-                  color: item.isCurrent ? "primary.contrastText" : "text.secondary",
-                }}
-              >
-                {item.text}
-              </Button>
+              <Link key={item.key} href={item.href} style={{ textDecoration: "none" }}>
+                <Button
+                  variant={item.isCurrent ? "contained" : "text"}
+                  color={item.isCurrent ? "primary" : "inherit"}
+                  sx={{
+                    borderRadius: 999,
+                    px: 2,
+                    color: item.isCurrent ? "primary.contrastText" : "text.secondary",
+                  }}
+                >
+                  {item.text}
+                </Button>
+              </Link>
             ))}
           </Stack>
           {localeItems.length > 0 ? (
@@ -124,16 +125,15 @@ export function SiteHeader({ headerItems, localeItems = [] }: SiteHeaderProps) {
                 语言
               </Typography>
               {localeItems.map((item) => (
-                <Chip
-                  key={item.key}
-                  component={Link}
-                  href={item.href}
-                  clickable
-                  color={item.isCurrent ? "primary" : "default"}
-                  label={item.label}
-                  variant={item.isCurrent ? "filled" : "outlined"}
-                  size="small"
-                />
+                <Link key={item.key} href={item.href} style={{ textDecoration: "none" }}>
+                  <Chip
+                    clickable
+                    color={item.isCurrent ? "primary" : "default"}
+                    label={item.label}
+                    variant={item.isCurrent ? "filled" : "outlined"}
+                    size="small"
+                  />
+                </Link>
               ))}
             </Stack>
           ) : null}
@@ -151,15 +151,14 @@ export function PageMetaBar({ versionItems }: PageMetaBarProps) {
           版本
         </Typography>
         {versionItems.map((item) => (
-          <Chip
-            key={item.key}
-            component={Link}
-            href={item.href}
-            clickable
-            color={item.isCurrent ? "secondary" : "default"}
-            label={item.label}
-            variant={item.isCurrent ? "filled" : "outlined"}
-          />
+          <Link key={item.key} href={item.href} style={{ textDecoration: "none" }}>
+            <Chip
+              clickable
+              color={item.isCurrent ? "secondary" : "default"}
+              label={item.label}
+              variant={item.isCurrent ? "filled" : "outlined"}
+            />
+          </Link>
         ))}
       </Stack>
     </Stack>

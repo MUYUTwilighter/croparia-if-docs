@@ -47,9 +47,11 @@ export function DocsRootIndex({ locale, version }: DocsRootIndexProps) {
               </Typography>
             </Stack>
             <Box>
-              <Button component={Link} href={docsHref} variant="contained" color="primary" size="large">
-                打开完整文档路径
-              </Button>
+              <Link href={docsHref} style={{ textDecoration: "none" }}>
+                <Button variant="contained" color="primary" size="large">
+                  打开完整文档路径
+                </Button>
+              </Link>
             </Box>
           </Stack>
         </ContentPaper>
