@@ -20,7 +20,7 @@ import {
   useVersionSwitcher,
 } from "@/src/components/docs/doc-context";
 import type { SidebarItem } from "@/src/lib/docs/types";
-import { ContentPaper, PageFooter, PageMetaBar, SiteHeader, docContentSx } from "@/src/components/docs/chrome-shared";
+import { ContentPaper, PageFooter, SiteHeader, docContentSx } from "@/src/components/docs/chrome-shared";
 
 function SidebarTree({ items }: { items: SidebarItem[] }) {
   return (
@@ -69,7 +69,7 @@ export function DocChrome({ children }: { children: React.ReactNode }) {
 
   return (
     <Box sx={{ minHeight: "100vh", display: "flex", flexDirection: "column", bgcolor: "background.default" }}>
-      <SiteHeader headerItems={headerItems} localeItems={localeItems} />
+      <SiteHeader headerItems={headerItems} localeItems={localeItems} versionItems={versionItems} />
       <Box component="main" sx={{ flex: 1, width: "100%" }}>
         <Box sx={{ px: { xs: 2, md: 4 }, py: { xs: 3, md: 5 } }}>
           <Stack spacing={3}>
@@ -86,7 +86,6 @@ export function DocChrome({ children }: { children: React.ReactNode }) {
                     {doc.frontmatter.desc ?? "这里渲染的是 resolver 最终命中的 MDX 内容源，并沿用统一的导航、fallback 与 canonical 规则。"}
                   </Typography>
                 </Box>
-                <PageMetaBar versionItems={versionItems} />
                 {isHidden ? (
                   <Alert severity="warning">
                     该页面通过 frontmatter 控制可发现性：

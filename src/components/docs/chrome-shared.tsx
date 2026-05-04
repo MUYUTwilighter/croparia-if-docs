@@ -1,11 +1,15 @@
+"use client";
+
 import Link from "next/link";
+import { useMemo, useState } from "react";
 import {
   AppBar,
   Box,
   Button,
-  Chip,
   Container,
   Divider,
+  Menu,
+  MenuItem,
   Paper,
   Stack,
   Toolbar,
@@ -22,6 +26,7 @@ type HeaderItem = ResolvedSidebar["headerItems"][number];
 interface SiteHeaderProps {
   headerItems: HeaderItem[];
   localeItems?: SwitcherItem[];
+  versionItems?: SwitcherItem[];
 }
 
 interface SwitcherItem {
@@ -29,10 +34,6 @@ interface SwitcherItem {
   href: string;
   label: string;
   isCurrent: boolean;
-}
-
-interface PageMetaBarProps {
-  versionItems: SwitcherItem[];
 }
 
 export const docContentSx: SxProps<Theme> = {
@@ -92,7 +93,53 @@ export const docContentSx: SxProps<Theme> = {
   },
 };
 
-export function SiteHeader({ headerItems, localeItems = [] }: SiteHeaderProps) {
+function HeaderSwitcher({
+  label,
+  items,
+  color = "primary",
+}: {
+  label: string;
+  items: SwitcherItem[];
+  color?: "primary" | "secondary";
+}) {
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const currentItem = useMemo(
+    () => items.find((item) => item.isCurrent) ?? items[0] ?? null,
+    [items],
+  );
+
+  if (!currentItem) {
+    return null;
+  }
+
+  return (
+    <>
+      <Button
+        variant="outlined"
+        color={color}
+        onClick={(event) => setAnchorEl(event.currentTarget)}
+        sx={{ borderRadius: 999, px: 1.5, whiteSpace: "nowrap" }}
+      >
+        {label}：{currentItem.label} ▾
+      </Button>
+      <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={() => setAnchorEl(null)}>
+        {items.map((item) => (
+          <MenuItem
+            key={item.key}
+            component={Link}
+            href={item.href}
+            selected={item.isCurrent}
+            onClick={() => setAnchorEl(null)}
+          >
+            {item.label}
+          </MenuItem>
+        ))}
+      </Menu>
+    </>
+  );
+}
+
+export function SiteHeader({ headerItems, localeItems = [], versionItems = [] }: SiteHeaderProps) {
   return (
     <AppBar position="sticky" color="inherit" elevation={0} sx={{ borderBottom: 1, borderColor: "divider" }}>
       <Container maxWidth={false}>
@@ -119,49 +166,13 @@ export function SiteHeader({ headerItems, localeItems = [] }: SiteHeaderProps) {
               </Link>
             ))}
           </Stack>
-          {localeItems.length > 0 ? (
-            <Stack direction="row" spacing={1} useFlexGap sx={{ flexWrap: "wrap", alignItems: "center", ml: { xs: 0, md: 1 } }}>
-              <Typography variant="body2" color="text.secondary" sx={{ whiteSpace: "nowrap" }}>
-                语言
-              </Typography>
-              {localeItems.map((item) => (
-                <Link key={item.key} href={item.href} style={{ textDecoration: "none" }}>
-                  <Chip
-                    clickable
-                    color={item.isCurrent ? "primary" : "default"}
-                    label={item.label}
-                    variant={item.isCurrent ? "filled" : "outlined"}
-                    size="small"
-                  />
-                </Link>
-              ))}
-            </Stack>
-          ) : null}
+          <Stack direction="row" spacing={1} useFlexGap sx={{ flexWrap: "wrap", alignItems: "center", ml: { xs: 0, md: 1 } }}>
+            {localeItems.length > 0 ? <HeaderSwitcher label="语言" items={localeItems} color="primary" /> : null}
+            {versionItems.length > 0 ? <HeaderSwitcher label="版本" items={versionItems} color="secondary" /> : null}
+          </Stack>
         </Toolbar>
       </Container>
     </AppBar>
-  );
-}
-
-export function PageMetaBar({ versionItems }: PageMetaBarProps) {
-  return (
-    <Stack direction={{ xs: "column", md: "row" }} spacing={2} useFlexGap sx={{ flexWrap: "wrap" }}>
-      <Stack direction="row" spacing={1} useFlexGap sx={{ flexWrap: "wrap", alignItems: "center" }}>
-        <Typography variant="body2" color="text.secondary">
-          版本
-        </Typography>
-        {versionItems.map((item) => (
-          <Link key={item.key} href={item.href} style={{ textDecoration: "none" }}>
-            <Chip
-              clickable
-              color={item.isCurrent ? "secondary" : "default"}
-              label={item.label}
-              variant={item.isCurrent ? "filled" : "outlined"}
-            />
-          </Link>
-        ))}
-      </Stack>
-    </Stack>
   );
 }
 
