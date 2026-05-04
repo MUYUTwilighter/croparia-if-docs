@@ -15,10 +15,10 @@ import {
   useDiscoveryState,
   useDocContext,
   useDocNavigation,
-  useFallbackNotice,
   useLocaleSwitcher,
   useVersionSwitcher,
 } from "@/src/components/docs/doc-context";
+import { FallbackNotice } from "@/src/components/docs/fallback-notice";
 import type { SidebarItem } from "@/src/lib/docs/types";
 import { ContentPaper, PageFooter, SiteHeader, docContentSx } from "@/src/components/docs/chrome-shared";
 
@@ -50,7 +50,6 @@ function SidebarTree({ items }: { items: SidebarItem[] }) {
 export function DocChrome({ children }: { children: React.ReactNode }) {
   const { doc, requestedPath, resolvedPath, canonicalPath } = useDocContext();
   const { headerItems, sidebarItems, currentSectionTitle } = useDocNavigation();
-  const { isFallback, message } = useFallbackNotice();
   const { isNavVisible, isSitemapIncluded, isHidden } = useDiscoveryState();
   const localeSwitcher = useLocaleSwitcher();
   const versionSwitcher = useVersionSwitcher();
@@ -93,11 +92,7 @@ export function DocChrome({ children }: { children: React.ReactNode }) {
                     {!isSitemapIncluded ? " `sitemap: false` 已将它从 sitemap 和默认索引策略中排除。" : ""}
                   </Alert>
                 ) : null}
-                {!isHidden && isFallback && message ? (
-                  <Alert severity="info">
-                    {message} 此类 fallback 页面默认使用真实来源页的 canonical，并以 `noindex,follow` 暴露给搜索引擎。
-                  </Alert>
-                ) : null}
+                {!isHidden ? <FallbackNotice /> : null}
                 <Stack direction={{ xs: "column", md: "row" }} spacing={2} useFlexGap sx={{ flexWrap: "wrap" }}>
                   <Typography variant="body2" color="text.secondary">
                     请求路径：{requestedPath}

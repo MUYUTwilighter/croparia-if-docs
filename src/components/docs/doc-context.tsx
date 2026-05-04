@@ -17,23 +17,26 @@ interface DocContextValue {
 const DocContext = createContext<DocContextValue | null>(null);
 
 function getFallbackMessage(doc: ResolvedDoc) {
-  if (!doc.isFallback) {
+  if (!doc.isFallback || !doc.isLocaleFallback) {
     return null;
   }
 
-  if (doc.isLocaleFallback && doc.isVersionFallback) {
-    return `当前页面在 ${doc.requestedLocale}/${doc.requestedVersion} 下没有可用文档，已回退到 ${doc.resolvedLocale}/${doc.resolvedVersion} 的真实来源。`;
-  }
+  const requestedLocaleLabel = locales[doc.requestedLocale].label;
+  const resolvedLocaleLabel = locales[doc.resolvedLocale].label;
 
-  if (doc.isLocaleFallback) {
-    return `当前页面在所选语言 ${doc.requestedLocale} 下没有合适译文，当前正在显示 ${doc.resolvedLocale} 内容。`;
+  if (doc.requestedLocale === "en") {
+    if (doc.isVersionFallback) {
+      return `This page is not available in ${requestedLocaleLabel} for ${doc.requestedVersion}. Showing ${resolvedLocaleLabel} content from ${doc.resolvedVersion} instead.`;
+    }
+
+    return `This page is not available in ${requestedLocaleLabel}. Showing ${resolvedLocaleLabel} content instead.`;
   }
 
   if (doc.isVersionFallback) {
-    return `当前页面在所选版本 ${doc.requestedVersion} 下没有独立文档，当前正在显示 ${doc.resolvedVersion} 的内容。`;
+    return `当前页面暂无 ${requestedLocaleLabel} 版本内容，正在显示 ${resolvedLocaleLabel} 的 ${doc.resolvedVersion} 文档。`;
   }
 
-  return "当前页面已回退到可用来源页。";
+  return `当前页面暂无 ${requestedLocaleLabel} 译文，正在显示 ${resolvedLocaleLabel} 内容。`;
 }
 
 export function DocProvider({
@@ -79,6 +82,7 @@ export function useFallbackNotice() {
     isFallback: doc.isFallback,
     isLocaleFallback: doc.isLocaleFallback,
     isVersionFallback: doc.isVersionFallback,
+    shouldDisplay: Boolean(message),
     message,
   };
 }
