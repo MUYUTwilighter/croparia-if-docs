@@ -1,0 +1,325 @@
+:root {
+  --vp-unit-size: 3px;
+}
+
+.game-text {
+  font-family: "Noto Sans SC", "Cascadia Code", monospace;
+  font-size: calc(var(--vp-unit-size) * 7);
+  word-break: keep-all;
+}
+
+.game-float-box {
+  --outer-color: rgba(16, 0, 16, 0.94);
+  --inner-top: rgba(37, 0, 94, 0.96);
+  --inner-bottom: rgba(24, 0, 53, 0.96);
+  --bg: rgba(16, 0, 16, 0.94);
+  display: grid;
+  grid-template-columns: var(--vp-unit-size) var(--vp-unit-size) auto var(--vp-unit-size) var(--vp-unit-size);
+  grid-template-rows: var(--vp-unit-size) var(--vp-unit-size) auto var(--vp-unit-size) var(--vp-unit-size);
+  width: max-content;
+  max-width: max-content;
+}
+
+.game-float-box__h-outer {
+  height: var(--vp-unit-size);
+  background: var(--outer-color);
+}
+
+.game-float-box__v-outer {
+  width: var(--vp-unit-size);
+  background: var(--outer-color);
+}
+
+.game-float-box__h-inner-top {
+  height: var(--vp-unit-size);
+  background: var(--inner-top);
+}
+
+.game-float-box__h-inner-bottom {
+  height: var(--vp-unit-size);
+  background: var(--inner-bottom);
+}
+
+.game-float-box__v-inner {
+  width: var(--vp-unit-size);
+  background: linear-gradient(to bottom, var(--inner-top), var(--inner-bottom));
+}
+
+.game-float-box__content {
+  min-width: max-content;
+  padding: var(--vp-unit-size);
+  background: var(--bg);
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.game-gui-frame {
+  --frame-size: calc(var(--vp-unit-size) * 4);
+  display: inline-grid;
+  grid-template-columns: var(--frame-size) auto var(--frame-size);
+  grid-template-rows: var(--frame-size) auto var(--frame-size);
+  width: fit-content;
+  height: fit-content;
+  image-rendering: pixelated;
+}
+
+.game-gui-frame__border {
+  background-repeat: no-repeat;
+  background-position: center;
+  image-rendering: pixelated;
+}
+
+.game-gui-frame__corner {
+  width: var(--frame-size);
+  height: var(--frame-size);
+  background-size: 100% 100%;
+}
+
+.game-gui-frame__horizontal {
+  height: var(--frame-size);
+  background-repeat: repeat-x;
+  background-size: auto 100%;
+  background-position: left center;
+}
+
+.game-gui-frame__vertical {
+  width: var(--frame-size);
+  background-repeat: repeat-y;
+  background-size: 100% auto;
+  background-position: center top;
+}
+
+.game-gui-frame__content {
+  background-color: #c6c6c6;
+  display: flex;
+  flex-direction: column;
+}
+
+.game-slot {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  width: fit-content;
+  height: fit-content;
+  border: var(--vp-unit-size) solid;
+  border-left-color: #373737;
+  border-top-color: #373737;
+  border-right-color: #ffffff;
+  border-bottom-color: #ffffff;
+  background-color: #8b8b8b;
+}
+
+.game-arrow-button {
+  border: 0;
+  padding: 0;
+  background-color: transparent;
+  background-repeat: no-repeat;
+  background-position: left center;
+  background-size: auto 100%;
+  image-rendering: pixelated;
+  cursor: pointer;
+}
+
+.game-arrow-button:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.game-item-display {
+  display: inline-flex;
+  position: relative;
+}
+
+.game-item-display__icon {
+  image-rendering: pixelated;
+}
+
+.game-item-display__count {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+}
+
+.game-item-display__link {
+  position: absolute;
+  inset: 0;
+  display: flex;
+}
+
+.game-item-display:hover .game-item-display__icon {
+  background-color: var(--game-item-hover-bg, transparent);
+}
+
+.game-item-display__tooltip-name {
+  padding-bottom: calc(var(--vp-unit-size) * 2);
+}
+
+.game-item-card__wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.game-item-card__attr {
+  margin: calc(var(--vp-unit-size) * 2);
+  text-align: right;
+}
+
+.game-item-card__value {
+  margin: calc(var(--vp-unit-size));
+}
+
+.game-item-card__table,
+.game-item-card__table tr,
+.game-item-card__table td {
+  margin: 0;
+  border: none;
+  background-color: transparent;
+  overflow: visible;
+}
+
+.game-item-card__table tr {
+  border-bottom: #373737 var(--vp-unit-size) solid;
+}
+
+.game-item-card__table td {
+  border-right: #373737 var(--vp-unit-size) solid;
+}
+
+.row-gallery {
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding-bottom: 8px;
+}
+
+.row-gallery__track {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 1em;
+  width: max-content;
+  min-width: 100%;
+}
+
+.row-gallery__track > * {
+  flex: 0 0 auto;
+}
+
+.crafting-recipe,
+.infusor-recipe,
+.ritual-recipe,
+.soak-recipe {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.crafting-recipe__workstation {
+  margin: calc(var(--vp-unit-size) * 7);
+}
+
+.crafting-recipe__input {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: calc(var(--vp-unit-size) * 18 * 3);
+  height: calc(var(--vp-unit-size) * 18 * 3);
+}
+
+.crafting-recipe__empty {
+  width: calc(var(--vp-unit-size) * 16);
+  height: calc(var(--vp-unit-size) * 16);
+}
+
+.recipe-arrow {
+  width: calc(var(--vp-unit-size) * 22);
+  height: calc(var(--vp-unit-size) * 15);
+  image-rendering: pixelated;
+}
+
+.crafting-recipe__arrow {
+  margin: calc(var(--vp-unit-size) * 7);
+}
+
+.crafting-recipe__output {
+  padding: calc(var(--vp-unit-size) * 4);
+}
+
+.infusor-recipe,
+.ritual-recipe,
+.soak-recipe {
+  display: grid;
+  grid-template-columns: auto auto auto auto auto;
+}
+
+.recipe-connector {
+  width: calc(var(--vp-unit-size) * 16);
+  height: calc(var(--vp-unit-size) * 16);
+  image-rendering: pixelated;
+}
+
+.recipe-frame__wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.recipe-frame__id {
+  margin: calc(var(--vp-unit-size) * 2);
+}
+
+.recipe-frame__content {
+  margin: calc(var(--vp-unit-size) * 4);
+}
+
+.recipe-frame__error {
+  margin: calc(var(--vp-unit-size) * 4);
+}
+
+.ritual-structure {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: calc(var(--vp-unit-size) * 4);
+}
+
+.ritual-structure__row,
+.ritual-structure__buttons {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.ritual-structure__structure {
+  position: relative;
+}
+
+.ritual-structure__layer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  inset: 0;
+  transition: opacity 160ms ease;
+}
+
+.ritual-structure__layer--hidden {
+  z-index: -1;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.ritual-structure__layer--active {
+  z-index: 0;
+  opacity: 1;
+}
+
+.ritual-structure__buttons {
+  gap: calc(var(--vp-unit-size) * 3);
+}

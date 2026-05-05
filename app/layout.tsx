@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import "@/src/components/game/game-widgets.css";
 import { MuiProvider } from "@/src/components/mui-provider";
 
 export const metadata: Metadata = {
