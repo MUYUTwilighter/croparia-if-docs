@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
-import { redirect } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 
 import { docsConfig, isLocaleCode, isVersionSlug } from "@/src/lib/docs/config";
-import { DocsRootIndex } from "@/src/components/docs-root-index";
-import { buildDocsHomeMetadata } from "@/src/lib/docs/metadata";
+import { SpecialDocPage } from "@/src/components/special-doc-page";
+import { buildDocMetadata, buildDocsHomeMetadata } from "@/src/lib/docs/metadata";
 import { buildDocPath, buildShortRouteRedirect } from "@/src/lib/docs/routing";
+import { resolveDoc } from "@/src/lib/docs/resolve-doc";
 
 interface DocsVersionHomePageProps {
   params: Promise<{
@@ -17,7 +18,13 @@ export async function generateMetadata({ params }: DocsVersionHomePageProps): Pr
   const { locale, version } = await params;
 
   if (isLocaleCode(locale) && isVersionSlug(version)) {
-    return buildDocsHomeMetadata(locale, version);
+    const doc = resolveDoc({
+      locale,
+      version,
+      slug: [],
+    });
+
+    return doc ? buildDocMetadata(doc) : buildDocsHomeMetadata(locale, version);
   }
 
   return {
@@ -36,5 +43,15 @@ export default async function DocsVersionHomePage({ params }: DocsVersionHomePag
     redirect(buildDocPath(locale, docsConfig.currentVersion, [version]));
   }
 
-  return <DocsRootIndex locale={locale} version={version} />;
+  const doc = resolveDoc({
+    locale,
+    version,
+    slug: [],
+  });
+
+  if (!doc) {
+    notFound();
+  }
+
+  return <SpecialDocPage doc={doc} requestedPath={buildDocPath(locale, version)} />;
 }
