@@ -1,6 +1,7 @@
 ---
 title: 常见问题
 description: 规划 Croparia IF 1.1.0a 玩家常见问题页，用于集中收纳高频困惑与排错入口。
+navOrder: 3
 keywords:
   - Croparia IF
   - 矿石魔种
@@ -81,4 +82,3 @@ A3. 这种问题通常与本模组的动态数据生成有关，根据以下两�
 1. 确保现在游戏已关闭，将你的存档、本模组的数据文件夹（通常位于 `[游戏目录]/croparia`）以及配置文件（通常位于 `[游戏目录]/config/croparia.json`）进行备份；
 2. 删除数据文件夹中的 `data`、`assets`、`datapack`、`recipe_wizard` 与 `resourcepack` 文件夹
 3. 启动游戏，此时数据已重置。
-

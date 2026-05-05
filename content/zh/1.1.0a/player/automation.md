@@ -1,6 +1,7 @@
 ---
 title: 自动化思路
 description: 规划 Croparia IF 1.1.0a 的玩家自动化文档，整理温室、转化器、红石模式与空间约束。
+navOrder: 2
 keywords:
   - Croparia IF
   - 矿石魔种
