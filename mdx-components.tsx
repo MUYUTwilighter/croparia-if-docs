@@ -2,6 +2,7 @@ import { createElement } from "react";
 import { Box } from "@mui/material";
 import type { MDXComponents } from "mdx/types";
 import type { JSX, ComponentPropsWithoutRef } from "react";
+import { DocLink } from "@/src/components/docs/doc-link";
 import { GameArrowButton } from "@/src/components/game/GameArrowButton";
 import { GameBlockEntry } from "@/src/components/game/GameBlockEntry";
 import { GameFloatBox } from "@/src/components/game/GameFloatBox";
@@ -38,7 +39,7 @@ export const mdxComponents: MDXComponents = {
   li: passthrough("li"),
   strong: passthrough("strong"),
   em: passthrough("em"),
-  a: passthrough("a"),
+  a: DocLink,
   code: passthrough("code"),
   hr: passthrough("hr"),
   pre: (props) => <Box component="pre" {...props} />,

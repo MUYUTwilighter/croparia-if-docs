@@ -1,5 +1,7 @@
+import path from "node:path";
+
 import { docsConfig, isLocaleCode, isVersionSlug, siteConfig } from "@/src/lib/docs/config";
-import type { LocaleCode, VersionSlug } from "@/src/lib/docs/types";
+import type { LocaleCode, ResolvedDoc, VersionSlug } from "@/src/lib/docs/types";
 
 export function normalizeLocale(locale: string): LocaleCode {
   return isLocaleCode(locale) ? locale : docsConfig.defaultLocale;
@@ -74,4 +76,58 @@ export function buildShortRouteRedirect(slug: string[]) {
   }
 
   return buildDocPath(docsConfig.defaultLocale, docsConfig.currentVersion, normalized);
+}
+
+function splitHrefParts(href: string) {
+  const hashIndex = href.indexOf("#");
+  const searchIndex = href.indexOf("?");
+  const cutoffCandidates = [hashIndex, searchIndex].filter((value) => value >= 0);
+  const cutoffIndex = cutoffCandidates.length > 0 ? Math.min(...cutoffCandidates) : -1;
+
+  if (cutoffIndex === -1) {
+    return {
+      pathname: href,
+      suffix: "",
+    };
+  }
+
+  return {
+    pathname: href.slice(0, cutoffIndex),
+    suffix: href.slice(cutoffIndex),
+  };
+}
+
+function isRelativeDocHref(pathname: string) {
+  return pathname === "." || pathname === ".." || pathname.startsWith("./") || pathname.startsWith("../");
+}
+
+function buildDocBaseSlug(doc: Pick<ResolvedDoc, "requestedSlug" | "relativeSourcePath">) {
+  const normalizedSourcePath = doc.relativeSourcePath.replace(/\\/g, "/");
+  const isIndexSource =
+    normalizedSourcePath.endsWith("/index.mdx") ||
+    normalizedSourcePath.endsWith("/index.md") ||
+    normalizedSourcePath === "index.mdx" ||
+    normalizedSourcePath === "index.md";
+
+  return isIndexSource ? doc.requestedSlug : doc.requestedSlug.slice(0, -1);
+}
+
+export function resolveRelativeDocHref(doc: Pick<ResolvedDoc, "requestedLocale" | "requestedVersion" | "requestedSlug" | "relativeSourcePath">, href: string) {
+  const trimmedHref = href.trim();
+
+  if (!trimmedHref || trimmedHref.startsWith("#") || trimmedHref.startsWith("/") || /^[a-zA-Z][a-zA-Z\d+.-]*:/.test(trimmedHref)) {
+    return null;
+  }
+
+  const { pathname, suffix } = splitHrefParts(trimmedHref);
+
+  if (!isRelativeDocHref(pathname)) {
+    return null;
+  }
+
+  const baseSlug = buildDocBaseSlug(doc);
+  const normalizedPath = path.posix.normalize(path.posix.join("/", ...baseSlug, pathname));
+  const resolvedSlug = normalizedPath === "/" ? [] : normalizedPath.split("/").filter(Boolean);
+
+  return `${buildDocPath(doc.requestedLocale, doc.requestedVersion, resolvedSlug)}${suffix}`;
 }

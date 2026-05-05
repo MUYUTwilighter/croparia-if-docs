@@ -7,6 +7,7 @@ import {
   normalizeLocale,
   normalizeSlug,
   normalizeVersion,
+  resolveRelativeDocHref,
   resolvePreferredLocale,
   toAbsoluteUrl,
 } from "@/src/lib/docs/routing";
@@ -37,5 +38,43 @@ describe("routing helpers", () => {
 
   it("converts internal paths to absolute urls", () => {
     expect(toAbsoluteUrl("/doc/zh/1.1.1a/player")).toBe("https://croparia.muyucloud.cool/doc/zh/1.1.1a/player");
+  });
+
+  it("rewrites relative doc links against authored document locations", () => {
+    expect(
+      resolveRelativeDocHref(
+        {
+          requestedLocale: "zh",
+          requestedVersion: "1.1.1a",
+          requestedSlug: [],
+          relativeSourcePath: "content/zh/1.1.0a/index.mdx",
+        },
+        "./player",
+      ),
+    ).toBe("/doc/zh/1.1.1a/player");
+
+    expect(
+      resolveRelativeDocHref(
+        {
+          requestedLocale: "zh",
+          requestedVersion: "1.1.1a",
+          requestedSlug: ["player"],
+          relativeSourcePath: "content/zh/1.1.0a/player/index.mdx",
+        },
+        "./faq#top",
+      ),
+    ).toBe("/doc/zh/1.1.1a/player/faq#top");
+
+    expect(
+      resolveRelativeDocHref(
+        {
+          requestedLocale: "en",
+          requestedVersion: "1.1.1a",
+          requestedSlug: ["removed"],
+          relativeSourcePath: "content/zh/1.1.1a/removed.mdx",
+        },
+        "./player?mode=full",
+      ),
+    ).toBe("/doc/en/1.1.1a/player?mode=full");
   });
 });
