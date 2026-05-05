@@ -29,11 +29,11 @@ export interface ItemData {
   minTool?: string;
 }
 
-export interface EntryHooks {
-  nameHook?: (title: string, locale: string) => string;
-  idHook?: (id: string, locale: string) => string;
-  categoryHook?: (category: string, locale: string) => string;
-  tagHook?: (tags: string[], locale: string) => string[];
+export interface EntryDisplayOverrides {
+  nameOverride?: LocaleMap;
+  idOverride?: string;
+  categoryOverride?: LocaleMap;
+  tagsOverride?: string[];
 }
 
 export interface NormalizedItemEntry {

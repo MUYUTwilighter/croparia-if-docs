@@ -1,8 +1,8 @@
 import { GameItemDisplayView } from "@/src/components/game/GameItemDisplay.client";
 import { getItemData } from "@/src/lib/game/server-data";
-import type { EntryHooks } from "@/src/lib/game/types";
+import type { EntryDisplayOverrides } from "@/src/lib/game/types";
 
-interface GameItemDisplayProps extends EntryHooks {
+interface GameItemDisplayProps extends EntryDisplayOverrides {
   id: string;
   count?: number;
   link?: string;

@@ -3,7 +3,7 @@ import { Fragment } from "react";
 import { GameBlockEntry } from "@/src/components/game/GameBlockEntry";
 import { GameSlot } from "@/src/components/game/GameSlot";
 import { RitualStructureDisplayClient } from "@/src/components/game/recipe/RitualStructureDisplay.client";
-import type { EntryHooks, NormalizedRitualStructure } from "@/src/lib/game/types";
+import type { EntryDisplayOverrides, NormalizedRitualStructure } from "@/src/lib/game/types";
 
 const specialNameLocales = {
   " ": {
@@ -23,31 +23,34 @@ const specialNameLocales = {
   },
 } as const;
 
-function createSpecialHooks(char: keyof typeof specialNameLocales): EntryHooks {
+function createSpecialOverrides(char: keyof typeof specialNameLocales): EntryDisplayOverrides {
   return {
-    nameHook: (_title, locale) =>
-      specialNameLocales[char][locale as keyof (typeof specialNameLocales)[typeof char]] ?? specialNameLocales[char].en,
-    idHook: () => "",
-    categoryHook: () => "",
-    tagHook: () => [],
+    nameOverride: specialNameLocales[char],
+    idOverride: "",
+    categoryOverride: {
+      zh: "",
+      en: "",
+      es: "",
+    },
+    tagsOverride: [],
   };
 }
 
-const anyBlockHooks = createSpecialHooks(" ");
-const inputBlockHooks = createSpecialHooks("$");
-const airOnlyHooks = createSpecialHooks(".");
+const anyBlockOverrides = createSpecialOverrides(" ");
+const inputBlockOverrides = createSpecialOverrides("$");
+const airOnlyOverrides = createSpecialOverrides(".");
 
-function getHooksForChar(char: string): EntryHooks | undefined {
+function getOverridesForChar(char: string): EntryDisplayOverrides | undefined {
   if (char === " ") {
-    return anyBlockHooks;
+    return anyBlockOverrides;
   }
 
   if (char === "$") {
-    return inputBlockHooks;
+    return inputBlockOverrides;
   }
 
   if (char === ".") {
-    return airOnlyHooks;
+    return airOnlyOverrides;
   }
 
   return undefined;
@@ -63,11 +66,11 @@ export async function RitualStructureDisplay({ recipe }: { recipe: NormalizedRit
         <div key={`ritual-row-${layerIndex}-${rowIndex}`} className="ritual-structure__row">
           {Array.from(row).map((char, columnIndex) => {
             const entry = recipe.keys[char];
-            const hooks = getHooksForChar(char);
+            const displayOverrides = getOverridesForChar(char);
 
             return (
               <GameSlot key={`ritual-slot-${layerIndex}-${rowIndex}-${columnIndex}`}>
-                {entry ? <GameBlockEntry props={entry} {...hooks} /> : null}
+                {entry ? <GameBlockEntry props={entry} {...displayOverrides} /> : null}
               </GameSlot>
             );
           })}

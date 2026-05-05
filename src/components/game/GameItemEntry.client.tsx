@@ -6,15 +6,15 @@ import { GameItemDisplayView } from "@/src/components/game/GameItemDisplay.clien
 import { GameText } from "@/src/components/game/GameText";
 import { useGameLocale } from "@/src/components/game/use-game-locale";
 import { normalizeTagName } from "@/src/lib/game/normalize";
-import type { EntryHooks, ItemData, NormalizedItemEntry } from "@/src/lib/game/types";
+import type { EntryDisplayOverrides, ItemData, NormalizedItemEntry } from "@/src/lib/game/types";
 
-interface GameItemEntryClientProps extends EntryHooks {
+interface GameItemEntryClientProps extends EntryDisplayOverrides {
   entry: NormalizedItemEntry;
   items: ItemData[];
   link?: string;
 }
 
-export function GameItemEntryClient({ entry, items, link, ...hooks }: GameItemEntryClientProps) {
+export function GameItemEntryClient({ entry, items, link, ...displayOverrides }: GameItemEntryClientProps) {
   const locale = useGameLocale();
   const [currentIndex, setCurrentIndex] = useState(0);
 
@@ -46,7 +46,7 @@ export function GameItemEntryClient({ entry, items, link, ...hooks }: GameItemEn
     : null;
 
   return (
-    <GameItemDisplayView {...hooks} item={currentItem} id={currentItem.registerName} count={entry.amount} link={link}>
+    <GameItemDisplayView {...displayOverrides} item={currentItem} id={currentItem.registerName} count={entry.amount} link={link}>
       {Object.entries(entry.components).map(([key, value]) => (
         <GameText key={key}>{`${key}: ${String(value)}`}</GameText>
       ))}

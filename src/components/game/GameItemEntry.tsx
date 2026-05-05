@@ -1,14 +1,14 @@
 import { GameItemEntryClient } from "@/src/components/game/GameItemEntry.client";
 import { createFallbackItem, getItemData, getTagItems } from "@/src/lib/game/server-data";
 import { normalizeItemEntry, normalizeTagName } from "@/src/lib/game/normalize";
-import type { EntryHooks, ItemEntryInput } from "@/src/lib/game/types";
+import type { EntryDisplayOverrides, ItemEntryInput } from "@/src/lib/game/types";
 
-interface GameItemEntryProps extends EntryHooks {
+interface GameItemEntryProps extends EntryDisplayOverrides {
   props: ItemEntryInput;
   link?: string;
 }
 
-export async function GameItemEntry({ props, link, ...hooks }: GameItemEntryProps) {
+export async function GameItemEntry({ props, link, ...displayOverrides }: GameItemEntryProps) {
   const entry = normalizeItemEntry(props);
 
   let items;
@@ -20,5 +20,5 @@ export async function GameItemEntry({ props, link, ...hooks }: GameItemEntryProp
     items = [createFallbackItem("croparia:placeholder")];
   }
 
-  return <GameItemEntryClient {...hooks} entry={entry} items={items} link={link} />;
+  return <GameItemEntryClient {...displayOverrides} entry={entry} items={items} link={link} />;
 }

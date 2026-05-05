@@ -6,9 +6,9 @@ import { createPortal } from "react-dom";
 import { GameFloatBox } from "@/src/components/game/GameFloatBox";
 import { GameText } from "@/src/components/game/GameText";
 import { useGameLocale } from "@/src/components/game/use-game-locale";
-import type { EntryHooks, ItemData } from "@/src/lib/game/types";
+import type { EntryDisplayOverrides, ItemData } from "@/src/lib/game/types";
 
-interface GameItemDisplayViewProps extends EntryHooks {
+interface GameItemDisplayViewProps extends EntryDisplayOverrides {
   item: ItemData;
   id: string;
   count?: number;
@@ -28,10 +28,10 @@ export function GameItemDisplayView({
   noFloatBox = false,
   children,
   className,
-  nameHook,
-  idHook,
-  categoryHook,
-  tagHook,
+  nameOverride,
+  idOverride,
+  categoryOverride,
+  tagsOverride,
 }: GameItemDisplayViewProps) {
   const locale = useGameLocale();
   const displayRef = useRef<HTMLDivElement | null>(null);
@@ -44,14 +44,11 @@ export function GameItemDisplayView({
 
   const hoverBackground = link || !noFloatBox ? "rgba(255, 255, 255, 0.5)" : "transparent";
 
-  const localeName =
-    nameHook?.(item.name[locale] || item.name.en || item.registerName, locale) ??
-    (item.name[locale] || item.name.en || item.registerName);
+  const localeName = nameOverride?.[locale] || nameOverride?.en || item.name[locale] || item.name.en || item.registerName;
   const categoryName =
-    categoryHook?.(item.CreativeTabName[locale] || item.CreativeTabName.en || "Unknown", locale) ??
-    (item.CreativeTabName[locale] || item.CreativeTabName.en || "Unknown");
-  const displayId = idHook?.(id, locale) ?? id;
-  const displayTags = tagHook?.(item.OredictList, locale) ?? item.OredictList;
+    categoryOverride?.[locale] || categoryOverride?.en || item.CreativeTabName[locale] || item.CreativeTabName.en || "Unknown";
+  const displayId = idOverride ?? id;
+  const displayTags = tagsOverride ?? item.OredictList;
 
   const cancelFrame = useCallback(() => {
     if (frameRef.current) {

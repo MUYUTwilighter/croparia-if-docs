@@ -6,15 +6,15 @@ import { GameItemDisplayView } from "@/src/components/game/GameItemDisplay.clien
 import { GameText } from "@/src/components/game/GameText";
 import { useGameLocale } from "@/src/components/game/use-game-locale";
 import { normalizeTagName } from "@/src/lib/game/normalize";
-import type { EntryHooks, ItemData, NormalizedBlockEntry } from "@/src/lib/game/types";
+import type { EntryDisplayOverrides, ItemData, NormalizedBlockEntry } from "@/src/lib/game/types";
 
-interface GameBlockEntryClientProps extends EntryHooks {
+interface GameBlockEntryClientProps extends EntryDisplayOverrides {
   entry: NormalizedBlockEntry;
   items: ItemData[];
   link?: string;
 }
 
-export function GameBlockEntryClient({ entry, items, link, ...hooks }: GameBlockEntryClientProps) {
+export function GameBlockEntryClient({ entry, items, link, ...displayOverrides }: GameBlockEntryClientProps) {
   const locale = useGameLocale();
   const [currentIndex, setCurrentIndex] = useState(0);
 
@@ -46,7 +46,7 @@ export function GameBlockEntryClient({ entry, items, link, ...hooks }: GameBlock
     : null;
 
   return (
-    <GameItemDisplayView {...hooks} item={currentItem} id={currentItem.registerName} link={link}>
+    <GameItemDisplayView {...displayOverrides} item={currentItem} id={currentItem.registerName} link={link}>
       {Object.entries(entry.properties).map(([key, value]) => (
         <GameText key={key}>{`${key}: ${value}`}</GameText>
       ))}
