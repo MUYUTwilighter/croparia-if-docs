@@ -58,6 +58,18 @@ describe("routing helpers", () => {
         {
           requestedLocale: "zh",
           requestedVersion: "1.1.1a",
+          requestedSlug: [],
+          relativeSourcePath: "content/zh/1.1.0a/index.mdx",
+        },
+        "general",
+      ),
+    ).toBe("/doc/zh/1.1.1a/general");
+
+    expect(
+      resolveRelativeDocHref(
+        {
+          requestedLocale: "zh",
+          requestedVersion: "1.1.1a",
           requestedSlug: ["player"],
           relativeSourcePath: "content/zh/1.1.0a/player/index.mdx",
         },

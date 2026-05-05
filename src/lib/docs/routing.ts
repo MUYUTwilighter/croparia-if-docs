@@ -98,7 +98,11 @@ function splitHrefParts(href: string) {
 }
 
 function isRelativeDocHref(pathname: string) {
-  return pathname === "." || pathname === ".." || pathname.startsWith("./") || pathname.startsWith("../");
+  if (pathname === "." || pathname === ".." || pathname.startsWith("./") || pathname.startsWith("../")) {
+    return true;
+  }
+
+  return pathname.length > 0 && !pathname.startsWith("/");
 }
 
 function buildDocBaseSlug(doc: Pick<ResolvedDoc, "requestedSlug" | "relativeSourcePath">) {
