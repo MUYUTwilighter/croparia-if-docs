@@ -4,25 +4,650 @@ description: Croparia IF 中文文档首页，汇总通用、玩家、整合包�
 nonav: true
 ---
 
-# Croparia IF 文档
+<Box
+  sx={{
+    display: "grid",
+    gap: { xs: 4, md: 5 },
+    pb: { xs: 5, md: 8 },
+  }}
+>
+  <Box
+    sx={{
+      position: "relative",
+      overflow: "hidden",
+      minHeight: { xs: "calc(100vh - 168px)", md: "calc(100vh - 160px)" },
+      borderRadius: { xs: "32px", md: "40px" },
+      border: "1px solid rgba(112, 143, 86, 0.18)",
+      background:
+        "linear-gradient(135deg, rgba(244,240,227,0.82) 0%, rgba(230,238,220,0.72) 42%, rgba(247,241,227,0.8) 100%)",
+      boxShadow: "0 40px 90px rgba(37, 53, 33, 0.16)",
+      px: { xs: 3, md: 6, xl: 8 },
+      py: { xs: 4, md: 5 },
+      display: "flex",
+      alignItems: "center",
+      "&::before": {
+        content: '""',
+        position: "absolute",
+        inset: 0,
+        backgroundImage: "url(/home/background.webp)",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        opacity: 0.44,
+        transform: "scale(1.03)",
+        pointerEvents: "none",
+      },
+      "&::after": {
+        content: '""',
+        position: "absolute",
+        inset: 0,
+        background:
+          "radial-gradient(circle at 18% 24%, rgba(255,255,255,0.58), transparent 34%), linear-gradient(90deg, rgba(248,245,235,0.72) 0%, rgba(248,245,235,0.38) 38%, rgba(248,245,235,0.08) 100%)",
+        pointerEvents: "none",
+      },
+    }}
+  >
+    <Box
+      sx={{
+        position: "relative",
+        zIndex: 1,
+        width: "100%",
+        maxWidth: "1600px",
+        mx: "auto",
+        display: "grid",
+        gap: { xs: 4, lg: 5 },
+        alignItems: "center",
+        gridTemplateColumns: { xs: "1fr", lg: "minmax(0, 0.92fr) minmax(420px, 0.88fr)" },
+      }}
+    >
+      <Stack spacing={2.5} sx={{ maxWidth: { xs: "100%", lg: "680px" } }}>
+        <Typography
+          component="p"
+          sx={{
+            m: 0,
+            fontSize: "0.82rem",
+            fontWeight: 900,
+            letterSpacing: "0.22em",
+            textTransform: "uppercase",
+            color: "primary.main",
+          }}
+        >
+          Croparia IF
+        </Typography>
+        <Typography
+          component="h1"
+          sx={{
+            m: 0,
+            fontSize: { xs: "2.8rem", md: "4.4rem", xl: "5rem" },
+            lineHeight: 0.98,
+            fontWeight: 900,
+            letterSpacing: "-0.045em",
+            maxWidth: "10ch",
+            color: "text.primary",
+            textShadow: "0 8px 24px rgba(255,255,255,0.28)",
+          }}
+        >
+          资源农业、装置推进与强自定义
+        </Typography>
+        <Typography
+          component="p"
+          sx={{
+            m: 0,
+            maxWidth: "62ch",
+            color: "text.primary",
+            lineHeight: 1.9,
+            fontSize: { xs: "1rem", md: "1.08rem", xl: "1.12rem" },
+          }}
+        >
+          Croparia IF 以资源作物、生长循环和装置推进为主要玩法，同时它也从一开始就围绕“可扩展、可重组、可自定义”来设计。
+          无论你是想推进游玩、设计整合包，还是基于模组进一步开发，这里都能找到对应的入口。
+        </Typography>
+        <Stack
+          direction={{ xs: "column", sm: "row" }}
+          spacing={1.5}
+          sx={{ pt: 1, alignItems: { xs: "stretch", sm: "center" } }}
+        >
+          <Button
+            variant="contained"
+            color="primary"
+            href="#home-get-started"
+            sx={{
+              minHeight: 54,
+              px: 3.25,
+              py: 1.35,
+              borderRadius: 999,
+              fontSize: "0.98rem",
+              fontWeight: 800,
+              boxShadow: "0 18px 34px rgba(84, 115, 56, 0.24)",
+              alignSelf: { xs: "stretch", sm: "flex-start" },
+            }}
+          >
+            开始使用文档
+          </Button>
+          <Button
+            variant="outlined"
+            href="#home-downloads"
+            sx={{
+              minHeight: 54,
+              px: 3.25,
+              py: 1.35,
+              borderRadius: 999,
+              fontSize: "0.98rem",
+              fontWeight: 700,
+              borderColor: "rgba(78, 104, 53, 0.34)",
+              color: "text.primary",
+              backgroundColor: "rgba(255,255,255,0.28)",
+              alignSelf: { xs: "stretch", sm: "flex-start" },
+              "&:hover": {
+                borderColor: "primary.main",
+                backgroundColor: "rgba(255,255,255,0.44)",
+              },
+            }}
+          >
+            下载模组
+          </Button>
+        </Stack>
 
-这里汇总当前可用的中文文档入口。首页短链接会始终跳到当前主线版本，而版本专有页面会在对应版本下自动命中。
+        <Box
+          sx={{
+            display: "grid",
+            gap: 1.5,
+            pt: 1.5,
+            gridTemplateColumns: { xs: "1fr", sm: "repeat(3, minmax(0, 1fr))" },
+            maxWidth: "760px",
+          }}
+        >
+          {[
+            { label: "游玩", value: "资源作物与装置推进" },
+            { label: "整合", value: "配方、作物与运行时生成" },
+            { label: "开发", value: "核心模块与下游 API" },
+          ].map((item) => (
+            <Box
+              key={item.label}
+              sx={{
+                borderRadius: "22px",
+                border: "1px solid rgba(112, 143, 86, 0.2)",
+                backgroundColor: "rgba(255,255,255,0.38)",
+                backdropFilter: "blur(6px)",
+                p: 2,
+              }}
+            >
+              <Typography
+                component="p"
+                sx={{
+                  m: 0,
+                  fontSize: "0.76rem",
+                  fontWeight: 800,
+                  letterSpacing: "0.12em",
+                  textTransform: "uppercase",
+                  color: "primary.main",
+                }}
+              >
+                {item.label}
+              </Typography>
+              <Typography component="p" sx={{ m: 0, mt: 0.8, lineHeight: 1.65, color: "text.primary", fontWeight: 600 }}>
+                {item.value}
+              </Typography>
+            </Box>
+          ))}
+        </Box>
+      </Stack>
 
-## 阅读入口
+      <Box
+        sx={{
+          justifySelf: { xs: "stretch", lg: "end" },
+          width: "100%",
+          maxWidth: { xs: "100%", lg: "760px" },
+          borderRadius: { xs: "28px", md: "34px" },
+          overflow: "hidden",
+          border: "1px solid rgba(129, 168, 87, 0.24)",
+          background: "linear-gradient(180deg, rgba(255,255,255,0.86), rgba(245,240,229,0.72))",
+          boxShadow: "0 32px 60px rgba(37, 53, 33, 0.18)",
+          backdropFilter: "blur(10px)",
+          p: { xs: 1.5, md: 2 },
+        }}
+      >
+        <Box
+          component="img"
+          src="/home/croparia-if-banner.webp"
+          alt="Croparia IF banner"
+          sx={{
+            display: "block",
+            width: "100%",
+            minHeight: { xs: 220, md: 360, xl: 420 },
+            objectFit: "cover",
+            borderRadius: { xs: "22px", md: "28px" },
+          }}
+        />
+      </Box>
+    </Box>
+  </Box>
 
-- [通用](./general)
-- [玩家](./player)
-- [整合包作者](./modpack)
-- [开发者](./developer)
+  <Box
+    id="home-get-started"
+    sx={{
+      width: "100%",
+      maxWidth: "1380px",
+      mx: "auto",
+      display: "grid",
+      gap: 2.5,
+      gridTemplateColumns: { xs: "1fr", xl: "minmax(0, 0.92fr) minmax(0, 1.08fr)" },
+    }}
+  >
+    <Box
+      id="home-downloads"
+      sx={{
+        borderRadius: "28px",
+        border: "1px solid",
+        borderColor: "divider",
+        background: "linear-gradient(180deg, rgba(253,252,247,0.96), rgba(248,245,235,0.93))",
+        boxShadow: "0 24px 56px rgba(37, 53, 33, 0.08)",
+        p: { xs: 3, md: 3.5 },
+      }}
+    >
+      <Stack spacing={2.5}>
+        <Box>
+          <Typography
+            component="p"
+            sx={{
+              m: 0,
+              fontSize: "0.76rem",
+              fontWeight: 700,
+              letterSpacing: "0.16em",
+              textTransform: "uppercase",
+              color: "primary.main",
+            }}
+          >
+            Downloads
+          </Typography>
+          <Typography component="h2" sx={{ mt: 1, mb: 1.1, fontSize: { xs: "1.5rem", md: "1.8rem" }, fontWeight: 800 }}>
+            下载模组
+          </Typography>
+          <Typography component="p" sx={{ m: 0, color: "text.secondary", lineHeight: 1.8 }}>
+            从常用发行平台获取 Croparia IF，然后继续阅读文档。
+          </Typography>
+        </Box>
+        <Stack spacing={1.2}>
+          <Button
+            component="a"
+            href="https://modrinth.com/mod/croparia-if"
+            target="_blank"
+            rel="noreferrer"
+            variant="contained"
+            sx={{
+              minHeight: 52,
+              justifyContent: "space-between",
+              px: 2.5,
+              borderRadius: "18px",
+              textTransform: "none",
+              fontWeight: 800,
+            }}
+          >
+            Modrinth
+            <Typography component="span" sx={{ fontSize: "0.86rem", opacity: 0.78 }}>
+              推荐下载
+            </Typography>
+          </Button>
+          <Button
+            component="a"
+            href="https://www.curseforge.com/minecraft/mc-mods/croparia-if"
+            target="_blank"
+            rel="noreferrer"
+            variant="contained"
+            sx={{
+              minHeight: 52,
+              justifyContent: "space-between",
+              px: 2.5,
+              borderRadius: "18px",
+              textTransform: "none",
+              fontWeight: 800,
+              bgcolor: "#ffb36c",
+              color: "#48210d",
+              "&:hover": { bgcolor: "#ffa44a" },
+            }}
+          >
+            CurseForge
+            <Typography component="span" sx={{ fontSize: "0.86rem", opacity: 0.78 }}>
+              平台分发
+            </Typography>
+          </Button>
+          <Button
+            component="a"
+            href="https://github.com/MUYUTwilighter/croparia-if"
+            target="_blank"
+            rel="noreferrer"
+            variant="contained"
+            sx={{
+              minHeight: 52,
+              justifyContent: "space-between",
+              px: 2.5,
+              borderRadius: "18px",
+              textTransform: "none",
+              fontWeight: 800,
+              bgcolor: "#2c3728",
+              color: "#f6f2df",
+              "&:hover": { bgcolor: "#1f271c" },
+            }}
+          >
+            GitHub
+            <Typography component="span" sx={{ fontSize: "0.86rem", opacity: 0.78 }}>
+              源码与发行
+            </Typography>
+          </Button>
+        </Stack>
+      </Stack>
+    </Box>
 
-## 版本与归档
+    <Box
+      sx={{
+        borderRadius: "28px",
+        border: "1px solid",
+        borderColor: "divider",
+        background: "linear-gradient(180deg, rgba(253,252,247,0.96), rgba(248,245,235,0.93))",
+        boxShadow: "0 24px 56px rgba(37, 53, 33, 0.08)",
+        p: { xs: 3, md: 3.5 },
+      }}
+    >
+      <Stack spacing={2.5}>
+        <Box>
+          <Typography
+            component="p"
+            sx={{
+              m: 0,
+              fontSize: "0.76rem",
+              fontWeight: 700,
+              letterSpacing: "0.16em",
+              textTransform: "uppercase",
+              color: "primary.main",
+            }}
+          >
+            Community
+          </Typography>
+          <Typography component="h2" sx={{ mt: 1, mb: 1.1, fontSize: { xs: "1.5rem", md: "1.8rem" }, fontWeight: 800 }}>
+            社区与反馈
+          </Typography>
+          <Typography component="p" sx={{ m: 0, color: "text.secondary", lineHeight: 1.8 }}>
+            查看模组主页、获取反馈渠道，或者直接加入社区交流。
+          </Typography>
+        </Box>
 
-- [当前版本文档](/doc/zh/1.1.1a)
-- [版本策略](/versions/)
+        <Box
+          sx={{
+            display: "grid",
+            gap: 1.5,
+            gridTemplateColumns: { xs: "1fr", md: "repeat(3, minmax(0, 1fr))" },
+          }}
+        >
+          {[
+            {
+              title: "MCMOD",
+              body: "查看模组页、汉化名片和社区整理信息。",
+              href: "https://www.mcmod.cn/class/13639.html",
+              accent: "#ffb36c",
+              fg: "#48210d",
+            },
+            {
+              title: "Discord",
+              body: "加入跨平台社区频道，参与反馈与讨论。",
+              href: "https://discord.gg/JunKeKCJAY",
+              accent: "#5d7f4f",
+              fg: "#fffdf8",
+            },
+            {
+              title: "QQ 反馈群",
+              body: "通过国内常用渠道提交问题和交流想法。",
+              href: "https://qm.qq.com/q/OedneeO0Uw",
+              accent: "#2c3728",
+              fg: "#f6f2df",
+            },
+          ].map((item) => (
+            <Card
+              key={item.title}
+              component="a"
+              href={item.href}
+              target="_blank"
+              rel="noreferrer"
+              sx={{
+                display: "block",
+                textDecoration: "none",
+                borderRadius: "22px",
+                border: "1px solid rgba(129, 168, 87, 0.16)",
+                backgroundColor: "rgba(255,255,255,0.66)",
+                color: "inherit",
+                transition: "transform 0.18s ease, box-shadow 0.18s ease",
+                "&:hover": {
+                  transform: "translateY(-3px)",
+                  boxShadow: "0 20px 40px rgba(37, 53, 33, 0.12)",
+                },
+              }}
+            >
+              <CardContent sx={{ p: 2.5 }}>
+                <Box
+                  sx={{
+                    display: "inline-flex",
+                    px: 1.25,
+                    py: 0.55,
+                    borderRadius: 999,
+                    bgcolor: item.accent,
+                    color: item.fg,
+                    fontWeight: 800,
+                    fontSize: "0.82rem",
+                    letterSpacing: "0.04em",
+                  }}
+                >
+                  {item.title}
+                </Box>
+                <Typography component="p" sx={{ m: 0, mt: 1.4, color: "text.secondary", lineHeight: 1.75 }}>
+                  {item.body}
+                </Typography>
+              </CardContent>
+            </Card>
+          ))}
+        </Box>
+      </Stack>
+    </Box>
+  </Box>
 
-## 快速开始
+  <Box
+    id="home-navigation"
+    sx={{
+      width: "100%",
+      maxWidth: "1380px",
+      mx: "auto",
+      borderRadius: "28px",
+      border: "1px solid",
+      borderColor: "divider",
+      background: "linear-gradient(180deg, rgba(253,252,247,0.96), rgba(248,245,235,0.93))",
+      boxShadow: "0 24px 56px rgba(37, 53, 33, 0.08)",
+      p: { xs: 3, md: 4 },
+    }}
+  >
+    <Stack spacing={2.5}>
+      <Box sx={{ maxWidth: "760px" }}>
+        <Typography
+          component="p"
+          sx={{
+            m: 0,
+            fontSize: "0.76rem",
+            fontWeight: 700,
+            letterSpacing: "0.16em",
+            textTransform: "uppercase",
+            color: "primary.main",
+          }}
+        >
+          Navigation
+        </Typography>
+        <Typography component="h2" sx={{ mt: 1, mb: 1.1, fontSize: { xs: "1.6rem", md: "1.95rem" }, fontWeight: 800 }}>
+          按你的目标进入文档
+        </Typography>
+        <Typography component="p" sx={{ m: 0, color: "text.secondary", lineHeight: 1.8 }}>
+          如果你正在找具体内容、想推进玩法、需要做整合包，或者准备基于模组进行下游开发，都可以从这里直接进入对应栏目。
+        </Typography>
+      </Box>
 
-- 想先认识模组内容，可以从 [通用](./general) 开始。
-- 想直接开始游玩，可以先看 [玩家目录](./player)，再从 [快速入门](./player/getting-started) 开始。
-- 想做数据包、配置或生成器自定义，可以前往 [整合包作者](./modpack)。
-- 想理解模组架构、核心模块与 API，可以前往 [开发者](./developer)。
+      <Box
+        sx={{
+          display: "grid",
+          gap: 2,
+          gridTemplateColumns: { xs: "1fr", sm: "repeat(2, minmax(0, 1fr))", xl: "repeat(4, minmax(0, 1fr))" },
+        }}
+      >
+        {[
+          {
+            title: "通用",
+            body: "查看核心概念、内容总览、方块物品和基础资料。",
+            href: "./general",
+            cta: "进入通用文档",
+          },
+          {
+            title: "玩家",
+            body: "查看入门、推进、机器系统、自动化和常见问题。",
+            href: "./player",
+            cta: "进入玩家文档",
+          },
+          {
+            title: "整合包作者",
+            body: "查看自定义能力、数据包、资源包、配方与工具。",
+            href: "./modpack",
+            cta: "进入整合包文档",
+          },
+          {
+            title: "开发者",
+            body: "查看核心模块、通用 API、内容维护参考与下游开发说明。",
+            href: "./developer",
+            cta: "进入开发者文档",
+          },
+        ].map((card) => (
+          <Card
+            key={card.title}
+            component="a"
+            href={card.href}
+            sx={{
+              display: "block",
+              textDecoration: "none",
+              color: "inherit",
+              borderRadius: "24px",
+              border: "1px solid rgba(129, 168, 87, 0.15)",
+              backgroundColor: "rgba(255,255,255,0.68)",
+              transition: "transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease",
+              "&:hover": {
+                transform: "translateY(-4px)",
+                borderColor: "rgba(111, 152, 82, 0.4)",
+                boxShadow: "0 24px 48px rgba(37, 53, 33, 0.12)",
+              },
+            }}
+          >
+            <CardContent sx={{ p: 3 }}>
+              <Typography component="h3" sx={{ m: 0, mb: 1.1, fontSize: "1.2rem", fontWeight: 800 }}>
+                {card.title}
+              </Typography>
+              <Typography component="p" sx={{ m: 0, color: "text.secondary", lineHeight: 1.75 }}>
+                {card.body}
+              </Typography>
+              <Typography component="span" sx={{ display: "inline-flex", mt: 1.8, color: "primary.main", fontWeight: 700 }}>
+                {card.cta}
+              </Typography>
+            </CardContent>
+          </Card>
+        ))}
+      </Box>
+    </Stack>
+  </Box>
+
+  <Box
+    sx={{
+      width: "100%",
+      maxWidth: "1380px",
+      mx: "auto",
+      borderRadius: "28px",
+      border: "1px solid",
+      borderColor: "divider",
+      background: "linear-gradient(180deg, rgba(253,252,247,0.96), rgba(248,245,235,0.93))",
+      boxShadow: "0 24px 56px rgba(37, 53, 33, 0.08)",
+      p: { xs: 3, md: 4 },
+    }}
+  >
+    <Stack spacing={2.5}>
+      <Box sx={{ maxWidth: "760px" }}>
+        <Typography
+          component="p"
+          sx={{
+            m: 0,
+            fontSize: "0.76rem",
+            fontWeight: 700,
+            letterSpacing: "0.16em",
+            textTransform: "uppercase",
+            color: "primary.main",
+          }}
+        >
+          Gameplay Preview
+        </Typography>
+        <Typography component="h2" sx={{ mt: 1, mb: 1.1, fontSize: { xs: "1.6rem", md: "1.95rem" }, fontWeight: 800 }}>
+          玩法与能力预览
+        </Typography>
+        <Typography component="p" sx={{ m: 0, color: "text.secondary", lineHeight: 1.8 }}>
+          这里不是完整攻略，而是帮助你快速判断 Croparia IF 当前最有代表性的几个方向。
+        </Typography>
+      </Box>
+
+      <Box
+        sx={{
+          display: "grid",
+          gap: 2,
+          gridTemplateColumns: { xs: "1fr", md: "repeat(3, minmax(0, 1fr))" },
+        }}
+      >
+        {[
+          {
+            title: "资源种植",
+            body: "挖掘矿石、制作魔种，再逐步建立最早期的农业资源循环。",
+            image: "/home/feat-1.webp",
+            alt: "Resource farming screenshot",
+          },
+          {
+            title: "装置与加工",
+            body: "借助作物嬗变仪、高阶仪式和多种工作方块推进自动化。",
+            image: "/home/feat-2.webp",
+            alt: "Machines and processing screenshot",
+          },
+          {
+            title: "整合包自定义",
+            body: "通过配方、作物与运行时数据生成系统塑造自己的玩法结构。",
+            image: "/home/feat-3.webp",
+            alt: "Modpack customization screenshot",
+          },
+        ].map((item) => (
+          <Card
+            key={item.title}
+            sx={{
+              borderRadius: "24px",
+              overflow: "hidden",
+              border: "1px solid rgba(129, 168, 87, 0.15)",
+              backgroundColor: "rgba(255,255,255,0.72)",
+              boxShadow: "0 20px 42px rgba(37, 53, 33, 0.08)",
+            }}
+          >
+            <Box
+              component="img"
+              src={item.image}
+              alt={item.alt}
+              sx={{
+                display: "block",
+                width: "100%",
+                height: { xs: 220, md: 210, xl: 240 },
+                objectFit: "cover",
+              }}
+            />
+            <CardContent sx={{ p: 2.5 }}>
+              <Typography component="h3" sx={{ m: 0, mb: 1, fontSize: "1.18rem", fontWeight: 800 }}>
+                {item.title}
+              </Typography>
+              <Typography component="p" sx={{ m: 0, color: "text.secondary", lineHeight: 1.8 }}>
+                {item.body}
+              </Typography>
+            </CardContent>
+          </Card>
+        ))}
+      </Box>
+    </Stack>
+  </Box>
+</Box>

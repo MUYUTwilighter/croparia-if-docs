@@ -1,5 +1,5 @@
 import { createElement } from "react";
-import { Box } from "@mui/material";
+import { Box, Button, Card, CardContent, Stack, Typography } from "@mui/material";
 import type { MDXComponents } from "mdx/types";
 import type { JSX, ComponentPropsWithoutRef } from "react";
 import { DocLink } from "@/src/components/docs/doc-link";
@@ -20,13 +20,27 @@ import { RitualRecipeDisplay } from "@/src/components/game/recipe/RitualRecipeDi
 import { RitualStructureDisplay } from "@/src/components/game/recipe/RitualStructureDisplay";
 import { SoakRecipeDisplay } from "@/src/components/game/recipe/SoakRecipeDisplay";
 
+function normalizeMdxHtmlProps<T extends Record<string, unknown>>(props: T): T {
+  if (!("class" in props) || "className" in props) {
+    return props;
+  }
+
+  const { class: classProp, ...rest } = props as T & { class?: unknown; className?: unknown };
+  return {
+    ...rest,
+    className: classProp,
+  } as T;
+}
+
 function passthrough<T extends keyof JSX.IntrinsicElements>(tag: T) {
   return function Passthrough(props: ComponentPropsWithoutRef<T>) {
-    return createElement(tag, props);
+    return createElement(tag, normalizeMdxHtmlProps(props));
   };
 }
 
 export const mdxComponents: MDXComponents = {
+  div: passthrough("div"),
+  span: passthrough("span"),
   h1: passthrough("h1"),
   h2: passthrough("h2"),
   h3: passthrough("h3"),
@@ -42,23 +56,27 @@ export const mdxComponents: MDXComponents = {
   a: DocLink,
   code: passthrough("code"),
   hr: passthrough("hr"),
-  pre: (props) => <Box component="pre" {...props} />,
-  blockquote: (props) => <Box component="blockquote" {...props} />,
-  img: (props) => <Box component="img" {...props} />,
-  details: (props) => <Box component="details" {...props} />,
-  summary: (props) => <Box component="summary" {...props} />,
+  pre: passthrough("pre"),
+  blockquote: passthrough("blockquote"),
+  img: passthrough("img"),
+  details: passthrough("details"),
+  summary: passthrough("summary"),
   table: ({ children, ...props }) => (
     <Box sx={{ my: 3, overflowX: "auto" }}>
-      <Box component="table" {...props}>
-        {children}
-      </Box>
+      {createElement("table", normalizeMdxHtmlProps(props), children)}
     </Box>
   ),
-  thead: (props) => <Box component="thead" {...props} />,
-  tbody: (props) => <Box component="tbody" {...props} />,
-  tr: (props) => <Box component="tr" {...props} />,
-  th: (props) => <Box component="th" {...props} />,
-  td: (props) => <Box component="td" {...props} />,
+  thead: passthrough("thead"),
+  tbody: passthrough("tbody"),
+  tr: passthrough("tr"),
+  th: passthrough("th"),
+  td: passthrough("td"),
+  Box,
+  Stack,
+  Typography,
+  Button,
+  Card,
+  CardContent,
   GameArrowButton,
   GameBlockEntry,
   GameFloatBox,
