@@ -929,18 +929,59 @@ export function ResponsiveDebugPanel({
 export function PageFooter() {
   return (
     <Box component="footer" sx={{ borderTop: 1, borderColor: "divider", bgcolor: "background.paper", mt: "auto" }}>
-      <Container maxWidth={false} sx={{ px: { xs: 2, md: 4 }, py: 3 }}>
+      <Container maxWidth={false} sx={{ px: { xs: 2, md: 4 }, py: { xs: 2.25, md: 2.75 } }}>
         <Stack
           direction={{ xs: "column", md: "row" }}
-          spacing={1.5}
+          spacing={{ xs: 0.9, md: 1.5 }}
           sx={{ justifyContent: "space-between", alignItems: { xs: "flex-start", md: "center" } }}
         >
-          <Typography variant="body2" color="text.secondary">
-            {siteConfig.siteName}
-          </Typography>
-          <Typography variant="body2" color="text.secondary">
-            Parser-driven Next.js docs frontend for Croparia IF.
-          </Typography>
+          <Stack spacing={0.35}>
+            <Typography variant="body2" sx={{ color: "text.primary", fontWeight: 600 }}>
+              {siteConfig.siteName}
+            </Typography>
+            <Typography variant="caption" color="text.secondary">
+              © 2026{" "}
+              <Link
+                href="https://muyucloud.cool"
+                target="_blank"
+                rel="noreferrer"
+                style={{ textDecoration: "none", color: "inherit" }}
+              >
+                <Box
+                  component="span"
+                  sx={{
+                    color: "primary.main",
+                    transition: "color 0.18s ease",
+                    "&:hover": {
+                      color: "primary.dark",
+                    },
+                  }}
+                >
+                  暮宇_Twilighter
+                </Box>
+              </Link>
+              . All rights reserved.
+            </Typography>
+          </Stack>
+          <Link
+            href="https://beian.miit.gov.cn/"
+            target="_blank"
+            rel="noreferrer"
+            style={{ textDecoration: "none" }}
+          >
+            <Typography
+              variant="caption"
+              sx={{
+                color: "text.secondary",
+                transition: "color 0.18s ease",
+                "&:hover": {
+                  color: "primary.main",
+                },
+              }}
+            >
+              皖ICP备2026011109号
+            </Typography>
+          </Link>
         </Stack>
       </Container>
     </Box>
