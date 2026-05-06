@@ -1,7 +1,0 @@
-{
-  "type": "croparia:soak",
-  "element": "elemental",
-  "input": "minecraft:sugar_cane",
-  "output": "minecraft:bamboo",
-  "probability": 1.0
-}

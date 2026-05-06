@@ -511,38 +511,40 @@ nonav: true
             cta: "进入开发者文档",
           },
         ].map((card) => (
-          <Card
+          <DocLink
             key={card.title}
-            component="a"
             href={card.href}
-            sx={{
-              display: "block",
-              textDecoration: "none",
-              color: "inherit",
-              borderRadius: "24px",
-              border: "1px solid rgba(129, 168, 87, 0.15)",
-              backgroundColor: "rgba(255,255,255,0.68)",
-              transition: "transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease",
-              "&:hover": {
-                transform: "translateY(-4px)",
-                borderColor: "rgba(111, 152, 82, 0.4)",
-                boxShadow: "0 24px 48px rgba(37, 53, 33, 0.12)",
-              },
-            }}
+            style={{display: "block", textDecoration: "none", color: "inherit"}}
           >
-            <CardContent sx={{p: 3}}>
-              <Typography component="h3" sx={{m: 0, mb: 1.1, fontSize: "1.2rem", fontWeight: 800}}>
-                {card.title}
-              </Typography>
-              <Typography component="p" sx={{m: 0, color: "text.secondary", lineHeight: 1.75}}>
-                {card.body}
-              </Typography>
-              <Typography component="span"
-                          sx={{display: "inline-flex", mt: 1.8, color: "primary.main", fontWeight: 700}}>
-                {card.cta}
-              </Typography>
-            </CardContent>
-          </Card>
+            <Card
+              sx={{
+                display: "block",
+                color: "inherit",
+                borderRadius: "24px",
+                border: "1px solid rgba(129, 168, 87, 0.15)",
+                backgroundColor: "rgba(255,255,255,0.68)",
+                transition: "transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease",
+                "&:hover": {
+                  transform: "translateY(-4px)",
+                  borderColor: "rgba(111, 152, 82, 0.4)",
+                  boxShadow: "0 24px 48px rgba(37, 53, 33, 0.12)",
+                },
+              }}
+            >
+              <CardContent sx={{p: 3}}>
+                <Typography component="h3" sx={{m: 0, mb: 1.1, fontSize: "1.2rem", fontWeight: 800}}>
+                  {card.title}
+                </Typography>
+                <Typography component="p" sx={{m: 0, color: "text.secondary", lineHeight: 1.75}}>
+                  {card.body}
+                </Typography>
+                <Typography component="span"
+                            sx={{display: "inline-flex", mt: 1.8, color: "primary.main", fontWeight: 700}}>
+                  {card.cta}
+                </Typography>
+              </CardContent>
+            </Card>
+          </DocLink>
         ))}
       </Box>
     </Stack>

@@ -1,7 +1,0 @@
-{
-  "type": "croparia:soak",
-  "element": "air",
-  "input": "minecraft:ender_chest",
-  "output": "minecraft:shulker_box",
-  "probability": 1.0
-}

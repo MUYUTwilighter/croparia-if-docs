@@ -91,6 +91,7 @@ export const mdxComponents: MDXComponents = {
   tr: passthrough("tr"),
   th: passthrough("th"),
   td: passthrough("td"),
+  DocLink: withNormalizedProps(DocLink),
   Box: withNormalizedProps(Box),
   Stack: withNormalizedProps(Stack),
   Typography: withNormalizedProps(SafeTypography),

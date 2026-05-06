@@ -1,7 +1,0 @@
-{
-  "type": "croparia:soak",
-  "element": "earth",
-  "input": "minecraft:grass_block",
-  "output": "minecraft:mycelium",
-  "probability": 1.0
-}

@@ -1,7 +1,0 @@
-{
-  "type": "croparia:soak",
-  "element": "elemental",
-  "input": "minecraft:moss_block",
-  "output": "minecraft:sponge",
-  "probability": 1.0
-}
