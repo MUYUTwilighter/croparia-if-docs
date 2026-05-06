@@ -67,6 +67,7 @@ keywords:
 
 ### 通用 API
 
+- [Maven 仓库](maven.md#overview)
 - [Repo API](repo/index.md#overview)
 - [数据生成系统](generator/index.md#overview)
 - [Recipe API](recipe/index.md#overview)
@@ -93,7 +94,7 @@ keywords:
 ## 下一步建议
 
 - 如果你要理解“模组整体是怎么跑起来的”，先读 [核心模块](core/index.md#overview)
+- 如果你要把 Croparia IF 作为开发依赖接进自己的工程，先读 [Maven 仓库](maven.md#overview)
 - 如果你要接库存、自动化或平台物品能力，先读 [Repo API](repo/index.md#overview)
 - 如果你要接运行时数据生成，先读 [数据生成系统](generator/index.md#overview)
 - 如果你要排查界面交互或客户端同步，先读 [网络 API](network.md#overview)
-
