@@ -114,6 +114,7 @@ export function DocOutline() {
         border: 1,
         borderColor: "divider",
         overflow: "hidden",
+        maxHeight: { xl: "calc(100vh - 120px)" },
         position: { xl: "sticky" },
         top: { xl: 96 },
       }}
@@ -218,7 +219,18 @@ export function DocOutline() {
       </Collapse>
 
       {hasItems ? (
-        <List disablePadding sx={{ display: { xs: "none", xl: "flex" }, px: 1.25, py: 1.25, flexDirection: "column", gap: 0.4 }}>
+        <List
+          disablePadding
+          sx={{
+            display: { xs: "none", xl: "flex" },
+            px: 1.25,
+            py: 1.25,
+            flexDirection: "column",
+            gap: 0.4,
+            maxHeight: { xl: "calc(100vh - 220px)" },
+            overflowY: "auto",
+          }}
+        >
           {items.map((item) => {
             const isActive = item.id === activeId;
             const indent = Math.max(0, item.level - 2) * 1.5;

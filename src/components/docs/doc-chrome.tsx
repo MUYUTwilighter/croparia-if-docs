@@ -12,6 +12,7 @@ import {
   ButtonBase,
   Collapse,
   Divider,
+  IconButton,
   List,
   Paper,
   Stack,
@@ -45,10 +46,16 @@ function SidebarTree({
   items,
   pathname,
   depth = 0,
+  expandedItems,
+  onToggle,
+  onNavigate,
 }: {
   items: SidebarItem[];
   pathname: string;
   depth?: number;
+  expandedItems: Record<string, boolean>;
+  onToggle: (href: string) => void;
+  onNavigate?: () => void;
 }) {
   return (
     <List disablePadding sx={{ display: "flex", flexDirection: "column", gap: 0.75 }}>
@@ -56,24 +63,18 @@ function SidebarTree({
         const hasChildren = Boolean(item.items && item.items.length > 0);
         const isActiveBranch = isCurrentOrAncestor(pathname, item.href);
         const isActivePage = normalizePathname(pathname) === normalizePathname(item.href);
-        const isExpanded = hasChildren && (depth === 0 || isActiveBranch);
+        const isExpanded = hasChildren && (expandedItems[item.href] ?? isActiveBranch);
         const isTopLevel = depth === 0;
 
         return (
           <Box key={item.href}>
-            <ButtonBase
-              component={Link}
-              href={item.href}
+            <Box
               sx={{
                 width: "100%",
                 display: "flex",
                 justifyContent: "space-between",
                 alignItems: "center",
-                textAlign: "left",
                 borderRadius: 0,
-                px: isTopLevel ? 0.75 : 1,
-                py: isTopLevel ? 0.55 : 0.7,
-                pl: (isTopLevel ? 0.75 : 1) + depth * 1.35,
                 borderLeft: "2px solid",
                 borderLeftColor: isActivePage ? "primary.main" : isActiveBranch ? "rgba(93, 127, 79, 0.55)" : "transparent",
                 bgcolor: isActivePage ? "rgba(93, 127, 79, 0.05)" : "transparent",
@@ -85,37 +86,57 @@ function SidebarTree({
                 },
               }}
             >
-              <Typography
-                variant={isTopLevel ? "caption" : "body2"}
+              <ButtonBase
+                component={Link}
+                href={item.href}
+                onClick={() => onNavigate?.()}
                 sx={{
-                  fontWeight: isTopLevel ? (isActiveBranch ? 700 : 600) : isActivePage ? 700 : isActiveBranch ? 600 : 500,
-                  color: isActivePage ? "primary.dark" : isTopLevel ? "text.secondary" : "text.primary",
-                  lineHeight: 1.45,
-                  textTransform: "none",
-                  letterSpacing: isTopLevel ? "0.04em" : "normal",
+                  flex: 1,
+                  minWidth: 0,
+                  display: "flex",
+                  justifyContent: "flex-start",
+                  alignItems: "center",
+                  textAlign: "left",
+                  px: isTopLevel ? 0.75 : 1,
+                  py: isTopLevel ? 0.55 : 0.7,
+                  pl: (isTopLevel ? 0.75 : 1) + depth * 1.35,
+                  pr: hasChildren ? 0.5 : 1,
                 }}
               >
-                {item.text}
-              </Typography>
-              {hasChildren ? (
                 <Typography
-                  component="span"
-                  variant="caption"
+                  variant={isTopLevel ? "caption" : "body2"}
+                  sx={{
+                    fontWeight: isTopLevel ? (isActiveBranch ? 700 : 600) : isActivePage ? 700 : isActiveBranch ? 600 : 500,
+                    color: isActivePage ? "primary.dark" : isTopLevel ? "text.secondary" : "text.primary",
+                    lineHeight: 1.45,
+                    textTransform: "none",
+                    letterSpacing: isTopLevel ? "0.04em" : "normal",
+                  }}
+                >
+                  {item.text}
+                </Typography>
+              </ButtonBase>
+              {hasChildren ? (
+                <IconButton
+                  size="small"
+                  aria-label={isExpanded ? `收起 ${item.text}` : `展开 ${item.text}`}
+                  onClick={() => onToggle(item.href)}
                   sx={{
                     color: isExpanded ? (isTopLevel ? "text.secondary" : "primary.main") : "text.disabled",
-                    ml: 1,
+                    mr: 0.5,
+                    ml: 0.5,
                     flexShrink: 0,
-                    display: "inline-flex",
-                    alignItems: "center",
+                    borderRadius: 0,
+                    p: 0.35,
                   }}
                 >
                   {isExpanded ? <ExpandLessIcon sx={{ fontSize: 16 }} /> : <ChevronRightIcon sx={{ fontSize: 16 }} />}
-                </Typography>
+                </IconButton>
               ) : null}
-            </ButtonBase>
+            </Box>
             {hasChildren ? (
               <Collapse in={isExpanded} timeout="auto" unmountOnExit={false}>
-              <Box
+                <Box
                   sx={{
                     borderLeft: 1,
                     borderColor: isExpanded ? "rgba(93, 127, 79, 0.28)" : "divider",
@@ -124,7 +145,14 @@ function SidebarTree({
                     pl: 0.6,
                   }}
                 >
-                  <SidebarTree items={item.items ?? []} pathname={pathname} depth={depth + 1} />
+                  <SidebarTree
+                    items={item.items ?? []}
+                    pathname={pathname}
+                    depth={depth + 1}
+                    expandedItems={expandedItems}
+                    onToggle={onToggle}
+                    onNavigate={onNavigate}
+                  />
                 </Box>
               </Collapse>
             ) : null}
@@ -158,6 +186,14 @@ export function DocChrome({ children }: { children: React.ReactNode }) {
   const showDebugPanel = process.env.NODE_ENV !== "production";
   const showDiscoveryNotice = process.env.NODE_ENV !== "production";
   const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
+  const [expandedItems, setExpandedItems] = useState<Record<string, boolean>>({});
+
+  function handleToggleSidebarItem(href: string) {
+    setExpandedItems((current) => ({
+      ...current,
+      [href]: !(current[href] ?? isCurrentOrAncestor(normalizedPathname, href)),
+    }));
+  }
 
   return (
     <Box sx={{ minHeight: "100vh", display: "flex", flexDirection: "column", bgcolor: "background.default" }}>
@@ -212,6 +248,7 @@ export function DocChrome({ children }: { children: React.ReactNode }) {
                   borderColor: "divider",
                   px: 0,
                   py: 0,
+                  maxHeight: { lg: "calc(100vh - 120px)" },
                   position: { lg: "sticky" },
                   top: { lg: 96 },
                   overflow: "hidden",
@@ -270,9 +307,13 @@ export function DocChrome({ children }: { children: React.ReactNode }) {
                 <Collapse in={mobileSidebarOpen || false} timeout="auto" unmountOnExit={false} sx={{ display: { xs: "block", lg: "none" } }}>
                   <Box sx={{ px: 1.5, py: 1.5, overflowY: "auto" }}>
                     {sidebarItems.length > 0 ? (
-                      <Box onClick={() => setMobileSidebarOpen(false)}>
-                        <SidebarTree items={sidebarItems} pathname={normalizedPathname} />
-                      </Box>
+                      <SidebarTree
+                        items={sidebarItems}
+                        pathname={normalizedPathname}
+                        expandedItems={expandedItems}
+                        onToggle={handleToggleSidebarItem}
+                        onNavigate={() => setMobileSidebarOpen(false)}
+                      />
                     ) : (
                       <Stack spacing={1.25} sx={{ px: 1, py: 1.5 }}>
                         <Typography variant="body2" color="text.secondary">
@@ -286,9 +327,22 @@ export function DocChrome({ children }: { children: React.ReactNode }) {
                     )}
                   </Box>
                 </Collapse>
-                <Box sx={{ display: { xs: "none", lg: "block" }, px: 1.5, py: 1.5, maxHeight: { lg: "calc(100vh - 148px)" }, overflowY: "auto" }}>
+                <Box
+                  sx={{
+                    display: { xs: "none", lg: "block" },
+                    px: 1.5,
+                    py: 1.5,
+                    maxHeight: { lg: "calc(100vh - 220px)" },
+                    overflowY: "auto",
+                  }}
+                >
                   {sidebarItems.length > 0 ? (
-                    <SidebarTree items={sidebarItems} pathname={normalizedPathname} />
+                    <SidebarTree
+                      items={sidebarItems}
+                      pathname={normalizedPathname}
+                      expandedItems={expandedItems}
+                      onToggle={handleToggleSidebarItem}
+                    />
                   ) : (
                     <Stack spacing={1.25} sx={{ px: 1, py: 1.5 }}>
                       <Typography variant="body2" color="text.secondary">

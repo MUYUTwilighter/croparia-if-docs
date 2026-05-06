@@ -1,7 +1,8 @@
 import { createElement } from "react";
 import { Box, Button, Card, CardContent, Stack, Typography } from "@mui/material";
 import type { MDXComponents } from "mdx/types";
-import type { JSX, ComponentPropsWithoutRef } from "react";
+import type { JSX, ComponentPropsWithoutRef, ElementType } from "react";
+import type { TypographyProps } from "@mui/material/Typography";
 import { DocLink } from "@/src/components/docs/doc-link";
 import { GameArrowButton } from "@/src/components/game/GameArrowButton";
 import { GameBlockEntry } from "@/src/components/game/GameBlockEntry";
@@ -38,6 +39,23 @@ function passthrough<T extends keyof JSX.IntrinsicElements>(tag: T) {
   };
 }
 
+function withNormalizedProps<T extends ElementType>(Component: T) {
+  return function NormalizedComponent(props: Record<string, unknown>) {
+    return createElement(Component, normalizeMdxHtmlProps(props));
+  };
+}
+
+function SafeTypography(props: TypographyProps) {
+  const { component, ...rest } = props;
+  const resolvedComponent = component === "p" ? "div" : component;
+
+  if (resolvedComponent) {
+    return <Typography component={resolvedComponent as ElementType} {...rest} />;
+  }
+
+  return <Typography {...rest} />;
+}
+
 export const mdxComponents: MDXComponents = {
   div: passthrough("div"),
   span: passthrough("span"),
@@ -53,8 +71,10 @@ export const mdxComponents: MDXComponents = {
   li: passthrough("li"),
   strong: passthrough("strong"),
   em: passthrough("em"),
-  a: DocLink,
+  a: withNormalizedProps(DocLink),
   code: passthrough("code"),
+  figure: passthrough("figure"),
+  figcaption: passthrough("figcaption"),
   hr: passthrough("hr"),
   pre: passthrough("pre"),
   blockquote: passthrough("blockquote"),
@@ -71,28 +91,28 @@ export const mdxComponents: MDXComponents = {
   tr: passthrough("tr"),
   th: passthrough("th"),
   td: passthrough("td"),
-  Box,
-  Stack,
-  Typography,
-  Button,
-  Card,
-  CardContent,
-  GameArrowButton,
-  GameBlockEntry,
-  GameFloatBox,
-  GameGuiFrame,
-  GameItemCard,
-  GameItemDisplay,
-  GameItemEntry,
-  GameSlot,
-  GameText,
-  RowGallery,
-  CraftingRecipeDisplay,
-  InfusorRecipeDisplay,
-  RecipeDisplay,
-  RitualRecipeDisplay,
-  RitualStructureDisplay,
-  SoakRecipeDisplay,
+  Box: withNormalizedProps(Box),
+  Stack: withNormalizedProps(Stack),
+  Typography: withNormalizedProps(SafeTypography),
+  Button: withNormalizedProps(Button),
+  Card: withNormalizedProps(Card),
+  CardContent: withNormalizedProps(CardContent),
+  GameArrowButton: withNormalizedProps(GameArrowButton),
+  GameBlockEntry: withNormalizedProps(GameBlockEntry),
+  GameFloatBox: withNormalizedProps(GameFloatBox),
+  GameGuiFrame: withNormalizedProps(GameGuiFrame),
+  GameItemCard: withNormalizedProps(GameItemCard),
+  GameItemDisplay: withNormalizedProps(GameItemDisplay),
+  GameItemEntry: withNormalizedProps(GameItemEntry),
+  GameSlot: withNormalizedProps(GameSlot),
+  GameText: withNormalizedProps(GameText),
+  RowGallery: withNormalizedProps(RowGallery),
+  CraftingRecipeDisplay: withNormalizedProps(CraftingRecipeDisplay),
+  InfusorRecipeDisplay: withNormalizedProps(InfusorRecipeDisplay),
+  RecipeDisplay: withNormalizedProps(RecipeDisplay),
+  RitualRecipeDisplay: withNormalizedProps(RitualRecipeDisplay),
+  RitualStructureDisplay: withNormalizedProps(RitualStructureDisplay),
+  SoakRecipeDisplay: withNormalizedProps(SoakRecipeDisplay),
 };
 
 export function useMDXComponents(): MDXComponents {

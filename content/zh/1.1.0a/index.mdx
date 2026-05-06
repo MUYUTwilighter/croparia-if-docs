@@ -7,18 +7,18 @@ nonav: true
 <Box
   sx={{
     display: "grid",
-    gap: { xs: 4, md: 5 },
+    gap: {xs: 4, md: 5},
   }}
 >
   <Box
     sx={{
       position: "relative",
       overflow: "hidden",
-      minHeight: { xs: "calc(100vh - 168px)", md: "calc(100vh - 160px)" },
+      minHeight: {xs: "calc(100vh - 168px)", md: "calc(100vh - 160px)"},
       border: "1px solid rgba(112, 143, 86, 0.18)",
       boxShadow: "0 40px 90px rgba(37, 53, 33, 0.16)",
-      px: { xs: 3, md: 6, xl: 8 },
-      py: { xs: 4, md: 5 },
+      px: {xs: 3, md: 6, xl: 8},
+      py: {xs: 4, md: 5},
       display: "flex",
       alignItems: "center",
       "&::before": {
@@ -28,7 +28,6 @@ nonav: true
         backgroundImage: "url(/home/background.webp)",
         backgroundSize: "cover",
         backgroundPosition: "center",
-        opacity: 0.44,
         transform: "scale(1.03)",
         pointerEvents: "none",
       },
@@ -48,12 +47,18 @@ nonav: true
         maxWidth: "1600px",
         mx: "auto",
         display: "grid",
-        gap: { xs: 4, lg: 5 },
+        gap: {xs: 4, lg: 5},
         alignItems: "center",
-        gridTemplateColumns: { xs: "1fr", lg: "minmax(0, 0.92fr) minmax(420px, 0.88fr)" },
+        gridTemplateColumns: {xs: "1fr", lg: "minmax(0, 0.92fr) minmax(420px, 0.88fr)"},
       }}
     >
-      <Stack spacing={2.5} sx={{ maxWidth: { xs: "100%", lg: "680px" } }}>
+      <Stack spacing={2.5} sx={{
+        maxWidth: {xs: "100%", lg: "680px"},
+        background: 'rgba(255,255,255,0.5)',
+        padding: '3em',
+        borderRadius: '2em',
+        backdropFilter: 'blur(4px)'
+      }}>
         <Typography
           component="p"
           sx={{
@@ -71,7 +76,7 @@ nonav: true
           component="h1"
           sx={{
             m: 0,
-            fontSize: { xs: "2.8rem", md: "4.4rem", xl: "5rem" },
+            fontSize: {xs: "2.8rem", md: "4.4rem", xl: "5rem"},
             lineHeight: 0.98,
             fontWeight: 900,
             letterSpacing: "-0.045em",
@@ -89,16 +94,16 @@ nonav: true
             maxWidth: "62ch",
             color: "text.primary",
             lineHeight: 1.9,
-            fontSize: { xs: "1rem", md: "1.08rem", xl: "1.12rem" },
+            fontSize: {xs: "1rem", md: "1.08rem", xl: "1.12rem"},
           }}
         >
           矿石魔种（Croparia IF）以资源作物、生长循环和装置推进为主要玩法，同时它也从一开始就围绕“可扩展、可重组、可自定义”来设计。
           无论你是想推进游玩、设计整合包，还是基于模组进一步开发，这里都能找到对应的入口。
         </Typography>
         <Stack
-          direction={{ xs: "column", sm: "row" }}
+          direction={{xs: "column", sm: "row"}}
           spacing={1.5}
-          sx={{ pt: 1, alignItems: { xs: "stretch", sm: "center" } }}
+          sx={{pt: 1, alignItems: {xs: "stretch", sm: "center"}}}
         >
           <Button
             variant="contained"
@@ -112,7 +117,7 @@ nonav: true
               fontSize: "0.98rem",
               fontWeight: 800,
               boxShadow: "0 18px 34px rgba(84, 115, 56, 0.24)",
-              alignSelf: { xs: "stretch", sm: "flex-start" },
+              alignSelf: {xs: "stretch", sm: "flex-start"},
             }}
           >
             开始使用文档
@@ -130,7 +135,7 @@ nonav: true
               borderColor: "rgba(78, 104, 53, 0.34)",
               color: "text.primary",
               backgroundColor: "rgba(255,255,255,0.28)",
-              alignSelf: { xs: "stretch", sm: "flex-start" },
+              alignSelf: {xs: "stretch", sm: "flex-start"},
               "&:hover": {
                 borderColor: "primary.main",
                 backgroundColor: "rgba(255,255,255,0.44)",
@@ -146,14 +151,14 @@ nonav: true
             display: "grid",
             gap: 1.5,
             pt: 1.5,
-            gridTemplateColumns: { xs: "1fr", sm: "repeat(3, minmax(0, 1fr))" },
+            gridTemplateColumns: {xs: "1fr", sm: "repeat(3, minmax(0, 1fr))"},
             maxWidth: "760px",
           }}
         >
           {[
-            { label: "游玩", value: "资源作物与装置推进" },
-            { label: "整合", value: "配方、作物与运行时生成" },
-            { label: "开发", value: "核心模块与下游 API" },
+            {label: "游玩", value: "资源作物与装置推进"},
+            {label: "整合", value: "配方、作物与运行时生成"},
+            {label: "开发", value: "核心模块与下游 API"},
           ].map((item) => (
             <Box
               key={item.label}
@@ -178,7 +183,7 @@ nonav: true
               >
                 {item.label}
               </Typography>
-              <Typography component="p" sx={{ m: 0, mt: 0.8, lineHeight: 1.65, color: "text.primary", fontWeight: 600 }}>
+              <Typography component="p" sx={{m: 0, mt: 0.8, lineHeight: 1.65, color: "text.primary", fontWeight: 600}}>
                 {item.value}
               </Typography>
             </Box>
@@ -188,13 +193,11 @@ nonav: true
 
       <Box
         sx={{
-          justifySelf: { xs: "stretch", lg: "end" },
+          justifySelf: {xs: "stretch", lg: "end"},
           width: "100%",
-          maxWidth: { xs: "100%", lg: "760px" },
-          borderRadius: { xs: "28px", md: "34px" },
+          maxWidth: {xs: "100%", lg: "760px"},
           overflow: "hidden",
-          border: "1px solid rgba(129, 168, 87, 0.24)",
-          p: { xs: 1.5, md: 2 },
+          p: {xs: 1.5, md: 2},
         }}
       >
         <Box
@@ -204,9 +207,9 @@ nonav: true
           sx={{
             display: "block",
             width: "100%",
-            minHeight: { xs: 220, md: 360, xl: 420 },
+            minHeight: {xs: 220, md: 360, xl: 420},
             objectFit: "contain",
-            borderRadius: { xs: "22px", md: "28px" },
+            borderRadius: {xs: "22px", md: "28px"},
           }}
         />
       </Box>
@@ -221,7 +224,7 @@ nonav: true
       mx: "auto",
       display: "grid",
       gap: 2.5,
-      gridTemplateColumns: { xs: "1fr", xl: "minmax(0, 0.92fr) minmax(0, 1.08fr)" },
+      gridTemplateColumns: {xs: "1fr", xl: "minmax(0, 0.92fr) minmax(0, 1.08fr)"},
     }}
   >
     <Box
@@ -232,7 +235,7 @@ nonav: true
         borderColor: "divider",
         background: "linear-gradient(180deg, rgba(253,252,247,0.96), rgba(248,245,235,0.93))",
         boxShadow: "0 24px 56px rgba(37, 53, 33, 0.08)",
-        p: { xs: 3, md: 3.5 },
+        p: {xs: 3, md: 3.5},
       }}
     >
       <Stack spacing={2.5}>
@@ -250,10 +253,10 @@ nonav: true
           >
             Downloads
           </Typography>
-          <Typography component="h2" sx={{ mt: 1, mb: 1.1, fontSize: { xs: "1.5rem", md: "1.8rem" }, fontWeight: 800 }}>
+          <Typography component="h2" sx={{mt: 1, mb: 1.1, fontSize: {xs: "1.5rem", md: "1.8rem"}, fontWeight: 800}}>
             下载模组
           </Typography>
-          <Typography component="p" sx={{ m: 0, color: "text.secondary", lineHeight: 1.8 }}>
+          <Typography component="p" sx={{m: 0, color: "text.secondary", lineHeight: 1.8}}>
             从常用发行平台获取 Croparia IF，然后继续阅读文档。
           </Typography>
         </Box>
@@ -274,7 +277,7 @@ nonav: true
             }}
           >
             Modrinth
-            <Typography component="span" sx={{ fontSize: "0.86rem", opacity: 0.78 }}>
+            <Typography component="span" sx={{fontSize: "0.86rem", opacity: 0.78}}>
               推荐下载
             </Typography>
           </Button>
@@ -293,11 +296,11 @@ nonav: true
               fontWeight: 800,
               bgcolor: "#ffb36c",
               color: "#48210d",
-              "&:hover": { bgcolor: "#ffa44a" },
+              "&:hover": {bgcolor: "#ffa44a"},
             }}
           >
             CurseForge
-            <Typography component="span" sx={{ fontSize: "0.86rem", opacity: 0.78 }}>
+            <Typography component="span" sx={{fontSize: "0.86rem", opacity: 0.78}}>
               平台分发
             </Typography>
           </Button>
@@ -316,11 +319,11 @@ nonav: true
               fontWeight: 800,
               bgcolor: "#2c3728",
               color: "#f6f2df",
-              "&:hover": { bgcolor: "#1f271c" },
+              "&:hover": {bgcolor: "#1f271c"},
             }}
           >
             GitHub
-            <Typography component="span" sx={{ fontSize: "0.86rem", opacity: 0.78 }}>
+            <Typography component="span" sx={{fontSize: "0.86rem", opacity: 0.78}}>
               源码与发行
             </Typography>
           </Button>
@@ -335,7 +338,7 @@ nonav: true
         borderColor: "divider",
         background: "linear-gradient(180deg, rgba(253,252,247,0.96), rgba(248,245,235,0.93))",
         boxShadow: "0 24px 56px rgba(37, 53, 33, 0.08)",
-        p: { xs: 3, md: 3.5 },
+        p: {xs: 3, md: 3.5},
       }}
     >
       <Stack spacing={2.5}>
@@ -353,10 +356,10 @@ nonav: true
           >
             Community
           </Typography>
-          <Typography component="h2" sx={{ mt: 1, mb: 1.1, fontSize: { xs: "1.5rem", md: "1.8rem" }, fontWeight: 800 }}>
+          <Typography component="h2" sx={{mt: 1, mb: 1.1, fontSize: {xs: "1.5rem", md: "1.8rem"}, fontWeight: 800}}>
             社区与反馈
           </Typography>
-          <Typography component="p" sx={{ m: 0, color: "text.secondary", lineHeight: 1.8 }}>
+          <Typography component="p" sx={{m: 0, color: "text.secondary", lineHeight: 1.8}}>
             查看模组主页、获取反馈渠道，或者直接加入社区交流。
           </Typography>
         </Box>
@@ -365,7 +368,7 @@ nonav: true
           sx={{
             display: "grid",
             gap: 1.5,
-            gridTemplateColumns: { xs: "1fr", md: "repeat(3, minmax(0, 1fr))" },
+            gridTemplateColumns: {xs: "1fr", md: "repeat(3, minmax(0, 1fr))"},
           }}
         >
           {[
@@ -411,7 +414,7 @@ nonav: true
                 },
               }}
             >
-              <CardContent sx={{ p: 2.5 }}>
+              <CardContent sx={{p: 2.5}}>
                 <Box
                   sx={{
                     display: "inline-flex",
@@ -427,7 +430,7 @@ nonav: true
                 >
                   {item.title}
                 </Box>
-                <Typography component="p" sx={{ m: 0, mt: 1.4, color: "text.secondary", lineHeight: 1.75 }}>
+                <Typography component="p" sx={{m: 0, mt: 1.4, color: "text.secondary", lineHeight: 1.75}}>
                   {item.body}
                 </Typography>
               </CardContent>
@@ -449,11 +452,11 @@ nonav: true
       borderColor: "divider",
       background: "linear-gradient(180deg, rgba(253,252,247,0.96), rgba(248,245,235,0.93))",
       boxShadow: "0 24px 56px rgba(37, 53, 33, 0.08)",
-      p: { xs: 3, md: 4 },
+      p: {xs: 3, md: 4},
     }}
   >
     <Stack spacing={2.5}>
-      <Box sx={{ maxWidth: "760px" }}>
+      <Box sx={{maxWidth: "760px"}}>
         <Typography
           component="p"
           sx={{
@@ -467,10 +470,10 @@ nonav: true
         >
           Navigation
         </Typography>
-        <Typography component="h2" sx={{ mt: 1, mb: 1.1, fontSize: { xs: "1.6rem", md: "1.95rem" }, fontWeight: 800 }}>
+        <Typography component="h2" sx={{mt: 1, mb: 1.1, fontSize: {xs: "1.6rem", md: "1.95rem"}, fontWeight: 800}}>
           按你的目标进入文档
         </Typography>
-        <Typography component="p" sx={{ m: 0, color: "text.secondary", lineHeight: 1.8 }}>
+        <Typography component="p" sx={{m: 0, color: "text.secondary", lineHeight: 1.8}}>
           如果你正在找具体内容、想推进玩法、需要做整合包，或者准备基于模组进行下游开发，都可以从这里直接进入对应栏目。
         </Typography>
       </Box>
@@ -479,7 +482,7 @@ nonav: true
         sx={{
           display: "grid",
           gap: 2,
-          gridTemplateColumns: { xs: "1fr", sm: "repeat(2, minmax(0, 1fr))", xl: "repeat(4, minmax(0, 1fr))" },
+          gridTemplateColumns: {xs: "1fr", sm: "repeat(2, minmax(0, 1fr))", xl: "repeat(4, minmax(0, 1fr))"},
         }}
       >
         {[
@@ -527,14 +530,15 @@ nonav: true
               },
             }}
           >
-            <CardContent sx={{ p: 3 }}>
-              <Typography component="h3" sx={{ m: 0, mb: 1.1, fontSize: "1.2rem", fontWeight: 800 }}>
+            <CardContent sx={{p: 3}}>
+              <Typography component="h3" sx={{m: 0, mb: 1.1, fontSize: "1.2rem", fontWeight: 800}}>
                 {card.title}
               </Typography>
-              <Typography component="p" sx={{ m: 0, color: "text.secondary", lineHeight: 1.75 }}>
+              <Typography component="p" sx={{m: 0, color: "text.secondary", lineHeight: 1.75}}>
                 {card.body}
               </Typography>
-              <Typography component="span" sx={{ display: "inline-flex", mt: 1.8, color: "primary.main", fontWeight: 700 }}>
+              <Typography component="span"
+                          sx={{display: "inline-flex", mt: 1.8, color: "primary.main", fontWeight: 700}}>
                 {card.cta}
               </Typography>
             </CardContent>
@@ -554,11 +558,11 @@ nonav: true
       borderColor: "divider",
       background: "linear-gradient(180deg, rgba(253,252,247,0.96), rgba(248,245,235,0.93))",
       boxShadow: "0 24px 56px rgba(37, 53, 33, 0.08)",
-      p: { xs: 3, md: 4 },
+      p: {xs: 3, md: 4},
     }}
   >
     <Stack spacing={2.5}>
-      <Box sx={{ maxWidth: "760px" }}>
+      <Box sx={{maxWidth: "760px"}}>
         <Typography
           component="p"
           sx={{
@@ -572,10 +576,10 @@ nonav: true
         >
           Gameplay Preview
         </Typography>
-        <Typography component="h2" sx={{ mt: 1, mb: 1.1, fontSize: { xs: "1.6rem", md: "1.95rem" }, fontWeight: 800 }}>
+        <Typography component="h2" sx={{mt: 1, mb: 1.1, fontSize: {xs: "1.6rem", md: "1.95rem"}, fontWeight: 800}}>
           玩法与能力预览
         </Typography>
-        <Typography component="p" sx={{ m: 0, color: "text.secondary", lineHeight: 1.8 }}>
+        <Typography component="p" sx={{m: 0, color: "text.secondary", lineHeight: 1.8}}>
           简单浏览一下模组的大体内容
         </Typography>
       </Box>
@@ -584,7 +588,7 @@ nonav: true
         sx={{
           display: "grid",
           gap: 2,
-          gridTemplateColumns: { xs: "1fr", md: "repeat(3, minmax(0, 1fr))" },
+          gridTemplateColumns: {xs: "1fr", md: "repeat(3, minmax(0, 1fr))"},
         }}
       >
         {[
@@ -624,15 +628,15 @@ nonav: true
               sx={{
                 display: "block",
                 width: "100%",
-                height: { xs: 220, md: 210, xl: 240 },
+                height: {xs: 220, md: 210, xl: 240},
                 objectFit: "cover",
               }}
             />
-            <CardContent sx={{ p: 2.5 }}>
-              <Typography component="h3" sx={{ m: 0, mb: 1, fontSize: "1.18rem", fontWeight: 800 }}>
+            <CardContent sx={{p: 2.5}}>
+              <Typography component="h3" sx={{m: 0, mb: 1, fontSize: "1.18rem", fontWeight: 800}}>
                 {item.title}
               </Typography>
-              <Typography component="p" sx={{ m: 0, color: "text.secondary", lineHeight: 1.8 }}>
+              <Typography component="p" sx={{m: 0, color: "text.secondary", lineHeight: 1.8}}>
                 {item.body}
               </Typography>
             </CardContent>

@@ -2,14 +2,27 @@ import { createHash } from "node:crypto";
 import fs from "node:fs/promises";
 import path from "node:path";
 import { compile, run } from "@mdx-js/mdx";
+import rehypePrettyCode from "rehype-pretty-code";
 import { cache } from "react";
 import * as runtime from "react/jsx-runtime";
 
 import { mdxComponents } from "@/mdx-components";
 import { contentSignal } from "@/src/lib/docs/content-signal";
 
-const MDX_CACHE_VERSION = "v1";
+const MDX_CACHE_VERSION = "v3";
 const MDX_CACHE_ROOT = path.join(process.cwd(), ".next", "cache", "docs-mdx");
+
+const prettyCodeOptions = {
+  theme: "github-dark-default",
+  defaultLang: {
+    block: "text",
+    inline: "text",
+  },
+  keepBackground: false,
+  filterMetaString(meta: string) {
+    return meta.includes("showLineNumbers") ? meta : `${meta} showLineNumbers`.trim();
+  },
+} as const;
 
 function escapeTemplateExpressions(source: string) {
   const lines = source.split(/\r?\n/);
@@ -89,6 +102,7 @@ const compileMdxToFunctionBody = cache(async (source: string, signal: string) =>
 
   const compiled = await compile(escapeTemplateExpressions(source), {
     outputFormat: "function-body",
+    rehypePlugins: [[rehypePrettyCode, prettyCodeOptions]],
   });
   const compiledString = String(compiled);
 
