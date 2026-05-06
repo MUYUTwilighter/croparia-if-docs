@@ -29,6 +29,8 @@ navOrder: 35
 
 - `https://maven.muyucloud.cool/repository/maven-public/`
 
+
+
 <a id="repository-layout"></a>
 
 ## 仓库结构

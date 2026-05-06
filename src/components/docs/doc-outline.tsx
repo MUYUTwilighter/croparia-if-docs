@@ -3,7 +3,9 @@
 import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Box, ButtonBase, List, Paper, Typography } from "@mui/material";
+import ExpandLessIcon from "@mui/icons-material/ExpandLess";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import { Box, ButtonBase, Collapse, List, Paper, Typography } from "@mui/material";
 import { useDocContext } from "@/src/components/docs/doc-context";
 
 interface OutlineItem {
@@ -77,6 +79,7 @@ export function DocOutline() {
   const { doc } = useDocContext();
   const [items, setItems] = useState<OutlineItem[]>([]);
   const [activeId, setActiveId] = useState("");
+  const [mobileOpen, setMobileOpen] = useState(false);
 
   useEffect(() => {
     const root = document.querySelector<HTMLElement>(".doc-content");
@@ -107,16 +110,47 @@ export function DocOutline() {
     <Paper
       elevation={0}
       sx={{
-        display: { xs: "none", xl: "block" },
+        display: { xs: "block", xl: "block" },
         border: 1,
         borderColor: "divider",
         overflow: "hidden",
-        position: "sticky",
-        top: 96,
+        position: { xl: "sticky" },
+        top: { xl: 96 },
       }}
     >
+      <ButtonBase
+        onClick={() => setMobileOpen((value) => !value)}
+        sx={{
+          width: "100%",
+          display: { xs: "flex", xl: "none" },
+          justifyContent: "space-between",
+          alignItems: "flex-start",
+          px: 2.25,
+          py: 1.75,
+          textAlign: "left",
+          borderBottom: mobileOpen ? 1 : 0,
+          borderColor: "divider",
+          bgcolor: "rgba(93, 127, 79, 0.025)",
+        }}
+      >
+        <Box>
+          <Typography variant="overline" color="text.secondary" sx={{ letterSpacing: "0.16em", fontWeight: 700, fontSize: "0.68rem" }}>
+            In This Page
+          </Typography>
+          <Typography variant="subtitle1" sx={{ mt: 0.35, fontWeight: 600, lineHeight: 1.35 }}>
+            {pageTitle}
+          </Typography>
+          <Typography variant="caption" color="text.secondary" sx={{ mt: 0.6, display: "block", lineHeight: 1.6 }}>
+            {hasItems ? `本页共 ${items.length} 个可跳转章节` : "当前页面没有可提取的二级及以下标题。"}
+          </Typography>
+        </Box>
+        <Typography variant="body2" color="text.secondary" sx={{ mt: 0.75, display: "inline-flex", alignItems: "center" }}>
+          {mobileOpen ? <ExpandLessIcon sx={{ fontSize: 18 }} /> : <ExpandMoreIcon sx={{ fontSize: 18 }} />}
+        </Typography>
+      </ButtonBase>
       <Box
         sx={{
+          display: { xs: "none", xl: "block" },
           px: 2.25,
           py: 1.75,
           borderBottom: 1,
@@ -135,8 +169,56 @@ export function DocOutline() {
         </Typography>
       </Box>
 
+      <Collapse in={mobileOpen || false} timeout="auto" unmountOnExit={false} sx={{ display: { xs: "block", xl: "none" } }}>
+        {hasItems ? (
+          <List disablePadding sx={{ px: 1.25, py: 1.25, display: "flex", flexDirection: "column", gap: 0.4 }}>
+            {items.map((item) => {
+              const isActive = item.id === activeId;
+              const indent = Math.max(0, item.level - 2) * 1.5;
+
+              return (
+                <ButtonBase
+                  key={item.id}
+                  component={Link}
+                  href={`#${item.id}`}
+                  onClick={() => setMobileOpen(false)}
+                  sx={{
+                    justifyContent: "flex-start",
+                    textAlign: "left",
+                    borderRadius: 0,
+                    px: 1,
+                    py: 0.7,
+                    pl: 1 + indent,
+                    borderLeft: "2px solid",
+                    borderLeftColor: isActive ? "primary.main" : "transparent",
+                    bgcolor: isActive ? "rgba(93, 127, 79, 0.06)" : "transparent",
+                    transition: "background-color 0.18s ease, border-left-color 0.18s ease, transform 0.18s ease",
+                    "&:hover": {
+                      bgcolor: "rgba(93, 127, 79, 0.05)",
+                      transform: "translateX(2px)",
+                    },
+                  }}
+                >
+                  <Typography
+                    variant="body2"
+                    sx={{
+                      fontWeight: isActive ? 700 : item.level === 2 ? 600 : 500,
+                      color: isActive ? "primary.dark" : "text.primary",
+                      lineHeight: 1.45,
+                      textTransform: "none",
+                    }}
+                  >
+                    {item.text}
+                  </Typography>
+                </ButtonBase>
+              );
+            })}
+          </List>
+        ) : null}
+      </Collapse>
+
       {hasItems ? (
-        <List disablePadding sx={{ px: 1.25, py: 1.25, display: "flex", flexDirection: "column", gap: 0.4 }}>
+        <List disablePadding sx={{ display: { xs: "none", xl: "flex" }, px: 1.25, py: 1.25, flexDirection: "column", gap: 0.4 }}>
           {items.map((item) => {
             const isActive = item.id === activeId;
             const indent = Math.max(0, item.level - 2) * 1.5;

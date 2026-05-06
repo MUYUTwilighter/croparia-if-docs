@@ -2,7 +2,10 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
+import ChevronRightIcon from "@mui/icons-material/ChevronRight";
+import ExpandLessIcon from "@mui/icons-material/ExpandLess";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import {
   Alert,
   Box,
@@ -25,7 +28,7 @@ import {
 import { DocOutline } from "@/src/components/docs/doc-outline";
 import { FallbackNotice } from "@/src/components/docs/fallback-notice";
 import type { SidebarItem } from "@/src/lib/docs/types";
-import { ContentPaper, PageFooter, SiteHeader, docContentSx } from "@/src/components/docs/chrome-shared";
+import { ContentPaper, PageFooter, ResponsiveDebugPanel, SiteHeader, docContentSx } from "@/src/components/docs/chrome-shared";
 
 function normalizePathname(pathname: string) {
   return pathname !== "/" && pathname.endsWith("/") ? pathname.slice(0, -1) : pathname;
@@ -102,9 +105,11 @@ function SidebarTree({
                     color: isExpanded ? (isTopLevel ? "text.secondary" : "primary.main") : "text.disabled",
                     ml: 1,
                     flexShrink: 0,
+                    display: "inline-flex",
+                    alignItems: "center",
                   }}
                 >
-                  {isExpanded ? "−" : "+"}
+                  {isExpanded ? <ExpandLessIcon sx={{ fontSize: 16 }} /> : <ChevronRightIcon sx={{ fontSize: 16 }} />}
                 </Typography>
               ) : null}
             </ButtonBase>
@@ -152,6 +157,7 @@ export function DocChrome({ children }: { children: React.ReactNode }) {
   const normalizedPathname = useMemo(() => normalizePathname(pathname ?? requestedPath), [pathname, requestedPath]);
   const showDebugPanel = process.env.NODE_ENV !== "production";
   const showDiscoveryNotice = process.env.NODE_ENV !== "production";
+  const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
 
   return (
     <Box sx={{ minHeight: "100vh", display: "flex", flexDirection: "column", bgcolor: "background.default" }}>
@@ -160,7 +166,10 @@ export function DocChrome({ children }: { children: React.ReactNode }) {
         <Box sx={{ px: { xs: 2, md: 4 }, py: { xs: 3, md: 5 } }}>
           <Stack spacing={3}>
             {showDebugPanel ? (
-              <ContentPaper>
+              <ResponsiveDebugPanel
+                title={doc.frontmatter.title ?? "未设置标题的文档页面"}
+                description={doc.frontmatter.desc ?? "当前正在查看 resolver 最终命中的文档结果。"}
+              >
                 <Stack spacing={2.5}>
                   <Box>
                     <Typography variant="overline" color="primary.main" sx={{ letterSpacing: "0.16em", fontWeight: 700 }}>
@@ -185,7 +194,7 @@ export function DocChrome({ children }: { children: React.ReactNode }) {
                     </Typography>
                   </Stack>
                 </Stack>
-              </ContentPaper>
+              </ResponsiveDebugPanel>
             ) : null}
 
             <Box
@@ -208,8 +217,39 @@ export function DocChrome({ children }: { children: React.ReactNode }) {
                   overflow: "hidden",
                 }}
               >
+                <ButtonBase
+                  onClick={() => setMobileSidebarOpen((value) => !value)}
+                  sx={{
+                    width: "100%",
+                    display: { xs: "flex", lg: "none" },
+                    justifyContent: "space-between",
+                    alignItems: "flex-start",
+                    px: 2.5,
+                    py: 1.75,
+                    textAlign: "left",
+                    borderBottom: 1,
+                    borderColor: "divider",
+                    bgcolor: "rgba(93, 127, 79, 0.025)",
+                  }}
+                >
+                  <Box>
+                    <Typography variant="overline" color="text.secondary" sx={{ letterSpacing: "0.16em", fontWeight: 700, fontSize: "0.68rem" }}>
+                      Section
+                    </Typography>
+                    <Typography variant="subtitle1" sx={{ mt: 0.35, fontWeight: 600, lineHeight: 1.35 }}>
+                      {currentSectionTitle ?? "当前栏目"}
+                    </Typography>
+                    <Typography variant="caption" color="text.secondary" sx={{ mt: 0.6, display: "block", lineHeight: 1.6 }}>
+                      {sidebarItems.length > 0 ? `共 ${sidebarItems.length} 个一级导航项` : "当前页面不参与侧栏导航"}
+                    </Typography>
+                  </Box>
+                  <Typography variant="body2" color="text.secondary" sx={{ mt: 0.75, display: "inline-flex", alignItems: "center" }}>
+                    {mobileSidebarOpen ? <ExpandLessIcon sx={{ fontSize: 18 }} /> : <ExpandMoreIcon sx={{ fontSize: 18 }} />}
+                  </Typography>
+                </ButtonBase>
                 <Box
                   sx={{
+                    display: { xs: "none", lg: "block" },
                     px: 2.5,
                     py: 1.75,
                     borderBottom: 1,
@@ -227,7 +267,26 @@ export function DocChrome({ children }: { children: React.ReactNode }) {
                     {sidebarItems.length > 0 ? `共 ${sidebarItems.length} 个一级导航项` : "当前页面不参与侧栏导航"}
                   </Typography>
                 </Box>
-                <Box sx={{ px: 1.5, py: 1.5, maxHeight: { lg: "calc(100vh - 148px)" }, overflowY: "auto" }}>
+                <Collapse in={mobileSidebarOpen || false} timeout="auto" unmountOnExit={false} sx={{ display: { xs: "block", lg: "none" } }}>
+                  <Box sx={{ px: 1.5, py: 1.5, overflowY: "auto" }}>
+                    {sidebarItems.length > 0 ? (
+                      <Box onClick={() => setMobileSidebarOpen(false)}>
+                        <SidebarTree items={sidebarItems} pathname={normalizedPathname} />
+                      </Box>
+                    ) : (
+                      <Stack spacing={1.25} sx={{ px: 1, py: 1.5 }}>
+                        <Typography variant="body2" color="text.secondary">
+                          当前文档没有可展示的侧栏结构。
+                        </Typography>
+                        <Divider />
+                        <Typography variant="caption" color="text.disabled">
+                          这通常意味着该页面被标记为独立页，或当前栏目尚未组织导航树。
+                        </Typography>
+                      </Stack>
+                    )}
+                  </Box>
+                </Collapse>
+                <Box sx={{ display: { xs: "none", lg: "block" }, px: 1.5, py: 1.5, maxHeight: { lg: "calc(100vh - 148px)" }, overflowY: "auto" }}>
                   {sidebarItems.length > 0 ? (
                     <SidebarTree items={sidebarItems} pathname={normalizedPathname} />
                   ) : (

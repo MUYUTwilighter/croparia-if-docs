@@ -1,15 +1,23 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
+import CloseIcon from "@mui/icons-material/Close";
+import ExpandLessIcon from "@mui/icons-material/ExpandLess";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import MenuIcon from "@mui/icons-material/Menu";
+import SearchIcon from "@mui/icons-material/Search";
 import {
   AppBar,
+  Collapse,
   Box,
   Button,
   Chip,
   ClickAwayListener,
   Container,
   Divider,
+  Drawer,
   InputBase,
   List,
   ListItemButton,
@@ -17,6 +25,7 @@ import {
   MenuItem,
   Paper,
   Stack,
+  ButtonBase,
   Toolbar,
   Typography,
   CircularProgress,
@@ -42,6 +51,48 @@ interface SwitcherItem {
   href: string;
   label: string;
   isCurrent: boolean;
+}
+
+function MobileDrawerSection({
+  title,
+  items,
+  onNavigate,
+}: {
+  title: string;
+  items: SwitcherItem[];
+  onNavigate: () => void;
+}) {
+  if (items.length === 0) {
+    return null;
+  }
+
+  return (
+    <Stack spacing={1}>
+      <Typography variant="overline" color="text.secondary" sx={{ letterSpacing: "0.14em", fontWeight: 700 }}>
+        {title}
+      </Typography>
+      <List disablePadding sx={{ display: "flex", flexDirection: "column" }}>
+        {items.map((item) => (
+          <ListItemButton
+            key={item.key}
+            component={Link}
+            href={item.href}
+            onClick={onNavigate}
+            sx={{
+              px: 1.25,
+              borderLeft: "2px solid",
+              borderLeftColor: item.isCurrent ? "primary.main" : "transparent",
+              bgcolor: item.isCurrent ? "rgba(93, 127, 79, 0.06)" : "transparent",
+            }}
+          >
+            <Typography variant="body2" sx={{ fontWeight: item.isCurrent ? 700 : 500 }}>
+              {item.label}
+            </Typography>
+          </ListItemButton>
+        ))}
+      </List>
+    </Stack>
+  );
 }
 
 function SearchResultMeta({ label }: { label: string }) {
@@ -86,8 +137,8 @@ function DocSearchBox() {
             display: "flex",
             alignItems: "center",
             gap: 1,
-            px: 1.5,
-            py: 0.75,
+            px: { xs: 1.1, md: 1.5 },
+            py: { xs: 0.45, md: 0.75 },
             border: "1px solid",
             borderColor: showPanel ? "primary.main" : "divider",
             borderRadius: 999,
@@ -96,9 +147,7 @@ function DocSearchBox() {
             boxShadow: showPanel ? "0 10px 26px rgba(17, 14, 9, 0.12)" : "none",
           }}
         >
-          <Typography component="span" variant="body2" sx={{ color: "text.disabled", userSelect: "none" }}>
-            搜索
-          </Typography>
+          <SearchIcon sx={{ color: "text.disabled", fontSize: 18, flexShrink: 0 }} />
           <InputBase
             value={query}
             onChange={(event) => {
@@ -116,8 +165,8 @@ function DocSearchBox() {
             sx={{
               flex: 1,
               minWidth: 0,
-              fontSize: "0.95rem",
-              "& input::placeholder": {
+              fontSize: { xs: "0.9rem", md: "0.95rem" },
+            "& input::placeholder": {
                 opacity: 1,
                 color: "text.disabled",
               },
@@ -464,9 +513,10 @@ function HeaderSwitcher({
         variant="outlined"
         color={color}
         onClick={(event) => setAnchorEl(event.currentTarget)}
+        endIcon={<KeyboardArrowDownIcon sx={{ fontSize: 18 }} />}
         sx={{ borderRadius: 999, px: 1.5, whiteSpace: "nowrap" }}
       >
-        {label}：{currentItem.label} ▾
+        {label}：{currentItem.label}
       </Button>
       <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={() => setAnchorEl(null)}>
         {items.map((item) => (
@@ -486,23 +536,153 @@ function HeaderSwitcher({
 }
 
 export function SiteHeader({ headerItems, localeItems = [], versionItems = [] }: SiteHeaderProps) {
+  const [isVisible, setIsVisible] = useState(true);
+  const [isHovered, setIsHovered] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const lastScrollYRef = useRef(0);
+  const idleTimerRef = useRef<number | null>(null);
+
+  useEffect(() => {
+    const topRevealThreshold = 24;
+    const hoverRevealZone = 84;
+    const hideAfterIdleMs = 2600;
+    const hideScrollThreshold = 120;
+
+    function clearIdleTimer() {
+      if (idleTimerRef.current !== null) {
+        window.clearTimeout(idleTimerRef.current);
+        idleTimerRef.current = null;
+      }
+    }
+
+    function scheduleIdleHide() {
+      clearIdleTimer();
+      idleTimerRef.current = window.setTimeout(() => {
+        if (window.scrollY > hideScrollThreshold && !isHovered && !mobileMenuOpen) {
+          setIsVisible(false);
+        }
+      }, hideAfterIdleMs);
+    }
+
+    function handleActivity() {
+      if (window.scrollY <= topRevealThreshold || isHovered) {
+        setIsVisible(true);
+      }
+      scheduleIdleHide();
+    }
+
+    function handleScroll() {
+      const currentScrollY = window.scrollY;
+      const lastScrollY = lastScrollYRef.current;
+      const isAtTop = currentScrollY <= topRevealThreshold;
+      const isScrollingUp = currentScrollY < lastScrollY;
+      const isScrollingDown = currentScrollY > lastScrollY;
+
+      if (isAtTop || isScrollingUp || isHovered || mobileMenuOpen) {
+        setIsVisible(true);
+      } else if (isScrollingDown && currentScrollY > hideScrollThreshold) {
+        setIsVisible(false);
+      }
+
+      lastScrollYRef.current = currentScrollY;
+      scheduleIdleHide();
+    }
+
+    function handleMouseMove(event: MouseEvent) {
+      if (event.clientY <= hoverRevealZone) {
+        setIsVisible(true);
+      }
+      handleActivity();
+    }
+
+    function handleTouchStart() {
+      handleActivity();
+    }
+
+    function handleKeyDown() {
+      handleActivity();
+    }
+
+    lastScrollYRef.current = window.scrollY;
+    scheduleIdleHide();
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    window.addEventListener("mousemove", handleMouseMove, { passive: true });
+    window.addEventListener("touchstart", handleTouchStart, { passive: true });
+    window.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      clearIdleTimer();
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("mousemove", handleMouseMove);
+      window.removeEventListener("touchstart", handleTouchStart);
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [isHovered, mobileMenuOpen]);
+
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      setIsVisible(true);
+    }
+  }, [mobileMenuOpen]);
+
   return (
-    <AppBar position="sticky" color="inherit" elevation={0} sx={{ borderBottom: 1, borderColor: "divider" }}>
+    <AppBar
+      position="sticky"
+      color="inherit"
+      elevation={0}
+      onMouseEnter={() => {
+        setIsHovered(true);
+        setIsVisible(true);
+      }}
+      onMouseLeave={() => setIsHovered(false)}
+      sx={{
+        borderBottom: 1,
+        borderColor: "divider",
+        transition: "transform 0.24s ease, opacity 0.24s ease, box-shadow 0.24s ease",
+        transform: isVisible ? "translateY(0)" : "translateY(calc(-100% - 1px))",
+        opacity: isVisible ? 1 : 0.98,
+        boxShadow: isVisible ? "none" : "0 12px 28px rgba(17, 14, 9, 0.08)",
+      }}
+    >
       <Container maxWidth={false}>
-        <Toolbar disableGutters sx={{ minHeight: 72, gap: 3, px: { xs: 2, md: 4 } }}>
+        <Toolbar
+          disableGutters
+          sx={{
+            minHeight: { xs: 64, md: 72 },
+            gap: { xs: 1.5, md: 3 },
+            px: { xs: 2, md: 4 },
+            flexWrap: { xs: "wrap", md: "nowrap" },
+            py: { xs: 1, md: 0 },
+          }}
+        >
           <Link href="/" style={{ textDecoration: "none", flexShrink: 0 }}>
-            <Typography variant="h6" sx={{ color: "text.primary" }}>
+            <Typography variant="h6" sx={{ color: "text.primary", fontSize: { xs: "1.05rem", md: "1.25rem" } }}>
               {siteConfig.siteName}
             </Typography>
           </Link>
-          <Box sx={{ flex: { xs: "1 1 100%", md: "0 1 auto" }, order: { xs: 3, md: 1 }, width: { xs: "100%", md: "auto" } }}>
+          <Box
+            sx={{
+              flex: { xs: "1 1 100%", md: "0 1 auto" },
+              order: { xs: 3, md: 1 },
+              width: { xs: "100%", md: "auto" },
+              mt: { xs: 0.25, md: 0 },
+            }}
+          >
             <DocSearchBox />
           </Box>
           <Stack
             direction="row"
             spacing={1.25}
             useFlexGap
-            sx={{ ml: { md: "auto" }, flexWrap: "wrap", alignItems: "center", rowGap: 0.75, order: { xs: 1, md: 2 } }}
+            sx={{
+              ml: { md: "auto" },
+              flexWrap: "wrap",
+              alignItems: "center",
+              rowGap: 0.75,
+              order: { xs: 1, md: 2 },
+              display: { xs: "none", md: "flex" },
+            }}
           >
             {headerItems.map((item, index) => (
               <Stack key={item.key} direction="row" spacing={1.25} sx={{ alignItems: "center" }}>
@@ -534,14 +714,141 @@ export function SiteHeader({ headerItems, localeItems = [], versionItems = [] }:
             direction="row"
             spacing={1}
             useFlexGap
-            sx={{ flexWrap: "wrap", alignItems: "center", ml: { xs: 0, md: 1 }, order: { xs: 2, md: 3 } }}
+            sx={{
+              flexWrap: "wrap",
+              alignItems: "center",
+              ml: { xs: "auto", md: 1 },
+              order: { xs: 2, md: 3 },
+              display: { xs: "none", md: "flex" },
+            }}
           >
             {localeItems.length > 0 ? <HeaderSwitcher label="语言" items={localeItems} color="primary" /> : null}
             {versionItems.length > 0 ? <HeaderSwitcher label="版本" items={versionItems} color="secondary" /> : null}
           </Stack>
+          <Button
+            variant="outlined"
+            size="small"
+            onClick={() => setMobileMenuOpen(true)}
+            startIcon={<MenuIcon sx={{ fontSize: 18 }} />}
+            aria-label="打开菜单"
+            sx={{
+              display: { xs: "inline-flex", md: "none" },
+              ml: "auto",
+              order: { xs: 2, md: 4 },
+              borderRadius: 999,
+              px: 1.5,
+              whiteSpace: "nowrap",
+            }}
+          >
+            更多
+          </Button>
         </Toolbar>
       </Container>
+      <Drawer anchor="right" open={mobileMenuOpen} onClose={() => setMobileMenuOpen(false)}>
+        <Box sx={{ width: 320, maxWidth: "100vw", p: 2.5 }}>
+          <Stack spacing={2.5}>
+            <Stack direction="row" sx={{ alignItems: "center", justifyContent: "space-between" }}>
+              <Typography variant="subtitle1" sx={{ fontWeight: 700 }}>
+                {siteConfig.siteName}
+              </Typography>
+              <Button size="small" onClick={() => setMobileMenuOpen(false)} aria-label="关闭菜单">
+                <CloseIcon sx={{ fontSize: 18 }} />
+              </Button>
+            </Stack>
+            <Divider />
+            <Stack spacing={1}>
+              <Typography variant="overline" color="text.secondary" sx={{ letterSpacing: "0.14em", fontWeight: 700 }}>
+                Navigation
+              </Typography>
+              <List disablePadding sx={{ display: "flex", flexDirection: "column" }}>
+                {headerItems.map((item) => (
+                  <ListItemButton
+                    key={item.key}
+                    component={Link}
+                    href={item.href}
+                    onClick={() => setMobileMenuOpen(false)}
+                    sx={{
+                      px: 1.25,
+                      borderLeft: "2px solid",
+                      borderLeftColor: item.isCurrent ? "primary.main" : "transparent",
+                      bgcolor: item.isCurrent ? "rgba(93, 127, 79, 0.06)" : "transparent",
+                    }}
+                  >
+                    <Typography variant="body2" sx={{ fontWeight: item.isCurrent ? 700 : 500 }}>
+                      {item.text}
+                    </Typography>
+                  </ListItemButton>
+                ))}
+              </List>
+            </Stack>
+            <Divider />
+            <MobileDrawerSection title="Language" items={localeItems} onNavigate={() => setMobileMenuOpen(false)} />
+            <MobileDrawerSection title="Version" items={versionItems} onNavigate={() => setMobileMenuOpen(false)} />
+          </Stack>
+        </Box>
+      </Drawer>
     </AppBar>
+  );
+}
+
+export function ResponsiveDebugPanel({
+  title,
+  description,
+  children,
+}: {
+  title: string;
+  description?: string;
+  children: React.ReactNode;
+}) {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <>
+      <Box sx={{ display: { xs: "none", md: "block" } }}>
+        <ContentPaper>{children}</ContentPaper>
+      </Box>
+      <Paper
+        elevation={0}
+        sx={{
+          display: { xs: "block", md: "none" },
+          border: 1,
+          borderColor: "divider",
+          overflow: "hidden",
+        }}
+      >
+        <ButtonBase
+          onClick={() => setOpen((value) => !value)}
+          sx={{
+            width: "100%",
+            justifyContent: "space-between",
+            alignItems: "center",
+            px: 2,
+            py: 1.5,
+            textAlign: "left",
+          }}
+        >
+          <Box>
+            <Typography variant="caption" color="text.secondary" sx={{ letterSpacing: "0.14em", fontWeight: 700 }}>
+              DEBUG
+            </Typography>
+            <Typography variant="body2" sx={{ mt: 0.35, fontWeight: 600 }}>
+              {title}
+            </Typography>
+            {description ? (
+              <Typography variant="caption" color="text.secondary" sx={{ mt: 0.4, display: "block", lineHeight: 1.6 }}>
+                {description}
+              </Typography>
+            ) : null}
+          </Box>
+          <Typography variant="body2" color="text.secondary">
+            {open ? <ExpandLessIcon sx={{ fontSize: 18 }} /> : <ExpandMoreIcon sx={{ fontSize: 18 }} />}
+          </Typography>
+        </ButtonBase>
+        <Collapse in={open} timeout="auto" unmountOnExit={false}>
+          <Box sx={{ px: 2, pb: 2, pt: 0.5 }}>{children}</Box>
+        </Collapse>
+      </Paper>
+    </>
   );
 }
 
