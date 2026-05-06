@@ -1,11 +1,15 @@
-import { Fragment } from "react";
-
-import { GameBlockEntry } from "@/src/components/game/GameBlockEntry";
-import { GameSlot } from "@/src/components/game/GameSlot";
 import { RitualStructureDisplayClient } from "@/src/components/game/recipe/RitualStructureDisplay.client";
-import type { EntryDisplayOverrides, NormalizedRitualStructure } from "@/src/lib/game/types";
+import { createFallbackItem, getItemData, getTagItems } from "@/src/lib/game/server-data";
+import { normalizeTagName } from "@/src/lib/game/normalize";
+import type {
+  LocaleMap,
+  NormalizedBlockEntry,
+  NormalizedRitualStructure,
+  RitualStructureLayerData,
+  RitualStructureSlotData,
+} from "@/src/lib/game/types";
 
-const specialNameLocales = {
+const specialNameLocales: Record<string, LocaleMap> = {
   " ": {
     zh: "任意方块",
     en: "Any Block",
@@ -23,61 +27,68 @@ const specialNameLocales = {
   },
 } as const;
 
-function createSpecialOverrides(char: keyof typeof specialNameLocales): EntryDisplayOverrides {
+function getSpecialSlotData(char: string): RitualStructureSlotData | null {
+  const label = specialNameLocales[char];
+
+  if (!label) {
+    return null;
+  }
+
   return {
-    nameOverride: specialNameLocales[char],
-    idOverride: "",
-    categoryOverride: {
-      zh: "",
-      en: "",
-      es: "",
-    },
-    tagsOverride: [],
+    kind: "special",
+    char,
+    label,
   };
 }
 
-const anyBlockOverrides = createSpecialOverrides(" ");
-const inputBlockOverrides = createSpecialOverrides("$");
-const airOnlyOverrides = createSpecialOverrides(".");
+async function resolveEntryItems(entry: NormalizedBlockEntry) {
+  const resolvedName = entry.id || entry.tag;
 
-function getOverridesForChar(char: string): EntryDisplayOverrides | undefined {
-  if (char === " ") {
-    return anyBlockOverrides;
+  if (!resolvedName) {
+    return [createFallbackItem("croparia:placeholder_block")];
   }
 
-  if (char === "$") {
-    return inputBlockOverrides;
+  return resolvedName.startsWith("#")
+    ? await getTagItems(normalizeTagName(resolvedName))
+    : [await getItemData(resolvedName)];
+}
+
+async function resolveSlotData(char: string, entry: NormalizedBlockEntry | undefined): Promise<RitualStructureSlotData> {
+  const specialSlotData = getSpecialSlotData(char);
+
+  if (specialSlotData) {
+    return specialSlotData;
   }
 
-  if (char === ".") {
-    return airOnlyOverrides;
+  if (!entry) {
+    return { kind: "empty" };
   }
 
-  return undefined;
+  return {
+    kind: "entry",
+    entry,
+    items: await resolveEntryItems(entry),
+  };
 }
 
 export async function RitualStructureDisplay({ recipe }: { recipe: NormalizedRitualStructure }) {
   const maxColumns = Math.max(0, ...recipe.pattern.flatMap((layer) => layer.map((row) => row.length)));
   const maxRows = Math.max(0, ...recipe.pattern.map((layer) => layer.length));
 
-  const layers = recipe.pattern.map((patternLayer, layerIndex) => (
-    <Fragment key={`ritual-layer-${layerIndex}`}>
-      {patternLayer.map((row, rowIndex) => (
-        <div key={`ritual-row-${layerIndex}-${rowIndex}`} className="ritual-structure__row">
-          {Array.from(row).map((char, columnIndex) => {
-            const entry = recipe.keys[char];
-            const displayOverrides = getOverridesForChar(char);
-
-            return (
-              <GameSlot key={`ritual-slot-${layerIndex}-${rowIndex}-${columnIndex}`}>
-                {entry ? <GameBlockEntry props={entry} {...displayOverrides} /> : null}
-              </GameSlot>
-            );
-          })}
-        </div>
-      ))}
-    </Fragment>
-  ));
+  const layers: RitualStructureLayerData[] = await Promise.all(
+    recipe.pattern.map(async (patternLayer) => ({
+      rows: await Promise.all(
+        patternLayer.map(async (row) =>
+          Promise.all(
+            Array.from(row).map((char) => {
+              const entry = recipe.keys[char];
+              return resolveSlotData(char, entry);
+            }),
+          ),
+        ),
+      ),
+    })),
+  );
 
   return <RitualStructureDisplayClient layers={layers} maxColumns={maxColumns} maxRows={maxRows} />;
 }

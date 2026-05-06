@@ -22,6 +22,7 @@ import {
   useLocaleSwitcher,
   useVersionSwitcher,
 } from "@/src/components/docs/doc-context";
+import { DocOutline } from "@/src/components/docs/doc-outline";
 import { FallbackNotice } from "@/src/components/docs/fallback-notice";
 import type { SidebarItem } from "@/src/lib/docs/types";
 import { ContentPaper, PageFooter, SiteHeader, docContentSx } from "@/src/components/docs/chrome-shared";
@@ -52,6 +53,8 @@ function SidebarTree({
         const hasChildren = Boolean(item.items && item.items.length > 0);
         const isActiveBranch = isCurrentOrAncestor(pathname, item.href);
         const isActivePage = normalizePathname(pathname) === normalizePathname(item.href);
+        const isExpanded = hasChildren && (depth === 0 || isActiveBranch);
+        const isTopLevel = depth === 0;
 
         return (
           <Box key={item.href}>
@@ -64,26 +67,29 @@ function SidebarTree({
                 justifyContent: "space-between",
                 alignItems: "center",
                 textAlign: "left",
-                borderRadius: 2,
-                px: 1.5,
-                py: 1,
-                pl: 1.5 + depth * 1.5,
-                border: "1px solid",
-                borderColor: isActivePage ? "primary.main" : "transparent",
-                bgcolor: isActivePage ? "rgba(93, 127, 79, 0.14)" : isActiveBranch ? "rgba(93, 127, 79, 0.06)" : "transparent",
-                transition: "background-color 0.18s ease, border-color 0.18s ease, transform 0.18s ease",
+                borderRadius: 0,
+                px: isTopLevel ? 0.75 : 1,
+                py: isTopLevel ? 0.55 : 0.7,
+                pl: (isTopLevel ? 0.75 : 1) + depth * 1.35,
+                borderLeft: "2px solid",
+                borderLeftColor: isActivePage ? "primary.main" : isActiveBranch ? "rgba(93, 127, 79, 0.55)" : "transparent",
+                bgcolor: isActivePage ? "rgba(93, 127, 79, 0.05)" : "transparent",
+                borderBottom: isTopLevel ? 1 : 0,
+                borderBottomColor: isTopLevel ? "rgba(0, 0, 0, 0.06)" : "transparent",
+                transition: "background-color 0.18s ease, border-left-color 0.18s ease, color 0.18s ease",
                 "&:hover": {
-                  bgcolor: isActivePage ? "rgba(93, 127, 79, 0.18)" : "action.hover",
-                  transform: "translateX(2px)",
+                  bgcolor: isTopLevel ? "rgba(0, 0, 0, 0.025)" : "rgba(93, 127, 79, 0.05)",
                 },
               }}
             >
               <Typography
-                variant="body2"
+                variant={isTopLevel ? "caption" : "body2"}
                 sx={{
-                  fontWeight: isActivePage ? 700 : isActiveBranch ? 600 : 500,
-                  color: isActivePage ? "primary.dark" : "text.primary",
+                  fontWeight: isTopLevel ? (isActiveBranch ? 700 : 600) : isActivePage ? 700 : isActiveBranch ? 600 : 500,
+                  color: isActivePage ? "primary.dark" : isTopLevel ? "text.secondary" : "text.primary",
                   lineHeight: 1.45,
+                  textTransform: "none",
+                  letterSpacing: isTopLevel ? "0.04em" : "normal",
                 }}
               >
                 {item.text}
@@ -92,21 +98,25 @@ function SidebarTree({
                 <Typography
                   component="span"
                   variant="caption"
-                  sx={{ color: isActiveBranch ? "primary.main" : "text.disabled", ml: 1, flexShrink: 0 }}
+                  sx={{
+                    color: isExpanded ? (isTopLevel ? "text.secondary" : "primary.main") : "text.disabled",
+                    ml: 1,
+                    flexShrink: 0,
+                  }}
                 >
-                  {isActiveBranch ? "−" : "+"}
+                  {isExpanded ? "−" : "+"}
                 </Typography>
               ) : null}
             </ButtonBase>
             {hasChildren ? (
-              <Collapse in={isActiveBranch} timeout="auto" unmountOnExit={false}>
-                <Box
+              <Collapse in={isExpanded} timeout="auto" unmountOnExit={false}>
+              <Box
                   sx={{
                     borderLeft: 1,
-                    borderColor: isActiveBranch ? "primary.light" : "divider",
-                    ml: 2,
-                    mt: 0.75,
-                    pl: 1,
+                    borderColor: isExpanded ? "rgba(93, 127, 79, 0.28)" : "divider",
+                    ml: 1.25,
+                    mt: 0.5,
+                    pl: 0.6,
                   }}
                 >
                   <SidebarTree items={item.items ?? []} pathname={pathname} depth={depth + 1} />
@@ -141,6 +151,7 @@ export function DocChrome({ children }: { children: React.ReactNode }) {
   }));
   const normalizedPathname = useMemo(() => normalizePathname(pathname ?? requestedPath), [pathname, requestedPath]);
   const showDebugPanel = process.env.NODE_ENV !== "production";
+  const showDiscoveryNotice = process.env.NODE_ENV !== "production";
 
   return (
     <Box sx={{ minHeight: "100vh", display: "flex", flexDirection: "column", bgcolor: "background.default" }}>
@@ -181,7 +192,7 @@ export function DocChrome({ children }: { children: React.ReactNode }) {
               sx={{
                 display: "grid",
                 gap: 3,
-                gridTemplateColumns: { xs: "1fr", lg: "280px minmax(0, 1fr)" },
+                gridTemplateColumns: { xs: "1fr", lg: "280px minmax(0, 1fr)", xl: "280px minmax(0, 1fr) 260px" },
                 alignItems: "start",
               }}
             >
@@ -200,20 +211,20 @@ export function DocChrome({ children }: { children: React.ReactNode }) {
                 <Box
                   sx={{
                     px: 2.5,
-                    py: 2.25,
+                    py: 1.75,
                     borderBottom: 1,
                     borderColor: "divider",
-                    bgcolor: "rgba(93, 127, 79, 0.06)",
+                    bgcolor: "rgba(93, 127, 79, 0.025)",
                   }}
                 >
-                  <Typography variant="overline" color="primary.main" sx={{ letterSpacing: "0.14em", fontWeight: 700 }}>
-                    Navigation
+                  <Typography variant="overline" color="text.secondary" sx={{ letterSpacing: "0.16em", fontWeight: 700, fontSize: "0.68rem" }}>
+                    Section
                   </Typography>
-                  <Typography variant="h6" sx={{ mt: 0.75 }}>
-                    栏目导航
+                  <Typography variant="subtitle1" sx={{ mt: 0.35, fontWeight: 600, lineHeight: 1.35 }}>
+                    {currentSectionTitle ?? "当前栏目"}
                   </Typography>
-                  <Typography variant="body2" color="text.secondary" sx={{ mt: 0.75, lineHeight: 1.7 }}>
-                    {currentSectionTitle ?? "当前页面不参与侧栏导航"}
+                  <Typography variant="caption" color="text.secondary" sx={{ mt: 0.6, display: "block", lineHeight: 1.6 }}>
+                    {sidebarItems.length > 0 ? `共 ${sidebarItems.length} 个一级导航项` : "当前页面不参与侧栏导航"}
                   </Typography>
                 </Box>
                 <Box sx={{ px: 1.5, py: 1.5, maxHeight: { lg: "calc(100vh - 148px)" }, overflowY: "auto" }}>
@@ -235,7 +246,7 @@ export function DocChrome({ children }: { children: React.ReactNode }) {
 
               <ContentPaper sx={{ minWidth: 0 }}>
                 <Stack spacing={2.5}>
-                  {isHidden ? (
+                  {isHidden && showDiscoveryNotice ? (
                     <Alert severity="warning">
                       该页面通过 frontmatter 控制可发现性：
                       {!isNavVisible ? " `nonav: true` 已将它从侧栏导航中排除；" : ""}
@@ -248,6 +259,8 @@ export function DocChrome({ children }: { children: React.ReactNode }) {
                   </Box>
                 </Stack>
               </ContentPaper>
+
+              <DocOutline />
             </Box>
           </Stack>
         </Box>

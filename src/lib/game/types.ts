@@ -21,8 +21,6 @@ export interface ItemData {
   registerName: string;
   CreativeTabName: LocaleMap;
   OredictList: string[];
-  smallIcon: string;
-  largeIcon: string;
   smallIconSrc: string;
   largeIconSrc: string;
   maxStacksSize: number;
@@ -143,6 +141,31 @@ export interface SoakRecipeInput extends RecipeBase {
 export interface NormalizedRitualStructure extends RecipeBase {
   keys: Record<string, NormalizedBlockEntry>;
   pattern: string[][];
+}
+
+export interface RitualStructureSpecialSlotData {
+  kind: "special";
+  char: string;
+  label: LocaleMap;
+}
+
+export interface RitualStructureEntrySlotData {
+  kind: "entry";
+  entry: NormalizedBlockEntry;
+  items: ItemData[];
+}
+
+export interface RitualStructureEmptySlotData {
+  kind: "empty";
+}
+
+export type RitualStructureSlotData =
+  | RitualStructureSpecialSlotData
+  | RitualStructureEntrySlotData
+  | RitualStructureEmptySlotData;
+
+export interface RitualStructureLayerData {
+  rows: RitualStructureSlotData[][];
 }
 
 export interface RitualStructureInput extends RecipeBase {

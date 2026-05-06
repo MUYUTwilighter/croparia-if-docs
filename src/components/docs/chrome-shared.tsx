@@ -1,23 +1,31 @@
 "use client";
 
 import Link from "next/link";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import {
   AppBar,
   Box,
   Button,
+  Chip,
+  ClickAwayListener,
   Container,
   Divider,
+  InputBase,
+  List,
+  ListItemButton,
   Menu,
   MenuItem,
   Paper,
   Stack,
   Toolbar,
   Typography,
+  CircularProgress,
   type SxProps,
   type Theme,
 } from "@mui/material";
+import { usePathname } from "next/navigation";
 
+import { useDocSearch } from "@/src/components/docs/use-doc-search";
 import { siteConfig } from "@/src/lib/docs/config";
 import type { ResolvedSidebar } from "@/src/lib/docs/types";
 
@@ -34,6 +42,185 @@ interface SwitcherItem {
   href: string;
   label: string;
   isCurrent: boolean;
+}
+
+function SearchResultMeta({ label }: { label: string }) {
+  return (
+    <Chip
+      label={label}
+      size="small"
+      variant="outlined"
+      sx={{
+        height: 22,
+        borderRadius: 999,
+        fontSize: "0.7rem",
+        "& .MuiChip-label": { px: 1 },
+      }}
+    />
+  );
+}
+
+function DocSearchBox() {
+  const pathname = usePathname();
+  const [isOpen, setIsOpen] = useState(false);
+  const { query, setQuery, results, total, isLoading, error } = useDocSearch({
+    limit: 8,
+    enabled: true,
+    debounceMs: 120,
+  });
+
+  useEffect(() => {
+    setIsOpen(false);
+  }, [pathname]);
+
+  const normalizedQuery = query.trim();
+  const hasQuery = normalizedQuery.length > 0;
+  const showPanel = isOpen && (hasQuery || isLoading || Boolean(error));
+
+  return (
+    <ClickAwayListener onClickAway={() => setIsOpen(false)}>
+      <Box sx={{ position: "relative", width: { xs: "100%", sm: 280, md: 340 }, minWidth: 0 }}>
+        <Paper
+          elevation={0}
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            gap: 1,
+            px: 1.5,
+            py: 0.75,
+            border: "1px solid",
+            borderColor: showPanel ? "primary.main" : "divider",
+            borderRadius: 999,
+            bgcolor: "background.paper",
+            transition: "border-color 0.18s ease, box-shadow 0.18s ease",
+            boxShadow: showPanel ? "0 10px 26px rgba(17, 14, 9, 0.12)" : "none",
+          }}
+        >
+          <Typography component="span" variant="body2" sx={{ color: "text.disabled", userSelect: "none" }}>
+            搜索
+          </Typography>
+          <InputBase
+            value={query}
+            onChange={(event) => {
+              setQuery(event.target.value);
+              setIsOpen(true);
+            }}
+            onFocus={() => setIsOpen(true)}
+            onKeyDown={(event) => {
+              if (event.key === "Escape") {
+                setIsOpen(false);
+              }
+            }}
+            placeholder="搜索文档内容..."
+            inputProps={{ "aria-label": "Search docs" }}
+            sx={{
+              flex: 1,
+              minWidth: 0,
+              fontSize: "0.95rem",
+              "& input::placeholder": {
+                opacity: 1,
+                color: "text.disabled",
+              },
+            }}
+          />
+          {isLoading ? <CircularProgress size={16} sx={{ color: "primary.main" }} /> : null}
+        </Paper>
+
+        {showPanel ? (
+          <Paper
+            elevation={0}
+            sx={{
+              position: "absolute",
+              top: "calc(100% + 10px)",
+              left: 0,
+              right: 0,
+              zIndex: 30,
+              overflow: "hidden",
+              border: "1px solid",
+              borderColor: "divider",
+              boxShadow: "0 18px 40px rgba(17, 14, 9, 0.16)",
+            }}
+          >
+            <Box sx={{ px: 1.75, py: 1.25, borderBottom: "1px solid", borderColor: "divider", bgcolor: "rgba(93, 127, 79, 0.05)" }}>
+              <Typography variant="body2" sx={{ fontWeight: 600, color: "text.primary" }}>
+                {hasQuery ? `“${normalizedQuery}” 的搜索结果` : "开始搜索文档"}
+              </Typography>
+              <Typography variant="caption" sx={{ color: "text.secondary", display: "block", mt: 0.5 }}>
+                {isLoading
+                  ? "正在检索当前语言与版本文档..."
+                  : error
+                    ? error
+                    : hasQuery
+                      ? `找到 ${total} 条结果`
+                      : "支持标题、段落和章节标题检索。"}
+              </Typography>
+            </Box>
+
+            {hasQuery && !isLoading && !error ? (
+              results.length > 0 ? (
+                <List disablePadding sx={{ maxHeight: 420, overflowY: "auto" }}>
+                  {results.map((result, index) => (
+                    <Box key={result.href}>
+                      {index > 0 ? <Divider /> : null}
+                      <ListItemButton
+                        component={Link}
+                        href={result.href}
+                        onClick={() => setIsOpen(false)}
+                        sx={{ alignItems: "flex-start", px: 1.75, py: 1.4 }}
+                      >
+                        <Stack spacing={0.85} sx={{ minWidth: 0 }}>
+                          <Stack direction="row" spacing={0.75} useFlexGap sx={{ alignItems: "center", flexWrap: "wrap" }}>
+                            <Typography variant="body2" sx={{ fontWeight: 700, color: "text.primary" }}>
+                              {result.title}
+                            </Typography>
+                            <SearchResultMeta label={result.locale.toUpperCase()} />
+                            <SearchResultMeta label={result.version} />
+                            {result.section ? <SearchResultMeta label={result.section} /> : null}
+                          </Stack>
+                          <Typography
+                            variant="caption"
+                            sx={{
+                              color: "primary.main",
+                              fontWeight: 500,
+                              wordBreak: "break-all",
+                            }}
+                          >
+                            {result.href}
+                          </Typography>
+                          <Typography
+                            variant="body2"
+                            sx={{
+                              color: "text.secondary",
+                              lineHeight: 1.65,
+                              display: "-webkit-box",
+                              WebkitLineClamp: 2,
+                              WebkitBoxOrient: "vertical",
+                              overflow: "hidden",
+                            }}
+                          >
+                            {result.description}
+                          </Typography>
+                        </Stack>
+                      </ListItemButton>
+                    </Box>
+                  ))}
+                </List>
+              ) : (
+                <Box sx={{ px: 1.75, py: 2.5 }}>
+                  <Typography variant="body2" sx={{ fontWeight: 600, color: "text.primary" }}>
+                    没有找到匹配内容
+                  </Typography>
+                  <Typography variant="caption" sx={{ color: "text.secondary", display: "block", mt: 0.5, lineHeight: 1.7 }}>
+                    可以试试更短的关键词，或者换一个文档术语。
+                  </Typography>
+                </Box>
+              )
+            ) : null}
+          </Paper>
+        ) : null}
+      </Box>
+    </ClickAwayListener>
+  );
 }
 
 export const docContentSx: SxProps<Theme> = {
@@ -185,7 +372,7 @@ export const docContentSx: SxProps<Theme> = {
     fontWeight: 400,
     lineHeight: 1.7,
   },
-  "& table": {
+  "& table:not(.game-item-card__table)": {
     width: "100%",
     minWidth: 640,
     borderCollapse: "separate",
@@ -196,12 +383,12 @@ export const docContentSx: SxProps<Theme> = {
     borderColor: "divider",
     backgroundColor: "background.paper",
   },
-  "& thead th": {
+  "& table:not(.game-item-card__table) thead th": {
     bgcolor: "rgba(93, 127, 79, 0.08)",
     color: "text.primary",
     fontWeight: 700,
   },
-  "& th, & td": {
+  "& table:not(.game-item-card__table) th, & table:not(.game-item-card__table) td": {
     border: "1px solid",
     borderColor: "divider",
     borderTop: 0,
@@ -214,10 +401,10 @@ export const docContentSx: SxProps<Theme> = {
     lineHeight: 1.75,
     color: "text.secondary",
   },
-  "& tr > *:last-child": {
+  "& table:not(.game-item-card__table) tr > *:last-child": {
     borderRight: 0,
   },
-  "& tbody tr:last-child > *": {
+  "& table:not(.game-item-card__table) tbody tr:last-child > *": {
     borderBottom: 0,
   },
   "& details": {
@@ -236,11 +423,19 @@ export const docContentSx: SxProps<Theme> = {
   },
   "& img": {
     display: "block",
-    marginBlock: 24,
+    marginBlock: "24px",
     maxWidth: "100%",
     height: "auto",
-    borderRadius: 3,
+    borderRadius: 0,
     boxShadow: "0 16px 32px rgba(32, 25, 16, 0.14)",
+  },
+  "& .game-gui-frame img, & .game-item-display__icon, & .recipe-arrow, & .recipe-connector": {
+    display: "block",
+    margin: 0,
+    maxWidth: "none",
+    height: "auto",
+    borderRadius: 0,
+    boxShadow: "none",
   },
 };
 
@@ -300,11 +495,14 @@ export function SiteHeader({ headerItems, localeItems = [], versionItems = [] }:
               {siteConfig.siteName}
             </Typography>
           </Link>
+          <Box sx={{ flex: { xs: "1 1 100%", md: "0 1 auto" }, order: { xs: 3, md: 1 }, width: { xs: "100%", md: "auto" } }}>
+            <DocSearchBox />
+          </Box>
           <Stack
             direction="row"
             spacing={1.25}
             useFlexGap
-            sx={{ ml: "auto", flexWrap: "wrap", alignItems: "center", rowGap: 0.75 }}
+            sx={{ ml: { md: "auto" }, flexWrap: "wrap", alignItems: "center", rowGap: 0.75, order: { xs: 1, md: 2 } }}
           >
             {headerItems.map((item, index) => (
               <Stack key={item.key} direction="row" spacing={1.25} sx={{ alignItems: "center" }}>
@@ -332,7 +530,12 @@ export function SiteHeader({ headerItems, localeItems = [], versionItems = [] }:
               </Stack>
             ))}
           </Stack>
-          <Stack direction="row" spacing={1} useFlexGap sx={{ flexWrap: "wrap", alignItems: "center", ml: { xs: 0, md: 1 } }}>
+          <Stack
+            direction="row"
+            spacing={1}
+            useFlexGap
+            sx={{ flexWrap: "wrap", alignItems: "center", ml: { xs: 0, md: 1 }, order: { xs: 2, md: 3 } }}
+          >
             {localeItems.length > 0 ? <HeaderSwitcher label="语言" items={localeItems} color="primary" /> : null}
             {versionItems.length > 0 ? <HeaderSwitcher label="版本" items={versionItems} color="secondary" /> : null}
           </Stack>

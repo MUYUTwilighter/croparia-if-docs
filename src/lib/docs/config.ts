@@ -16,12 +16,12 @@ export const siteConfig = {
   siteName: "Croparia IF Docs",
   siteOrigin: "https://croparia.muyucloud.cool",
   docsHomeTitles: {
-    zh: "Croparia IF 文档",
+    zh: "矿石魔种文档",
     en: "Croparia IF Docs",
   } as Record<LocaleCode, string>,
   docsHomeDescriptions: {
-    zh: "Croparia IF 的多版本文档与开发参考。",
-    en: "Multi-version documentation and developer references for Croparia IF.",
+    zh: "矿石魔种（Croparia IF）官方文档站点。",
+    en: "Documentation and developer references for Croparia IF.",
   } as Record<LocaleCode, string>,
 };
 

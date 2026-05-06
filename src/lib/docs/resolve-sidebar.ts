@@ -193,7 +193,7 @@ const resolveSidebarCached = cache((locale: LocaleCode, version: VersionSlug, sl
         (candidate) => candidate.requestedSlug.length > doc.requestedSlug.length && isPrefix(doc.requestedSlug, candidate.requestedSlug),
       ),
     )
-    .filter((doc) => doc.frontmatter.nonav)
+    .filter((doc) => doc.frontmatter.nonav && doc.requestedSlug.length > 0)
     .map((doc) => doc.requestedSlug);
 
   const visibleDocs = resolvedDocs.filter((doc) => doc.isNavVisible && !startsWithAnyPrefix(doc.requestedSlug, childSlugPrefixes));

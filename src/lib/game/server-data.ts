@@ -80,16 +80,42 @@ function normalizeOredictList(list: string | string[] | undefined): string[] {
     .filter(Boolean);
 }
 
-function toImageSrc(base64: string, mimeType = "image/png") {
-  if (!base64) {
-    return "";
+function buildItemIconUrl(registerName: string, size: "small" | "large") {
+  const searchParams = new URLSearchParams({
+    item: registerName,
+    size,
+  });
+
+  return `/api/game/item-icon?${searchParams.toString()}`;
+}
+
+function decodeImageSource(source: string) {
+  const fallback = {
+    bytes: Buffer.from(source, "base64"),
+    mimeType: "image/png",
+  };
+
+  if (!source) {
+    return fallback;
   }
 
-  if (base64.startsWith("data:")) {
-    return base64;
+  if (!source.startsWith("data:")) {
+    return {
+      bytes: Buffer.from(source, "base64"),
+      mimeType: "image/png",
+    };
   }
 
-  return `data:${mimeType};base64,${base64}`;
+  const match = source.match(/^data:(.+?);base64,(.+)$/);
+
+  if (!match) {
+    return fallback;
+  }
+
+  return {
+    mimeType: match[1] || "image/png",
+    bytes: Buffer.from(match[2] || "", "base64"),
+  };
 }
 
 function fallbackLocaleMap(registerName: string): LocaleMap {
@@ -101,17 +127,12 @@ function fallbackLocaleMap(registerName: string): LocaleMap {
 }
 
 function normalizeItem(payload: ItemPayload, fallbackRegisterName = payload.registerName): ItemData {
-  const smallIcon = payload.smallIcon || FALLBACK_SMALL_ICON;
-  const largeIcon = payload.largeIcon || FALLBACK_LARGE_ICON;
-
   return {
     name: payload.name ?? fallbackLocaleMap(fallbackRegisterName),
     registerName: payload.registerName || fallbackRegisterName,
     OredictList: normalizeOredictList(payload.OredictList),
-    smallIcon,
-    largeIcon,
-    smallIconSrc: toImageSrc(smallIcon),
-    largeIconSrc: toImageSrc(largeIcon),
+    smallIconSrc: buildItemIconUrl(payload.registerName || fallbackRegisterName, "small"),
+    largeIconSrc: buildItemIconUrl(payload.registerName || fallbackRegisterName, "large"),
     maxStacksSize: payload.maxStacksSize ?? 64,
     minTool: payload.minTool,
     CreativeTabName: payload.CreativeTabName ?? fallbackLocaleMap("Unknown"),
@@ -144,6 +165,18 @@ export const getItemData = cache(async (id: string): Promise<ItemData> => {
     return normalizeItem(payload, id);
   } catch {
     return createFallbackItem(id);
+  }
+});
+
+export const getItemIconBinary = cache(async (id: string, size: "small" | "large") => {
+  try {
+    const [namespace, resourcePath] = parseRegisterName(id);
+    const payload = await readPublicJson<ItemPayload>(`/data/item/${namespace}/${resourcePath}.json`);
+    const iconSource = size === "small" ? payload.smallIcon || FALLBACK_SMALL_ICON : payload.largeIcon || FALLBACK_LARGE_ICON;
+
+    return decodeImageSource(iconSource);
+  } catch {
+    return decodeImageSource(size === "small" ? FALLBACK_SMALL_ICON : FALLBACK_LARGE_ICON);
   }
 });
 

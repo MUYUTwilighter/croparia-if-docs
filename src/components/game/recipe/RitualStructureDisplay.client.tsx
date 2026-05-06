@@ -3,8 +3,11 @@
 import { useMemo, useState } from "react";
 
 import { GameArrowButton } from "@/src/components/game/GameArrowButton";
+import { GameBlockEntryClient } from "@/src/components/game/GameBlockEntry.client";
+import { GameSlot } from "@/src/components/game/GameSlot";
 import { GameText } from "@/src/components/game/GameText";
 import { useGameLocale } from "@/src/components/game/use-game-locale";
+import type { RitualStructureLayerData, RitualStructureSlotData } from "@/src/lib/game/types";
 
 const specialLocales = {
   layer: {
@@ -20,9 +23,49 @@ function getLayerLabel(locale: string, layer: number) {
 }
 
 interface RitualStructureDisplayClientProps {
-  layers: React.ReactNode[];
+  layers: RitualStructureLayerData[];
   maxColumns: number;
   maxRows: number;
+}
+
+function RitualStructureSpecialSlot({ slot }: { slot: Extract<RitualStructureSlotData, { kind: "special" }> }) {
+  const locale = useGameLocale();
+  const label = slot.label[locale] || slot.label.en || slot.char;
+  const displayChar = slot.char === " " ? "*" : slot.char;
+
+  return (
+    <GameSlot>
+      <div className="ritual-structure__special-slot" title={label} aria-label={label}>
+        <GameText color="#3F3F3F" noShadow>
+          {displayChar}
+        </GameText>
+      </div>
+    </GameSlot>
+  );
+}
+
+function RitualStructureRow({ row, rowIndex }: { row: RitualStructureSlotData[]; rowIndex: number }) {
+  return (
+    <div className="ritual-structure__row">
+      {row.map((slot, columnIndex) => {
+        const key = `ritual-slot-${rowIndex}-${columnIndex}`;
+
+        if (slot.kind === "empty") {
+          return <GameSlot key={key} />;
+        }
+
+        if (slot.kind === "special") {
+          return <RitualStructureSpecialSlot key={key} slot={slot} />;
+        }
+
+        return (
+          <GameSlot key={key}>
+            <GameBlockEntryClient entry={slot.entry} items={slot.items} />
+          </GameSlot>
+        );
+      })}
+    </div>
+  );
 }
 
 export function RitualStructureDisplayClient({
@@ -46,17 +89,11 @@ export function RitualStructureDisplayClient({
   return (
     <div className="ritual-structure">
       <div className="ritual-structure__structure" style={structureStyle}>
-        {layers.map((currentLayer, index) => (
-          <div
-            key={`ritual-structure-layer-${index}`}
-            className={[
-              "ritual-structure__layer",
-              index === layer ? "ritual-structure__layer--active" : "ritual-structure__layer--hidden",
-            ].join(" ")}
-          >
-            {currentLayer}
-          </div>
-        ))}
+        <div className="ritual-structure__layer ritual-structure__layer--active">
+          {(layers[layer]?.rows ?? []).map((row, rowIndex) => (
+            <RitualStructureRow key={`ritual-row-${layer}-${rowIndex}`} row={row} rowIndex={rowIndex} />
+          ))}
+        </div>
       </div>
       <div className="ritual-structure__buttons">
         <GameArrowButton

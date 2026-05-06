@@ -9,7 +9,7 @@ import {
   useLocaleSwitcher,
   useVersionSwitcher,
 } from "@/src/components/docs/doc-context";
-import { ContentPaper, PageFooter, SiteHeader, docContentSx } from "@/src/components/docs/chrome-shared";
+import { ContentPaper, PageFooter, SiteHeader } from "@/src/components/docs/chrome-shared";
 import { FallbackNotice } from "@/src/components/docs/fallback-notice";
 
 export function SpecialDocChrome({ children }: { children: React.ReactNode }) {
@@ -31,6 +31,7 @@ export function SpecialDocChrome({ children }: { children: React.ReactNode }) {
     isCurrent: version.isCurrent,
   }));
   const showDebugPanel = process.env.NODE_ENV !== "production";
+  const showDiscoveryNotice = process.env.NODE_ENV !== "production";
 
   return (
     <Box sx={{ minHeight: "100vh", display: "flex", flexDirection: "column", bgcolor: "background.default" }}>
@@ -57,21 +58,19 @@ export function SpecialDocChrome({ children }: { children: React.ReactNode }) {
                 </Stack>
               </ContentPaper>
             ) : null}
-            <ContentPaper sx={{ width: "100%" }}>
-              <Stack spacing={2.5}>
-                {isHidden ? (
-                  <Alert severity="warning">
-                    该页面通过 frontmatter 控制可发现性：
-                    {!isNavVisible ? " `nonav: true` 已将它从导航中排除；" : ""}
-                    {!isSitemapIncluded ? " `sitemap: false` 已将它从 sitemap 和默认索引策略中排除。" : ""}
-                  </Alert>
-                ) : null}
-                {!isHidden ? <FallbackNotice /> : null}
-                <Box className="doc-content" sx={docContentSx}>
-                  {children}
-                </Box>
-              </Stack>
-            </ContentPaper>
+            <Stack spacing={2.5} sx={{ width: "100%" }}>
+              {isHidden && showDiscoveryNotice ? (
+                <Alert severity="warning">
+                  该页面通过 frontmatter 控制可发现性：
+                  {!isNavVisible ? " `nonav: true` 已将它从导航中排除；" : ""}
+                  {!isSitemapIncluded ? " `sitemap: false` 已将它从 sitemap 和默认索引策略中排除。" : ""}
+                </Alert>
+              ) : null}
+              {!isHidden ? <FallbackNotice /> : null}
+              <Box>
+                {children}
+              </Box>
+            </Stack>
           </Stack>
         </Container>
       </Box>
