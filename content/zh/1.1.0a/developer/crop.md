@@ -12,6 +12,7 @@ keywords:
   - ItemMaterial
   - BlockMaterial
   - 1.1.0a
+navOrder: 80
 ---
 
 # 添加内置作物

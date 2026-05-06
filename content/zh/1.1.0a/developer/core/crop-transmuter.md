@@ -12,6 +12,7 @@ keywords:
   - RepoProxy
 modVersions:
   - 1.1.0a
+navOrder: 10
 ---
 
 # 作物嬗变仪

@@ -11,6 +11,7 @@ keywords:
   - BlockProperties
   - TooltipProvider
   - 1.1.0a
+navOrder: 50
 ---
 
 # 自定义物品组件

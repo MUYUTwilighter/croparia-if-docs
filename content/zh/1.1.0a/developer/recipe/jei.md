@@ -12,6 +12,7 @@ keywords:
   - 配方展示
   - 开发者文档
   - 1.1.0a
+navOrder: 20
 ---
 
 # JEI 接入

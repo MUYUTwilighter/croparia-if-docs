@@ -10,6 +10,7 @@ keywords:
   - DropsCache
   - FakePlayer
   - 1.1.0a
+navOrder: 40
 ---
 
 # 仪式台

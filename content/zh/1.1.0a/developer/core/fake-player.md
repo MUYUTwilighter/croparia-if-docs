@@ -9,6 +9,7 @@ keywords:
   - SpawnEggItem
   - useAllItemsOn
   - 1.1.0a
+navOrder: 50
 ---
 
 # FakePlayer

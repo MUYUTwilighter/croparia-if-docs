@@ -13,6 +13,7 @@ keywords:
   - 模板
   - TOML
   - CDG
+navOrder: 10
 ---
 
 # 创建自定义配方生成器

@@ -10,6 +10,7 @@ keywords:
   - DropsCache
   - ItemPlaceable
   - 1.1.0a
+navOrder: 30
 ---
 
 # 注魔台

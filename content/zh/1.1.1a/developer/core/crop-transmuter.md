@@ -11,6 +11,7 @@ keywords:
   - CropTransmuterSelectPacket
   - RepoProxy
   - 1.1.1a
+navOrder: 10
 ---
 
 # 作物嬗变仪

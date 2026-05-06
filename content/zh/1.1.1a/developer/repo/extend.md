@@ -14,6 +14,7 @@ keywords:
   - Architectury
   - 开发者文档
   - 1.1.1a
+navOrder: 30
 ---
 
 # 扩充 Repo API

@@ -10,6 +10,7 @@ keywords:
   - CropTransmuter
   - Greenhouse
   - 1.1.1a
+navOrder: 10
 ---
 
 # 核心模块

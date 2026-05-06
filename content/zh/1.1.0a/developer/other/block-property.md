@@ -9,6 +9,7 @@ keywords:
   - DataComponent
   - 开发者文档
   - 1.1.0a
+navOrder: 30
 ---
 
 # 访问与修改方块属性

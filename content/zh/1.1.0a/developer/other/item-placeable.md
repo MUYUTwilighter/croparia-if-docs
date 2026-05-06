@@ -15,6 +15,7 @@ keywords:
 - DropsCache
   - 开发者文档
   - 1.1.0a
+navOrder: 40
 ---
 
 # 可放置物品接口

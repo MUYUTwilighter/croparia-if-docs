@@ -13,6 +13,7 @@ keywords:
   - JSON
   - KubeJS
   - 指令
+navOrder: 20
 ---
 
 # 自定义作物

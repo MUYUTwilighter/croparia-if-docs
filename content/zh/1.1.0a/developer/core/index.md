@@ -5,6 +5,7 @@ keywords:
   - Croparia IF
   - 核心模块
   - 作物嬗变仪
+navOrder: 10
 ---
 
 # 核心模块

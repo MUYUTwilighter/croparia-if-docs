@@ -9,6 +9,7 @@ keywords:
   - 我的世界模组
   - Minecraft Mod
   - 1.1.0a
+navOrder: 10
 ---
 
 # 概览：通用
