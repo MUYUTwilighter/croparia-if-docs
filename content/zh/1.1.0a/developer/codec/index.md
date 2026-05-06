@@ -1,6 +1,6 @@
 ---
 title: Codec API
-description: 面向 Croparia IF 下游开发者的 Codec API 概览，介绍 MultiCodec、MultiFieldCodec、TestedCodec 与 CodecUtil 的理解方式和使用场景。
+desc: 面向 Croparia IF 下游开发者的 Codec API 概览，介绍 MultiCodec、MultiFieldCodec、TestedCodec 与 CodecUtil 的理解方式和使用场景。
 keywords:
   - Croparia IF
   - Codec API

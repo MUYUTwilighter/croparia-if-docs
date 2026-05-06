@@ -1,6 +1,6 @@
 ---
 title: 占位符解析器
-description: 介绍 Croparia IF 运行时数据生成系统中 Placeholder 的语法、类型操作，以及 crop、melon、element 等常用生成条目的可用字段。
+desc: 介绍 Croparia IF 运行时数据生成系统中 Placeholder 的语法、类型操作，以及 crop、melon、element 等常用生成条目的可用字段。
 keywords:
   - Croparia IF
   - 矿石魔种

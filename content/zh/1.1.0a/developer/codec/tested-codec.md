@@ -1,6 +1,6 @@
 ---
 title: TestedCodec
-description: 介绍 Croparia IF 的 TestedCodec，它如何在真正编码或解码之前对输入进行前置测试，并作为 MultiCodec 等工具的基础构件。
+desc: 介绍 Croparia IF 的 TestedCodec，它如何在真正编码或解码之前对输入进行前置测试，并作为 MultiCodec 等工具的基础构件。
 keywords:
   - Croparia IF
   - Codec API

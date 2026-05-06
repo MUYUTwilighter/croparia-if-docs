@@ -1,6 +1,6 @@
 ---
 title: 核心模块
-description: 面向下游开发者介绍 Croparia IF 的核心功能模块，包括注魔台、仪式台、作物嬗变仪与温室的职责、数据流和扩展切入点。
+desc: 面向下游开发者介绍 Croparia IF 的核心功能模块，包括注魔台、仪式台、作物嬗变仪与温室的职责、数据流和扩展切入点。
 keywords:
   - Croparia IF
   - 开发者文档

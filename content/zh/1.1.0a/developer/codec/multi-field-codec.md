@@ -1,6 +1,6 @@
 ---
 title: MultiFieldCodec
-description: 介绍 Croparia IF 的 MultiFieldCodec 与 OptionalMultiFieldCodec，它们如何让同一个字段兼容多个键名，并支持缺省字段。
+desc: 介绍 Croparia IF 的 MultiFieldCodec 与 OptionalMultiFieldCodec，它们如何让同一个字段兼容多个键名，并支持缺省字段。
 keywords:
   - Croparia IF
   - Codec API

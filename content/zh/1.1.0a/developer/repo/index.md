@@ -1,6 +1,6 @@
 ---
 title: Repo API
-description: 面向 Croparia IF 下游开发者的 Repo API 架构概览，介绍 Repo、RepoProxy、ProxyProvider、PlatformItemProxy 与 PlatformFluidProxy 的职责关系。
+desc: 面向 Croparia IF 下游开发者的 Repo API 架构概览，介绍 Repo、RepoProxy、ProxyProvider、PlatformItemProxy 与 PlatformFluidProxy 的职责关系。
 keywords:
   - Croparia IF
   - Repo API

@@ -1,6 +1,6 @@
 ---
 title: 其他工具方法
-description: 介绍 Croparia IF CodecUtil 中除 MultiCodec 和 MultiFieldCodec 之外更常用的辅助工具，包括 extend、listOf、toMap、JSON 读写与 StreamCodec 转换。
+desc: 介绍 Croparia IF CodecUtil 中除 MultiCodec 和 MultiFieldCodec 之外更常用的辅助工具，包括 extend、listOf、toMap、JSON 读写与 StreamCodec 转换。
 keywords:
   - Croparia IF
   - Codec API

@@ -1,6 +1,6 @@
 ---
 title: 玩家
-description: Croparia IF 1.1.0a 玩家文档入口，汇总快速入门、自动化思路与常见问题页面。
+desc: Croparia IF 1.1.0a 玩家文档入口，汇总快速入门、自动化思路与常见问题页面。
 keywords:
   - Croparia IF
   - 矿石魔种

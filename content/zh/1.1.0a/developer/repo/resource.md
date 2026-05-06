@@ -1,6 +1,6 @@
 ---
 title: Resource API
-description: 介绍 Repo API 所依赖的 Resource API，包括 TypeToken、TypedResource，以及如何为 Croparia IF 扩展新的资源类型。
+desc: 介绍 Repo API 所依赖的 Resource API，包括 TypeToken、TypedResource，以及如何为 Croparia IF 扩展新的资源类型。
 keywords:
   - Croparia IF
   - Resource API

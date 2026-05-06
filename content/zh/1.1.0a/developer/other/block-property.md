@@ -1,6 +1,6 @@
 ---
 title: 访问与修改方块属性
-description: 介绍 Croparia IF 中的 BlockProperties，以及它在方块状态提取、匹配、序列化和展示中的作用。
+desc: 介绍 Croparia IF 中的 BlockProperties，以及它在方块状态提取、匹配、序列化和展示中的作用。
 keywords:
   - Croparia IF
   - BlockProperties

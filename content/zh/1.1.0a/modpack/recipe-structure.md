@@ -1,6 +1,6 @@
 ---
 title: 配方与结构
-description: 介绍 Croparia IF 1.1.0a 中 Infusor、Ritual、Soak 与 Ritual Structure 的数据格式、字段语义与编写示例。
+desc: 介绍 Croparia IF 1.1.0a 中 Infusor、Ritual、Soak 与 Ritual Structure 的数据格式、字段语义与编写示例。
 keywords:
   - Croparia IF
   - 矿石魔种

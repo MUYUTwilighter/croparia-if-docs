@@ -1,6 +1,6 @@
 ---
 title: Supplier 工具
-description: 介绍 Croparia IF 中的 Mappable、LazySupplier 与 OnLoadSupplier，以及它们在延迟计算和数据重载场景中的用法。
+desc: 介绍 Croparia IF 中的 Mappable、LazySupplier 与 OnLoadSupplier，以及它们在延迟计算和数据重载场景中的用法。
 keywords:
   - Croparia IF
   - Mappable

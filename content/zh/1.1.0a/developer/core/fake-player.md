@@ -1,6 +1,6 @@
 ---
 title: FakePlayer
-description: 介绍 Croparia IF 中的 FakePlayer 如何以服务端伪玩家身份执行物品使用逻辑，以及它在仪式台等模块中的用途与边界。
+desc: 介绍 Croparia IF 中的 FakePlayer 如何以服务端伪玩家身份执行物品使用逻辑，以及它在仪式台等模块中的用途与边界。
 keywords:
   - Croparia IF
   - 开发者文档

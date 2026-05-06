@@ -1,6 +1,6 @@
 ---
 title: 网络
-description: 介绍 Croparia IF 的网络抽象 NetworkHandler 与 NetworkHandlerType，以及 Crop Transmuter 菜单交互和配方同步两条实际数据流。
+desc: 介绍 Croparia IF 的网络抽象 NetworkHandler 与 NetworkHandlerType，以及 Crop Transmuter 菜单交互和配方同步两条实际数据流。
 keywords:
   - Croparia IF
   - 网络

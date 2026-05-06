@@ -1,6 +1,6 @@
 ---
 title: 配方生成器
-description: 介绍 Croparia IF 1.1.0a 中 Recipe Wizard 的基础用途，包括游戏内配方生成与潜行调试功能。
+desc: 介绍 Croparia IF 1.1.0a 中 Recipe Wizard 的基础用途，包括游戏内配方生成与潜行调试功能。
 keywords:
   - Croparia IF
   - 1.1.0a

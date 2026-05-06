@@ -1,6 +1,6 @@
 ---
 title: 添加生成条目
-description: 介绍如何为 Croparia IF 运行时数据生成系统添加新的 DgEntry 与 DgRegistry，并接入自定义 Placeholder。
+desc: 介绍如何为 Croparia IF 运行时数据生成系统添加新的 DgEntry 与 DgRegistry，并接入自定义 Placeholder。
 keywords:
   - Croparia IF
   - Generator API

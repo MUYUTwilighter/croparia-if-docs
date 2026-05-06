@@ -1,6 +1,6 @@
 ---
 title: 常见问题
-description: 规划 Croparia IF 1.1.0a 玩家常见问题页，用于集中收纳高频困惑与排错入口。
+desc: 规划 Croparia IF 1.1.0a 玩家常见问题页，用于集中收纳高频困惑与排错入口。
 navOrder: 3
 keywords:
   - Croparia IF

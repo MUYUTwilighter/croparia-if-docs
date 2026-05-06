@@ -1,6 +1,6 @@
 ---
 title: 方块与物品
-description: Croparia IF 1.1.0a 通用文档中的方块与物品入口，汇总魔种、工作方块、遗物和其他条目。
+desc: Croparia IF 1.1.0a 通用文档中的方块与物品入口，汇总魔种、工作方块、遗物和其他条目。
 keywords:
   - Croparia IF
   - 1.1.0a

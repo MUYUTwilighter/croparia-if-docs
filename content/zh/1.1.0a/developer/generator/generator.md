@@ -1,6 +1,6 @@
 ---
 title: 自定义数据生成器
-description: 介绍如何为 Croparia IF 运行时数据生成系统扩展自定义 DataGenerator，包括流程控制、PackCache 与 Codec 注册。
+desc: 介绍如何为 Croparia IF 运行时数据生成系统扩展自定义 DataGenerator，包括流程控制、PackCache 与 Codec 注册。
 keywords:
   - Croparia IF
   - Generator API

@@ -1,6 +1,6 @@
 ---
 title: 注魔台
-description: 介绍注魔台模块的方块状态、元素灌注、掉落物配方与 ItemPlaceable 联动，帮助开发者理解它的完整工作流。
+desc: 介绍注魔台模块的方块状态、元素灌注、掉落物配方与 ItemPlaceable 联动，帮助开发者理解它的完整工作流。
 keywords:
   - Croparia IF
   - 开发者文档

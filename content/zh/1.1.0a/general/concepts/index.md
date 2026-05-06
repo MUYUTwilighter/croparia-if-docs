@@ -1,6 +1,6 @@
 ---
 title: 核心概念
-description: Croparia IF 1.1.0a 通用文档中的核心概念入口，汇总作物与元素等基础术语说明。
+desc: Croparia IF 1.1.0a 通用文档中的核心概念入口，汇总作物与元素等基础术语说明。
 keywords:
   - Croparia IF
   - 1.1.0a

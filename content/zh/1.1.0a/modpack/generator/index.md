@@ -1,6 +1,6 @@
 ---
 title: 运行时数据生成系统
-description: 介绍 Croparia IF 1.1.0a 面向整合包作者的运行时数据生成系统，包括 PackHandler、数据生成器、模板与工作流。
+desc: 介绍 Croparia IF 1.1.0a 面向整合包作者的运行时数据生成系统，包括 PackHandler、数据生成器、模板与工作流。
 keywords:
   - Croparia IF
   - 1.1.0a

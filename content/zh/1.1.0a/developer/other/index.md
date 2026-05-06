@@ -1,6 +1,6 @@
 ---
 title: 其他常用 API
-description: 汇总 Croparia IF 中还未单独成组、但实际开发时经常会遇到的几个常用 API，包括 JSON 转换、配置、方块属性、物品放置接口与 Supplier 工具。
+desc: 汇总 Croparia IF 中还未单独成组、但实际开发时经常会遇到的几个常用 API，包括 JSON 转换、配置、方块属性、物品放置接口与 Supplier 工具。
 keywords:
   - Croparia IF
   - 开发者文档

@@ -1,6 +1,6 @@
 ---
 title: 仪式台
-description: 介绍仪式台模块如何围绕掉落物、结构校验与 Ritual 配方组织运行流程，帮助开发者理解它与 DropsCache、结构容器和假玩家的配合。
+desc: 介绍仪式台模块如何围绕掉落物、结构校验与 Ritual 配方组织运行流程，帮助开发者理解它与 DropsCache、结构容器和假玩家的配合。
 keywords:
   - Croparia IF
   - 开发者文档

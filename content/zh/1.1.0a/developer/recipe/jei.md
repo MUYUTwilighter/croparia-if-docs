@@ -1,6 +1,6 @@
 ---
 title: JEI 接入
-description: 介绍 Croparia IF Recipe API 如何接入 Just Enough Items，包括 JeiCategory、TypedSerializer 与工作站显示的关系。
+desc: 介绍 Croparia IF Recipe API 如何接入 Just Enough Items，包括 JeiCategory、TypedSerializer 与工作站显示的关系。
 keywords:
   - Croparia IF
   - Recipe API

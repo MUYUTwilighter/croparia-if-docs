@@ -1,6 +1,6 @@
 ---
-title: 开发者文档
-description: 面向下游开发者的 Croparia IF 1.1.1a 文档入口，规划架构、注册、数据模型与 API 等页面。
+title: 开发者
+desc: 面向下游开发者的 Croparia IF 1.1.1a 文档入口，规划架构、注册、数据模型与 API 等页面。
 keywords:
   - Croparia IF
   - 开发者

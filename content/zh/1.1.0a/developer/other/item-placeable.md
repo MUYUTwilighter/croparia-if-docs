@@ -1,6 +1,6 @@
 ---
 title: 可放置物品接口
-description: 介绍 Croparia IF 中的 ItemPlaceable 接口，以及它如何统一“将物品以实体形式放置到世界中”的行为。
+desc: 介绍 Croparia IF 中的 ItemPlaceable 接口，以及它如何统一“将物品以实体形式放置到世界中”的行为。
 keywords:
 - Croparia IF
 - ItemPlaceable

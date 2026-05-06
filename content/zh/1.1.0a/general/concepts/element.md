@@ -1,6 +1,6 @@
 ---
 title: 元素
-description: 介绍 Croparia IF 1.1.0a 中的元素体系，包括元素宝石、元素药水、元素流体及其在玩法中的基础作用。
+desc: 介绍 Croparia IF 1.1.0a 中的元素体系，包括元素宝石、元素药水、元素流体及其在玩法中的基础作用。
 keywords:
   - Croparia IF
   - 元素

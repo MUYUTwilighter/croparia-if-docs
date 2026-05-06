@@ -1,6 +1,6 @@
 ---
 title: 配置系统
-description: 介绍 Croparia IF 的配置对象 Config 与 ConfigFileHandler，重点说明配置值的职责划分、默认值策略与读写流程。
+desc: 介绍 Croparia IF 的配置对象 Config 与 ConfigFileHandler，重点说明配置值的职责划分、默认值策略与读写流程。
 keywords:
   - Croparia IF
   - Config

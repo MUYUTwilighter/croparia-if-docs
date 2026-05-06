@@ -1,6 +1,6 @@
 ---
 title: 开发者
-description: 面向下游开发者的 Croparia IF 文档入口，汇总 Repo API 与核心模块页面。
+desc: 面向下游开发者的 Croparia IF 文档入口，汇总 Repo API 与核心模块页面。
 keywords:
   - Croparia IF
   - 开发者文档

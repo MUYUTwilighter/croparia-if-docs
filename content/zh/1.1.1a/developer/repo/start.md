@@ -1,6 +1,6 @@
 ---
 title: 教程：Repo API
-description: 介绍如何在 Croparia IF 中创建 Repo、包装 RepoProxy、注册 ProxyProvider，并查询其他存储系统的 Repo API 入门流程。
+desc: 介绍如何在 Croparia IF 中创建 Repo、包装 RepoProxy、注册 ProxyProvider，并查询其他存储系统的 Repo API 入门流程。
 keywords:
   - Croparia IF
   - Repo API

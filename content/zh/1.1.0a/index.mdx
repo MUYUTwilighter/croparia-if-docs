@@ -1,6 +1,6 @@
 ---
 title: Croparia IF 文档
-description: Croparia IF 中文文档首页，汇总通用、玩家、整合包作者与开发者四类入口。
+desc: Croparia IF 中文文档首页，汇总通用、玩家、整合包作者与开发者四类入口。
 nonav: true
 ---
 
@@ -8,7 +8,6 @@ nonav: true
   sx={{
     display: "grid",
     gap: { xs: 4, md: 5 },
-    pb: { xs: 5, md: 8 },
   }}
 >
   <Box
@@ -16,10 +15,7 @@ nonav: true
       position: "relative",
       overflow: "hidden",
       minHeight: { xs: "calc(100vh - 168px)", md: "calc(100vh - 160px)" },
-      borderRadius: { xs: "32px", md: "40px" },
       border: "1px solid rgba(112, 143, 86, 0.18)",
-      background:
-        "linear-gradient(135deg, rgba(244,240,227,0.82) 0%, rgba(230,238,220,0.72) 42%, rgba(247,241,227,0.8) 100%)",
       boxShadow: "0 40px 90px rgba(37, 53, 33, 0.16)",
       px: { xs: 3, md: 6, xl: 8 },
       py: { xs: 4, md: 5 },
@@ -40,8 +36,6 @@ nonav: true
         content: '""',
         position: "absolute",
         inset: 0,
-        background:
-          "radial-gradient(circle at 18% 24%, rgba(255,255,255,0.58), transparent 34%), linear-gradient(90deg, rgba(248,245,235,0.72) 0%, rgba(248,245,235,0.38) 38%, rgba(248,245,235,0.08) 100%)",
         pointerEvents: "none",
       },
     }}
@@ -86,7 +80,7 @@ nonav: true
             textShadow: "0 8px 24px rgba(255,255,255,0.28)",
           }}
         >
-          资源农业、装置推进与强自定义
+          矿石魔种
         </Typography>
         <Typography
           component="p"
@@ -98,7 +92,7 @@ nonav: true
             fontSize: { xs: "1rem", md: "1.08rem", xl: "1.12rem" },
           }}
         >
-          Croparia IF 以资源作物、生长循环和装置推进为主要玩法，同时它也从一开始就围绕“可扩展、可重组、可自定义”来设计。
+          矿石魔种（Croparia IF）以资源作物、生长循环和装置推进为主要玩法，同时它也从一开始就围绕“可扩展、可重组、可自定义”来设计。
           无论你是想推进游玩、设计整合包，还是基于模组进一步开发，这里都能找到对应的入口。
         </Typography>
         <Stack
@@ -200,9 +194,6 @@ nonav: true
           borderRadius: { xs: "28px", md: "34px" },
           overflow: "hidden",
           border: "1px solid rgba(129, 168, 87, 0.24)",
-          background: "linear-gradient(180deg, rgba(255,255,255,0.86), rgba(245,240,229,0.72))",
-          boxShadow: "0 32px 60px rgba(37, 53, 33, 0.18)",
-          backdropFilter: "blur(10px)",
           p: { xs: 1.5, md: 2 },
         }}
       >
@@ -214,7 +205,7 @@ nonav: true
             display: "block",
             width: "100%",
             minHeight: { xs: 220, md: 360, xl: 420 },
-            objectFit: "cover",
+            objectFit: "contain",
             borderRadius: { xs: "22px", md: "28px" },
           }}
         />
@@ -585,7 +576,7 @@ nonav: true
           玩法与能力预览
         </Typography>
         <Typography component="p" sx={{ m: 0, color: "text.secondary", lineHeight: 1.8 }}>
-          这里不是完整攻略，而是帮助你快速判断 Croparia IF 当前最有代表性的几个方向。
+          简单浏览一下模组的大体内容
         </Typography>
       </Box>
 

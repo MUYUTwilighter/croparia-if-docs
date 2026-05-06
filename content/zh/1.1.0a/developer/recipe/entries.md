@@ -1,6 +1,6 @@
 ---
 title: 预设输入输出类型
-description: 介绍 Croparia IF Recipe API 中的 ItemInput、ItemOutput、BlockInput 与 BlockOutput，以及它们各自适合的使用场景。
+desc: 介绍 Croparia IF Recipe API 中的 ItemInput、ItemOutput、BlockInput 与 BlockOutput，以及它们各自适合的使用场景。
 keywords:
   - Croparia IF
   - Recipe API

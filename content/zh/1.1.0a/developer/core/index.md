@@ -1,6 +1,6 @@
 ---
 title: 核心模块
-description: Croparia IF 核心模块入口，包含作物嬗变仪等模块说明。
+desc: Croparia IF 核心模块入口，包含作物嬗变仪等模块说明。
 keywords:
   - Croparia IF
   - 核心模块

@@ -1,6 +1,6 @@
 ---
 title: 自定义物品组件
-description: 介绍 Croparia IF 的自定义 Data Components，包括注册方式、TooltipProvider 联动，以及 Text、TargetPos、BlockProperties 三个内置组件的实际用途。
+desc: 介绍 Croparia IF 的自定义 Data Components，包括注册方式、TooltipProvider 联动，以及 Text、TargetPos、BlockProperties 三个内置组件的实际用途。
 keywords:
   - Croparia IF
   - 开发者文档

@@ -1,6 +1,6 @@
 ---
 title: 作物
-description: 介绍 Croparia IF 1.1.0a 中的果实作物与巨果作物，包括基础定义、组成对象与材料产出方式。
+desc: 介绍 Croparia IF 1.1.0a 中的果实作物与巨果作物，包括基础定义、组成对象与材料产出方式。
 keywords:
   - Croparia IF
   - 作物

@@ -1,6 +1,6 @@
 ---
 title: MultiCodec
-description: 介绍 Croparia IF 的 MultiCodec，它如何按顺序尝试多个 codec，以支持同一数据类型的多种序列化格式。
+desc: 介绍 Croparia IF 的 MultiCodec，它如何按顺序尝试多个 codec，以支持同一数据类型的多种序列化格式。
 keywords:
   - Croparia IF
   - Codec API

@@ -1,6 +1,6 @@
 ---
 title: 创建数据生成器
-description: 介绍 Croparia IF 1.1.0a 运行时数据生成系统中数据生成器文件的放置位置、核心字段、生成器类型与最小示例。
+desc: 介绍 Croparia IF 1.1.0a 运行时数据生成系统中数据生成器文件的放置位置、核心字段、生成器类型与最小示例。
 keywords:
   - Croparia IF
   - 矿石魔种

@@ -1,6 +1,6 @@
 ---
 title: 快速入门
-description: Croparia IF 1.1.0a 玩家快速入门，涵盖安装、元素矿石、注魔台、魔种升级与早期游玩路线。
+desc: Croparia IF 1.1.0a 玩家快速入门，涵盖安装、元素矿石、注魔台、魔种升级与早期游玩路线。
 navOrder: 1
 keywords:
   - Croparia IF

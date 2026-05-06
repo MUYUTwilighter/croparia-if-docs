@@ -1,6 +1,6 @@
 ---
 title: 遗物
-description: 收录 Croparia IF 1.1.0a 中的实用遗物道具，包括魔力绳、丰饶号角、点金之手与无尽苹果。
+desc: 收录 Croparia IF 1.1.0a 中的实用遗物道具，包括魔力绳、丰饶号角、点金之手与无尽苹果。
 keywords:
   - Croparia IF
   - 遗物

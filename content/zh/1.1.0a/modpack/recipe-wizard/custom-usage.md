@@ -1,6 +1,6 @@
 ---
 title: 创建自定义配方生成器
-description: 介绍 Croparia IF 1.1.0a 中 Recipe Wizard 自定义生成器的目录、字段、扩展占位符与实际编写方式。
+desc: 介绍 Croparia IF 1.1.0a 中 Recipe Wizard 自定义生成器的目录、字段、扩展占位符与实际编写方式。
 keywords:
   - Croparia IF
   - 1.1.0a

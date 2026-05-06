@@ -1,6 +1,6 @@
 ---
 title: JSON 转换
-description: 介绍 Croparia IF 中的 JsonTransformer，它如何把 json、toml 与 cdg 等文本格式统一转换为 JsonElement 以供后续 Codec 读取。
+desc: 介绍 Croparia IF 中的 JsonTransformer，它如何把 json、toml 与 cdg 等文本格式统一转换为 JsonElement 以供后续 Codec 读取。
 keywords:
   - Croparia IF
   - JsonTransformer

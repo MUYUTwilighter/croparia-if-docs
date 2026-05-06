@@ -1,6 +1,6 @@
 ---
-title: 运行时数据生成系统（开发者）
-description: 面向 Croparia IF 下游开发者的运行时数据生成系统概览，介绍 DgEntry、DataGenerator 与 Placeholder 的扩展入口。
+title: 运行时数据生成系统
+desc: 面向 Croparia IF 下游开发者的运行时数据生成系统概览，介绍 DgEntry、DataGenerator 与 Placeholder 的扩展入口。
 keywords:
   - Croparia IF
   - 运行时数据生成系统

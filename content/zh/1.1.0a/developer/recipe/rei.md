@@ -1,6 +1,6 @@
 ---
 title: REI 接入
-description: 介绍 Croparia IF Recipe API 如何接入 Roughly Enough Items，包括 ReiCategory、ReiDisplay 与 TypedSerializer 的协作方式。
+desc: 介绍 Croparia IF Recipe API 如何接入 Roughly Enough Items，包括 ReiCategory、ReiDisplay 与 TypedSerializer 的协作方式。
 keywords:
   - Croparia IF
   - Recipe API

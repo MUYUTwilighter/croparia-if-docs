@@ -1,6 +1,6 @@
 ---
 title: 配置与指令
-description: 介绍 Croparia IF 1.1.0a 的配置文件、服务端配置指令，以及 crop、generator 等常用查询与导出命令。
+desc: 介绍 Croparia IF 1.1.0a 的配置文件、服务端配置指令，以及 crop、generator 等常用查询与导出命令。
 keywords:
   - Croparia IF
   - 矿石魔种

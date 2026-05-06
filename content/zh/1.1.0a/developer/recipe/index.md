@@ -1,6 +1,6 @@
 ---
 title: Recipe API
-description: 面向 Croparia IF 下游开发者的 Recipe API 概览，介绍 DisplayableRecipe、TypedSerializer、预设输入输出类型以及 JEI 与 REI 接入方式。
+desc: 面向 Croparia IF 下游开发者的 Recipe API 概览，介绍 DisplayableRecipe、TypedSerializer、预设输入输出类型以及 JEI 与 REI 接入方式。
 keywords:
   - Croparia IF
   - Recipe API

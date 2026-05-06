@@ -1,6 +1,6 @@
 ---
 title: 通用
-description: Croparia IF 1.1.0a 中文通用文档索引，汇总核心概念、方块与物品等基础信息入口。
+desc: Croparia IF 1.1.0a 中文通用文档索引，汇总核心概念、方块与物品等基础信息入口。
 keywords:
   - Croparia IF
   - 矿石魔种
