@@ -1,4 +1,4 @@
-import { redirect } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 
 import { docsConfig, isLocaleCode, isVersionSlug } from "@/src/lib/docs/config";
 import { buildDocPath, buildShortRouteRedirect, normalizeSlug } from "@/src/lib/docs/routing";
@@ -18,7 +18,7 @@ export default async function DocsLocaleShortRoutePage({ params }: DocsLocaleSho
   }
 
   if (slug.length > 0 && isVersionSlug(slug[0])) {
-    redirect(buildDocPath(locale, slug[0], normalizeSlug(slug.slice(1))));
+    notFound();
   }
 
   const nextLocale = isLocaleCode(locale) ? locale : docsConfig.defaultLocale;
