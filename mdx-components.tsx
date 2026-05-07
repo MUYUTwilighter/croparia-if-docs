@@ -45,6 +45,25 @@ function withNormalizedProps<T extends ElementType>(Component: T) {
   };
 }
 
+function Div(props: ComponentPropsWithoutRef<"div">) {
+  const normalized = normalizeMdxHtmlProps(props);
+  const className = typeof normalized.className === "string" ? normalized.className : "";
+
+  if (className.split(/\s+/).includes("doc-center")) {
+    const { children, className: _className, ...rest } = normalized;
+
+    return (
+      <Box sx={{ my: 3, width: "100%", overflowX: "auto", overflowY: "hidden" }}>
+        <Box sx={{ display: "flex", justifyContent: "center", width: "max-content", minWidth: "100%" }}>
+          {createElement("div", rest, children)}
+        </Box>
+      </Box>
+    );
+  }
+
+  return createElement("div", normalized);
+}
+
 function SafeTypography(props: TypographyProps) {
   const { component, ...rest } = props;
   const resolvedComponent = component === "p" ? "div" : component;
@@ -57,7 +76,7 @@ function SafeTypography(props: TypographyProps) {
 }
 
 export const mdxComponents: MDXComponents = {
-  div: passthrough("div"),
+  div: Div,
   span: passthrough("span"),
   h1: passthrough("h1"),
   h2: passthrough("h2"),
