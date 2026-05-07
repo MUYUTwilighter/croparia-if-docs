@@ -8,6 +8,8 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import MenuIcon from "@mui/icons-material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
+import TranslateIcon from "@mui/icons-material/Translate";
+import SellOutlinedIcon from "@mui/icons-material/SellOutlined";
 import {
   AppBar,
   Collapse,
@@ -565,10 +567,12 @@ export const docContentSx: SxProps<Theme> = {
 function HeaderSwitcher({
   label,
   items,
+  icon,
   color = "primary",
 }: {
   label: string;
   items: SwitcherItem[];
+  icon: React.ReactNode;
   color?: "primary" | "secondary";
 }) {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -587,10 +591,12 @@ function HeaderSwitcher({
         variant="outlined"
         color={color}
         onClick={(event) => setAnchorEl(event.currentTarget)}
+        startIcon={icon}
         endIcon={<KeyboardArrowDownIcon sx={{ fontSize: 18 }} />}
+        aria-label={label}
         sx={{ borderRadius: 999, px: 1.5, whiteSpace: "nowrap" }}
       >
-        {label}：{currentItem.label}
+        {currentItem.label}
       </Button>
       <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={() => setAnchorEl(null)}>
         {items.map((item) => (
@@ -796,8 +802,12 @@ export function SiteHeader({ headerItems, localeItems = [], versionItems = [] }:
               display: { xs: "none", md: "flex" },
             }}
           >
-            {localeItems.length > 0 ? <HeaderSwitcher label="语言" items={localeItems} color="primary" /> : null}
-            {versionItems.length > 0 ? <HeaderSwitcher label="版本" items={versionItems} color="secondary" /> : null}
+            {localeItems.length > 0 ? (
+              <HeaderSwitcher label="语言选择器" items={localeItems} icon={<TranslateIcon sx={{ fontSize: 18 }} />} color="primary" />
+            ) : null}
+            {versionItems.length > 0 ? (
+              <HeaderSwitcher label="版本选择器" items={versionItems} icon={<SellOutlinedIcon sx={{ fontSize: 18 }} />} color="secondary" />
+            ) : null}
           </Stack>
           <Button
             variant="outlined"
