@@ -162,7 +162,7 @@ function DocSearchBox() {
                 setIsOpen(false);
               }
             }}
-            placeholder="搜索文档内容..."
+            placeholder="SEARCH DOCS..."
             inputProps={{ "aria-label": "Search docs" }}
             sx={{
               flex: 1,
