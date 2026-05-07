@@ -14,9 +14,9 @@ navOrder: 20
 <GameItemCard id='croparia:greenhouse'></GameItemCard>
 </div>
 
-Provides light level 8, opens a 3x3 storage when right-clicked, and supports storage interaction.
+Provides light level 8, opens a 3x3 inventory when right-clicked, and can interact with storage systems.
 
-The Greenhouse should be placed on top of one-block-high crops. After it detects a block update, it performs one automatic harvest. Each harvest automatically **consumes 1 seed**. Harvested items are stored inside the Greenhouse inventory.
+The Greenhouse should be placed above single-block crops. After it detects a block update, it performs one automatic harvest. Each harvest automatically **consumes 1 seed**. Harvested items are stored in the Greenhouse inventory.
 
 It can also harvest vine crops such as pumpkins and melons automatically, but those crops still need one adjacent block of free growth space.
 
@@ -52,7 +52,7 @@ When crafting is triggered, the Infusor tries to insert the result into the play
 
 Use an [Elemental Potion](../concepts/element.md#potion) on the Infusor to infuse it, then drop an item onto it to trigger the recipe.
 
-You can inspect recipes through your item browser. For example:
+You can inspect recipes in your recipe viewer. For example:
 
 <div class="doc-center">
 <RecipeDisplay id="croparia:infusor/croparia"></RecipeDisplay>
@@ -82,7 +82,7 @@ A craftable decorative block. It can be combined with the [Infusor](#croparia:in
 
 Place an [Infusor](#croparia:infusor) above the Elemental Stone and infuse it with an element. Elemental Soak then affects blocks in the 3 x 3 area on the same horizontal layer centered on the Elemental Stone.
 
-You can inspect recipes through your item browser. For example:
+You can inspect recipes in your recipe viewer. For example:
 
 <div class="doc-center">
 <RecipeDisplay id="croparia:soak/soul_sand"></RecipeDisplay>
@@ -140,7 +140,7 @@ Right-click the Ritual Stand with an item in hand to place one item on it. If th
 
 ### Usage
 
-First, build the ritual structure that matches the Ritual Stand tier. Higher-tier ritual structures can also be used for lower-tier rituals. You can inspect them in your item browser:
+First, build the ritual structure that matches the Ritual Stand tier. Higher-tier ritual structures can also be used for lower-tier rituals. You can inspect them in your recipe viewer:
 
 <RowGallery>
 <RecipeDisplay id="croparia:ritual_stand"></RecipeDisplay>
@@ -148,7 +148,7 @@ First, build the ritual structure that matches the Ritual Stand tier. Higher-tie
 <RecipeDisplay id="croparia:ritual_stand_3"></RecipeDisplay>
 </RowGallery>
 
-In the structure preview above, `Input Block` marks the positions where ritual input blocks must be placed. Once the correct blocks are placed and the input item is dropped onto the Ritual Stand, the ritual is triggered.
+In the structure preview above, the `Input Block` label marks the positions where ritual input blocks must be placed. Once the correct blocks are in place and the input item is dropped onto the Ritual Stand, the ritual is triggered.
 
 If the result is an Enchanted Book, the ritual applies enchantments to the input item. The book’s enchantments and levels indicate the available enchantments and their maximum levels, while the book count indicates how many levels are added per ritual.
 
@@ -157,4 +157,3 @@ If the result is a Spawn Egg, the ritual summons the corresponding mob.
 ### Debug
 
 While sneaking, use the [Recipe Wizard](./others.md#croparia:recipe_wizard) on the Ritual Stand to generate the corresponding ritual structure centered on it.
-

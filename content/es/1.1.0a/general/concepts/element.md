@@ -6,7 +6,7 @@ navOrder: 20
 
 # Elementos
 
-Los elementos forman parte del trasfondo de Croparia IF. No constituyen por sí solos una línea de progresión muy grande, sino que se usan principalmente como materiales para crear y mejorar [Croparia](../blocks-and-items/croparia.md#croparia:croparia).
+Los elementos forman parte del núcleo temático de Croparia IF. No constituyen por sí solos una rama de progresión muy grande, sino que se usan principalmente como materiales para crear y mejorar [Croparia](../blocks-and-items/croparia.md#croparia:croparia).
 
 <a id="gems"></a>
 
@@ -24,7 +24,7 @@ Las gemas se usan para crear las [Pociones elementales](#potion) correspondiente
 
 ### Origen
 
-La Gema elemental base se obtiene minando [mena de elemtilius](../blocks-and-items/others.md#elematilius_ore). Las demás gemas elementales se fabrican mediante el [Atril ritual](../blocks-and-items/workstations.md#croparia:ritual_stand).
+La gema elemental base se obtiene minando [Mena de elemtilius](../blocks-and-items/others.md#elematilius_ore). Las demás gemas elementales se fabrican mediante el [Atril ritual](../blocks-and-items/workstations.md#croparia:ritual_stand).
 
 <RowGallery>
 <RecipeDisplay id="croparia:ritual/gem/earth"></RecipeDisplay>
@@ -45,7 +45,7 @@ La Gema elemental base se obtiene minando [mena de elemtilius](../blocks-and-ite
 <GameItemCard id="croparia:potion_air"></GameItemCard>
 </RowGallery>
 
-Las Pociones elementales se usan para infundir un elemento en el [Infusor](../blocks-and-items/workstations.md#croparia:infusor). Se fabrican en la mesa de crafteo con una botella de vidrio y una gema correspondiente.
+Las Pociones elementales se usan para infundir un elemento en el [Infusor](../blocks-and-items/workstations.md#croparia:infusor). Se fabrican en una mesa de trabajo con una botella de vidrio y la gema correspondiente.
 
 <a id="bucket"></a>
 
@@ -60,4 +60,3 @@ Las Pociones elementales se usan para infundir un elemento en el [Infusor](../bl
 </RowGallery>
 
 Los Fluidos elementales se usan sobre todo para compatibilidad con otros mods. Si solo te interesa la jugabilidad normal, normalmente te conviene prestar más atención a las [Pociones elementales](#potion) y a la [Piedra elemental](../blocks-and-items/workstations.md#croparia:elemental_stone). Los cubos de Fluido elemental se fabrican con un cubo de hierro y cuatro gemas.
-

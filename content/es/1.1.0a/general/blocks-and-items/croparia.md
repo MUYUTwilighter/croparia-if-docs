@@ -8,7 +8,7 @@ navOrder: 10
 
 Croparia es el material principal para fabricar todas las semillas de cultivo. No puede plantarse por sí sola.
 
-Esta página cubre actualmente hasta el nivel 5. Salvo [Croparia](#croparia:croparia), todos los niveles se fabrican con dos copias del nivel anterior más materiales adicionales. Mejorarla suele implicar [Elementos](../concepts/element.md), el [Infusor](./workstations.md#croparia:infusor) y otros materiales relacionados con elementos.
+Esta página cubre actualmente hasta T5. Salvo [Croparia](#croparia:croparia), cada nivel se fabrica con dos copias del nivel anterior más materiales adicionales. Mejorarla suele implicar [Elementos](../concepts/element.md), el [Infusor](./workstations.md#croparia:infusor) y otros materiales relacionados con los elementos.
 
 <a id="croparia:croparia"></a>
 
@@ -79,4 +79,3 @@ Esta página cubre actualmente hasta el nivel 5. Salvo [Croparia](#croparia:crop
 <div class="doc-center">
 <RecipeDisplay id="croparia:infusor/croparia5"></RecipeDisplay>
 </div>
-

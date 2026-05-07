@@ -14,7 +14,7 @@ navOrder: 20
 <GameItemCard id='croparia:greenhouse'></GameItemCard>
 </div>
 
-Proporciona nivel de luz 8, abre un almacenamiento de 3x3 al hacer clic derecho y admite interacción con sistemas de almacenamiento.
+Proporciona nivel de luz 8, abre un inventario de 3x3 al hacer clic derecho y puede interactuar con sistemas de almacenamiento.
 
 El Invernadero debe colocarse sobre cultivos de un bloque de altura. Cuando detecta una actualización de bloque, realiza una cosecha automática. Cada cosecha **consume 1 semilla** automáticamente. Los objetos recolectados se almacenan dentro del inventario del Invernadero.
 
@@ -40,7 +40,7 @@ Haz clic derecho sobre un Infusor vacío con cualquier [Poción elemental](../co
 
 Haz clic derecho sobre el Infusor con un objeto en la mano para colocar una unidad encima. Si el Infusor recibe una señal débil de redstone, colocará una pila completa. Un soltador apuntando al Infusor también puede colocar un objeto sobre él al activarse.
 
-Cuando se activa una receta, el Infusor intenta introducir el resultado en el jugador que proporcionó el objeto, y después en el contenedor situado debajo. Si ninguno de los dos está disponible, genera el resultado como un objeto tirado encima de sí mismo.
+Cuando se activa una receta, el Infusor intenta introducir el resultado en el jugador que proporcionó el objeto, y después en el contenedor situado debajo. Si ninguno de los dos está disponible, deja el resultado como un objeto en el suelo sobre sí mismo.
 
 ### Receta
 
@@ -52,7 +52,7 @@ Cuando se activa una receta, el Infusor intenta introducir el resultado en el ju
 
 Usa una [Poción elemental](../concepts/element.md#potion) sobre el Infusor para infundirlo, y luego deja caer un objeto sobre él para activar la receta.
 
-Puedes revisar recetas con tu visor de objetos. Por ejemplo:
+Puedes revisar recetas en tu visor de recetas. Por ejemplo:
 
 <div class="doc-center">
 <RecipeDisplay id="croparia:infusor/croparia"></RecipeDisplay>
@@ -70,7 +70,7 @@ Mientras te agachas, usa el [Asistente de recetas](./others.md#croparia:recipe_w
 <GameItemCard id='croparia:elemental_stone'></GameItemCard>
 </div>
 
-Un bloque decorativo crafteable. Puede combinarse con el [Infusor](#croparia:infusor) para realizar Remojo elemental.
+Un bloque decorativo crafteable. Puede combinarse con el [Infusor](#croparia:infusor) para realizar el remojo elemental.
 
 ### Receta
 
@@ -80,9 +80,9 @@ Un bloque decorativo crafteable. Puede combinarse con el [Infusor](#croparia:inf
 
 ### Uso (Remojo elemental)
 
-Coloca un [Infusor](#croparia:infusor) sobre la Piedra elemental e infúndelo con un elemento. El Remojo elemental afectará a los bloques en el área de 3 x 3 del mismo plano horizontal centrada en la Piedra elemental.
+Coloca un [Infusor](#croparia:infusor) sobre la Piedra elemental e infúndelo con un elemento. El remojo elemental afectará a los bloques del área de 3 x 3 del mismo plano horizontal centrada en la Piedra elemental.
 
-Puedes revisar recetas con tu visor de objetos. Por ejemplo:
+Puedes revisar recetas en tu visor de recetas. Por ejemplo:
 
 <div class="doc-center">
 <RecipeDisplay id="croparia:soak/soul_sand"></RecipeDisplay>
@@ -100,7 +100,7 @@ Mientras te agachas, usa el [Asistente de recetas](./others.md#croparia:recipe_w
 <GameItemCard id='croparia:crop_transmuter'></GameItemCard>
 </div>
 
-El Transmutador de cultivos convierte frutos de cultivo en **objetos de material específicos**. Tiene almacenamiento de block entity y abre su interfaz al hacer clic derecho.
+El Transmutador de cultivos convierte frutos de cultivo en **objetos de material específicos**. Tiene inventario propio y abre su interfaz al hacer clic derecho.
 
 ### Receta
 
@@ -140,7 +140,7 @@ Haz clic derecho sobre el Atril ritual con un objeto en la mano para colocar una
 
 ### Uso
 
-Primero debes construir la estructura ritual correspondiente al nivel del Atril ritual. Las estructuras de nivel superior también pueden usarse para rituales de nivel inferior. Puedes verlas en tu visor de objetos:
+Primero debes construir la estructura ritual correspondiente al nivel del Atril ritual. Las estructuras de nivel superior también pueden usarse para rituales de nivel inferior. Puedes verlas en tu visor de recetas:
 
 <RowGallery>
 <RecipeDisplay id="croparia:ritual_stand"></RecipeDisplay>
@@ -148,7 +148,7 @@ Primero debes construir la estructura ritual correspondiente al nivel del Atril 
 <RecipeDisplay id="croparia:ritual_stand_3"></RecipeDisplay>
 </RowGallery>
 
-En la vista de estructura superior, `Input Block` marca las posiciones donde deben colocarse los bloques de entrada del ritual. Cuando los bloques correctos estén colocados y dejes caer el objeto de entrada sobre el Atril ritual, se activará el ritual.
+En la vista de estructura superior, la marca `Input Block` señala las posiciones donde deben colocarse los bloques de entrada del ritual. Cuando los bloques correctos estén colocados y dejes caer el objeto de entrada sobre el Atril ritual, se activará el ritual.
 
 Si el resultado es un Libro encantado, el ritual aplica encantamientos al objeto de entrada. Los encantamientos y niveles del libro indican los encantamientos disponibles y su nivel máximo, mientras que la cantidad de libros indica cuántos niveles se añaden por ritual.
 
@@ -157,4 +157,3 @@ Si el resultado es un Huevo generador, el ritual invoca a la criatura correspond
 ### Depuración
 
 Mientras te agachas, usa el [Asistente de recetas](./others.md#croparia:recipe_wizard) sobre el Atril ritual para generar la estructura ritual correspondiente centrada en él.
-

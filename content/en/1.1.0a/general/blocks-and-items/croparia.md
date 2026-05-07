@@ -8,7 +8,7 @@ navOrder: 10
 
 Croparia is the core material used to craft all crop seeds. It cannot be planted by itself.
 
-This page currently covers up to Tier 5. Aside from [Croparia](#croparia:croparia), every tier is crafted from two copies of the previous tier plus additional materials. Upgrading it usually involves [Elements](../concepts/element.md), the [Infusor](./workstations.md#croparia:infusor), and other element-related materials.
+This page currently covers tiers up to T5. Aside from [Croparia](#croparia:croparia), each tier is crafted from two copies of the previous tier plus additional materials. Upgrading it usually involves [Elements](../concepts/element.md), the [Infusor](./workstations.md#croparia:infusor), and other element-related materials.
 
 <a id="croparia:croparia"></a>
 
@@ -79,4 +79,3 @@ This page currently covers up to Tier 5. Aside from [Croparia](#croparia:cropari
 <div class="doc-center">
 <RecipeDisplay id="croparia:infusor/croparia5"></RecipeDisplay>
 </div>
-

@@ -18,7 +18,7 @@ Relics are a group of utility items with a wide range of effects.
 
 The Magic Rope teleports the player to a stored position.
 
-While holding it, sneak-right-click the ground to bind a position. Afterwards, right-click the ground with the bound rope to trigger the teleport.
+While holding it, sneak-right-click the ground to bind a position. Afterwards, right-click with the bound rope to trigger the teleport.
 
 ### Recipe
 
@@ -79,4 +79,3 @@ A food item that is never consumed. Each use grants 5 seconds of potion effects 
 <div class="doc-center">
 <RecipeDisplay id="croparia:ritual/relic/infinite_apple"></RecipeDisplay>
 </div>
-

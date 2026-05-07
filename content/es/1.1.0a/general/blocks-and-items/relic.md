@@ -18,7 +18,7 @@ Las reliquias son una serie de objetos utilitarios con efectos muy variados.
 
 La Cuerda mágica teletransporta al jugador a una posición guardada.
 
-Mientras la sostienes, agáchate y haz clic derecho sobre el suelo para vincular una posición. Después, haz clic derecho con la cuerda vinculada para activar el teletransporte.
+Mientras la sostienes, agáchate y haz clic derecho sobre el suelo para vincular una posición. Después, haz clic derecho con la cuerda ya vinculada para activar el teletransporte.
 
 ### Receta
 
@@ -79,4 +79,3 @@ Un alimento que nunca se consume. Cada uso otorga 5 segundos de efectos equivale
 <div class="doc-center">
 <RecipeDisplay id="croparia:ritual/relic/infinite_apple"></RecipeDisplay>
 </div>
-

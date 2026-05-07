@@ -6,7 +6,7 @@ navOrder: 20
 
 # Elements
 
-Elements are part of Croparia IF’s setting. They do not form a large standalone progression line by themselves, but mainly serve as materials for crafting and upgrading [Croparia](../blocks-and-items/croparia.md#croparia:croparia).
+Elements are part of Croparia IF’s core setting. They do not form a large progression branch on their own; instead, they mainly serve as materials for crafting and upgrading [Croparia](../blocks-and-items/croparia.md#croparia:croparia).
 
 <a id="gems"></a>
 
@@ -24,7 +24,7 @@ Gems are used to craft the corresponding [Elemental Potions](#potion).
 
 ### Sources
 
-The base Elemental Gem comes from mining [Elematilius Ore](../blocks-and-items/others.md#elematilius_ore). The other elemental gems are crafted through the [Ritual Stand](../blocks-and-items/workstations.md#croparia:ritual_stand).
+The base Elemental Gem is obtained by mining [Elematilius Ore](../blocks-and-items/others.md#elematilius_ore). The other elemental gems are crafted through the [Ritual Stand](../blocks-and-items/workstations.md#croparia:ritual_stand).
 
 <RowGallery>
 <RecipeDisplay id="croparia:ritual/gem/earth"></RecipeDisplay>
@@ -60,4 +60,3 @@ Elemental Potions are used to infuse the [Infusor](../blocks-and-items/workstati
 </RowGallery>
 
 Elemental Fluids are mainly for mod compatibility. If you only care about normal gameplay, you will usually want to pay more attention to [Elemental Potions](#potion) and the [Elemental Stone](../blocks-and-items/workstations.md#croparia:elemental_stone). Buckets of Elemental Fluid are crafted from one Iron Bucket and four Gems.
-

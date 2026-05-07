@@ -1,6 +1,6 @@
 ---
 title: Otros
-desc: Reúne las entradas de Croparia IF 1.1.0a que no pertenecen a Croparia, reliquias o bloques de trabajo, como la mena de elemtilius, el Chillador activado y el Asistente de recetas.
+desc: Reúne las entradas de Croparia IF 1.1.0a que no pertenecen a Croparia, reliquias o bloques de trabajo, como la Mena de elemtilius, el Chillador activado y el Asistente de recetas.
 navOrder: 40
 ---
 
@@ -41,5 +41,4 @@ Es parecido a un Chillador esculk, pero siempre permanece en un estado capaz de 
 <GameItemCard id="croparia:recipe_wizard"></GameItemCard>
 </div>
 
-Herramienta de depuración de modo creativo usada para generar archivos de recetas con más comodidad. Sirve principalmente para sistemas como el [Infusor](./workstations.md#croparia:infusor), la [Piedra elemental](./workstations.md#croparia:elemental_stone) y el [Atril ritual](./workstations.md#croparia:ritual_stand). Para el uso detallado, consulta [Asistente de recetas (Autores de modpacks)](../../modpack/recipe-wizard/index.md).
-
+Herramienta de depuración del modo creativo usada para generar archivos de recetas con más comodidad. Sirve principalmente para sistemas como el [Infusor](./workstations.md#croparia:infusor), la [Piedra elemental](./workstations.md#croparia:elemental_stone) y el [Atril ritual](./workstations.md#croparia:ritual_stand). Para un uso más detallado, consulta [Asistente de recetas (Autores de modpacks)](../../modpack/recipe-wizard/index.md).
