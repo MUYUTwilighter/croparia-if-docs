@@ -2,14 +2,14 @@ import { createHash } from "node:crypto";
 import fs from "node:fs/promises";
 import path from "node:path";
 import { compile, run } from "@mdx-js/mdx";
+import remarkGfm from "remark-gfm";
 import rehypePrettyCode from "rehype-pretty-code";
 import { cache } from "react";
 import * as runtime from "react/jsx-runtime";
 
 import { mdxComponents } from "@/mdx-components";
-import { contentSignal } from "@/src/.generated/docs/content-signal";
 
-const MDX_CACHE_VERSION = "v3";
+const MDX_CACHE_VERSION = "v4";
 const MDX_CACHE_ROOT = path.join(process.cwd(), ".next", "cache", "docs-mdx");
 
 const prettyCodeOptions = {
@@ -92,8 +92,7 @@ async function writeCompiledMdxToDisk(source: string, compiled: string) {
   await fs.writeFile(cachePath, compiled, "utf8");
 }
 
-const compileMdxToFunctionBody = cache(async (source: string, signal: string) => {
-  void signal;
+const compileMdxToFunctionBody = cache(async (source: string) => {
   const cachedCompiled = await readCompiledMdxFromDisk(source);
 
   if (cachedCompiled) {
@@ -102,6 +101,7 @@ const compileMdxToFunctionBody = cache(async (source: string, signal: string) =>
 
   const compiled = await compile(escapeTemplateExpressions(source), {
     outputFormat: "function-body",
+    remarkPlugins: [remarkGfm],
     rehypePlugins: [[rehypePrettyCode, prettyCodeOptions]],
   });
   const compiledString = String(compiled);
@@ -110,13 +110,13 @@ const compileMdxToFunctionBody = cache(async (source: string, signal: string) =>
   return compiledString;
 });
 
-const compileMdxComponent = cache(async (source: string, signal: string) => {
-  const compiled = await compileMdxToFunctionBody(source, signal);
+const compileMdxComponent = cache(async (source: string) => {
+  const compiled = await compileMdxToFunctionBody(source);
   const evaluated = await run(compiled, runtime);
   return evaluated.default;
 });
 
 export async function renderMdxSource(source: string) {
-  const MdxContent = await compileMdxComponent(source, contentSignal);
+  const MdxContent = await compileMdxComponent(source);
   return <MdxContent components={mdxComponents} />;
 }

@@ -1,7 +1,6 @@
 import { cache } from "react";
 
 import { getDocsHomeTitle } from "@/src/lib/docs/config";
-import { contentSignal } from "@/src/.generated/docs/content-signal";
 import { buildDocPath } from "@/src/lib/docs/routing";
 import { listDocumentSlugs, resolveDoc } from "@/src/lib/docs/resolve-doc";
 import type { LocaleCode, ResolvedDoc, ResolvedSidebar, SidebarItem, VersionSlug } from "@/src/lib/docs/types";
@@ -179,9 +178,7 @@ function buildHeaderItems(input: {
   return items;
 }
 
-const resolveSidebarCached = cache((locale: LocaleCode, version: VersionSlug, slugKey: string, signal: string): ResolvedSidebar => {
-  void signal;
-
+const resolveSidebarCached = cache((locale: LocaleCode, version: VersionSlug, slugKey: string): ResolvedSidebar => {
   const slugs = listDocumentSlugs();
   const resolvedDocs = slugs
     .map((slug) => resolveDoc({ locale, version, slug }))
@@ -305,5 +302,5 @@ const resolveSidebarCached = cache((locale: LocaleCode, version: VersionSlug, sl
 });
 
 export function resolveSidebar(locale: LocaleCode, version: VersionSlug, slug: string[] = []): ResolvedSidebar {
-  return resolveSidebarCached(locale, version, slug.join("/"), contentSignal);
+  return resolveSidebarCached(locale, version, slug.join("/"));
 }

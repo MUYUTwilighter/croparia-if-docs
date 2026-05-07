@@ -17,7 +17,6 @@ import type {
   ResolveDocInput,
   VersionSlug,
 } from "@/src/lib/docs/types";
-import { contentSignal } from "@/src/.generated/docs/content-signal";
 import { localeCodes, versionSlugs } from "@/src/lib/docs/config";
 import { normalizeSlug } from "@/src/lib/docs/routing";
 
@@ -249,13 +248,11 @@ function walkDocumentFiles(directory: string): string[] {
   return entries;
 }
 
-const walkDocumentFilesCached = cache((directory: string, signal: string) => {
-  void signal;
+const walkDocumentFilesCached = cache((directory: string) => {
   return walkDocumentFiles(directory);
 });
 
-const readDocumentSourceCached = cache((absolutePath: string, signal: string) => {
-  void signal;
+const readDocumentSourceCached = cache((absolutePath: string) => {
   const rawContent = fs.readFileSync(absolutePath, "utf8");
   const { frontmatter, body } = parseFrontmatterCached(rawContent);
 
@@ -266,14 +263,14 @@ const readDocumentSourceCached = cache((absolutePath: string, signal: string) =>
   };
 });
 
-const listDocumentSlugsCached = cache((signal: string) => {
+const listDocumentSlugsCached = cache(() => {
   const allSlugs = new Set<string>();
 
   for (const locale of localeCodes) {
     for (const version of versionSlugs) {
       const versionRoot = path.join(DOCS_SOURCE_ROOT, locale, version);
 
-      for (const filePath of walkDocumentFilesCached(versionRoot, signal)) {
+      for (const filePath of walkDocumentFilesCached(versionRoot)) {
         const relativePath = path.relative(versionRoot, filePath);
         const slug = slugFromRelativePath(relativePath);
         allSlugs.add(slug.join("/"));
@@ -287,10 +284,10 @@ const listDocumentSlugsCached = cache((signal: string) => {
 });
 
 export function listDocumentSlugs() {
-  return listDocumentSlugsCached(contentSignal);
+  return listDocumentSlugsCached();
 }
 
-const listSourceDocumentsCached = cache((signal: string) => {
+const listSourceDocumentsCached = cache(() => {
   const sourceDocuments: Array<{
     locale: LocaleCode;
     version: VersionSlug;
@@ -301,7 +298,7 @@ const listSourceDocumentsCached = cache((signal: string) => {
     for (const version of versionSlugs) {
       const versionRoot = path.join(DOCS_SOURCE_ROOT, locale, version);
 
-      for (const filePath of walkDocumentFilesCached(versionRoot, signal)) {
+      for (const filePath of walkDocumentFilesCached(versionRoot)) {
         const relativePath = path.relative(versionRoot, filePath);
         sourceDocuments.push({
           locale,
@@ -316,10 +313,10 @@ const listSourceDocumentsCached = cache((signal: string) => {
 });
 
 export function listSourceDocuments() {
-  return listSourceDocumentsCached(contentSignal);
+  return listSourceDocumentsCached();
 }
 
-const resolveDocCached = cache((requestedLocale: LocaleCode, requestedVersion: VersionSlug, slugKey: string, signal: string) => {
+const resolveDocCached = cache((requestedLocale: LocaleCode, requestedVersion: VersionSlug, slugKey: string) => {
   const requestedSlug = slugKey.length === 0 ? [] : slugKey.split("/");
   const requestedSection = deriveSectionKey(requestedSlug);
   const localeChain = buildLocaleChain(requestedLocale);
@@ -339,7 +336,7 @@ const resolveDocCached = cache((requestedLocale: LocaleCode, requestedVersion: V
         }
 
         matchedRelativePath = relativeCandidate;
-        const { rawContent, frontmatter, body } = readDocumentSourceCached(absolutePath, signal);
+        const { rawContent, frontmatter, body } = readDocumentSourceCached(absolutePath);
 
         fallbackTrace.push({
           locale,
@@ -392,5 +389,5 @@ export function resolveDoc(input: ResolveDocInput): ResolvedDoc | null {
   const requestedVersion = input.version;
   const requestedSlug = normalizeSlug(input.slug);
 
-  return resolveDocCached(requestedLocale, requestedVersion, requestedSlug.join("/"), contentSignal);
+  return resolveDocCached(requestedLocale, requestedVersion, requestedSlug.join("/"));
 }

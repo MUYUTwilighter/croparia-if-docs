@@ -19,7 +19,7 @@ npm run build
 npm run test:run
 ```
 
-`npm run dev` 已接入 `src/doc/` 监听，修改文档内容会触发开发期热更新。  
+`npm run dev` 现在直接使用 Next 自身的开发服务器入口；文档位于 `src/doc/` 下，因此改动会进入 Next 的常规开发期检测链路。  
 测试基于 Next 官方推荐的 Vitest 方案，并额外适配了当前 Windows 环境下的运行限制。
 
 ## 路由约定

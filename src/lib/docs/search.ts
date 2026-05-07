@@ -1,6 +1,5 @@
 import { cache } from "react";
 
-import { contentSignal } from "@/src/.generated/docs/content-signal";
 import { buildDocPath } from "@/src/lib/docs/routing";
 import { listSourceDocuments, resolveDoc } from "@/src/lib/docs/resolve-doc";
 import type { LocaleCode, SearchIndexEntry, SearchResult, VersionSlug } from "@/src/lib/docs/types";
@@ -28,8 +27,7 @@ function buildSearchableText(parts: string[]) {
   return stripMarkdown(parts.join("\n")).toLowerCase();
 }
 
-const buildSearchIndexCached = cache((signal: string): SearchIndexEntry[] => {
-  void signal;
+const buildSearchIndexCached = cache((): SearchIndexEntry[] => {
   const uniqueEntries = new Map<string, SearchIndexEntry>();
 
   for (const sourceDocument of listSourceDocuments()) {
@@ -68,7 +66,7 @@ const buildSearchIndexCached = cache((signal: string): SearchIndexEntry[] => {
 });
 
 export function buildSearchIndex() {
-  return buildSearchIndexCached(contentSignal);
+  return buildSearchIndexCached();
 }
 
 function scoreEntry(entry: SearchIndexEntry, queryTokens: string[]) {

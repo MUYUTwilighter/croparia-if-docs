@@ -1,6 +1,5 @@
 import { cache } from "react";
 
-import { contentSignal } from "@/src/.generated/docs/content-signal";
 import { listDocumentSlugs, resolveDoc } from "@/src/lib/docs/resolve-doc";
 import type { LocaleCode, ResolvedDoc, VersionSlug } from "@/src/lib/docs/types";
 
@@ -23,16 +22,14 @@ function isSectionRootDoc(doc: ResolvedDoc) {
   return normalizedSourcePath.endsWith(`/${segment}/index.mdx`) || normalizedSourcePath.endsWith(`/${segment}/index.md`);
 }
 
-const listResolvedDocsCached = cache((locale: LocaleCode, version: VersionSlug, signal: string) => {
-  void signal;
-
+const listResolvedDocsCached = cache((locale: LocaleCode, version: VersionSlug) => {
   return listDocumentSlugs()
     .map((slug) => resolveDoc({ locale, version, slug }))
     .filter((doc): doc is ResolvedDoc => Boolean(doc));
 });
 
 export function listResolvedDocs(locale: LocaleCode, version: VersionSlug) {
-  return listResolvedDocsCached(locale, version, contentSignal);
+  return listResolvedDocsCached(locale, version);
 }
 
 function listSectionKeys(locale: LocaleCode, version: VersionSlug) {

@@ -3,16 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "node scripts/dev.mjs",
-    "prebuild": "node scripts/ensure-content-signal.mjs",
+    "dev": "next dev",
     "build": "next build",
-    "prestart": "node scripts/ensure-content-signal.mjs",
     "start": "next start",
-    "prelint": "node scripts/ensure-content-signal.mjs",
     "lint": "eslint",
-    "pretest": "node scripts/ensure-content-signal.mjs",
     "test": "vitest --configLoader native",
-    "pretest:run": "node scripts/ensure-content-signal.mjs",
     "test:run": "vitest run --configLoader native"
   },
   "dependencies": {
@@ -29,6 +24,7 @@
     "react": "19.2.4",
     "react-dom": "19.2.4",
     "rehype-pretty-code": "^0.14.3",
+    "remark-gfm": "^4.0.1",
     "shiki": "^4.0.2"
   },
   "devDependencies": {
