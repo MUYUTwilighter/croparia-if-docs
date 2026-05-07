@@ -80,6 +80,30 @@ describe("routing helpers", () => {
     expect(
       resolveRelativeDocHref(
         {
+          requestedLocale: "zh",
+          requestedVersion: "1.1.1a",
+          requestedSlug: [],
+          relativeSourcePath: "content/zh/1.1.0a/index.mdx",
+        },
+        "./example.md#anchor",
+      ),
+    ).toBe("/doc/zh/1.1.1a/example#anchor");
+
+    expect(
+      resolveRelativeDocHref(
+        {
+          requestedLocale: "zh",
+          requestedVersion: "1.1.1a",
+          requestedSlug: [],
+          relativeSourcePath: "content/zh/1.1.0a/index.mdx",
+        },
+        "./player/index.md#overview",
+      ),
+    ).toBe("/doc/zh/1.1.1a/player#overview");
+
+    expect(
+      resolveRelativeDocHref(
+        {
           requestedLocale: "en",
           requestedVersion: "1.1.1a",
           requestedSlug: ["removed"],

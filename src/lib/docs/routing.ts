@@ -116,6 +116,29 @@ function buildDocBaseSlug(doc: Pick<ResolvedDoc, "requestedSlug" | "relativeSour
   return isIndexSource ? doc.requestedSlug : doc.requestedSlug.slice(0, -1);
 }
 
+function normalizeResolvedDocSlug(pathname: string) {
+  const segments = pathname.split("/").filter(Boolean);
+
+  if (segments.length === 0) {
+    return [];
+  }
+
+  const lastSegment = segments[segments.length - 1] ?? "";
+  const normalizedLastSegment = lastSegment.replace(/\.(md|mdx)$/i, "");
+
+  if (normalizedLastSegment.length === 0) {
+    segments.pop();
+  } else {
+    segments[segments.length - 1] = normalizedLastSegment;
+  }
+
+  if (segments[segments.length - 1] === "index") {
+    segments.pop();
+  }
+
+  return segments;
+}
+
 export function resolveRelativeDocHref(doc: Pick<ResolvedDoc, "requestedLocale" | "requestedVersion" | "requestedSlug" | "relativeSourcePath">, href: string) {
   const trimmedHref = href.trim();
 
@@ -131,7 +154,7 @@ export function resolveRelativeDocHref(doc: Pick<ResolvedDoc, "requestedLocale" 
 
   const baseSlug = buildDocBaseSlug(doc);
   const normalizedPath = path.posix.normalize(path.posix.join("/", ...baseSlug, pathname));
-  const resolvedSlug = normalizedPath === "/" ? [] : normalizedPath.split("/").filter(Boolean);
+  const resolvedSlug = normalizedPath === "/" ? [] : normalizeResolvedDocSlug(normalizedPath);
 
   return `${buildDocPath(doc.requestedLocale, doc.requestedVersion, resolvedSlug)}${suffix}`;
 }
