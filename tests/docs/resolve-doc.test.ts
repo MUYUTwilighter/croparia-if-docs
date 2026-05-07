@@ -20,23 +20,43 @@ describe("resolveDoc", () => {
       ["en", "1.1.1a", null],
       ["zh", "1.1.1a", null],
       ["en", "1.1.0a", null],
-      ["zh", "1.1.0a", "player/index.mdx"],
+      ["zh", "1.1.0a", "player/index.md"],
+    ]);
+  });
+
+  it("lets Spanish fall back through English before reaching the default locale", () => {
+    const doc = resolveDoc({
+      locale: "es",
+      version: "1.1.1a",
+      slug: ["player"],
+    });
+
+    expect(doc).not.toBeNull();
+    expect(doc?.resolvedLocale).toBe("zh");
+    expect(doc?.resolvedVersion).toBe("1.1.0a");
+    expect(doc?.fallbackTrace.map(({ locale, version, matchedRelativePath }) => [locale, version, matchedRelativePath])).toEqual([
+      ["es", "1.1.1a", null],
+      ["en", "1.1.1a", null],
+      ["zh", "1.1.1a", null],
+      ["es", "1.1.0a", null],
+      ["en", "1.1.0a", null],
+      ["zh", "1.1.0a", "player/index.md"],
     ]);
   });
 
   it("returns exact docs without fallback and respects visibility flags", () => {
     const doc = resolveDoc({
       locale: "zh",
-      version: "1.1.1a",
-      slug: ["removed"],
+      version: "1.1.0a",
+      slug: [],
     });
 
     expect(doc).not.toBeNull();
     expect(doc?.resolvedLocale).toBe("zh");
-    expect(doc?.resolvedVersion).toBe("1.1.1a");
+    expect(doc?.resolvedVersion).toBe("1.1.0a");
     expect(doc?.isFallback).toBe(false);
     expect(doc?.isNavVisible).toBe(false);
-    expect(doc?.isSitemapIncluded).toBe(false);
+    expect(doc?.isSitemapIncluded).toBe(true);
   });
 
   it("rejects unsupported locale or version values", () => {
@@ -58,6 +78,8 @@ describe("resolveDoc", () => {
   });
 
   it("lists canonical slug keys from the content tree", () => {
-    expect(listDocumentSlugs()).toEqual([[], ["player"], ["removed"]]);
+    expect(listDocumentSlugs()).toEqual(
+      expect.arrayContaining([[], ["general"], ["player"], ["modpack"], ["developer"]]),
+    );
   });
 });

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 
-import { docsConfig, getDocsHomeDescription, getDocsHomeTitle, localeCodes, siteConfig } from "@/src/lib/docs/config";
+import { docsConfig, getDocsHomeDescription, getDocsHomeTitle, getOpenGraphLocale, localeCodes, siteConfig } from "@/src/lib/docs/config";
 import { buildDocPath, toAbsoluteUrl } from "@/src/lib/docs/routing";
 import { resolveDoc } from "@/src/lib/docs/resolve-doc";
 import type { LocaleCode, ResolvedDoc, VersionSlug } from "@/src/lib/docs/types";
@@ -71,7 +71,7 @@ export function buildDocMetadata(doc: ResolvedDoc): Metadata {
       description,
       url: canonicalUrl,
       siteName: siteConfig.siteName,
-      locale: doc.resolvedLocale === "zh" ? "zh_CN" : "en_US",
+      locale: getOpenGraphLocale(doc.resolvedLocale),
       type: "article",
     },
     twitter: {
@@ -109,7 +109,7 @@ export function buildDocsHomeMetadata(locale: LocaleCode, version: VersionSlug):
       description,
       url: canonicalUrl,
       siteName: siteConfig.siteName,
-      locale: locale === "zh" ? "zh_CN" : "en_US",
+      locale: getOpenGraphLocale(locale),
       type: "website",
     },
     twitter: {

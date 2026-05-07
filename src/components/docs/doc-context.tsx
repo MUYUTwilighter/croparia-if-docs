@@ -32,6 +32,14 @@ function getFallbackMessage(doc: ResolvedDoc) {
     return `This page is not available in ${requestedLocaleLabel}. Showing ${resolvedLocaleLabel} content instead.`;
   }
 
+  if (doc.requestedLocale === "es") {
+    if (doc.isVersionFallback) {
+      return `Esta página no está disponible en ${requestedLocaleLabel} para ${doc.requestedVersion}. Se muestra contenido de ${resolvedLocaleLabel} de ${doc.resolvedVersion} en su lugar.`;
+    }
+
+    return `Esta página no está disponible en ${requestedLocaleLabel}. Se muestra contenido de ${resolvedLocaleLabel} en su lugar.`;
+  }
+
   if (doc.isVersionFallback) {
     return `当前页面暂无 ${requestedLocaleLabel} 版本内容，正在显示 ${resolvedLocaleLabel} 的 ${doc.resolvedVersion} 文档。`;
   }

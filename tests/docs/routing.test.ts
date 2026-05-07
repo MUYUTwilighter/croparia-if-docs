@@ -15,6 +15,7 @@ import {
 describe("routing helpers", () => {
   it("normalizes locale, version, and slug values", () => {
     expect(normalizeLocale("en")).toBe("en");
+    expect(normalizeLocale("es")).toBe("es");
     expect(normalizeLocale("fr")).toBe("zh");
     expect(normalizeVersion("1.1.0a")).toBe("1.1.0a");
     expect(normalizeVersion("2.0.0")).toBe("1.1.0a");
@@ -32,6 +33,7 @@ describe("routing helpers", () => {
 
   it("picks the preferred locale from request headers", () => {
     expect(resolvePreferredLocale("en-US,en;q=0.9,zh;q=0.8")).toBe("en");
+    expect(resolvePreferredLocale("es-ES,es;q=0.9,en;q=0.8")).toBe("es");
     expect(resolvePreferredLocale("fr-CA,zh;q=0.9")).toBe("zh");
     expect(resolvePreferredLocale(null)).toBe("zh");
   });

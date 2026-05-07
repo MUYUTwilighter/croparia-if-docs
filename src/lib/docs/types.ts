@@ -1,4 +1,4 @@
-export type LocaleCode = "zh" | "en";
+export type LocaleCode = "zh" | "en" | "es";
 
 export type VersionSlug = "1.1.0a" | "1.1.1a";
 
@@ -11,6 +11,7 @@ export interface DocsRuntimeConfig {
 export interface LocaleDefinition {
   code: LocaleCode;
   label: string;
+  openGraphLocale: string;
   fallbackLocales?: LocaleCode[];
 }
 

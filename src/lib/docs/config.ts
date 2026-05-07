@@ -18,10 +18,12 @@ export const siteConfig = {
   docsHomeTitles: {
     zh: "矿石魔种文档",
     en: "Croparia IF Docs",
+    es: "Documentación de Croparia IF",
   } as Record<LocaleCode, string>,
   docsHomeDescriptions: {
     zh: "矿石魔种（Croparia IF）官方文档站点。",
     en: "Documentation and developer references for Croparia IF.",
+    es: "Documentación y referencias de desarrollo para Croparia IF.",
   } as Record<LocaleCode, string>,
 };
 
@@ -29,11 +31,19 @@ export const locales: Record<LocaleCode, LocaleDefinition> = {
   zh: {
     code: "zh",
     label: "简体中文",
+    openGraphLocale: "zh_CN",
   },
   en: {
     code: "en",
     label: "English",
+    openGraphLocale: "en_US",
     fallbackLocales: ["zh"],
+  },
+  es: {
+    code: "es",
+    label: "Español",
+    openGraphLocale: "es_ES",
+    fallbackLocales: ["en", "zh"],
   },
 };
 
@@ -59,6 +69,10 @@ export function isVersionSlug(value: string): value is VersionSlug {
 
 export function getLocaleDefinition(locale: LocaleCode) {
   return locales[locale];
+}
+
+export function getOpenGraphLocale(locale: LocaleCode) {
+  return getLocaleDefinition(locale).openGraphLocale;
 }
 
 export function getVersionDefinition(version: VersionSlug) {
