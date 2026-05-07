@@ -6,7 +6,7 @@
 
 - 多语言路由预留
 - 多版本回退解析
-- `content/` 驱动的导航与路由编排
+- `src/doc/` 驱动的导航与路由编排
 - 真实来源驱动的 canonical / sitemap / 搜索
 - 面向页面消费层的 `Provider + hooks`
 
@@ -19,7 +19,7 @@ npm run build
 npm run test:run
 ```
 
-`npm run dev` 已接入 `content/` 监听，修改文档内容会触发开发期热更新。  
+`npm run dev` 已接入 `src/doc/` 监听，修改文档内容会触发开发期热更新。  
 测试基于 Next 官方推荐的 Vitest 方案，并额外适配了当前 Windows 环境下的运行限制。
 
 ## 路由约定
@@ -60,7 +60,7 @@ npm run test:run
 文档源统一放在：
 
 ```text
-content/
+src/doc/
   [locale]/
     [version]/
       ...
@@ -86,7 +86,7 @@ content/
 
 ## 首页与根级文档规则
 
-站点首页不再来自 `content/.../index.mdx` 的直接路由绑定。
+站点首页不再来自 `src/doc/.../index.mdx` 的直接路由绑定。
 
 现在根路径与本地化根路径会作为“特殊文档页”渲染入口：
 
@@ -134,7 +134,7 @@ content/
 
 ## 导航规则
 
-导航完全由 `content/` 下的文档结构和 frontmatter 推导：
+导航完全由 `src/doc/` 下的文档结构和 frontmatter 推导：
 
 - 顶层独立页：进入 header，不进入 sidebar
 - 栏目页：进入 header

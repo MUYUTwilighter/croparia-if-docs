@@ -3,7 +3,7 @@ import path from "node:path";
 import { spawn } from "node:child_process";
 
 const rootDir = process.cwd();
-const contentDir = path.join(rootDir, "content");
+const contentDir = path.join(rootDir, "src", "doc");
 const signalPath = path.join(rootDir, "src", ".generated", "docs", "content-signal.ts");
 const nextBinPath = path.join(rootDir, "node_modules", "next", "dist", "bin", "next");
 

@@ -7,7 +7,7 @@ describe("resolveDoc", () => {
     const doc = resolveDoc({
       locale: "en",
       version: "1.1.1a",
-      slug: ["general", "concepts", "element"],
+      slug: ["developer", "core", "fake-player"],
     });
 
     expect(doc).not.toBeNull();
@@ -20,7 +20,7 @@ describe("resolveDoc", () => {
       ["en", "1.1.1a", null],
       ["zh", "1.1.1a", null],
       ["en", "1.1.0a", null],
-      ["zh", "1.1.0a", "general/concepts/element.md"],
+      ["zh", "1.1.0a", "developer/core/fake-player.md"],
     ]);
   });
 
@@ -28,7 +28,7 @@ describe("resolveDoc", () => {
     const doc = resolveDoc({
       locale: "es",
       version: "1.1.1a",
-      slug: ["general", "concepts", "element"],
+      slug: ["developer", "core", "fake-player"],
     });
 
     expect(doc).not.toBeNull();
@@ -40,7 +40,7 @@ describe("resolveDoc", () => {
       ["zh", "1.1.1a", null],
       ["es", "1.1.0a", null],
       ["en", "1.1.0a", null],
-      ["zh", "1.1.0a", "general/concepts/element.md"],
+      ["zh", "1.1.0a", "developer/core/fake-player.md"],
     ]);
   });
 

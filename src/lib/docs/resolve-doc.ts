@@ -21,7 +21,7 @@ import { contentSignal } from "@/src/.generated/docs/content-signal";
 import { localeCodes, versionSlugs } from "@/src/lib/docs/config";
 import { normalizeSlug } from "@/src/lib/docs/routing";
 
-const CONTENT_ROOT = path.join(process.cwd(), "content");
+const DOCS_SOURCE_ROOT = path.join(process.cwd(), "src", "doc");
 
 function buildLocaleChain(requestedLocale: LocaleCode) {
   const localeDefinition = getLocaleDefinition(requestedLocale);
@@ -271,7 +271,7 @@ const listDocumentSlugsCached = cache((signal: string) => {
 
   for (const locale of localeCodes) {
     for (const version of versionSlugs) {
-      const versionRoot = path.join(CONTENT_ROOT, locale, version);
+      const versionRoot = path.join(DOCS_SOURCE_ROOT, locale, version);
 
       for (const filePath of walkDocumentFilesCached(versionRoot, signal)) {
         const relativePath = path.relative(versionRoot, filePath);
@@ -299,7 +299,7 @@ const listSourceDocumentsCached = cache((signal: string) => {
 
   for (const locale of localeCodes) {
     for (const version of versionSlugs) {
-      const versionRoot = path.join(CONTENT_ROOT, locale, version);
+      const versionRoot = path.join(DOCS_SOURCE_ROOT, locale, version);
 
       for (const filePath of walkDocumentFilesCached(versionRoot, signal)) {
         const relativePath = path.relative(versionRoot, filePath);
@@ -332,7 +332,7 @@ const resolveDocCached = cache((requestedLocale: LocaleCode, requestedVersion: V
       let matchedRelativePath: string | null = null;
 
       for (const relativeCandidate of relativeCandidates) {
-        const absolutePath = path.join(CONTENT_ROOT, locale, version, ...relativeCandidate.split("/"));
+        const absolutePath = path.join(DOCS_SOURCE_ROOT, locale, version, ...relativeCandidate.split("/"));
 
         if (!fs.existsSync(absolutePath)) {
           continue;
