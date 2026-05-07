@@ -8,7 +8,7 @@ navOrder: 40
 
 <a id="overview"></a>
 
-This group of pages is for readers who want to extend, integrate with, or maintain `Croparia IF`.
+These pages are for readers who want to extend, integrate with, or maintain `Croparia IF`.
 
 You will usually come here in three situations:
 
@@ -20,13 +20,13 @@ You will usually come here in three situations:
 
 ## Where to start
 
-If this is your first time reading this section, the three most useful entry points are usually:
+If this is your first time here, these three entry points are usually the most helpful:
 
 - [Core Modules](core/index.md#overview)
 - [Network API](network.md#overview)
 - [Repo API](repo/index.md#overview)
 
-If you mainly want reusable tools, jump straight into:
+If you mainly want reusable building blocks, jump straight into:
 
 - [Runtime Data Generation System](generator/index.md#overview)
 - [Recipe API](recipe/index.md#overview)
@@ -46,6 +46,12 @@ If you mainly want reusable tools, jump straight into:
 - [Ritual Stand](core/ritual_stand.md#overview)
 - [FakePlayer](core/fake-player.md#overview)
 
+This group is most useful when you want to answer questions like:
+
+- where a module actually starts in code;
+- how blocks, block entities, menus, screens, recipes, and networking are connected;
+- which layer you should inspect first when adjusting module behavior.
+
 ### Shared APIs
 
 - [Maven Repository](maven.md#overview)
@@ -56,9 +62,20 @@ If you mainly want reusable tools, jump straight into:
 - [Network API](network.md#overview)
 - [Other Common APIs](other/index.md#overview)
 
+This group is most useful when you want to answer questions like:
+
+- which reusable capabilities the mod already exposes;
+- which layer is worth reusing instead of copying one concrete module implementation;
+- how to attach Croparia IF to your own development environment.
+
 ### Content Maintenance References
 
 - [Adding Built-in Crops](crop.md#overview)
+
+These pages are more maintenance-oriented. For example, `crop` focuses on:
+
+- how Croparia IF itself adds built-in `Crop` and `Melon` content;
+- where to start if you need to continue maintaining that built-in content.
 
 <a id="next"></a>
 
@@ -69,4 +86,3 @@ If you mainly want reusable tools, jump straight into:
 - To work with storage, automation, or platform item capabilities, start with [Repo API](repo/index.md#overview)
 - To work with runtime data generation, start with [Runtime Data Generation System](generator/index.md#overview)
 - To troubleshoot UI interactions or client syncing, start with [Network API](network.md#overview)
-

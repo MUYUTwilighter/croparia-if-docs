@@ -18,8 +18,8 @@ navOrder: 15
 
 <a id="overview"></a>
 
-Starting with `1.1.1a`, Croparia IF publishes downstream-facing development artifacts to our own Maven service.
-That means you no longer need to rely only on manually copied jars or local builds. You can declare dependencies directly in your build script and let your IDE attach source jars automatically.
+Starting with `1.1.1a`, Croparia IF publishes downstream development artifacts to our own Maven service.
+That means you no longer have to rely only on manually copied jars or local builds. You can declare dependencies directly in your build script and let your IDE attach source jars automatically.
 
 The public entry point is:
 
@@ -73,7 +73,7 @@ dependencies {
 
 ### Fabric
 
-For more toolchain-specific details, see the [Fabric Loom docs](https://docs.fabricmc.net/develop/loom/#configurations)
+For more toolchain-specific details, see the [Fabric Loom docs](https://docs.fabricmc.net/develop/loom/#configurations).
 
 ```groovy
 dependencies {
@@ -91,7 +91,7 @@ dependencies {
 
 ### NeoForge
 
-For more toolchain-specific details, see the [NeoForge docs](https://docs.neoforged.net/toolchain/docs/dependencies/)
+For more toolchain-specific details, see the [NeoForge docs](https://docs.neoforged.net/toolchain/docs/dependencies/).
 
 ```groovy
 dependencies {
@@ -109,7 +109,7 @@ dependencies {
 
 ### Forge
 
-For more toolchain-specific details, see the [Forge docs](https://docs.minecraftforge.net/en/fg-6.x/dependencies/)
+For more toolchain-specific details, see the [Forge docs](https://docs.minecraftforge.net/en/fg-6.x/dependencies/).
 
 ```groovy
 dependencies {
@@ -122,4 +122,3 @@ dependencies {
     implementation(fg.deobf("cool.muyucloud.croparia:croparia-if-$minecraft_version-forge:$croparia_version"))
 }
 ```
-

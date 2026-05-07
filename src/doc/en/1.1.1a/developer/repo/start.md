@@ -23,7 +23,7 @@ This page walks through the usual beginner path for implementing multi-platform 
 
 ## 1. Create a resource repo
 
-This step decides what kind of resource you want to store, and how your storage should expose it.
+This step decides what kind of resource you want to store and how your storage should expose it.
 
 ### 1.1 Vanilla-backed storage with `ContainerRepo<ItemSpec>`
 
@@ -110,7 +110,7 @@ Lock views (these return wrapped views and do not mutate the original repo):
 - `DelegateRepo<T> trim()`
   - flatten a chain of `DelegateRepo` wrappers into one layer
 
-One important detail:
+One important detail is easy to miss:
 
 - locking only affects `accept` / `simAccept` / `consume` / `simConsume`
 - `capacityFor(...)` and `amountFor(...)` still report the raw values from the underlying repo
@@ -118,7 +118,7 @@ One important detail:
 
 ## 2. Register a repo proxy
 
-To make the repo interact safely with other storage systems, you need a `RepoProxy` wrapper around it.
+To make the repo interact safely with other storage systems, you need to wrap it in a `RepoProxy`.
 
 ```java
 public class GreenhouseBlockEntity extends BlockEntity implements Container {
@@ -134,7 +134,7 @@ public class GreenhouseBlockEntity extends BlockEntity implements Container {
 
 **Note:** `RepoProxy` is instantiated automatically by Croparia IF per modding platform. Manually writing `new RepoProxy<>(...)` will not behave correctly on real platform targets.
 
-In practice, a common pattern is to build a locked repo view first and only then wrap that view into `RepoProxy`. For example, the Crop Transmuter exports separate input and output views:
+In practice, a common pattern is to build a locked repo view first and only then wrap that view in `RepoProxy`. For example, the Crop Transmuter exports separate input and output views:
 
 ```java
 private final RepoProxy<ItemSpec> inputProxy = RepoProxy.item(
@@ -184,7 +184,7 @@ After registration, the platform resolves the block type first and then calls yo
 
 ## 3. Query other storage repos
 
-You can query other storage systems through `ProxyProvider`, which returns a wrapper implementing the `RepoProxy` style.
+You can query other storage systems through `ProxyProvider`, which returns a wrapper in `RepoProxy` form.
 
 ```java
 Optional<PlatformItemProxy> itemProxy = ProxyProvider.findItem(world, pos, direction);
@@ -196,4 +196,3 @@ itemProxy.ifPresent(proxy -> {
 ```
 
 **Note:** because platform capabilities differ, some `Repo` methods are not equally reliable across all implementations. When behavior matters, check the interface javadocs for `PlatformItemProxy` and `PlatformFluidProxy`.
-

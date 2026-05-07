@@ -6,7 +6,7 @@ navOrder: 20
 
 # Repo API
 
-Repo API es la capa de abstracción y proxies de Croparia IF para la interacción con almacenamiento en múltiples plataformas. Por defecto incluye dos tipos de recurso integrados: objetos y fluidos, usados sobre todo para exponer y acceder al almacenamiento de bloques y block entities.
+Repo API es la capa de abstracción y proxies de Croparia IF para la interacción con almacenamiento en múltiples plataformas. De serie incluye dos tipos de recurso integrados, objetos y fluidos, y se usa sobre todo para exponer y acceder al almacenamiento de bloques y entidades de bloque.
 
 El modelo de restricción de acceso de Repo utiliza **bloqueos separados para accept y consume**:
 
@@ -20,7 +20,7 @@ El código relevante está en el paquete `cool.muyucloud.croparia.api.repo`.
 
 ## Arquitectura básica
 
-Repo API se compone principalmente de la vista de almacenamiento `Repo`, el puente de registro `ProxyProvider`, el envoltorio `RepoProxy` y las interfaces adaptadoras de plataforma `PlatformItemProxy` y `PlatformFluidProxy`.
+Repo API se compone sobre todo de la vista de almacenamiento `Repo`, el puente de registro `ProxyProvider`, el envoltorio `RepoProxy` y las interfaces adaptadoras de plataforma `PlatformItemProxy` y `PlatformFluidProxy`.
 
 - `Repo`
   - capa de interacción directa en el módulo común, basada en vistas de almacenamiento indexadas por ranuras
@@ -31,7 +31,7 @@ Repo API se compone principalmente de la vista de almacenamiento `Repo`, el puen
 - `ProxyProvider`
   - registra un `RepoProxy` en una plataforma concreta para que los sistemas externos de almacenamiento puedan descubrirlo
 - `PlatformItemProxy` / `PlatformFluidProxy`
-  - envoltorios unificados para interfaces de almacenamiento de objetos o fluidos de cada plataforma, de modo que el módulo común pueda acceder a ellas con estilo Repo
+  - envoltorios unificados para interfaces de almacenamiento de objetos o fluidos de cada plataforma, de modo que el módulo común pueda acceder a ellas con estilo `Repo`
 
 Repo API también utiliza la [Resource API](resource.md) para gestionar tipos de recurso.
 
@@ -40,4 +40,3 @@ Repo API también utiliza la [Resource API](resource.md) para gestionar tipos de
 - [Construye tu propia interacción de almacenamiento](start.md)
 - [Extiende nuevos modelos de almacenamiento](extend.md)
 - [Añade nuevos tipos de recurso](resource.md)
-

@@ -18,8 +18,8 @@ navOrder: 15
 
 <a id="overview"></a>
 
-A partir de `1.1.1a`, Croparia IF publica artefactos de desarrollo orientados a downstream en nuestro propio servicio Maven.
-Eso significa que ya no necesitas depender solo de jars copiados a mano o de builds locales. Puedes declarar dependencias directamente en tu script de construcción y dejar que el IDE adjunte automáticamente los jars de fuentes.
+A partir de `1.1.1a`, Croparia IF publica artefactos de desarrollo para proyectos downstream en nuestro propio servicio Maven.
+Eso significa que ya no tienes que depender solo de jars copiados a mano o de compilaciones locales. Puedes declarar dependencias directamente en tu script de construcción y dejar que el IDE adjunte automáticamente los jars de fuentes.
 
 La entrada pública es:
 
@@ -73,7 +73,7 @@ dependencies {
 
 ### Fabric
 
-Para más detalles específicos de toolchain, consulta la [documentación de Fabric Loom](https://docs.fabricmc.net/develop/loom/#configurations)
+Para más detalles concretos del toolchain, consulta la [documentación de Fabric Loom](https://docs.fabricmc.net/develop/loom/#configurations).
 
 ```groovy
 dependencies {
@@ -91,7 +91,7 @@ dependencies {
 
 ### NeoForge
 
-Para más detalles específicos de toolchain, consulta la [documentación de NeoForge](https://docs.neoforged.net/toolchain/docs/dependencies/)
+Para más detalles concretos del toolchain, consulta la [documentación de NeoForge](https://docs.neoforged.net/toolchain/docs/dependencies/).
 
 ```groovy
 dependencies {
@@ -109,7 +109,7 @@ dependencies {
 
 ### Forge
 
-Para más detalles específicos de toolchain, consulta la [documentación de Forge](https://docs.minecraftforge.net/en/fg-6.x/dependencies/)
+Para más detalles concretos del toolchain, consulta la [documentación de Forge](https://docs.minecraftforge.net/en/fg-6.x/dependencies/).
 
 ```groovy
 dependencies {
@@ -122,4 +122,3 @@ dependencies {
     implementation(fg.deobf("cool.muyucloud.croparia:croparia-if-$minecraft_version-forge:$croparia_version"))
 }
 ```
-

@@ -17,7 +17,7 @@ navOrder: 10
 
 <a id="overview"></a>
 
-This group is not about "how one shared API is designed." It is about how Croparia IF's core gameplay modules actually run in code.
+This group is not about how a shared API is designed. It is about how Croparia IF's core gameplay modules actually run in code.
 
 If you already have a rough understanding of:
 
@@ -27,32 +27,32 @@ If you already have a rough understanding of:
 
 then this section is the better place to answer questions like:
 
-- where is the main entry class of one concrete module
-- how are the block, block entity, menu, screen, recipe, and network pieces connected
-- when changing behavior or adding compatibility, which layer should be touched first
+- where the main entry class of a concrete module lives
+- how the block, block entity, menu, screen, recipe, and networking pieces connect
+- which layer you should touch first when changing behavior or adding compatibility
 
 <a id="modules"></a>
 
 ## Covered modules
 
 - [Crop Transmuter](crop-transmuter.md#overview)
-  - a complete module with block entity, menu, screen, and `C2S` interaction
+- a complete module with a block entity, menu, screen, and `C2S` interaction
 - [Greenhouse](greenhouse.md#overview)
-  - a module focused more on automatic processing and storage
+- a module focused more on automated processing and storage
 - [Infusor](infusor.md#overview)
   - a typical "block state + dropped-item recipe" module
 - [Ritual Stand](ritual_stand.md#overview)
   - a dropped-item-driven module that depends more heavily on structure validation and recipe matching
 - [FakePlayer](fake-player.md#overview)
-  - a small execution helper used by core modules for world interaction
+- an execution helper used by core modules for world interaction
 
 <a id="how-to-read"></a>
 
 ## Suggested reading order
 
-- If you want to study how GUI, menus, and networking work together, start with [Crop Transmuter](crop-transmuter.md#overview)
-- If you want to study dropped-item-driven recipe handling, start with [Infusor](infusor.md#overview) and [Ritual Stand](ritual_stand.md#overview)
-- If you want to study how block entities expose storage and automation, start with [Greenhouse](greenhouse.md#overview)
+- If you want to see how GUI, menus, and networking work together, start with [Crop Transmuter](crop-transmuter.md#overview)
+- If you want to see how dropped-item-driven recipe handling is built, start with [Infusor](infusor.md#overview) and [Ritual Stand](ritual_stand.md#overview)
+- If you want to see how block entities expose storage and automation, start with [Greenhouse](greenhouse.md#overview)
 
 <a id="common-patterns"></a>
 
@@ -70,4 +70,3 @@ So while reading these pages, the most useful thing to watch is usually not one 
 - where each module draws its responsibility boundaries
 - why it depends on one shared API
 - which layer you should hook into when extending it
-

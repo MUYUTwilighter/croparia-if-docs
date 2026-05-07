@@ -6,7 +6,7 @@ navOrder: 20
 
 # Repo API
 
-Repo API is Croparia IF’s abstraction and proxy layer for multi-platform storage interaction. By default it currently ships with two built-in resource types: items and fluids, mainly for exposing and accessing storage on blocks and block entities.
+Repo API is Croparia IF’s abstraction and proxy layer for multi-platform storage interaction. Out of the box it supports two built-in resource types, items and fluids, and it is mainly used to expose and access storage on blocks and block entities.
 
 The Repo access restriction model uses **separate accept/consume locking**:
 
@@ -20,7 +20,7 @@ Relevant code lives under the package `cool.muyucloud.croparia.api.repo`.
 
 ## Basic architecture
 
-Repo API is mainly composed of the storage view `Repo`, the registration bridge `ProxyProvider`, the repo wrapper `RepoProxy`, and the platform adapter interfaces `PlatformItemProxy` and `PlatformFluidProxy`.
+Repo API mainly consists of the storage view `Repo`, the registration bridge `ProxyProvider`, the wrapper `RepoProxy`, and the platform adapter interfaces `PlatformItemProxy` and `PlatformFluidProxy`.
 
 - `Repo`
   - the direct interaction layer inside the common module, based on slot-indexed storage views
@@ -31,7 +31,7 @@ Repo API is mainly composed of the storage view `Repo`, the registration bridge 
 - `ProxyProvider`
   - registers a `RepoProxy` into a concrete platform so external storage systems can discover it
 - `PlatformItemProxy` / `PlatformFluidProxy`
-  - unified wrappers for platform item or fluid storage interfaces, so the common module can access them in a Repo-style way
+  - unified wrappers for platform item or fluid storage interfaces, so the common module can access them in a `Repo`-style way
 
 Repo API also uses the [Resource API](resource.md) to manage resource types.
 
@@ -40,4 +40,3 @@ Repo API also uses the [Resource API](resource.md) to manage resource types.
 - [Build your own storage interaction](start.md)
 - [Extend new storage models](extend.md)
 - [Add new resource types](resource.md)
-

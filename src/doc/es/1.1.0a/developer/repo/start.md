@@ -20,15 +20,15 @@ navOrder: 10
 
 # Tutorial: Repo API
 
-Esta página guía a los desarrolladores en el uso de la Repo API para construir interacción de almacenamiento multiplataforma en Croparia IF.
+Esta página recorre la ruta inicial habitual para construir interacción de almacenamiento multiplataforma con Repo API.
 
 ## 1. Crear un repositorio de recursos `Repo`
 
-Este paso determina qué tipo de recurso quieres almacenar y cómo se accederá a él.
+Este paso decide qué tipo de recurso quieres almacenar y cómo debe exponerlo tu almacenamiento.
 
 ### 1.1 Repositorio respaldado por vanilla `ContainerRepo<ItemSpec>`
 
-Puedes desarrollar rápidamente sobre el sistema de almacenamiento vanilla `Container`. El siguiente fragmento muestra parte de la block entity del Invernadero:
+La vía más rápida es apoyarte en el modelo vanilla `Container`. El siguiente fragmento muestra parte de la entidad de bloque del Invernadero:
 
 ```java
 public class GreenhouseBlockEntity extends BlockEntity implements Container {
@@ -67,7 +67,7 @@ public class GreenhouseBlockEntity extends BlockEntity implements Container {
 
 También puedes implementar tú mismo la interfaz `Repo` para construir exactamente el comportamiento de almacenamiento que necesites.
 
-Interacción básica de almacenamiento:
+Métodos básicos de interacción con el almacenamiento:
 
 - `int size`: número de unidades de almacenamiento
 - `boolean isEmpty`: si el repositorio, o una unidad concreta, está vacío
@@ -80,7 +80,7 @@ Interacción básica de almacenamiento:
 - `long capacityFor`: consulta la capacidad máxima de un recurso o de una unidad de almacenamiento
 - `long amountFor`: consulta cuánto de un recurso, o de una unidad de almacenamiento, está almacenado actualmente
 
-Restrictores (llamarlos no modifica el repositorio original):
+Vistas restringidas (llamarlas no modifica el repositorio original):
 
 - `AcceptOnlyRepo<T> asAcceptOnly`: devuelve un envoltorio que permite insertar, pero no extraer
 - `ConsumeOnlyRepo<T> asConsumeOnly`: devuelve un envoltorio que permite extraer, pero no insertar
@@ -88,7 +88,7 @@ Restrictores (llamarlos no modifica el repositorio original):
 
 ## 2. Registrar un proxy de repositorio
 
-Para permitir que otros sistemas de almacenamiento interactúen de forma segura con el repositorio que hemos creado, necesitamos envolverlo en un `RepoProxy`.
+Para que otros sistemas de almacenamiento puedan interactuar de forma segura con el repo que hemos creado, tenemos que envolverlo en un `RepoProxy`.
 
 ```java
 public class GreenhouseBlockEntity extends BlockEntity implements Container {
@@ -104,7 +104,7 @@ public class GreenhouseBlockEntity extends BlockEntity implements Container {
 
 **Nota**: `RepoProxy` es instanciado automáticamente por Croparia IF en cada plataforma soportada. Llamar manualmente a `new RepoProxy<>(...)` no funcionará correctamente en plataformas concretas.
 
-Después, registra el proxy en `ProxyProvider` para que otros sistemas de almacenamiento puedan descubrirlo:
+Después, registra el proxy mediante `ProxyProvider` para que otros sistemas de almacenamiento puedan descubrirlo:
 
 ```java
 public class Greenhouse extends BaseEntityBlock {
@@ -128,11 +128,11 @@ public class Greenhouse extends BaseEntityBlock {
 }
 ```
 
-Después del registro, la plataforma consultará por tipo de bloque y ejecutará la función registrada para obtener el `RepoProxy`.
+Después del registro, la plataforma resuelve primero el tipo de bloque y luego ejecuta la función registrada para obtener el `RepoProxy`.
 
 ## 3. Consultar otro repositorio
 
-Puedes usar `ProxyProvider` para buscar cualquier sistema de almacenamiento compatible y recibir un repositorio envuelto que implementa `RepoProxy`.
+Puedes usar `ProxyProvider` para buscar cualquier sistema de almacenamiento compatible y recibir un repositorio envuelto con formato `RepoProxy`.
 
 ```java
 Optional<PlatformItemProxy> itemProxy = ProxyProvider.findItem(world, pos, direction);
@@ -143,4 +143,4 @@ itemProxy.ifPresent(proxy -> {
 });
 ```
 
-**Nota**: debido a las diferencias entre plataformas, algunos métodos de `Repo` pueden tener diferencias de capacidad según la plataforma. Revisa la documentación Javadoc de `PlatformItemProxy` y `PlatformFluidProxy` para los detalles.
+**Nota**: debido a las diferencias entre plataformas, algunos métodos de `Repo` pueden comportarse de forma distinta según la implementación. Revisa la documentación Javadoc de `PlatformItemProxy` y `PlatformFluidProxy` para más detalles.

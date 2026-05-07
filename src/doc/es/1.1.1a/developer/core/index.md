@@ -17,7 +17,7 @@ navOrder: 10
 
 <a id="overview"></a>
 
-Este grupo no trata de "cómo se diseña una API compartida", sino de cómo funcionan realmente en código los módulos jugables principales de Croparia IF.
+Este grupo no trata de cómo se diseña una API compartida, sino de cómo funcionan realmente en código los módulos jugables principales de Croparia IF.
 
 Si ya tienes una idea general de:
 
@@ -28,7 +28,7 @@ Si ya tienes una idea general de:
 entonces esta sección es mejor para responder preguntas como:
 
 - dónde está la clase de entrada principal de un módulo concreto
-- cómo se conectan bloque, block entity, menú, pantalla, receta y red
+- cómo se conectan el bloque, la entidad de bloque, el menú, la pantalla, la receta y la red
 - qué capa conviene tocar primero al cambiar comportamiento o añadir compatibilidad
 
 <a id="modules"></a>
@@ -36,7 +36,7 @@ entonces esta sección es mejor para responder preguntas como:
 ## Módulos cubiertos
 
 - [Transmutador de cultivos](crop-transmuter.md#overview)
-  - un módulo completo con block entity, menú, pantalla e interacción `C2S`
+- un módulo completo con entidad de bloque, menú, pantalla e interacción `C2S`
 - [Invernadero](greenhouse.md#overview)
   - un módulo más centrado en procesamiento automático y almacenamiento
 - [Infusor](infusor.md#overview)
@@ -52,7 +52,7 @@ entonces esta sección es mejor para responder preguntas como:
 
 - Si quieres estudiar cómo colaboran GUI, menús y red, empieza por [Transmutador de cultivos](crop-transmuter.md#overview)
 - Si quieres estudiar recetas impulsadas por objetos soltados, empieza por [Infusor](infusor.md#overview) y [Atril ritual](ritual_stand.md#overview)
-- Si quieres estudiar cómo las block entities exponen almacenamiento y automatización, empieza por [Invernadero](greenhouse.md#overview)
+- Si quieres ver cómo las entidades de bloque exponen almacenamiento y automatización, empieza por [Invernadero](greenhouse.md#overview)
 
 <a id="common-patterns"></a>
 
@@ -61,7 +61,7 @@ entonces esta sección es mejor para responder preguntas como:
 Aunque estos módulos hacen cosas muy diferentes, siguen varios hábitos de diseño bastante consistentes:
 
 - los puntos de entrada de interacción tienden a quedarse en la clase del bloque
-- el estado persistente tiende a quedarse en la block entity
+- el estado persistente tiende a quedarse en la entidad de bloque
 - las capacidades compartidas se exponen mediante APIs reutilizables en lugar de fundirse dentro de un único módulo
 - los flujos complicados se separan en capas de entrada, estado, emparejamiento y salida
 
@@ -70,4 +70,3 @@ Así que, al leer estas páginas, lo más útil suele ser fijarse no tanto en un
 - dónde dibuja cada módulo sus límites de responsabilidad
 - por qué depende de cierta API compartida
 - en qué capa conviene engancharse al ampliarlo
-

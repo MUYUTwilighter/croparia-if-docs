@@ -110,7 +110,7 @@ Vistas con bloqueo (devuelven envoltorios y no mutan el repo original):
 - `DelegateRepo<T> trim()`
   - aplana una cadena de `DelegateRepo` en una sola capa
 
-Un detalle importante:
+Hay un detalle importante que conviene tener presente:
 
 - el bloqueo solo afecta a `accept` / `simAccept` / `consume` / `simConsume`
 - `capacityFor(...)` y `amountFor(...)` siguen devolviendo los valores brutos del repo base
@@ -134,7 +134,7 @@ public class GreenhouseBlockEntity extends BlockEntity implements Container {
 
 **Nota:** `RepoProxy` es instanciado automáticamente por Croparia IF según la plataforma. Escribir manualmente `new RepoProxy<>(...)` no se comportará correctamente en plataformas reales.
 
-En la práctica, un patrón habitual es construir primero una vista bloqueada del repo y solo después envolverla en `RepoProxy`. Por ejemplo, el Transmutador de cultivos exporta vistas separadas de entrada y salida:
+En la práctica, un patrón habitual es construir primero una vista bloqueada del repo y solo después envolver esa vista en `RepoProxy`. Por ejemplo, el Transmutador de cultivos exporta vistas separadas de entrada y salida:
 
 ```java
 private final RepoProxy<ItemSpec> inputProxy = RepoProxy.item(
@@ -184,7 +184,7 @@ Después del registro, la plataforma resuelve primero el tipo de bloque y luego 
 
 ## 3. Consultar otros repos de almacenamiento
 
-Puedes consultar otros sistemas de almacenamiento mediante `ProxyProvider`, que devuelve un envoltorio con estilo `RepoProxy`.
+Puedes consultar otros sistemas de almacenamiento mediante `ProxyProvider`, que devuelve un envoltorio con formato `RepoProxy`.
 
 ```java
 Optional<PlatformItemProxy> itemProxy = ProxyProvider.findItem(world, pos, direction);
@@ -195,5 +195,4 @@ itemProxy.ifPresent(proxy -> {
 });
 ```
 
-**Nota:** como las capacidades de plataforma no son idénticas, algunos métodos de `Repo` no son igual de fiables en todas las implementaciones. Cuando el comportamiento importe, consulta la javadoc de `PlatformItemProxy` y `PlatformFluidProxy`.
-
+**Nota:** como las capacidades de plataforma no son idénticas, algunos métodos de `Repo` no son igual de fiables en todas las implementaciones. Cuando el comportamiento importe, consulta la Javadoc de `PlatformItemProxy` y `PlatformFluidProxy`.

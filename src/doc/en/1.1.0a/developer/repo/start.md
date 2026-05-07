@@ -20,15 +20,15 @@ navOrder: 10
 
 # Tutorial: Repo API
 
-This page walks developers through using Repo API to build cross-platform storage interaction in Croparia IF.
+This page walks through the usual beginner path for building cross-platform storage interaction with Repo API.
 
 ## 1. Build a resource repository `Repo`
 
-This step decides what kind of resource you want to store, and how that resource will be accessed.
+This step decides what kind of resource you want to store and how your storage should expose it.
 
 ### 1.1 Vanilla-backed repository `ContainerRepo<ItemSpec>`
 
-You can build quickly on top of vanilla storage through `Container`. The following snippet shows part of the Greenhouse block entity:
+The quickest path is to build on top of the vanilla `Container` model. The following snippet shows part of the Greenhouse block entity:
 
 ```java
 public class GreenhouseBlockEntity extends BlockEntity implements Container {
@@ -67,7 +67,7 @@ public class GreenhouseBlockEntity extends BlockEntity implements Container {
 
 You can also implement the `Repo` interface yourself and build exactly the storage behavior you need.
 
-Basic storage interaction:
+Basic storage interaction methods:
 
 - `int size`: number of storage units
 - `boolean isEmpty`: whether the repository, or one specific unit, is empty
@@ -80,7 +80,7 @@ Basic storage interaction:
 - `long capacityFor`: query the maximum capacity of one resource or one storage unit
 - `long amountFor`: query how much of one resource, or one storage unit, is currently stored
 
-Restrictors (calling them does not mutate the original repository):
+View wrappers (calling them does not mutate the original repository):
 
 - `AcceptOnlyRepo<T> asAcceptOnly`: returns a wrapper that allows insertion but not extraction
 - `ConsumeOnlyRepo<T> asConsumeOnly`: returns a wrapper that allows extraction but not insertion
@@ -88,7 +88,7 @@ Restrictors (calling them does not mutate the original repository):
 
 ## 2. Register a repository proxy
 
-To let outside storage systems interact safely with the repository we created, we need to wrap it in a `RepoProxy`.
+To let external storage systems interact safely with the repo we created, we need to wrap it in a `RepoProxy`.
 
 ```java
 public class GreenhouseBlockEntity extends BlockEntity implements Container {
@@ -104,7 +104,7 @@ public class GreenhouseBlockEntity extends BlockEntity implements Container {
 
 **Note**: `RepoProxy` is instantiated automatically by Croparia IF on each supported mod platform. Manually calling `new RepoProxy<>(...)` will not work correctly on concrete platforms.
 
-After that, register the proxy into `ProxyProvider` so other storage systems can discover it:
+After that, register the proxy through `ProxyProvider` so other storage systems can discover it:
 
 ```java
 public class Greenhouse extends BaseEntityBlock {
@@ -128,11 +128,11 @@ public class Greenhouse extends BaseEntityBlock {
 }
 ```
 
-After registration, the mod platform will query by block type and then run the function you registered to obtain the `RepoProxy`.
+After registration, the mod platform resolves the block type first and then runs the function you registered to obtain the `RepoProxy`.
 
 ## 3. Query another repository
 
-You can use `ProxyProvider` to look up any compatible storage system and receive a wrapped repository implementing `RepoProxy`.
+You can use `ProxyProvider` to look up any compatible storage system and receive a wrapped repository in `RepoProxy` form.
 
 ```java
 Optional<PlatformItemProxy> itemProxy = ProxyProvider.findItem(world, pos, direction);

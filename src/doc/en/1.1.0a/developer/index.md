@@ -8,7 +8,7 @@ navOrder: 40
 
 <a id="overview"></a>
 
-This group of pages is for readers who want to extend, integrate with, or maintain `Croparia IF`.
+These pages are for readers who want to extend, integrate with, or maintain `Croparia IF`.
 
 You will usually come here in three situations:
 
@@ -20,16 +20,16 @@ You will usually come here in three situations:
 
 ## Where to start
 
-If this is your first time reading this section, the three most useful entry points are usually:
+If this is your first time here, these three entry points are usually the most helpful:
 
 - [Core Modules](core/index.md#overview)
-  - Start by understanding how the Infusor, Ritual Stand, Crop Transmuter, and Greenhouse are wired together.
+  - Start here if you want to understand how the Infusor, Ritual Stand, Crop Transmuter, and Greenhouse fit together.
 - [Network API](network.md#overview)
-  - Best for readers who want to inspect menu interactions, recipe syncing, and packet registration abstractions.
+  - Best if you want to inspect menu interactions, recipe syncing, and packet registration.
 - [Repo API](repo/index.md#overview)
-  - Best for readers who want storage, automation I/O, and platform capability bridging.
+  - Best if you want to work with storage, automation I/O, and platform capability bridges.
 
-If you already know what the modules do and mainly want reusable tools, jump straight into:
+If you already know what the modules do and mainly want reusable building blocks, jump straight into:
 
 - [Runtime Data Generation System](generator/index.md#overview)
 - [Recipe API](recipe/index.md#overview)
@@ -49,7 +49,7 @@ If you already know what the modules do and mainly want reusable tools, jump str
 - [Ritual Stand](core/ritual_stand.md#overview)
 - [FakePlayer](core/fake-player.md#overview)
 
-This group is better at answering:
+This group is most useful for questions like:
 
 - where the entry class for a specific module lives;
 - how it connects to menus, networking, recipes, and storage;
@@ -64,7 +64,7 @@ This group is better at answering:
 - [Network API](network.md#overview)
 - [Other Common APIs](other/index.md#overview)
 
-This group is better at answering:
+This group is most useful for questions like:
 
 - which reusable capabilities the mod already exposes;
 - which layer you should reuse instead of copying one concrete module implementation.
@@ -86,4 +86,3 @@ These pages are more maintenance-oriented. For example, `crop` focuses on:
 - To work with storage, automation, or platform item capabilities, start with [Repo API](repo/index.md#overview)
 - To work with runtime data generation, start with [Runtime Data Generation System](generator/index.md#overview)
 - To troubleshoot UI interactions or client syncing, start with [Network API](network.md#overview)
-
