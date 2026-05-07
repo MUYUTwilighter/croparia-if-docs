@@ -96,6 +96,14 @@
   flex-direction: column;
 }
 
+.game-inline-overflow {
+  display: inline-block;
+  max-width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  vertical-align: top;
+}
+
 .game-gui-frame img,
 .game-item-display__icon,
 .recipe-arrow,

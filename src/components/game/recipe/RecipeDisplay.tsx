@@ -19,37 +19,41 @@ export async function RecipeDisplay({ id }: { id: string }) {
     const recipe = await getRecipeData(id);
 
     return (
-      <GameGuiFrame className="recipe-frame">
-        <div className="recipe-frame__wrapper">
-          <GameText className="recipe-frame__id" color="#3F3F3F" noShadow>
-            {id}
-          </GameText>
-          <div className="recipe-frame__content">
-            {recipe.type === "minecraft:crafting_shaped" || recipe.type === "minecraft:crafting_shapeless" ? (
-              <CraftingRecipeDisplay recipe={recipe as NormalizedCraftingRecipe} />
-            ) : null}
-            {recipe.type === "croparia:infusor" ? <InfusorRecipeDisplay recipe={recipe as NormalizedInfusorRecipe} /> : null}
-            {recipe.type === "croparia:ritual" ? <RitualRecipeDisplay recipe={recipe as NormalizedRitualRecipe} /> : null}
-            {recipe.type === "croparia:soak" ? <SoakRecipeDisplay recipe={recipe as NormalizedSoakRecipe} /> : null}
-            {recipe.type === "croparia:ritual_structure" ? (
-              <RitualStructureDisplay recipe={recipe as NormalizedRitualStructure} />
-            ) : null}
+      <div className="game-inline-overflow">
+        <GameGuiFrame className="recipe-frame">
+          <div className="recipe-frame__wrapper">
+            <GameText className="recipe-frame__id" color="#3F3F3F" noShadow>
+              {id}
+            </GameText>
+            <div className="recipe-frame__content">
+              {recipe.type === "minecraft:crafting_shaped" || recipe.type === "minecraft:crafting_shapeless" ? (
+                <CraftingRecipeDisplay recipe={recipe as NormalizedCraftingRecipe} />
+              ) : null}
+              {recipe.type === "croparia:infusor" ? <InfusorRecipeDisplay recipe={recipe as NormalizedInfusorRecipe} /> : null}
+              {recipe.type === "croparia:ritual" ? <RitualRecipeDisplay recipe={recipe as NormalizedRitualRecipe} /> : null}
+              {recipe.type === "croparia:soak" ? <SoakRecipeDisplay recipe={recipe as NormalizedSoakRecipe} /> : null}
+              {recipe.type === "croparia:ritual_structure" ? (
+                <RitualStructureDisplay recipe={recipe as NormalizedRitualStructure} />
+              ) : null}
+            </div>
           </div>
-        </div>
-      </GameGuiFrame>
+        </GameGuiFrame>
+      </div>
     );
   } catch {
     return (
-      <GameGuiFrame className="recipe-frame">
-        <div className="recipe-frame__wrapper">
-          <GameText className="recipe-frame__id" color="#3F3F3F" noShadow>
-            {id}
-          </GameText>
-          <GameText className="recipe-frame__error" color="#AA0000" noShadow>
-            Recipe unavailable.
-          </GameText>
-        </div>
-      </GameGuiFrame>
+      <div className="game-inline-overflow">
+        <GameGuiFrame className="recipe-frame">
+          <div className="recipe-frame__wrapper">
+            <GameText className="recipe-frame__id" color="#3F3F3F" noShadow>
+              {id}
+            </GameText>
+            <GameText className="recipe-frame__error" color="#AA0000" noShadow>
+              Recipe unavailable.
+            </GameText>
+          </div>
+        </GameGuiFrame>
+      </div>
     );
   }
 }

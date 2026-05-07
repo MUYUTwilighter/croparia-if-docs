@@ -5,5 +5,9 @@ export async function GameItemCard({ id }: { id: string }) {
   const item = await getItemData(id);
   const minToolItem = item.minTool ? await getItemData(item.minTool) : null;
 
-  return <GameItemCardClient item={item} minToolItem={minToolItem} />;
+  return (
+    <div className="game-inline-overflow">
+      <GameItemCardClient item={item} minToolItem={minToolItem} />
+    </div>
+  );
 }
