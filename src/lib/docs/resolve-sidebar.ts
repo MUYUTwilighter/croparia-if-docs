@@ -1,7 +1,7 @@
 import { cache } from "react";
 
 import { getDocsHomeTitle } from "@/src/lib/docs/config";
-import { contentSignal } from "@/src/lib/docs/content-signal";
+import { contentSignal } from "@/src/.generated/docs/content-signal";
 import { buildDocPath } from "@/src/lib/docs/routing";
 import { listDocumentSlugs, resolveDoc } from "@/src/lib/docs/resolve-doc";
 import type { LocaleCode, ResolvedDoc, ResolvedSidebar, SidebarItem, VersionSlug } from "@/src/lib/docs/types";

@@ -17,7 +17,7 @@ import type {
   ResolveDocInput,
   VersionSlug,
 } from "@/src/lib/docs/types";
-import { contentSignal } from "@/src/lib/docs/content-signal";
+import { contentSignal } from "@/src/.generated/docs/content-signal";
 import { localeCodes, versionSlugs } from "@/src/lib/docs/config";
 import { normalizeSlug } from "@/src/lib/docs/routing";
 

@@ -7,7 +7,7 @@ import { cache } from "react";
 import * as runtime from "react/jsx-runtime";
 
 import { mdxComponents } from "@/mdx-components";
-import { contentSignal } from "@/src/lib/docs/content-signal";
+import { contentSignal } from "@/src/.generated/docs/content-signal";
 
 const MDX_CACHE_VERSION = "v3";
 const MDX_CACHE_ROOT = path.join(process.cwd(), ".next", "cache", "docs-mdx");

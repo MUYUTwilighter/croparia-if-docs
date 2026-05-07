@@ -1,6 +1,6 @@
 import { cache } from "react";
 
-import { contentSignal } from "@/src/lib/docs/content-signal";
+import { contentSignal } from "@/src/.generated/docs/content-signal";
 import { listDocumentSlugs, resolveDoc } from "@/src/lib/docs/resolve-doc";
 import type { LocaleCode, ResolvedDoc, VersionSlug } from "@/src/lib/docs/types";
 

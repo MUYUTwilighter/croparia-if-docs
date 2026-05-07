@@ -4,7 +4,7 @@ import { spawn } from "node:child_process";
 
 const rootDir = process.cwd();
 const contentDir = path.join(rootDir, "content");
-const signalPath = path.join(rootDir, "src", "lib", "docs", "content-signal.ts");
+const signalPath = path.join(rootDir, "src", ".generated", "docs", "content-signal.ts");
 const nextBinPath = path.join(rootDir, "node_modules", "next", "dist", "bin", "next");
 
 const baselineContent = fs.existsSync(signalPath)
