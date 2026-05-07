@@ -1,0 +1,440 @@
+---
+title: Croparia IF Docs
+desc: The Croparia IF documentation home page, with direct entry points for general references, players, modpack authors, and developers.
+nonav: true
+---
+
+<Box
+  sx={{
+    display: "grid",
+    gap: {xs: 4, md: 5},
+  }}
+>
+  <Box
+    sx={{
+      position: "relative",
+      overflow: "hidden",
+      minHeight: {xs: "calc(100vh - 168px)", md: "calc(100vh - 160px)"},
+      border: "1px solid rgba(112, 143, 86, 0.18)",
+      boxShadow: "0 40px 90px rgba(37, 53, 33, 0.16)",
+      px: {xs: 3, md: 6, xl: 8},
+      py: {xs: 4, md: 5},
+      display: "flex",
+      alignItems: "center",
+      "&::before": {
+        content: '""',
+        position: "absolute",
+        inset: 0,
+        backgroundImage: "url(/home/background.webp)",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        transform: "scale(1.03)",
+        pointerEvents: "none",
+      },
+      "&::after": {
+        content: '""',
+        position: "absolute",
+        inset: 0,
+        pointerEvents: "none",
+      },
+    }}
+  >
+    <Box
+      sx={{
+        position: "relative",
+        zIndex: 1,
+        width: "100%",
+        maxWidth: "1600px",
+        mx: "auto",
+        display: "grid",
+        gap: {xs: 4, lg: 5},
+        alignItems: "center",
+        gridTemplateColumns: {xs: "1fr", lg: "minmax(0, 0.92fr) minmax(420px, 0.88fr)"},
+      }}
+    >
+      <Stack spacing={2.5} sx={{
+        maxWidth: {xs: "100%", lg: "680px"},
+        background: "rgba(255,255,255,0.5)",
+        padding: "3em",
+        borderRadius: "2em",
+        backdropFilter: "blur(4px)"
+      }}>
+        <Typography
+          component="p"
+          sx={{
+            m: 0,
+            fontSize: "0.82rem",
+            fontWeight: 900,
+            letterSpacing: "0.22em",
+            textTransform: "uppercase",
+            color: "primary.main",
+          }}
+        >
+          Croparia IF
+        </Typography>
+        <Typography
+          component="h1"
+          sx={{
+            m: 0,
+            fontSize: {xs: "2.8rem", md: "4.4rem", xl: "5rem"},
+            lineHeight: 0.98,
+            fontWeight: 900,
+            letterSpacing: "-0.045em",
+            maxWidth: "10ch",
+            color: "text.primary",
+            textShadow: "0 8px 24px rgba(255,255,255,0.28)",
+          }}
+        >
+          Croparia IF
+        </Typography>
+        <Typography
+          component="p"
+          sx={{
+            m: 0,
+            maxWidth: "62ch",
+            color: "text.primary",
+            lineHeight: 1.9,
+            fontSize: {xs: "1rem", md: "1.08rem", xl: "1.12rem"},
+          }}
+        >
+          Croparia IF is built around resource crops, growth loops, and machine-driven progression, while also being designed from the start to be extensible, composable, and customizable.
+          Whether you want to play through the mod, build a modpack, or develop against it, you can start from the right entry point here.
+        </Typography>
+        <Stack
+          direction={{xs: "column", sm: "row"}}
+          spacing={1.5}
+          sx={{pt: 1, alignItems: {xs: "stretch", sm: "center"}}}
+        >
+          <Button
+            variant="contained"
+            color="primary"
+            href="#home-get-started"
+            sx={{
+              minHeight: 54,
+              px: 3.25,
+              py: 1.35,
+              borderRadius: 999,
+              fontSize: "0.98rem",
+              fontWeight: 800,
+              boxShadow: "0 18px 34px rgba(84, 115, 56, 0.24)",
+              alignSelf: {xs: "stretch", sm: "flex-start"},
+            }}
+          >
+            Start with the docs
+          </Button>
+          <Button
+            variant="outlined"
+            href="#home-downloads"
+            sx={{
+              minHeight: 54,
+              px: 3.25,
+              py: 1.35,
+              borderRadius: 999,
+              fontSize: "0.98rem",
+              fontWeight: 700,
+              borderColor: "rgba(78, 104, 53, 0.34)",
+              color: "text.primary",
+              backgroundColor: "rgba(255,255,255,0.28)",
+              alignSelf: {xs: "stretch", sm: "flex-start"},
+              "&:hover": {
+                borderColor: "primary.main",
+                backgroundColor: "rgba(255,255,255,0.44)",
+              },
+            }}
+          >
+            Download the mod
+          </Button>
+        </Stack>
+
+        <Box
+          sx={{
+            display: "grid",
+            gap: 1.5,
+            pt: 1.5,
+            gridTemplateColumns: {xs: "1fr", sm: "repeat(3, minmax(0, 1fr))"},
+            maxWidth: "760px",
+          }}
+        >
+          {[
+            {label: "Play", value: "Resource crops and machine progression"},
+            {label: "Pack", value: "Recipes, crops, and runtime generation"},
+            {label: "Dev", value: "Core modules and downstream APIs"},
+          ].map((item) => (
+            <Box
+              key={item.label}
+              sx={{
+                borderRadius: "22px",
+                border: "1px solid rgba(112, 143, 86, 0.2)",
+                backgroundColor: "rgba(255,255,255,0.38)",
+                backdropFilter: "blur(6px)",
+                p: 2,
+              }}
+            >
+              <Typography
+                component="p"
+                sx={{
+                  m: 0,
+                  fontSize: "0.76rem",
+                  fontWeight: 800,
+                  letterSpacing: "0.12em",
+                  textTransform: "uppercase",
+                  color: "primary.main",
+                }}
+              >
+                {item.label}
+              </Typography>
+              <Typography component="p" sx={{m: 0, mt: 0.8, lineHeight: 1.65, color: "text.primary", fontWeight: 600}}>
+                {item.value}
+              </Typography>
+            </Box>
+          ))}
+        </Box>
+      </Stack>
+
+      <Box
+        sx={{
+          justifySelf: {xs: "stretch", lg: "end"},
+          width: "100%",
+          maxWidth: {xs: "100%", lg: "760px"},
+          overflow: "hidden",
+          p: {xs: 1.5, md: 2},
+        }}
+      >
+        <Box
+          component="img"
+          src="/home/croparia-if-banner.webp"
+          alt="Croparia IF banner"
+          sx={{
+            display: "block",
+            width: "100%",
+            minHeight: {xs: 220, md: 360, xl: 420},
+            objectFit: "contain",
+            borderRadius: {xs: "22px", md: "28px"},
+          }}
+        />
+      </Box>
+    </Box>
+  </Box>
+
+  <Box
+    id="home-get-started"
+    sx={{
+      width: "100%",
+      maxWidth: "1380px",
+      mx: "auto",
+      display: "grid",
+      gap: 2.5,
+      gridTemplateColumns: {xs: "1fr", xl: "minmax(0, 0.92fr) minmax(0, 1.08fr)"},
+    }}
+  >
+    <Box
+      id="home-downloads"
+      sx={{
+        borderRadius: "28px",
+        border: "1px solid",
+        borderColor: "divider",
+        background: "linear-gradient(180deg, rgba(253,252,247,0.96), rgba(248,245,235,0.93))",
+        boxShadow: "0 24px 56px rgba(37, 53, 33, 0.08)",
+        p: {xs: 3, md: 3.5},
+      }}
+    >
+      <Stack spacing={2.5}>
+        <Box>
+          <Typography component="p" sx={{m: 0, fontSize: "0.76rem", fontWeight: 700, letterSpacing: "0.16em", textTransform: "uppercase", color: "primary.main"}}>
+            Downloads
+          </Typography>
+          <Typography component="h2" sx={{mt: 1, mb: 1.1, fontSize: {xs: "1.5rem", md: "1.8rem"}, fontWeight: 800}}>
+            Download Croparia IF
+          </Typography>
+          <Typography component="p" sx={{m: 0, color: "text.secondary", lineHeight: 1.8}}>
+            Get Croparia IF from the usual distribution platforms, then continue with the docs below.
+          </Typography>
+        </Box>
+        <Stack spacing={1.2}>
+          <Button component="a" href="https://modrinth.com/mod/croparia-if" target="_blank" rel="noreferrer" variant="contained" sx={{minHeight: 52, justifyContent: "space-between", px: 2.5, borderRadius: "18px", textTransform: "none", fontWeight: 800}}>
+            Modrinth
+            <Typography component="span" sx={{fontSize: "0.86rem", opacity: 0.78}}>
+              Recommended
+            </Typography>
+          </Button>
+          <Button component="a" href="https://www.curseforge.com/minecraft/mc-mods/croparia-if" target="_blank" rel="noreferrer" variant="contained" sx={{minHeight: 52, justifyContent: "space-between", px: 2.5, borderRadius: "18px", textTransform: "none", fontWeight: 800, bgcolor: "#ffb36c", color: "#48210d", "&:hover": {bgcolor: "#ffa44a"}}}>
+            CurseForge
+            <Typography component="span" sx={{fontSize: "0.86rem", opacity: 0.78}}>
+              Platform release
+            </Typography>
+          </Button>
+          <Button component="a" href="https://github.com/MUYUTwilighter/croparia-if" target="_blank" rel="noreferrer" variant="contained" sx={{minHeight: 52, justifyContent: "space-between", px: 2.5, borderRadius: "18px", textTransform: "none", fontWeight: 800, bgcolor: "#2c3728", color: "#f6f2df", "&:hover": {bgcolor: "#1f271c"}}}>
+            GitHub
+            <Typography component="span" sx={{fontSize: "0.86rem", opacity: 0.78}}>
+              Source and releases
+            </Typography>
+          </Button>
+        </Stack>
+      </Stack>
+    </Box>
+
+    <Box
+      sx={{
+        borderRadius: "28px",
+        border: "1px solid",
+        borderColor: "divider",
+        background: "linear-gradient(180deg, rgba(253,252,247,0.96), rgba(248,245,235,0.93))",
+        boxShadow: "0 24px 56px rgba(37, 53, 33, 0.08)",
+        p: {xs: 3, md: 3.5},
+      }}
+    >
+      <Stack spacing={2.5}>
+        <Box>
+          <Typography component="p" sx={{m: 0, fontSize: "0.76rem", fontWeight: 700, letterSpacing: "0.16em", textTransform: "uppercase", color: "primary.main"}}>
+            Community
+          </Typography>
+          <Typography component="h2" sx={{mt: 1, mb: 1.1, fontSize: {xs: "1.5rem", md: "1.8rem"}, fontWeight: 800}}>
+            Community and feedback
+          </Typography>
+          <Typography component="p" sx={{m: 0, color: "text.secondary", lineHeight: 1.8}}>
+            Visit the mod page, find feedback channels, or join the community directly.
+          </Typography>
+        </Box>
+
+        <Box sx={{display: "grid", gap: 1.5, gridTemplateColumns: {xs: "1fr", md: "repeat(3, minmax(0, 1fr))"}}}>
+          {[
+            {
+              title: "MCMOD",
+              body: "Browse the mod page, Chinese catalog entry, and community-maintained references.",
+              href: "https://www.mcmod.cn/class/13639.html",
+              accent: "#ffb36c",
+              fg: "#48210d",
+            },
+            {
+              title: "Discord",
+              body: "Join the cross-platform community for feedback and discussion.",
+              href: "https://discord.gg/JunKeKCJAY",
+              accent: "#5d7f4f",
+              fg: "#fffdf8",
+            },
+            {
+              title: "QQ Feedback Group",
+              body: "Use a common domestic channel to report issues and share ideas.",
+              href: "https://qm.qq.com/q/OedneeO0Uw",
+              accent: "#2c3728",
+              fg: "#f6f2df",
+            },
+          ].map((item) => (
+            <Card key={item.title} component="a" href={item.href} target="_blank" rel="noreferrer" sx={{display: "block", textDecoration: "none", borderRadius: "22px", border: "1px solid rgba(129, 168, 87, 0.16)", backgroundColor: "rgba(255,255,255,0.66)", color: "inherit", transition: "transform 0.18s ease, box-shadow 0.18s ease", "&:hover": {transform: "translateY(-3px)", boxShadow: "0 20px 40px rgba(37, 53, 33, 0.12)"}}}>
+              <CardContent sx={{p: 2.5}}>
+                <Box sx={{display: "inline-flex", px: 1.25, py: 0.55, borderRadius: 999, bgcolor: item.accent, color: item.fg, fontWeight: 800, fontSize: "0.82rem", letterSpacing: "0.04em"}}>
+                  {item.title}
+                </Box>
+                <Typography component="p" sx={{m: 0, mt: 1.4, color: "text.secondary", lineHeight: 1.75}}>
+                  {item.body}
+                </Typography>
+              </CardContent>
+            </Card>
+          ))}
+        </Box>
+      </Stack>
+    </Box>
+  </Box>
+
+  <Box
+    id="home-navigation"
+    sx={{
+      width: "100%",
+      maxWidth: "1380px",
+      mx: "auto",
+      borderRadius: "28px",
+      border: "1px solid",
+      borderColor: "divider",
+      background: "linear-gradient(180deg, rgba(253,252,247,0.96), rgba(248,245,235,0.93))",
+      boxShadow: "0 24px 56px rgba(37, 53, 33, 0.08)",
+      p: {xs: 3, md: 4},
+    }}
+  >
+    <Stack spacing={2.5}>
+      <Box sx={{maxWidth: "760px"}}>
+        <Typography component="p" sx={{m: 0, fontSize: "0.76rem", fontWeight: 700, letterSpacing: "0.16em", textTransform: "uppercase", color: "primary.main"}}>
+          Navigation
+        </Typography>
+        <Typography component="h2" sx={{mt: 1, mb: 1.1, fontSize: {xs: "1.6rem", md: "1.95rem"}, fontWeight: 800}}>
+          Enter the docs by goal
+        </Typography>
+        <Typography component="p" sx={{m: 0, color: "text.secondary", lineHeight: 1.8}}>
+          Whether you need a quick reference, want to progress through the mod, build a modpack, or develop against it, you can jump straight into the right section here.
+        </Typography>
+      </Box>
+
+      <Box sx={{display: "grid", gap: 2, gridTemplateColumns: {xs: "1fr", sm: "repeat(2, minmax(0, 1fr))", xl: "repeat(4, minmax(0, 1fr))"}}}>
+        {[
+          {title: "General", body: "Core concepts, content overviews, blocks and items, and baseline references.", href: "./general", cta: "Open general docs"},
+          {title: "Players", body: "Getting started, progression, machine systems, automation, and FAQ.", href: "./player", cta: "Open player docs"},
+          {title: "Modpack Authors", body: "Customization, data packs, resource packs, recipes, and tooling.", href: "./modpack", cta: "Open modpack docs"},
+          {title: "Developers", body: "Core modules, shared APIs, content maintenance references, and downstream integration notes.", href: "./developer", cta: "Open developer docs"},
+        ].map((card) => (
+          <DocLink key={card.title} href={card.href} style={{display: "block", textDecoration: "none", color: "inherit"}}>
+            <Card sx={{display: "block", color: "inherit", borderRadius: "24px", border: "1px solid rgba(129, 168, 87, 0.15)", backgroundColor: "rgba(255,255,255,0.68)", transition: "transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease", "&:hover": {transform: "translateY(-4px)", borderColor: "rgba(111, 152, 82, 0.4)", boxShadow: "0 24px 48px rgba(37, 53, 33, 0.12)"}}}>
+              <CardContent sx={{p: 3}}>
+                <Typography component="h3" sx={{m: 0, mb: 1.1, fontSize: "1.2rem", fontWeight: 800}}>
+                  {card.title}
+                </Typography>
+                <Typography component="p" sx={{m: 0, color: "text.secondary", lineHeight: 1.75}}>
+                  {card.body}
+                </Typography>
+                <Typography component="span" sx={{display: "inline-flex", mt: 1.8, color: "primary.main", fontWeight: 700}}>
+                  {card.cta}
+                </Typography>
+              </CardContent>
+            </Card>
+          </DocLink>
+        ))}
+      </Box>
+    </Stack>
+  </Box>
+
+  <Box
+    sx={{
+      width: "100%",
+      maxWidth: "1380px",
+      mx: "auto",
+      borderRadius: "28px",
+      border: "1px solid",
+      borderColor: "divider",
+      background: "linear-gradient(180deg, rgba(253,252,247,0.96), rgba(248,245,235,0.93))",
+      boxShadow: "0 24px 56px rgba(37, 53, 33, 0.08)",
+      p: {xs: 3, md: 4},
+    }}
+  >
+    <Stack spacing={2.5}>
+      <Box sx={{maxWidth: "760px"}}>
+        <Typography component="p" sx={{m: 0, fontSize: "0.76rem", fontWeight: 700, letterSpacing: "0.16em", textTransform: "uppercase", color: "primary.main"}}>
+          Gameplay Preview
+        </Typography>
+        <Typography component="h2" sx={{mt: 1, mb: 1.1, fontSize: {xs: "1.6rem", md: "1.95rem"}, fontWeight: 800}}>
+          Gameplay and capabilities
+        </Typography>
+        <Typography component="p" sx={{m: 0, color: "text.secondary", lineHeight: 1.8}}>
+          A quick glance at the mod’s main content and customization surface.
+        </Typography>
+      </Box>
+
+      <Box sx={{display: "grid", gap: 2, gridTemplateColumns: {xs: "1fr", md: "repeat(3, minmax(0, 1fr))"}}}>
+        {[
+          {title: "Resource farming", body: "Mine ores, craft Croparia, and build your first agricultural resource loop.", image: "/home/feat-1.webp", alt: "Resource farming screenshot"},
+          {title: "Machines and processing", body: "Use the Crop Transmuter, higher-tier rituals, and several workstations to push automation forward.", image: "/home/feat-2.webp", alt: "Machines and processing screenshot"},
+          {title: "Modpack customization", body: "Shape your own progression with recipes, crops, and the runtime data generation system.", image: "/home/feat-3.webp", alt: "Modpack customization screenshot"},
+        ].map((item) => (
+          <Card key={item.title} sx={{borderRadius: "24px", overflow: "hidden", border: "1px solid rgba(129, 168, 87, 0.15)", backgroundColor: "rgba(255,255,255,0.72)", boxShadow: "0 20px 42px rgba(37, 53, 33, 0.08)"}}>
+            <Box component="img" src={item.image} alt={item.alt} sx={{display: "block", width: "100%", height: {xs: 220, md: 210, xl: 240}, objectFit: "cover"}} />
+            <CardContent sx={{p: 2.5}}>
+              <Typography component="h3" sx={{m: 0, mb: 1, fontSize: "1.18rem", fontWeight: 800}}>
+                {item.title}
+              </Typography>
+              <Typography component="p" sx={{m: 0, color: "text.secondary", lineHeight: 1.8}}>
+                {item.body}
+              </Typography>
+            </CardContent>
+          </Card>
+        ))}
+      </Box>
+    </Stack>
+  </Box>
+</Box>
