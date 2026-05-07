@@ -28,11 +28,11 @@ Both kinds of custom content are loaded from the configured custom data director
 - Fruit crops: `<filePath>/crops`
 - Melon crops: `<filePath>/melons`
 
-Here, `filePath` is the custom file root configured in [Configuration and Commands](./configuration-command.md#config-file). Each JSON file is read as one crop definition.
+Here, `filePath` is the custom file root configured in [Configuration and Commands](./configuration-command.md#config-file). Each JSON file is treated as one crop definition.
 
-Crops are only registered during game startup, so any change to a crop definition requires a full game restart before it takes effect.
+Crops are only registered during game startup, so any change to a crop definition requires a full restart before it takes effect.
 
-If you only want a quick starting point, the easiest route is to export a template file with commands first. If you plan to maintain a pack long-term, writing JSON by hand is still the better option.
+If you only want a quick starting point, the easiest route is to export a template file with commands first. If you plan to maintain the pack long-term, writing JSON by hand is still the better option.
 
 <a id="command-create"></a>
 
@@ -143,7 +143,7 @@ Besides a plain string, `material` can also be written as an object:
 }
 ```
 
-If all you need is a normal item or tag, a plain string is enough. You only need the object form when you want to customize the amount or add extra components.
+If all you need is a normal item or tag, a plain string is enough. You only need the object form when you want to customize the amount or attach extra components.
 
 <a id="melon-json"></a>
 

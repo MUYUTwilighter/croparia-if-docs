@@ -23,7 +23,7 @@ Esta página responde a una sola pregunta: cómo escribir un archivo de generado
 
 ## Dónde colocarlo
 
-Los archivos de generador pertenecen al directorio `generator/` del handler correspondiente, no directamente dentro de `assets/` o `data/`:
+Los archivos de generador pertenecen al directorio `generator/` del handler correspondiente, no directamente en `assets/` o `data/`:
 
 - Datapack: `[directorio del juego]/croparia/datapack/generator/`
 - Resource pack: `[directorio del juego]/croparia/resourcepack/generator/`
@@ -102,7 +102,7 @@ template = """
     - [`croparia:aggregated`](#type-aggregated)
     - [`croparia:lang`](#type-lang)
 
-- `startup`: si este generador debe participar antes de que el servidor termine de iniciar por completo
+- `startup`: si este generador debe ejecutarse antes de que el servidor termine de iniciarse por completo
 
 - `enabled`: si el generador está habilitado; resulta útil para desactivar temporalmente un archivo sin borrarlo
   - ejemplo:

@@ -22,7 +22,7 @@ navOrder: 10
 
 # Configuration and Commands
 
-Croparia IF stores its configuration file at `[game directory]/config/croparia.json`. Many of these settings directly affect crop loading, generated output directories, and runtime data generation behavior, so it is recommended to read this page together with the [Runtime Data Generation System](./generator/index.md).
+Croparia IF stores its configuration file at `[game directory]/config/croparia.json`. Many of these settings directly affect crop loading, generated output directories, and runtime data generation behavior, so this page is best read together with the [Runtime Data Generation System](./generator/index.md).
 
 The mod reads its configuration when the game starts and when you enter a world, then shuts down the related runtime resources when you leave that world.
 
@@ -69,7 +69,7 @@ Commands are split into the client command `/croparia` and the server command `/
 
 - `/croparia|cropariaServer generator query [pack handler ID] [generator name]`: query the current state of a data generator.
 - `/croparia|cropariaServer generator dumpBuiltin [pack handler ID] [generator name]`: export built-in generators into the `generator/` folder of the corresponding cache directory. If no name is given, all built-in generators are exported.
-- `/croparia|cropariaServer generator clearBuiltin [pack handler ID] [generator name]`: delete exported generator files that share the same names as built-in generators. If no name is given, all of them are removed.
+- `/croparia|cropariaServer generator clearBuiltin [pack handler ID] [generator name]`: delete exported generator files that share the same names as built-in generators. If no name is given, all matching files are removed.
 
 If you plan to keep editing those files by hand after exporting them, continue with:
 

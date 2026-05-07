@@ -346,7 +346,7 @@ Both `Crop` and `Melon` inherit from `TranslatableEntry`, so both support:
 - `${translations.keys()}`
 - `${translations.values()}`
 
-These fields are most commonly used in language-file generators.
+These fields are most commonly used by language-file generators.
 
 For example:
 
@@ -354,7 +354,7 @@ For example:
 template = '"${translation_key}": "${translations.get(_lang)}"'
 ```
 
-This kind of pattern is especially useful together with the [language generator](index.md).
+This kind of pattern is especially useful together with the [language generator](create-generator.md#type-lang).
 
 <a id="tips"></a>
 

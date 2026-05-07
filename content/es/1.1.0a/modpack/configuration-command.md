@@ -22,7 +22,7 @@ navOrder: 10
 
 # Configuración y comandos
 
-Croparia IF guarda su archivo de configuración en `[directorio del juego]/config/croparia.json`. Muchas de estas opciones afectan directamente a la carga de cultivos, a los directorios de salida generados y al comportamiento del sistema de generación de datos en tiempo de ejecución, por lo que conviene leer esta página junto al [Sistema de generación de datos en tiempo de ejecución](./generator/index.md).
+Croparia IF guarda su archivo de configuración en `[directorio del juego]/config/croparia.json`. Muchas de estas opciones afectan directamente a la carga de cultivos, a los directorios de salida generados y al comportamiento del sistema de generación de datos en tiempo de ejecución, así que conviene leer esta página junto al [Sistema de generación de datos en tiempo de ejecución](./generator/index.md).
 
 El mod lee la configuración al iniciar el juego y al entrar en un mundo, y libera los recursos de ejecución relacionados al salir de ese mundo.
 
@@ -67,9 +67,9 @@ Los comandos se dividen entre el comando de cliente `/croparia` y el comando de 
 
 ### Comandos de generadores de datos
 
-- `/croparia|cropariaServer generator query [ID del pack handler] [nombre del generador]`: consulta el estado actual de un generador de datos.
-- `/croparia|cropariaServer generator dumpBuiltin [ID del pack handler] [nombre del generador]`: exporta los generadores integrados a la carpeta `generator/` del directorio de caché correspondiente. Si no se indica nombre, exporta todos.
-- `/croparia|cropariaServer generator clearBuiltin [ID del pack handler] [nombre del generador]`: elimina los archivos de generador exportados que tengan el mismo nombre que los generadores integrados. Si no se indica nombre, los elimina todos.
+- `/croparia|cropariaServer generator query [ID del handler] [nombre del generador]`: consulta el estado actual de un generador de datos.
+- `/croparia|cropariaServer generator dumpBuiltin [ID del handler] [nombre del generador]`: exporta los generadores integrados a la carpeta `generator/` del directorio de caché correspondiente. Si no se indica nombre, exporta todos.
+- `/croparia|cropariaServer generator clearBuiltin [ID del handler] [nombre del generador]`: elimina los archivos de generador exportados que tengan el mismo nombre que los generadores integrados. Si no se indica nombre, elimina todos los coincidentes.
 
 Si piensas seguir editando esos archivos a mano después de exportarlos, continúa con:
 

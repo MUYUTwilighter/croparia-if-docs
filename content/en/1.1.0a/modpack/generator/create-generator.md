@@ -17,13 +17,13 @@ navOrder: 10
 
 # Create a Data Generator
 
-This page only answers one question: how to write a working data generator file. For the overall concepts, see the [Runtime Data Generation System](index.md). For field value syntax, see [Placeholder Parsers](placeholder.md).
+This page answers one question: how to write a working data generator file. For the overall concepts, see the [Runtime Data Generation System](index.md). For field value syntax, see [Placeholder Parsers](placeholder.md).
 
 <a id="file-format"></a>
 
 ## Where It Goes
 
-Generator files belong in the `generator/` directory of the corresponding handler, not directly inside `assets/` or `data/`:
+Generator files belong in the `generator/` directory of the corresponding handler, not directly under `assets/` or `data/`:
 
 - Datapack: `[game directory]/croparia/datapack/generator/`
 - Resource pack: `[game directory]/croparia/resourcepack/generator/`
@@ -102,7 +102,7 @@ template = """
     - [`croparia:aggregated`](#type-aggregated)
     - [`croparia:lang`](#type-lang)
 
-- `startup`: whether this generator should participate before the server is fully started
+- `startup`: whether this generator should run before the server has fully started
 
 - `enabled`: whether the generator is enabled; useful for temporarily disabling a file without deleting it
   - example:

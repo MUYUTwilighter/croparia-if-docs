@@ -28,9 +28,9 @@ Ambos tipos de contenido personalizado se cargan desde los directorios de datos 
 - Cultivos de fruto: `<filePath>/crops`
 - Cultivos gigantes: `<filePath>/melons`
 
-Aquí, `filePath` es la raíz de archivos personalizados definida en [Configuración y comandos](./configuration-command.md#config-file). Cada archivo JSON se interpreta como una definición de cultivo.
+Aquí, `filePath` es la raíz de archivos personalizados definida en [Configuración y comandos](./configuration-command.md#config-file). Cada archivo JSON se trata como una definición de cultivo.
 
-Los cultivos solo se registran al iniciar el juego, así que cualquier cambio en una definición requiere reiniciar el juego para que tenga efecto.
+Los cultivos solo se registran al iniciar el juego, así que cualquier cambio en una definición requiere un reinicio completo para que tenga efecto.
 
 Si solo quieres empezar rápido, lo más cómodo es exportar primero un archivo de plantilla con comandos. Si vas a mantener el modpack a largo plazo, lo más recomendable sigue siendo escribir el JSON a mano.
 
@@ -134,7 +134,7 @@ Ejemplo completo:
 
 ### Forma de objeto de `material`: `ItemMaterial`
 
-Además de una cadena simple, `material` también puede escribirse como objeto:
+Además de una cadena simple, `material` también puede escribirse como un objeto:
 
 ```json
 {
@@ -143,7 +143,7 @@ Además de una cadena simple, `material` también puede escribirse como objeto:
 }
 ```
 
-Si solo necesitas un objeto normal o una etiqueta, la cadena simple es suficiente. Solo necesitas la forma de objeto cuando quieras personalizar la cantidad o añadir componentes extra.
+Si solo necesitas un objeto normal o una etiqueta, la cadena simple es suficiente. Solo necesitas la forma de objeto cuando quieras personalizar la cantidad o añadir componentes adicionales.
 
 <a id="melon-json"></a>
 

@@ -186,9 +186,9 @@ extensions = [
 - Tipo: `Template`
 - Obligatorio
 
-El contenido final del archivo que se va a escribir, normalmente una plantilla JSON.
+Es el contenido final del archivo que se va a escribir, normalmente una plantilla JSON.
 
-Sus placeholders se resuelven al hacer clic, y el resultado se escribe después en disco.
+Sus placeholders se resuelven en el momento del clic y el resultado se escribe después en disco.
 
 Ejemplo:
 
@@ -339,7 +339,7 @@ template = """
 """
 ```
 
-Los dos detalles más importantes aquí son:
+Aquí conviene fijarse sobre todo en dos detalles:
 
 - `block` decide “cuándo se activa”, no qué bloque de entrada aparecerá en el resultado generado
 - al escribir JSON, los valores estructurados como `ItemOutput` o `BlockOutput` suelen necesitar `_qis` para convertirse en texto que pueda incrustarse directamente en el JSON
