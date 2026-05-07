@@ -251,7 +251,7 @@ function DocSearchBox() {
               results.length > 0 ? (
                 <List disablePadding sx={{ maxHeight: 420, overflowY: "auto" }}>
                   {results.map((result, index) => (
-                    <Box key={result.href}>
+                    <Box key={`${result.href}::${result.section ?? "root"}::${result.title}::${index}`}>
                       {index > 0 ? <Divider /> : null}
                       <ListItemButton
                         component={Link}
@@ -543,7 +543,7 @@ export const docContentSx: SxProps<Theme> = {
     borderCollapse: "separate",
     borderSpacing: 0,
     overflow: "hidden",
-    borderRadius: 2.5,
+    borderRadius: 1,
     border: "1px solid",
     borderColor: "divider",
     backgroundColor: "background.paper",
