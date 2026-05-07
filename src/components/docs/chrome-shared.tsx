@@ -113,14 +113,54 @@ function SearchResultMeta({ label }: { label: string }) {
   );
 }
 
+function getSearchCopy(locale: "zh" | "en" | "es") {
+  if (locale === "en") {
+    return {
+      placeholder: "SEARCH DOCS...",
+      resultsFor: (query: string) => `RESULTS FOR "${query}"`,
+      startSearch: "START SEARCHING",
+      searching: "Searching documents for the current locale and version...",
+      found: (count: number) => `${count} RESULTS FOUND`,
+      supportHint: "Search by title, paragraph content, or section headings.",
+      emptyTitle: "NO MATCHING RESULTS",
+      emptyHint: "Try a shorter keyword, or switch to a different documentation term.",
+    };
+  }
+
+  if (locale === "es") {
+    return {
+      placeholder: "BUSCAR EN LA DOCUMENTACIÓN...",
+      resultsFor: (query: string) => `RESULTADOS PARA "${query}"`,
+      startSearch: "EMPIEZA A BUSCAR",
+      searching: "Buscando documentos para el idioma y la versión actuales...",
+      found: (count: number) => `${count} RESULTADOS ENCONTRADOS`,
+      supportHint: "Busca por título, contenido del párrafo o encabezados de sección.",
+      emptyTitle: "NO HAY RESULTADOS",
+      emptyHint: "Prueba una palabra clave más corta o usa otro término de la documentación.",
+    };
+  }
+
+  return {
+    placeholder: "搜索文档内容...",
+    resultsFor: (query: string) => `“${query}” 的搜索结果`,
+    startSearch: "开始搜索文档",
+    searching: "正在检索当前语言与版本文档...",
+    found: (count: number) => `找到 ${count} 条结果`,
+    supportHint: "支持标题、段落和章节标题检索。",
+    emptyTitle: "没有找到匹配内容",
+    emptyHint: "可以试试更短的关键词，或者换一个文档术语。",
+  };
+}
+
 function DocSearchBox() {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
-  const { query, setQuery, results, total, isLoading, error } = useDocSearch({
+  const { query, setQuery, results, total, isLoading, error, locale } = useDocSearch({
     limit: 8,
     enabled: true,
     debounceMs: 120,
   });
+  const copy = getSearchCopy(locale);
 
   useEffect(() => {
     setIsOpen(false);
@@ -162,7 +202,7 @@ function DocSearchBox() {
                 setIsOpen(false);
               }
             }}
-            placeholder="SEARCH DOCS..."
+            placeholder={copy.placeholder}
             inputProps={{ "aria-label": "Search docs" }}
             sx={{
               flex: 1,
@@ -194,16 +234,16 @@ function DocSearchBox() {
           >
             <Box sx={{ px: 1.75, py: 1.25, borderBottom: "1px solid", borderColor: "divider", bgcolor: "rgba(93, 127, 79, 0.05)" }}>
               <Typography variant="body2" sx={{ fontWeight: 600, color: "text.primary" }}>
-                {hasQuery ? `“${normalizedQuery}” 的搜索结果` : "开始搜索文档"}
+                {hasQuery ? copy.resultsFor(normalizedQuery) : copy.startSearch}
               </Typography>
               <Typography variant="caption" sx={{ color: "text.secondary", display: "block", mt: 0.5 }}>
                 {isLoading
-                  ? "正在检索当前语言与版本文档..."
+                  ? copy.searching
                   : error
                     ? error
                     : hasQuery
-                      ? `找到 ${total} 条结果`
-                      : "支持标题、段落和章节标题检索。"}
+                      ? copy.found(total)
+                      : copy.supportHint}
               </Typography>
             </Box>
 
@@ -259,10 +299,10 @@ function DocSearchBox() {
               ) : (
                 <Box sx={{ px: 1.75, py: 2.5 }}>
                   <Typography variant="body2" sx={{ fontWeight: 600, color: "text.primary" }}>
-                    没有找到匹配内容
+                    {copy.emptyTitle}
                   </Typography>
                   <Typography variant="caption" sx={{ color: "text.secondary", display: "block", mt: 0.5, lineHeight: 1.7 }}>
-                    可以试试更短的关键词，或者换一个文档术语。
+                    {copy.emptyHint}
                   </Typography>
                 </Box>
               )
