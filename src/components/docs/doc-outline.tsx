@@ -142,7 +142,7 @@ export function DocOutline() {
             {pageTitle}
           </Typography>
           <Typography variant="caption" color="text.secondary" sx={{ mt: 0.6, display: "block", lineHeight: 1.6 }}>
-            {hasItems ? `本页共 ${items.length} 个可跳转章节` : "当前页面没有可提取的二级及以下标题。"}
+            {hasItems ? `${items.length} SECTIONS` : "NO EXTRACTED HEADINGS"}
           </Typography>
         </Box>
         <Typography variant="body2" color="text.secondary" sx={{ mt: 0.75, display: "inline-flex", alignItems: "center" }}>
@@ -166,7 +166,7 @@ export function DocOutline() {
           {pageTitle}
         </Typography>
         <Typography variant="caption" color="text.secondary" sx={{ mt: 0.6, display: "block", lineHeight: 1.6 }}>
-          {hasItems ? `本页共 ${items.length} 个可跳转章节` : "当前页面没有可提取的二级及以下标题。"}
+          {hasItems ? `${items.length} SECTIONS` : "NO EXTRACTED HEADINGS"}
         </Typography>
       </Box>
 

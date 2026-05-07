@@ -813,18 +813,18 @@ export function SiteHeader({ headerItems, localeItems = [], versionItems = [] }:
             variant="outlined"
             size="small"
             onClick={() => setMobileMenuOpen(true)}
-            startIcon={<MenuIcon sx={{ fontSize: 18 }} />}
-            aria-label="打开菜单"
+            aria-label="OPEN MENU"
             sx={{
               display: { xs: "inline-flex", md: "none" },
               ml: "auto",
               order: { xs: 2, md: 4 },
               borderRadius: 999,
-              px: 1.5,
+              minWidth: 0,
+              px: 1.15,
               whiteSpace: "nowrap",
             }}
           >
-            更多
+            <MenuIcon sx={{ fontSize: 18 }} />
           </Button>
         </Toolbar>
       </Container>

@@ -277,7 +277,7 @@ export function DocChrome({ children }: { children: React.ReactNode }) {
                       {currentSectionTitle ?? "当前栏目"}
                     </Typography>
                     <Typography variant="caption" color="text.secondary" sx={{ mt: 0.6, display: "block", lineHeight: 1.6 }}>
-                      {sidebarItems.length > 0 ? `共 ${sidebarItems.length} 个一级导航项` : "当前页面不参与侧栏导航"}
+                      {sidebarItems.length > 0 ? `${sidebarItems.length} TOP-LEVEL ITEMS` : "NO SIDEBAR NAVIGATION"}
                     </Typography>
                   </Box>
                   <Typography variant="body2" color="text.secondary" sx={{ mt: 0.75, display: "inline-flex", alignItems: "center" }}>
@@ -301,7 +301,7 @@ export function DocChrome({ children }: { children: React.ReactNode }) {
                     {currentSectionTitle ?? "当前栏目"}
                   </Typography>
                   <Typography variant="caption" color="text.secondary" sx={{ mt: 0.6, display: "block", lineHeight: 1.6 }}>
-                    {sidebarItems.length > 0 ? `共 ${sidebarItems.length} 个一级导航项` : "当前页面不参与侧栏导航"}
+                    {sidebarItems.length > 0 ? `${sidebarItems.length} TOP-LEVEL ITEMS` : "NO SIDEBAR NAVIGATION"}
                   </Typography>
                 </Box>
                 <Collapse in={mobileSidebarOpen || false} timeout="auto" unmountOnExit={false} sx={{ display: { xs: "block", lg: "none" } }}>
