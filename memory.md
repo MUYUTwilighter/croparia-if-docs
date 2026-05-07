@@ -29,6 +29,7 @@ This repository is the Next.js documentation frontend for the Croparia IF Minecr
 - If docs need assets from the mod project or legacy docs projects, copy them into this docs repository before referencing them.
 - Never hotlink or directly reference files from the mod repository or legacy docs repositories in site source.
 - Prefer storing reused static assets in `public/`, with stable subfolders such as `public/assets/` and `public/data/`.
+- Do not reintroduce content-era asset assumptions such as `content/public/`; the active app-level static asset root is `public/`.
 - If imported assets are large, use local tools such as `cwebp` and `ffmpeg` to compress them before committing.
 - Keep source-to-doc asset mapping easy to trace in commit messages or nearby docs notes.
 
@@ -71,15 +72,16 @@ This docs repo currently uses Next.js `16.2.4`, React `19.2.4`, and MDX through 
 
 ## Content System
 
-- `content/` is the only document content source.
-- Documents are organized as `content/[locale]/[version]/...`.
-- `content/` is the source of truth; do not treat route files in `app/` as the authored docs source.
+- `src/doc/` is the only document content source.
+- Documents are organized as `src/doc/[locale]/[version]/...`.
+- `src/doc/` is the source of truth; do not treat route files in `app/` as the authored docs source.
 - The docs system is parser-driven. Page rendering depends on resolved content, metadata, navigation state, visibility state, and fallback state rather than direct filesystem-to-page assumptions.
+- The active locale set currently includes `zh`, `en`, and `es`, with locale fallback configured in `src/lib/docs/config.ts`.
 
 ## Core Directories
 
 - `app/` contains Next route entrypoints and route handlers.
-- `content/` contains authored documentation content by locale and version.
+- `src/doc/` contains authored documentation content by locale and version.
 - `src/lib/docs/` contains pure docs infrastructure such as parsing, routing, navigation derivation, SEO logic, search logic, and content resolution.
 - `src/components/docs/` contains the docs consumption layer, including shared components, context provider, and hooks.
 - `public/` contains static assets for the Next app.
@@ -94,7 +96,7 @@ This docs repo currently uses Next.js `16.2.4`, React `19.2.4`, and MDX through 
 
 ## Navigation Model
 
-- Header and sidebar are content-driven, derived automatically from `content/` structure plus frontmatter.
+- Header and sidebar are content-driven, derived automatically from `src/doc/` structure plus frontmatter.
 - Navigation no longer depends on a hand-written sidebar tree.
 - Top-level standalone docs that sit beside section directories may enter the header but do not enter the sidebar.
 - Section index pages enter the header.
@@ -129,7 +131,9 @@ This docs repo currently uses Next.js `16.2.4`, React `19.2.4`, and MDX through 
 
 - Document scanning, frontmatter parsing, slug listing, `resolveDoc()`, and sidebar resolution are cached.
 - MDX compilation results are cached.
-- `npm run dev` is wired to observe `content/` changes so Next development mode can pick up docs edits and trigger the hot-update chain.
+- The earlier custom `contentSignal` hot-reload bridge is no longer part of the active architecture.
+- `npm run dev` now maps directly to `next dev`.
+- Doc changes under `src/doc/` should flow through Next's normal development detection and refresh chain.
 
 ## Testing
 
