@@ -16,7 +16,7 @@ Si encuentras un comportamiento que **no coincide con lo que el mod debería hac
 
 Si estás jugando un modpack montado por otra persona, habla primero con el autor del modpack.
 
-## Q1. He sufrido cierres, lag grave o incluso corrupción del mundo
+## Q1. He sufrido cierres, lag grave o incluso daños graves en el mundo
 
 **A1: deja de jugar inmediatamente y repórtalo.**
 
@@ -68,4 +68,3 @@ El mod sigue evolucionando y eso a veces trae cambios incompatibles. Puedes inte
    - `recipe_wizard`
    - `resourcepack`
 3. Inicia el juego otra vez. Los datos generados se reconstruirán desde cero.
-

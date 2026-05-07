@@ -93,7 +93,7 @@ The “input block” entries in the structure preview mark positions where you 
 
 ![Completed Tier 1 Ritual structure](/assets/ritual_structure-1.webp)
 
-Now look at the recipe for crafting an **Earth Gem**, which is required for [**Croparia T2**](../general/blocks-and-items/croparia.md#croparia:croparia2):
+Now look at the recipe for crafting an **Elemental Earth Gem**, which is required for [**Croparia T2**](../general/blocks-and-items/croparia.md#croparia:croparia2):
 
 <RowGallery>
 <RecipeDisplay id="croparia:ritual/gem/earth"></RecipeDisplay>
@@ -109,7 +109,7 @@ The input item above works much like the Infusor: drop it onto the Tier 1 Ritual
 
 _If the structure is invalid, you will see “The elematilius does not respond to the ritual”. If the structure is correct but the input blocks or items are wrong, you will see “The elematilius rejects your offerings”._
 
-Once complete, you receive an **Earth Gem**. Combine it with a Glass Bottle to make an [**Earth Potion**](../general/concepts/element.md#potion), then use that at the [Infusor](../general/blocks-and-items/workstations.md#croparia:infusor) to upgrade Croparia.
+Once complete, you receive an **Elemental Earth Gem**. Combine it with a Glass Bottle to make an [**Elemental Earth Potion**](../general/concepts/element.md#potion), then use that at the [Infusor](../general/blocks-and-items/workstations.md#croparia:infusor) to upgrade Croparia.
 
 <RowGallery>
 <RecipeDisplay id="croparia:infusor/croparia2"></RecipeDisplay>
@@ -124,4 +124,3 @@ Once complete, you receive an **Earth Gem**. Combine it with a Glass Bottle to m
 - Struggling to obtain certain materials? Take a look at [Elemental Stone](../general/blocks-and-items/workstations.md#croparia:elemental_stone).
 - Ready to automate large-scale production? See [Automation Ideas](automation.md).
 - If you run into trouble, check [FAQ](faq.md).
-

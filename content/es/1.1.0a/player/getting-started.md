@@ -93,7 +93,7 @@ Las entradas de “bloque de entrada” en la vista de la estructura marcan posi
 
 ![Estructura de Ritual de nivel 1 terminada](/assets/ritual_structure-1.webp)
 
-Ahora mira la receta para fabricar una **Gema de tierra**, necesaria para [**Croparia T2**](../general/blocks-and-items/croparia.md#croparia:croparia2):
+Ahora mira la receta para fabricar una **Gema de Tierra elemental**, necesaria para [**Croparia T2**](../general/blocks-and-items/croparia.md#croparia:croparia2):
 
 <RowGallery>
 <RecipeDisplay id="croparia:ritual/gem/earth"></RecipeDisplay>
@@ -109,7 +109,7 @@ El objeto de entrada de arriba funciona de forma parecida al Infusor: suéltalo 
 
 _Si la estructura es inválida, verás “El elematilius no responde al ritual”. Si la estructura es correcta pero los bloques u objetos de entrada son incorrectos, verás “El elematilius rechaza tus ofrendas”._
 
-Una vez completado, recibirás una **Gema de tierra**. Combínala con una botella de vidrio para crear una [**Poción de tierra**](../general/concepts/element.md#potion) y úsala en el [Infusor](../general/blocks-and-items/workstations.md#croparia:infusor) para mejorar Croparia.
+Una vez completado, recibirás una **Gema de Tierra elemental**. Combínala con una botella de vidrio para crear una [**Poción de Tierra elemental**](../general/concepts/element.md#potion) y úsala en el [Infusor](../general/blocks-and-items/workstations.md#croparia:infusor) para mejorar Croparia.
 
 <RowGallery>
 <RecipeDisplay id="croparia:infusor/croparia2"></RecipeDisplay>
@@ -124,4 +124,3 @@ Una vez completado, recibirás una **Gema de tierra**. Combínala con una botell
 - ¿Te cuesta conseguir ciertos materiales? Echa un vistazo a la [Piedra elemental](../general/blocks-and-items/workstations.md#croparia:elemental_stone).
 - ¿Listo para automatizar una producción a gran escala? Mira [Ideas de automatización](automation.md).
 - Si surge algún problema, revisa las [Preguntas frecuentes](faq.md).
-

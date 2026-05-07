@@ -4,7 +4,7 @@ desc: Player-facing automation notes for Croparia IF 1.1.0a, covering the Greenh
 navOrder: 2
 ---
 
-# Automation Examples
+# Automation Ideas
 
 Croparia IF does not ship with full large-scale automation infrastructure by itself, such as pipes or autocrafters. However, some of its core blocks are designed to work with automation interfaces. This page collects a few practical ideas.
 
@@ -48,4 +48,3 @@ As shown above:
 This example uses the pipes and filtering tools from [Modern Dynamics](https://modrinth.com/mod/modern-dynamics) to keep the setup simple, but the same idea can also be implemented with hopper filters or similar transport solutions in other modpacks.
 
 The trickiest part is making the dropper fire the correct number of times. In this layout, repeater delay is used to trigger the dropper twice. In some packs, you may have access to other blocks or gadgets that make this easier.
-
