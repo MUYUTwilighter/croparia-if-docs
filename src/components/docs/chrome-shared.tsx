@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useMemo, useRef, useState } from "react";
+import {useEffect, useMemo, useRef, useState} from "react";
 import CloseIcon from "@mui/icons-material/Close";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
@@ -34,11 +34,11 @@ import {
   type SxProps,
   type Theme,
 } from "@mui/material";
-import { usePathname } from "next/navigation";
+import {usePathname} from "next/navigation";
 
-import { useDocSearch } from "@/src/components/docs/use-doc-search";
-import { siteConfig } from "@/src/lib/docs/config";
-import type { ResolvedSidebar } from "@/src/lib/docs/types";
+import {useDocSearch} from "@/src/components/docs/use-doc-search";
+import {siteConfig} from "@/src/lib/docs/config";
+import type {ResolvedSidebar} from "@/src/lib/docs/types";
 
 type HeaderItem = ResolvedSidebar["headerItems"][number];
 
@@ -56,10 +56,10 @@ interface SwitcherItem {
 }
 
 function MobileDrawerSection({
-  title,
-  items,
-  onNavigate,
-}: {
+                               title,
+                               items,
+                               onNavigate,
+                             }: {
   title: string;
   items: SwitcherItem[];
   onNavigate: () => void;
@@ -70,10 +70,10 @@ function MobileDrawerSection({
 
   return (
     <Stack spacing={1}>
-      <Typography variant="overline" color="text.secondary" sx={{ letterSpacing: "0.14em", fontWeight: 700 }}>
+      <Typography variant="overline" color="text.secondary" sx={{letterSpacing: "0.14em", fontWeight: 700}}>
         {title}
       </Typography>
-      <List disablePadding sx={{ display: "flex", flexDirection: "column" }}>
+      <List disablePadding sx={{display: "flex", flexDirection: "column"}}>
         {items.map((item) => (
           <ListItemButton
             key={item.key}
@@ -87,7 +87,7 @@ function MobileDrawerSection({
               bgcolor: item.isCurrent ? "rgba(93, 127, 79, 0.06)" : "transparent",
             }}
           >
-            <Typography variant="body2" sx={{ fontWeight: item.isCurrent ? 700 : 500 }}>
+            <Typography variant="body2" sx={{fontWeight: item.isCurrent ? 700 : 500}}>
               {item.label}
             </Typography>
           </ListItemButton>
@@ -97,7 +97,7 @@ function MobileDrawerSection({
   );
 }
 
-function SearchResultMeta({ label }: { label: string }) {
+function SearchResultMeta({label}: { label: string }) {
   return (
     <Chip
       label={label}
@@ -107,7 +107,7 @@ function SearchResultMeta({ label }: { label: string }) {
         height: 22,
         borderRadius: 999,
         fontSize: "0.7rem",
-        "& .MuiChip-label": { px: 1 },
+        "& .MuiChip-label": {px: 1},
       }}
     />
   );
@@ -155,7 +155,7 @@ function getSearchCopy(locale: "zh" | "en" | "es") {
 function DocSearchBox() {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
-  const { query, setQuery, results, total, isLoading, error, locale } = useDocSearch({
+  const {query, setQuery, results, total, isLoading, error, locale} = useDocSearch({
     limit: 8,
     enabled: true,
     debounceMs: 120,
@@ -172,15 +172,15 @@ function DocSearchBox() {
 
   return (
     <ClickAwayListener onClickAway={() => setIsOpen(false)}>
-      <Box sx={{ position: "relative", width: { xs: "100%", sm: 280, md: 340 }, minWidth: 0 }}>
+      <Box sx={{position: "relative", width: {xs: "100%", sm: 280, md: 340}, minWidth: 0}}>
         <Paper
           elevation={0}
           sx={{
             display: "flex",
             alignItems: "center",
             gap: 1,
-            px: { xs: 1.1, md: 1.5 },
-            py: { xs: 0.45, md: 0.75 },
+            px: {xs: 1.1, md: 1.5},
+            py: {xs: 0.45, md: 0.75},
             border: "1px solid",
             borderColor: showPanel ? "primary.main" : "divider",
             borderRadius: 999,
@@ -189,7 +189,7 @@ function DocSearchBox() {
             boxShadow: showPanel ? "0 10px 26px rgba(17, 14, 9, 0.12)" : "none",
           }}
         >
-          <SearchIcon sx={{ color: "text.disabled", fontSize: 18, flexShrink: 0 }} />
+          <SearchIcon sx={{color: "text.disabled", fontSize: 18, flexShrink: 0}}/>
           <InputBase
             value={query}
             onChange={(event) => {
@@ -203,18 +203,18 @@ function DocSearchBox() {
               }
             }}
             placeholder={copy.placeholder}
-            inputProps={{ "aria-label": "Search docs" }}
+            inputProps={{"aria-label": "Search docs"}}
             sx={{
               flex: 1,
               minWidth: 0,
-              fontSize: { xs: "0.9rem", md: "0.95rem" },
-            "& input::placeholder": {
+              fontSize: {xs: "0.9rem", md: "0.95rem"},
+              "& input::placeholder": {
                 opacity: 1,
                 color: "text.disabled",
               },
             }}
           />
-          {isLoading ? <CircularProgress size={16} sx={{ color: "primary.main" }} /> : null}
+          {isLoading ? <CircularProgress size={16} sx={{color: "primary.main"}}/> : null}
         </Paper>
 
         {showPanel ? (
@@ -232,11 +232,17 @@ function DocSearchBox() {
               boxShadow: "0 18px 40px rgba(17, 14, 9, 0.16)",
             }}
           >
-            <Box sx={{ px: 1.75, py: 1.25, borderBottom: "1px solid", borderColor: "divider", bgcolor: "rgba(93, 127, 79, 0.05)" }}>
-              <Typography variant="body2" sx={{ fontWeight: 600, color: "text.primary" }}>
+            <Box sx={{
+              px: 1.75,
+              py: 1.25,
+              borderBottom: "1px solid",
+              borderColor: "divider",
+              bgcolor: "rgba(93, 127, 79, 0.05)"
+            }}>
+              <Typography variant="body2" sx={{fontWeight: 600, color: "text.primary"}}>
                 {hasQuery ? copy.resultsFor(normalizedQuery) : copy.startSearch}
               </Typography>
-              <Typography variant="caption" sx={{ color: "text.secondary", display: "block", mt: 0.5 }}>
+              <Typography variant="caption" sx={{color: "text.secondary", display: "block", mt: 0.5}}>
                 {isLoading
                   ? copy.searching
                   : error
@@ -249,24 +255,25 @@ function DocSearchBox() {
 
             {hasQuery && !isLoading && !error ? (
               results.length > 0 ? (
-                <List disablePadding sx={{ maxHeight: 420, overflowY: "auto" }}>
+                <List disablePadding sx={{maxHeight: 420, overflowY: "auto"}}>
                   {results.map((result, index) => (
                     <Box key={`${result.href}::${result.section ?? "root"}::${result.title}::${index}`}>
-                      {index > 0 ? <Divider /> : null}
+                      {index > 0 ? <Divider/> : null}
                       <ListItemButton
                         component={Link}
                         href={result.href}
                         onClick={() => setIsOpen(false)}
-                        sx={{ alignItems: "flex-start", px: 1.75, py: 1.4 }}
+                        sx={{alignItems: "flex-start", px: 1.75, py: 1.4}}
                       >
-                        <Stack spacing={0.85} sx={{ minWidth: 0 }}>
-                          <Stack direction="row" spacing={0.75} useFlexGap sx={{ alignItems: "center", flexWrap: "wrap" }}>
-                            <Typography variant="body2" sx={{ fontWeight: 700, color: "text.primary" }}>
+                        <Stack spacing={0.85} sx={{minWidth: 0}}>
+                          <Stack direction="row" spacing={0.75} useFlexGap
+                                 sx={{alignItems: "center", flexWrap: "wrap"}}>
+                            <Typography variant="body2" sx={{fontWeight: 700, color: "text.primary"}}>
                               {result.title}
                             </Typography>
-                            <SearchResultMeta label={result.locale.toUpperCase()} />
-                            <SearchResultMeta label={result.version} />
-                            {result.section ? <SearchResultMeta label={result.section} /> : null}
+                            <SearchResultMeta label={result.locale.toUpperCase()}/>
+                            <SearchResultMeta label={result.version}/>
+                            {result.section ? <SearchResultMeta label={result.section}/> : null}
                           </Stack>
                           <Typography
                             variant="caption"
@@ -297,11 +304,12 @@ function DocSearchBox() {
                   ))}
                 </List>
               ) : (
-                <Box sx={{ px: 1.75, py: 2.5 }}>
-                  <Typography variant="body2" sx={{ fontWeight: 600, color: "text.primary" }}>
+                <Box sx={{px: 1.75, py: 2.5}}>
+                  <Typography variant="body2" sx={{fontWeight: 600, color: "text.primary"}}>
                     {copy.emptyTitle}
                   </Typography>
-                  <Typography variant="caption" sx={{ color: "text.secondary", display: "block", mt: 0.5, lineHeight: 1.7 }}>
+                  <Typography variant="caption"
+                              sx={{color: "text.secondary", display: "block", mt: 0.5, lineHeight: 1.7}}>
                     {copy.emptyHint}
                   </Typography>
                 </Box>
@@ -331,7 +339,7 @@ export const docContentSx: SxProps<Theme> = {
   "& h1": {
     mt: 0,
     mb: 2.5,
-    fontSize: { xs: "2rem", md: "2.5rem" },
+    fontSize: {xs: "2rem", md: "2.5rem"},
   },
   "& h2": {
     mt: 6,
@@ -339,17 +347,17 @@ export const docContentSx: SxProps<Theme> = {
     pt: 1.5,
     borderTop: "1px solid",
     borderColor: "divider",
-    fontSize: { xs: "1.55rem", md: "1.85rem" },
+    fontSize: {xs: "1.55rem", md: "1.85rem"},
   },
   "& h3": {
     mt: 4.5,
     mb: 1.5,
-    fontSize: { xs: "1.25rem", md: "1.45rem" },
+    fontSize: {xs: "1.25rem", md: "1.45rem"},
   },
   "& h4": {
     mt: 3.5,
     mb: 1.25,
-    fontSize: { xs: "1.08rem", md: "1.18rem" },
+    fontSize: {xs: "1.08rem", md: "1.18rem"},
   },
   "& h5": {
     mt: 3,
@@ -365,7 +373,7 @@ export const docContentSx: SxProps<Theme> = {
   },
   "& p": {
     my: 1.75,
-    fontSize: { xs: "1rem", md: "1.04rem" },
+    fontSize: {xs: "1rem", md: "1.04rem"},
     lineHeight: 1.9,
     color: "text.secondary",
   },
@@ -402,7 +410,7 @@ export const docContentSx: SxProps<Theme> = {
   "& li": {
     my: 0.85,
     paddingLeft: 0.35,
-    fontSize: { xs: "0.99rem", md: "1rem" },
+    fontSize: {xs: "0.99rem", md: "1rem"},
     lineHeight: 1.85,
     color: "text.secondary",
   },
@@ -605,11 +613,11 @@ export const docContentSx: SxProps<Theme> = {
 };
 
 function HeaderSwitcher({
-  label,
-  items,
-  icon,
-  color = "primary",
-}: {
+                          label,
+                          items,
+                          icon,
+                          color = "primary",
+                        }: {
   label: string;
   items: SwitcherItem[];
   icon: React.ReactNode;
@@ -632,9 +640,9 @@ function HeaderSwitcher({
         color={color}
         onClick={(event) => setAnchorEl(event.currentTarget)}
         startIcon={icon}
-        endIcon={<KeyboardArrowDownIcon sx={{ fontSize: 18 }} />}
+        endIcon={<KeyboardArrowDownIcon sx={{fontSize: 18}}/>}
         aria-label={label}
-        sx={{ borderRadius: 999, px: 1.5, whiteSpace: "nowrap" }}
+        sx={{borderRadius: 999, px: 1.5, whiteSpace: "nowrap"}}
       >
         {currentItem.label}
       </Button>
@@ -655,7 +663,7 @@ function HeaderSwitcher({
   );
 }
 
-export function SiteHeader({ headerItems, localeItems = [], versionItems = [] }: SiteHeaderProps) {
+export function SiteHeader({headerItems, localeItems = [], versionItems = []}: SiteHeaderProps) {
   const [isVisible, setIsVisible] = useState(true);
   const [isHovered, setIsHovered] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -726,9 +734,9 @@ export function SiteHeader({ headerItems, localeItems = [], versionItems = [] }:
     lastScrollYRef.current = window.scrollY;
     scheduleIdleHide();
 
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    window.addEventListener("mousemove", handleMouseMove, { passive: true });
-    window.addEventListener("touchstart", handleTouchStart, { passive: true });
+    window.addEventListener("scroll", handleScroll, {passive: true});
+    window.addEventListener("mousemove", handleMouseMove, {passive: true});
+    window.addEventListener("touchstart", handleTouchStart, {passive: true});
     window.addEventListener("keydown", handleKeyDown);
 
     return () => {
@@ -769,49 +777,49 @@ export function SiteHeader({ headerItems, localeItems = [], versionItems = [] }:
         <Toolbar
           disableGutters
           sx={{
-            minHeight: { xs: 64, md: 72 },
-            gap: { xs: 1.5, md: 3 },
-            px: { xs: 2, md: 4 },
-            flexWrap: { xs: "wrap", md: "nowrap" },
-            py: { xs: 1, md: 0 },
+            minHeight: {xs: 64, md: 72},
+            gap: {xs: 1.5, md: 3},
+            px: {xs: 2, md: 4},
+            flexWrap: {xs: "wrap", md: "nowrap"},
+            py: {xs: 1, md: 0},
           }}
         >
-          <Link href="/" style={{ textDecoration: "none", flexShrink: 0 }}>
-            <Typography variant="h6" sx={{ color: "text.primary", fontSize: { xs: "1.05rem", md: "1.25rem" } }}>
+          <Link href="/" style={{textDecoration: "none", flexShrink: 0}}>
+            <Typography variant="h6" sx={{color: "text.primary", fontSize: {xs: "1.05rem", md: "1.25rem"}}}>
               {siteConfig.siteName}
             </Typography>
           </Link>
           <Box
             sx={{
-              flex: { xs: "1 1 100%", md: "0 1 auto" },
-              order: { xs: 3, md: 1 },
-              width: { xs: "100%", md: "auto" },
-              mt: { xs: 0.25, md: 0 },
+              flex: {xs: "1 1 100%", md: "0 1 auto"},
+              order: {xs: 3, md: 1},
+              width: {xs: "100%", md: "auto"},
+              mt: {xs: 0.25, md: 0},
             }}
           >
-            <DocSearchBox />
+            <DocSearchBox/>
           </Box>
           <Stack
             direction="row"
             spacing={1.25}
             useFlexGap
             sx={{
-              ml: { md: "auto" },
+              ml: {md: "auto"},
               flexWrap: "wrap",
               alignItems: "center",
               rowGap: 0.75,
-              order: { xs: 1, md: 2 },
-              display: { xs: "none", md: "flex" },
+              order: {xs: 1, md: 2},
+              display: {xs: "none", md: "flex"},
             }}
           >
             {headerItems.map((item, index) => (
-              <Stack key={item.key} direction="row" spacing={1.25} sx={{ alignItems: "center" }}>
+              <Stack key={item.key} direction="row" spacing={1.25} sx={{alignItems: "center"}}>
                 {index > 0 ? (
-                  <Typography variant="body2" sx={{ color: "text.disabled", userSelect: "none" }}>
+                  <Typography variant="body2" sx={{color: "text.disabled", userSelect: "none"}}>
                     |
                   </Typography>
                 ) : null}
-                <Link href={item.href} style={{ textDecoration: "none" }}>
+                <Link href={item.href} style={{textDecoration: "none"}}>
                   <Typography
                     variant="body2"
                     sx={{
@@ -837,16 +845,18 @@ export function SiteHeader({ headerItems, localeItems = [], versionItems = [] }:
             sx={{
               flexWrap: "wrap",
               alignItems: "center",
-              ml: { xs: "auto", md: 1 },
-              order: { xs: 2, md: 3 },
-              display: { xs: "none", md: "flex" },
+              ml: {xs: "auto", md: 1},
+              order: {xs: 2, md: 3},
+              display: {xs: "none", md: "flex"},
             }}
           >
             {localeItems.length > 0 ? (
-              <HeaderSwitcher label="语言选择器" items={localeItems} icon={<TranslateIcon sx={{ fontSize: 18 }} />} color="primary" />
+              <HeaderSwitcher label="语言选择器" items={localeItems} icon={<TranslateIcon sx={{fontSize: 18}}/>}
+                              color="primary"/>
             ) : null}
             {versionItems.length > 0 ? (
-              <HeaderSwitcher label="版本选择器" items={versionItems} icon={<SellOutlinedIcon sx={{ fontSize: 18 }} />} color="secondary" />
+              <HeaderSwitcher label="版本选择器" items={versionItems} icon={<SellOutlinedIcon sx={{fontSize: 18}}/>}
+                              color="secondary"/>
             ) : null}
           </Stack>
           <Button
@@ -855,36 +865,36 @@ export function SiteHeader({ headerItems, localeItems = [], versionItems = [] }:
             onClick={() => setMobileMenuOpen(true)}
             aria-label="OPEN MENU"
             sx={{
-              display: { xs: "inline-flex", md: "none" },
+              display: {xs: "inline-flex", md: "none"},
               ml: "auto",
-              order: { xs: 2, md: 4 },
+              order: {xs: 2, md: 4},
               borderRadius: 999,
               minWidth: 0,
               px: 1.15,
               whiteSpace: "nowrap",
             }}
           >
-            <MenuIcon sx={{ fontSize: 18 }} />
+            <MenuIcon sx={{fontSize: 18}}/>
           </Button>
         </Toolbar>
       </Container>
       <Drawer anchor="right" open={mobileMenuOpen} onClose={() => setMobileMenuOpen(false)}>
-        <Box sx={{ width: 320, maxWidth: "100vw", p: 2.5 }}>
+        <Box sx={{width: 320, maxWidth: "100vw", p: 2.5}}>
           <Stack spacing={2.5}>
-            <Stack direction="row" sx={{ alignItems: "center", justifyContent: "space-between" }}>
-              <Typography variant="subtitle1" sx={{ fontWeight: 700 }}>
+            <Stack direction="row" sx={{alignItems: "center", justifyContent: "space-between"}}>
+              <Typography variant="subtitle1" sx={{fontWeight: 700}}>
                 {siteConfig.siteName}
               </Typography>
               <Button size="small" onClick={() => setMobileMenuOpen(false)} aria-label="关闭菜单">
-                <CloseIcon sx={{ fontSize: 18 }} />
+                <CloseIcon sx={{fontSize: 18}}/>
               </Button>
             </Stack>
-            <Divider />
+            <Divider/>
             <Stack spacing={1}>
-              <Typography variant="overline" color="text.secondary" sx={{ letterSpacing: "0.14em", fontWeight: 700 }}>
+              <Typography variant="overline" color="text.secondary" sx={{letterSpacing: "0.14em", fontWeight: 700}}>
                 Navigation
               </Typography>
-              <List disablePadding sx={{ display: "flex", flexDirection: "column" }}>
+              <List disablePadding sx={{display: "flex", flexDirection: "column"}}>
                 {headerItems.map((item) => (
                   <ListItemButton
                     key={item.key}
@@ -898,16 +908,16 @@ export function SiteHeader({ headerItems, localeItems = [], versionItems = [] }:
                       bgcolor: item.isCurrent ? "rgba(93, 127, 79, 0.06)" : "transparent",
                     }}
                   >
-                    <Typography variant="body2" sx={{ fontWeight: item.isCurrent ? 700 : 500 }}>
+                    <Typography variant="body2" sx={{fontWeight: item.isCurrent ? 700 : 500}}>
                       {item.text}
                     </Typography>
                   </ListItemButton>
                 ))}
               </List>
             </Stack>
-            <Divider />
-            <MobileDrawerSection title="Language" items={localeItems} onNavigate={() => setMobileMenuOpen(false)} />
-            <MobileDrawerSection title="Version" items={versionItems} onNavigate={() => setMobileMenuOpen(false)} />
+            <Divider/>
+            <MobileDrawerSection title="Language" items={localeItems} onNavigate={() => setMobileMenuOpen(false)}/>
+            <MobileDrawerSection title="Version" items={versionItems} onNavigate={() => setMobileMenuOpen(false)}/>
           </Stack>
         </Box>
       </Drawer>
@@ -916,10 +926,10 @@ export function SiteHeader({ headerItems, localeItems = [], versionItems = [] }:
 }
 
 export function ResponsiveDebugPanel({
-  title,
-  description,
-  children,
-}: {
+                                       title,
+                                       description,
+                                       children,
+                                     }: {
   title: string;
   description?: string;
   children: React.ReactNode;
@@ -928,13 +938,13 @@ export function ResponsiveDebugPanel({
 
   return (
     <>
-      <Box sx={{ display: { xs: "none", md: "block" } }}>
+      <Box sx={{display: {xs: "none", md: "block"}}}>
         <ContentPaper>{children}</ContentPaper>
       </Box>
       <Paper
         elevation={0}
         sx={{
-          display: { xs: "block", md: "none" },
+          display: {xs: "block", md: "none"},
           border: 1,
           borderColor: "divider",
           overflow: "hidden",
@@ -952,24 +962,24 @@ export function ResponsiveDebugPanel({
           }}
         >
           <Box>
-            <Typography variant="caption" color="text.secondary" sx={{ letterSpacing: "0.14em", fontWeight: 700 }}>
+            <Typography variant="caption" color="text.secondary" sx={{letterSpacing: "0.14em", fontWeight: 700}}>
               DEBUG
             </Typography>
-            <Typography variant="body2" sx={{ mt: 0.35, fontWeight: 600 }}>
+            <Typography variant="body2" sx={{mt: 0.35, fontWeight: 600}}>
               {title}
             </Typography>
             {description ? (
-              <Typography variant="caption" color="text.secondary" sx={{ mt: 0.4, display: "block", lineHeight: 1.6 }}>
+              <Typography variant="caption" color="text.secondary" sx={{mt: 0.4, display: "block", lineHeight: 1.6}}>
                 {description}
               </Typography>
             ) : null}
           </Box>
           <Typography variant="body2" color="text.secondary">
-            {open ? <ExpandLessIcon sx={{ fontSize: 18 }} /> : <ExpandMoreIcon sx={{ fontSize: 18 }} />}
+            {open ? <ExpandLessIcon sx={{fontSize: 18}}/> : <ExpandMoreIcon sx={{fontSize: 18}}/>}
           </Typography>
         </ButtonBase>
         <Collapse in={open} timeout="auto" unmountOnExit={false}>
-          <Box sx={{ px: 2, pb: 2, pt: 0.5 }}>{children}</Box>
+          <Box sx={{px: 2, pb: 2, pt: 0.5}}>{children}</Box>
         </Collapse>
       </Paper>
     </>
@@ -978,15 +988,15 @@ export function ResponsiveDebugPanel({
 
 export function PageFooter() {
   return (
-    <Box component="footer" sx={{ borderTop: 1, borderColor: "divider", bgcolor: "background.paper", mt: "auto" }}>
-      <Container maxWidth={false} sx={{ px: { xs: 2, md: 4 }, py: { xs: 2.25, md: 2.75 } }}>
+    <Box component="footer" sx={{borderTop: 1, borderColor: "divider", bgcolor: "background.paper", mt: "auto"}}>
+      <Container maxWidth={false} sx={{px: {xs: 2, md: 4}, py: {xs: 2.25, md: 2.75}}}>
         <Stack
-          direction={{ xs: "column", md: "row" }}
-          spacing={{ xs: 0.9, md: 1.5 }}
-          sx={{ justifyContent: "space-between", alignItems: { xs: "flex-start", md: "center" } }}
+          direction={{xs: "column", md: "row"}}
+          spacing={{xs: 0.9, md: 1.5}}
+          sx={{justifyContent: "space-between", alignItems: {xs: "flex-start", md: "center"}}}
         >
           <Stack spacing={0.35}>
-            <Typography variant="body2" sx={{ color: "text.primary", fontWeight: 600 }}>
+            <Typography variant="body2" sx={{color: "text.primary", fontWeight: 600}}>
               {siteConfig.siteName}
             </Typography>
             <Typography variant="caption" color="text.secondary">
@@ -995,7 +1005,7 @@ export function PageFooter() {
                 href="https://muyucloud.cool"
                 target="_blank"
                 rel="noreferrer"
-                style={{ textDecoration: "none", color: "inherit" }}
+                style={{textDecoration: "none", color: "inherit"}}
               >
                 <Box
                   component="span"
@@ -1013,25 +1023,59 @@ export function PageFooter() {
               . All rights reserved.
             </Typography>
           </Stack>
-          <Link
-            href="https://beian.miit.gov.cn/"
-            target="_blank"
-            rel="noreferrer"
-            style={{ textDecoration: "none" }}
-          >
-            <Typography
-              variant="caption"
-              sx={{
-                color: "text.secondary",
-                transition: "color 0.18s ease",
-                "&:hover": {
-                  color: "primary.main",
-                },
-              }}
+          <Stack direction="row" sx={{
+            gap: {xs: 0.5, sm: 1.5},
+          }}>
+            <Link
+              href="https://beian.miit.gov.cn/"
+              target="_blank"
+              rel="noreferrer"
+              style={{textDecoration: "none"}}
             >
-              皖ICP备2026011109号
-            </Typography>
-          </Link>
+              <Typography
+                variant="caption"
+                sx={{
+                  color: "text.secondary",
+                  transition: "color 0.18s ease",
+                  "&:hover": {
+                    color: "primary.main",
+                  },
+                }}
+              >
+                皖ICP备2026011109号
+              </Typography>
+            </Link>
+            <Link
+              href="https://beian.mps.gov.cn/#/query/webSearch?code=皖公网安备34150202000503号"
+              target="_blank"
+              rel="noreferrer"
+              style={{textDecoration: "none"}}
+            >
+              <Typography
+                variant="caption"
+                sx={{
+                  color: "text.secondary",
+                  transition: "color 0.18s ease",
+                  "&:hover": {
+                    color: "primary.main",
+                  },
+                }}
+              >
+                <Box
+                  component="img"
+                  src="/assets/police.png"
+                  alt=""
+                  sx={{
+                    width: 16,
+                    height: 16,
+                    objectFit: "contain",
+                    display: "inline"
+                  }}
+                />
+                皖公网安备34150202000503号
+              </Typography>
+            </Link>
+          </Stack>
         </Stack>
       </Container>
     </Box>
@@ -1039,9 +1083,9 @@ export function PageFooter() {
 }
 
 export function ContentPaper({
-  children,
-  sx,
-}: {
+                               children,
+                               sx,
+                             }: {
   children: React.ReactNode;
   sx?: SxProps<Theme>;
 }) {
@@ -1051,8 +1095,8 @@ export function ContentPaper({
       sx={{
         border: 1,
         borderColor: "divider",
-        px: { xs: 2.5, md: 4 },
-        py: { xs: 3, md: 4 },
+        px: {xs: 2.5, md: 4},
+        py: {xs: 3, md: 4},
         ...sx,
       }}
     >
@@ -1062,5 +1106,5 @@ export function ContentPaper({
 }
 
 export function SectionDivider() {
-  return <Divider sx={{ my: 3 }} />;
+  return <Divider sx={{my: 3}}/>;
 }
