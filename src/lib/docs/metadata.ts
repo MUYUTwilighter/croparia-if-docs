@@ -50,10 +50,8 @@ export function buildDocMetadata(doc: ResolvedDoc): Metadata {
   const description =
     doc.frontmatter.desc ??
     `请求 ${doc.requestedLocale}/${doc.requestedVersion}，实际命中 ${doc.resolvedLocale}/${doc.resolvedVersion}。`;
-  const isExactSource =
-    doc.requestedLocale === doc.resolvedLocale && doc.requestedVersion === doc.resolvedVersion;
   const requestedPath = buildDocPath(doc.requestedLocale, doc.requestedVersion, doc.requestedSlug);
-  const shouldIndex = isExactSource && doc.isSitemapIncluded;
+  const shouldIndex = doc.isSitemapIncluded;
 
   return {
     title,
